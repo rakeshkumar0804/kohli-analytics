@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { clutchMetrics, legendsClutch } from '../../data/kohliData';
+import { clutchMetricsByFormat, legendsClutch } from '../../data/kohliData';
 import { useCountUp, useIntersectionObserver } from '../../hooks';
 import './ClutchSection.css';
 
@@ -192,6 +192,49 @@ function BreakdownBar({ item, isVisible, delay }: {
 
 export default function ClutchSection() {
   const [sectionRef, isVisible] = useIntersectionObserver(0.2);
+  const [clutchFormat, setClutchFormat] = useState<'ODI' | 'Test' | 'T20I'>('ODI');
+
+  const currentMetrics = clutchMetricsByFormat[clutchFormat];
+
+  // Dynamic breakdown items based on selected format
+  const dynamicBreakdown = [
+    {
+      label: clutchFormat === 'Test' ? '4th Innings Chases' : 'Chase Dominance',
+      weight: 35,
+      value: currentMetrics.chaseAvg,
+      baseline: currentMetrics.baselineAvg,
+      unit: 'avg',
+      color: '#C8102E',
+      description: clutchFormat === 'Test' ? '4th innings Test chasing average' : 'Run chase batting average vs baseline',
+    },
+    {
+      label: clutchFormat === 'Test' ? 'SENA Away Test Elevation' : clutchFormat === 'T20I' ? 'T20 WC Knockouts' : 'Knockout Elevation',
+      weight: 25,
+      value: currentMetrics.knockoutAvg,
+      baseline: currentMetrics.baselineAvg,
+      unit: 'avg',
+      color: '#e07b39',
+      description: clutchFormat === 'Test' ? 'SENA test match average' : 'ICC knockout match average',
+    },
+    {
+      label: clutchFormat === 'Test' ? 'WTC Deciders / Finals' : 'Finals Performance',
+      weight: 20,
+      value: currentMetrics.finalsAvg,
+      baseline: currentMetrics.baselineAvg,
+      unit: 'avg',
+      color: '#FFD700',
+      description: clutchFormat === 'Test' ? 'WTC decider batting average' : 'Tournament finals batting average',
+    },
+    {
+      label: clutchFormat === 'T20I' ? 'Death Overs SR Boost' : 'SR Pressure Boost',
+      weight: 20,
+      value: currentMetrics.chaseSR,
+      baseline: currentMetrics.baselineSR,
+      unit: 'SR',
+      color: '#22c55e',
+      description: clutchFormat === 'T20I' ? 'Death overs strike rate in chases' : 'Chase strike rate vs baseline',
+    },
+  ];
 
   return (
     <section
@@ -205,12 +248,42 @@ export default function ClutchSection() {
       <div className="container">
         {/* Header */}
         <div className="section-header">
-          <p className="section-label">CUSTOM METRIC</p>
-          <h2 className="section-title">CLUTCH <span style={{ color: '#FFD700' }}>INDEX</span></h2>
-          <p className="section-body">
-            A composite score measuring how much Kohli elevates his game when stakes are highest.
-            Computed from chase average, knockout record, finals performance, and strike rate
-            under pressure vs baseline.
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+            <div>
+              <p className="section-label">CUSTOM METRIC ({clutchFormat.toUpperCase()} FORMAT)</p>
+              <h2 className="section-title">CLUTCH <span style={{ color: '#FFD700' }}>INDEX</span> <span style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>({clutchFormat})</span></h2>
+            </div>
+
+            {/* Format Toggle Pills */}
+            <div className="format-toggle-pills" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(0,0,0,0.4)', padding: '0.3rem 0.6rem', borderRadius: '2rem', border: '1px solid var(--glass-border)' }}>
+              <span style={{ fontFamily: 'Rajdhani', fontSize: '0.78rem', fontWeight: 700, color: 'var(--gold-primary)', textTransform: 'uppercase', marginRight: '0.3rem' }}>Format:</span>
+              {(['ODI', 'Test', 'T20I'] as const).map((fmt) => (
+                <button
+                  key={fmt}
+                  className={`format-pill-btn ${clutchFormat === fmt ? 'active' : ''}`}
+                  style={{
+                    background: clutchFormat === fmt ? 'var(--red-primary)' : 'transparent',
+                    color: clutchFormat === fmt ? '#fff' : 'var(--text-muted)',
+                    border: 'none',
+                    fontFamily: 'Rajdhani',
+                    fontSize: '0.85rem',
+                    fontWeight: 800,
+                    padding: '0.3rem 0.9rem',
+                    borderRadius: '1.5rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onClick={() => setClutchFormat(fmt)}
+                >
+                  {fmt}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <p className="section-body" style={{ marginTop: '1rem' }}>
+            A composite score measuring how much Kohli elevates his game when stakes are highest in <strong>{clutchFormat} cricket</strong>.
+            Computed from situational averages, knockout records, and pressure strike rates.
           </p>
         </div>
 
@@ -218,26 +291,25 @@ export default function ClutchSection() {
         <div className="clutch-main">
           {/* Left: Ring */}
           <div className="clutch-left">
-            <ClutchRing index={clutchMetrics.clutchIndex} isVisible={isVisible} />
+            <ClutchRing index={currentMetrics.clutchIndex} isVisible={isVisible} />
             <div className="clutch-ring-labels">
-              <div className="clutch-tier">🔥 Elite Pressure Performer</div>
-              <p className="clutch-description">
-                Kohli doesn't just hold form under pressure — he lifts it by <strong>+24%</strong> in
-                high-stakes matches compared to his already-high baseline.
+              <div className="clutch-tier">🔥 {clutchFormat} Pressure Rating: {currentMetrics.clutchIndex}/100</div>
+              <p className="clutch-description" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                {currentMetrics.formatNote}
               </p>
             </div>
           </div>
 
           {/* Right: Breakdown */}
           <div className="clutch-right">
-            <h3 className="clutch-breakdown-title">How It's Computed</h3>
+            <h3 className="clutch-breakdown-title">How It's Computed ({clutchFormat})</h3>
             <div className="clutch-formula">
               <code>Clutch Index = Σ (situational / baseline) × weight × 100</code>
             </div>
             <div className="breakdown-bars">
-              {BREAKDOWN_ITEMS.map((item, i) => (
+              {dynamicBreakdown.map((item, i) => (
                 <BreakdownBar
-                  key={item.label}
+                  key={`${clutchFormat}-${item.label}`}
                   item={item}
                   isVisible={isVisible}
                   delay={i * 200}

@@ -1,0 +1,414 @@
+/* ============================================================
+   Legends Radar Chart Styles (Multi-Player Autocomplete Search)
+   ============================================================ */
+
+.legends-radar-container {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  border-color: rgba(255, 215, 0, 0.2);
+}
+
+.radar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.radar-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.radar-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.radar-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+}
+
+.format-badge-indicator {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  background: rgba(200, 16, 46, 0.2);
+  color: var(--red-bright);
+  border: 1px solid var(--red-primary);
+  padding: 0.15rem 0.6rem;
+  border-radius: 1rem;
+  text-transform: uppercase;
+}
+
+.radar-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Format Toggle Pill Tabs */
+.format-toggle-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.3rem;
+  border-radius: 2rem;
+  border: 1px solid var(--glass-border);
+}
+
+.format-toggle-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+  margin-left: 0.5rem;
+  margin-right: 0.2rem;
+  text-transform: uppercase;
+}
+
+.format-pill-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 0.35rem 1rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 0.05em;
+}
+
+.format-pill-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.format-pill-btn.active {
+  background: var(--red-primary);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(200, 16, 46, 0.4);
+}
+
+/* Multi-Player Controls Row: Search + Active Tags */
+.multi-player-controls-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 2rem;
+}
+
+/* Search Bar & Autocomplete */
+.search-autocomplete-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+}
+
+.search-input-box {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(8, 8, 18, 0.95);
+  border: 1.5px solid var(--glass-border);
+  border-radius: 0.6rem;
+  padding: 0.55rem 1rem;
+  transition: all 0.25s ease;
+}
+
+.search-input-box:focus-within {
+  border-color: var(--border-gold);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
+}
+
+.search-icon {
+  font-size: 0.95rem;
+  opacity: 0.6;
+}
+
+.player-search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #F0F0F8;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+.player-search-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Autocomplete Dropdown List */
+.autocomplete-dropdown-list {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: rgba(10, 10, 22, 0.98);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-gold);
+  border-radius: 0.6rem;
+  list-style: none;
+  padding: 0.4rem;
+  margin: 0;
+  z-index: 100;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85);
+  max-height: 240px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.autocomplete-dropdown-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.autocomplete-dropdown-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 3px;
+}
+
+.autocomplete-dropdown-list::-webkit-scrollbar-thumb {
+  background: var(--gold-primary);
+  border-radius: 3px;
+}
+
+.autocomplete-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.autocomplete-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.item-flag {
+  font-size: 1.1rem;
+}
+
+.item-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.item-country {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.add-plus-badge {
+  margin-left: auto;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+/* Active Player Tags / Removable Pills */
+.active-player-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.active-player-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 2rem;
+  border: 1px solid;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+
+.tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px currentColor;
+}
+
+.tag-flag {
+  font-size: 0.9rem;
+}
+
+.tag-name {
+  letter-spacing: 0.04em;
+}
+
+.tag-remove-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.15rem;
+  margin-left: 0.2rem;
+  border-radius: 50%;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.tag-remove-btn:hover {
+  color: var(--red-bright);
+  transform: scale(1.2);
+}
+
+/* Main Visual Layout */
+.radar-visual-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.radar-chart-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.radar-legend-keys {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.key-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.key-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* Raw Stats Table */
+.raw-stats-table-wrapper {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  overflow: hidden;
+}
+
+.table-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.5rem;
+}
+
+.table-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.table-format-tag {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+  background: var(--gold-subtle);
+  border: 1px solid var(--border-gold);
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.3rem;
+  letter-spacing: 0.08em;
+}
+
+.table-scroll-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.raw-stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0.75rem;
+}
+
+.raw-stats-table th,
+.raw-stats-table td {
+  padding: 0.55rem 0.65rem;
+  font-size: 0.85rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+}
+
+.raw-stats-table th {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.raw-stats-table td.row-dim {
+  color: var(--text-secondary);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+}
+
+.raw-stats-table td.row-stat-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+
+.table-note {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .radar-visual-layout {
+    grid-template-columns: 1fr;
+  }
+}

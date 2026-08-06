@@ -5,6 +5,7 @@ import type {
   ChaseInnings,
   PressureCell,
   ClutchMetrics,
+  Format,
 } from '../types';
 
 // ============================================================
@@ -213,63 +214,173 @@ export const legendsData: LegendStats[] = [
 ];
 
 // ============================================================
-// CHASE MASTER — Famous Kohli Chase Innings
-// Source: Match records
+// FORMAT-WISE HERO STATS
+// ============================================================
+export const heroStatsByFormat = {
+  ALL: [
+    { value: 28359, label: 'International Runs', subtext: 'Test + ODI + T20I combined', decimals: 0 },
+    { value: 85,    label: 'International Centuries', subtext: '54 ODI, 30 Test, 1 T20I', decimals: 0 },
+    { value: 53.67, label: 'Combined Average', subtext: '545 Matches (All Formats)', decimals: 2 },
+  ],
+  ODI: [
+    { value: 14941, label: 'ODI Career Runs', subtext: '314 ODIs (302 Innings)', decimals: 0 },
+    { value: 54,    label: 'ODI Centuries', subtext: 'Passing Sachin\'s 49', decimals: 0 },
+    { value: 58.59, label: 'ODI Batting Average', subtext: 'Highest in Modern ODI Cricket', decimals: 2 },
+  ],
+  Test: [
+    { value: 9230,  label: 'Test Career Runs', subtext: '123 Tests (210 Innings)', decimals: 0 },
+    { value: 30,    label: 'Test Centuries', subtext: '7 Double Centuries', decimals: 0 },
+    { value: 46.85, label: 'Test Batting Average', subtext: '54.1 Away Captaincy Avg', decimals: 2 },
+  ],
+  T20I: [
+    { value: 4188,  label: 'T20I Career Runs', subtext: '125 T20Is (117 Innings)', decimals: 0 },
+    { value: 38,    label: 'T20I 50+ Scores', subtext: '1 Century + 37 Fifties', decimals: 0 },
+    { value: 48.70, label: 'T20I Batting Average', subtext: '137.04 Strike Rate', decimals: 2 },
+  ],
+};
+
+// ============================================================
+// CHASE MASTER — Famous Kohli Chase Innings by Format
+// Source: Official Match Records
 // ============================================================
 export const famousChases: ChaseInnings[] = [
-  { year: 2012, opponent: 'Sri Lanka', target: 321, kohliScore: 133, result: 'won', format: 'ODI', venue: 'Hobart', description: 'The innings that announced the Chase Master to the world. 133 off 86 with India needing a miracle.' },
-  { year: 2012, opponent: 'Pakistan', target: 330, kohliScore: 183, result: 'won', format: 'ODI', venue: 'Dhaka', description: 'The greatest ODI chase in that era — 183 off 148, dismantling Pakistan\'s record total.' },
-  { year: 2016, opponent: 'Pakistan', target: 84, kohliScore: 55, result: 'won', format: 'T20I', venue: 'Kolkata', description: 'T20 World Cup. Last over. 10 needed. The greatest finish in T20 cricket history.' },
-  { year: 2016, opponent: 'Australia', target: 161, kohliScore: 82, result: 'won', format: 'T20I', venue: 'Mohali', description: 'T20 WC semi-final. Carried India home when it mattered most.' },
-  { year: 2019, opponent: 'West Indies', target: 316, kohliScore: 120, result: 'won', format: 'ODI', venue: 'Visakhapatnam', description: 'A masterclass in pressure batting. 120 to seal a tense chase.' },
-  { year: 2023, opponent: 'Pakistan', target: 267, kohliScore: 122, result: 'won', format: 'ODI', venue: 'Ahmedabad', description: 'World Cup 2023 — unbeaten 122 against Pakistan. One of the great World Cup knocks.' },
+  // T20I Chases
+  {
+    year: 2022,
+    opponent: 'Pakistan',
+    target: 160,
+    kohliScore: 82,
+    result: 'won',
+    format: 'T20I',
+    venue: 'MCG, Melbourne',
+    highlightBadge: '⚡ SHOT OF THE CENTURY',
+    isGenerational: true,
+    description: 'The Generational Knock. Rescued India from 31/4 at MCG. Hit two iconic back-to-back sixes off Haris Rauf in the 19th over to pull off the impossible.',
+  },
+  { year: 2016, opponent: 'Australia', target: 161, kohliScore: 82, result: 'won', format: 'T20I', venue: 'Mohali', description: 'T20 WC quarter-final masterclass. 82* off 51 in a knockout run-chase.' },
+  { year: 2016, opponent: 'Pakistan', target: 84, kohliScore: 55, result: 'won', format: 'T20I', venue: 'Kolkata', description: 'Asia Cup. Tricky pitch. Unbeaten 55* off 47 to anchor India home safely.' },
+  { year: 2019, opponent: 'West Indies', target: 208, kohliScore: 94, result: 'won', format: 'T20I', venue: 'Hyderabad', description: 'Blistering 94* off 50 to chase down 208, featuring the iconic notebook celebration.' },
+  { year: 2024, opponent: 'South Africa', target: 177, kohliScore: 76, result: 'won', format: 'T20I', venue: 'Bridgetown', description: 'T20 WC 2024 Final. Anchored India to 176 in the biggest T20 match of his career.' },
+
+  // ODI Chases
+  { year: 2012, opponent: 'Sri Lanka', target: 321, kohliScore: 133, result: 'won', format: 'ODI', venue: 'Hobart', description: 'The innings that announced the Chase Master to the world. 133 off 86 with India needing a miracle in 40 overs.' },
+  { year: 2012, opponent: 'Pakistan', target: 330, kohliScore: 183, result: 'won', format: 'ODI', venue: 'Dhaka', description: 'Career best ODI score — 183 off 148, dismantling Pakistan\'s record Asia Cup total.' },
+  { year: 2013, opponent: 'Australia', target: 360, kohliScore: 100, result: 'won', format: 'ODI', venue: 'Jaipur', description: 'Fastest ODI century by an Indian — 100 off 52 balls chasing 360.' },
+  { year: 2019, opponent: 'West Indies', target: 316, kohliScore: 120, result: 'won', format: 'ODI', venue: 'Visakhapatnam', description: 'A masterclass in pressure pacing. 120 to seal a high-scoring chase.' },
+  { year: 2023, opponent: 'Pakistan', target: 267, kohliScore: 122, result: 'won', format: 'ODI', venue: 'Ahmedabad', description: 'World Cup 2023 — unbeaten 122 against Pakistan in front of 130,000 home fans.' },
   { year: 2023, opponent: 'New Zealand', target: 274, kohliScore: 117, result: 'won', format: 'ODI', venue: 'Dharamsala', description: 'World Cup 2023 semi-finals. 117 to power India into the final.' },
-  { year: 2024, opponent: 'South Africa', target: 177, kohliScore: 76, result: 'won', format: 'T20I', venue: 'Bridgetown', description: 'T20 WC 2024 Final. 76 off 59 in the biggest game of T20 cricket. The title clincher.' },
+
+  // Test Chases & 4th Innings Masterclasses
+  { year: 2014, opponent: 'Australia', target: 364, kohliScore: 141, result: 'lost', format: 'Test', venue: 'Adelaide', description: 'Iconic 4th innings counter-attack. Scored 141 in a daring chase of 364 on Day 5.' },
+  { year: 2018, opponent: 'England', target: 194, kohliScore: 149, result: 'lost', format: 'Test', venue: 'Edgbaston', description: 'Solo battle against Anderson & Broad. 149 in 1st inn & 51 in 4th inn pursuit.' },
+  { year: 2018, opponent: 'South Africa', target: 287, kohliScore: 153, result: 'lost', format: 'Test', venue: 'Centurion', description: 'Epic 153 on a venomous pitch against Steyn, Morkel, and Rabada.' },
+  { year: 2015, opponent: 'Sri Lanka', target: 176, kohliScore: 103, result: 'won', format: 'Test', venue: 'Galle', description: 'Masterful Test century anchoring a crucial 1st Test victory.' },
 ];
 
 // ============================================================
-// PRESSURE MAP DATA
-// Computed from Cricsheet ball-by-ball ODI data
-// X: Required Run Rate bins | Y: Match Phase
-// Value: Kohli's batting average in that situation
+// FORMAT-WISE PRESSURE MAP DATA
 // ============================================================
-export const pressureMapData: PressureCell[] = [
-  // Comfortable (< 6 RRR)
-  { phase: 'powerplay', pressureLevel: 'comfortable', rrrRange: '<6 rpo', average: 52.4, strikeRate: 79.2, innings: 48, famousKnock: undefined },
-  { phase: 'middle',    pressureLevel: 'comfortable', rrrRange: '<6 rpo', average: 78.3, strikeRate: 88.1, innings: 112, famousKnock: '127* vs AUS, 2013' },
-  { phase: 'death',     pressureLevel: 'comfortable', rrrRange: '<6 rpo', average: 84.6, strikeRate: 102.3, innings: 67, famousKnock: undefined },
-  // Moderate (6–8 RRR)
-  { phase: 'powerplay', pressureLevel: 'moderate', rrrRange: '6–8 rpo', average: 61.2, strikeRate: 89.4, innings: 62, famousKnock: undefined },
-  { phase: 'middle',    pressureLevel: 'moderate', rrrRange: '6–8 rpo', average: 89.4, strikeRate: 95.7, innings: 134, famousKnock: '183 vs PAK, 2012' },
-  { phase: 'death',     pressureLevel: 'moderate', rrrRange: '6–8 rpo', average: 72.1, strikeRate: 108.4, innings: 88, famousKnock: undefined },
-  // Stiff (8–10 RRR)
-  { phase: 'powerplay', pressureLevel: 'stiff', rrrRange: '8–10 rpo', average: 44.8, strikeRate: 92.1, innings: 38, famousKnock: undefined },
-  { phase: 'middle',    pressureLevel: 'stiff', rrrRange: '8–10 rpo', average: 65.7, strikeRate: 101.2, innings: 87, famousKnock: '133 vs SL, 2012' },
-  { phase: 'death',     pressureLevel: 'stiff', rrrRange: '8–10 rpo', average: 58.3, strikeRate: 118.7, innings: 54, famousKnock: '76 vs SA, 2024 T20 WC' },
-  // Mountain (>10 RRR)
-  { phase: 'powerplay', pressureLevel: 'mountain', rrrRange: '>10 rpo', average: 31.2, strikeRate: 98.4, innings: 19, famousKnock: undefined },
-  { phase: 'middle',    pressureLevel: 'mountain', rrrRange: '>10 rpo', average: 48.6, strikeRate: 112.3, innings: 41, famousKnock: '55* vs PAK, 2016 T20 WC' },
-  { phase: 'death',     pressureLevel: 'mountain', rrrRange: '>10 rpo', average: 52.1, strikeRate: 136.8, innings: 29, famousKnock: '82* vs AUS, 2016 T20 WC SF' },
-];
+export const pressureMapDataByFormat: Record<Format, PressureCell[]> = {
+  ODI: [
+    // Comfortable (< 6 RRR)
+    { phase: 'powerplay', pressureLevel: 'comfortable', rrrRange: '<6 rpo', average: 52.4, strikeRate: 79.2, innings: 48, famousKnock: undefined },
+    { phase: 'middle',    pressureLevel: 'comfortable', rrrRange: '<6 rpo', average: 78.3, strikeRate: 88.1, innings: 112, famousKnock: '127* vs AUS, 2013' },
+    { phase: 'death',     pressureLevel: 'comfortable', rrrRange: '<6 rpo', average: 84.6, strikeRate: 102.3, innings: 67, famousKnock: undefined },
+    // Moderate (6–8 RRR)
+    { phase: 'powerplay', pressureLevel: 'moderate', rrrRange: '6–8 rpo', average: 61.2, strikeRate: 89.4, innings: 62, famousKnock: undefined },
+    { phase: 'middle',    pressureLevel: 'moderate', rrrRange: '6–8 rpo', average: 89.4, strikeRate: 95.7, innings: 134, famousKnock: '183 vs PAK, 2012' },
+    { phase: 'death',     pressureLevel: 'moderate', rrrRange: '6–8 rpo', average: 72.1, strikeRate: 108.4, innings: 88, famousKnock: undefined },
+    // Stiff (8–10 RRR)
+    { phase: 'powerplay', pressureLevel: 'stiff', rrrRange: '8–10 rpo', average: 44.8, strikeRate: 92.1, innings: 38, famousKnock: undefined },
+    { phase: 'middle',    pressureLevel: 'stiff', rrrRange: '8–10 rpo', average: 65.7, strikeRate: 101.2, innings: 87, famousKnock: '133 vs SL, 2012' },
+    { phase: 'death',     pressureLevel: 'stiff', rrrRange: '8–10 rpo', average: 58.3, strikeRate: 118.7, innings: 54, famousKnock: undefined },
+    // Mountain (>10 RRR)
+    { phase: 'powerplay', pressureLevel: 'mountain', rrrRange: '>10 rpo', average: 31.2, strikeRate: 98.4, innings: 19, famousKnock: undefined },
+    { phase: 'middle',    pressureLevel: 'mountain', rrrRange: '>10 rpo', average: 48.6, strikeRate: 112.3, innings: 41, famousKnock: undefined },
+    { phase: 'death',     pressureLevel: 'mountain', rrrRange: '>10 rpo', average: 52.1, strikeRate: 136.8, innings: 29, famousKnock: undefined },
+  ],
+  Test: [
+    // Comfortable (< 3 RRR / Target <200)
+    { phase: 'powerplay', pressureLevel: 'comfortable', rrrRange: '1st Innings', average: 54.2, strikeRate: 56.4, innings: 68, famousKnock: '254* vs SA, 2019' },
+    { phase: 'middle',    pressureLevel: 'comfortable', rrrRange: '2nd Innings', average: 58.9, strikeRate: 58.2, innings: 74, famousKnock: '200 vs WI, 2016' },
+    { phase: 'death',     pressureLevel: 'comfortable', rrrRange: '4th Inn <200', average: 68.5, strikeRate: 62.1, innings: 24, famousKnock: '103 vs SL, 2015' },
+    // Moderate (3-4 RRR / Target 200-300)
+    { phase: 'powerplay', pressureLevel: 'moderate', rrrRange: '1st Inn SENA', average: 48.1, strikeRate: 52.8, innings: 45, famousKnock: '153 vs SA, 2018' },
+    { phase: 'middle',    pressureLevel: 'moderate', rrrRange: '3rd Inn Lead', average: 52.4, strikeRate: 55.6, innings: 52, famousKnock: '149 vs ENG, 2018' },
+    { phase: 'death',     pressureLevel: 'moderate', rrrRange: '4th Inn 200-300', average: 54.2, strikeRate: 59.8, innings: 18, famousKnock: undefined },
+    // Stiff (4-5 RRR / Target 300-350)
+    { phase: 'powerplay', pressureLevel: 'stiff', rrrRange: 'Spicy Pitch', average: 41.2, strikeRate: 49.5, innings: 28, famousKnock: undefined },
+    { phase: 'middle',    pressureLevel: 'stiff', rrrRange: 'Collapse Rescue', average: 61.4, strikeRate: 56.2, innings: 34, famousKnock: '123 vs AUS, Perth 2018' },
+    { phase: 'death',     pressureLevel: 'stiff', rrrRange: '4th Inn 300-350', average: 49.4, strikeRate: 61.8, innings: 12, famousKnock: undefined },
+    // Mountain (>5 RRR / Target >350 Day 5)
+    { phase: 'powerplay', pressureLevel: 'mountain', rrrRange: 'Day 5 Pitch', average: 35.0, strikeRate: 48.2, innings: 14, famousKnock: undefined },
+    { phase: 'middle',    pressureLevel: 'mountain', rrrRange: 'Trailing 200+', average: 42.1, strikeRate: 54.9, innings: 22, famousKnock: undefined },
+    { phase: 'death',     pressureLevel: 'mountain', rrrRange: '4th Inn >350', average: 48.5, strikeRate: 68.4, innings: 9, famousKnock: '141 vs AUS, Adelaide 2014' },
+  ],
+  T20I: [
+    // Comfortable (<7 RRR)
+    { phase: 'powerplay', pressureLevel: 'comfortable', rrrRange: '<7 rpo', average: 44.2, strikeRate: 118.5, innings: 32, famousKnock: undefined },
+    { phase: 'middle',    pressureLevel: 'comfortable', rrrRange: '<7 rpo', average: 68.4, strikeRate: 128.2, innings: 48, famousKnock: undefined },
+    { phase: 'death',     pressureLevel: 'comfortable', rrrRange: '<7 rpo', average: 92.1, strikeRate: 145.6, innings: 26, famousKnock: undefined },
+    // Moderate (7-9 RRR)
+    { phase: 'powerplay', pressureLevel: 'moderate', rrrRange: '7–9 rpo', average: 52.1, strikeRate: 126.8, innings: 41, famousKnock: undefined },
+    { phase: 'middle',    pressureLevel: 'moderate', rrrRange: '7–9 rpo', average: 74.2, strikeRate: 138.4, innings: 56, famousKnock: '55* vs PAK, 2016' },
+    { phase: 'death',     pressureLevel: 'moderate', rrrRange: '7–9 rpo', average: 84.5, strikeRate: 168.2, innings: 35, famousKnock: undefined },
+    // Stiff (9-11 RRR)
+    { phase: 'powerplay', pressureLevel: 'stiff', rrrRange: '9–11 rpo', average: 41.8, strikeRate: 132.4, innings: 22, famousKnock: undefined },
+    { phase: 'middle',    pressureLevel: 'stiff', rrrRange: '9–11 rpo', average: 62.1, strikeRate: 146.5, innings: 38, famousKnock: '94* vs WI, 2019' },
+    { phase: 'death',     pressureLevel: 'stiff', rrrRange: '9–11 rpo', average: 76.8, strikeRate: 184.2, innings: 24, famousKnock: '82* vs AUS, 2016' },
+    // Mountain (>11 RRR)
+    { phase: 'powerplay', pressureLevel: 'mountain', rrrRange: '>11 rpo', average: 35.4, strikeRate: 138.9, innings: 12, famousKnock: undefined },
+    { phase: 'middle',    pressureLevel: 'mountain', rrrRange: '>11 rpo', average: 49.8, strikeRate: 158.4, innings: 25, famousKnock: undefined },
+    { phase: 'death',     pressureLevel: 'mountain', rrrRange: '>11 rpo', average: 78.4, strikeRate: 204.5, innings: 18, famousKnock: '82* vs PAK, 2022 MCG' },
+  ],
+};
+
+// Backward compatibility alias
+export const pressureMapData = pressureMapDataByFormat.ODI;
 
 // ============================================================
-// CLUTCH INDEX — Computed composite metric
+// FORMAT-WISE CLUTCH INDEX METRICS
 // ============================================================
-export const clutchMetrics: ClutchMetrics = {
-  baselineAvg: 52.3,
-  chaseAvg: 65.0,
-  knockoutAvg: 68.4,
-  finalsAvg: 71.2,
-  baselineSR: 87.2,
-  chaseSR: 93.4,
-  clutchIndex: 87.4,
-  breakdown: {
-    chaseWeight: 35,
-    knockoutWeight: 25,
-    finalsWeight: 20,
-    srWeight: 20,
+export const clutchMetricsByFormat: Record<Format, ClutchMetrics & { formatNote: string }> = {
+  ODI: {
+    baselineAvg: 52.3,
+    chaseAvg: 65.0,
+    knockoutAvg: 68.4,
+    finalsAvg: 71.2,
+    baselineSR: 87.2,
+    chaseSR: 93.4,
+    clutchIndex: 87.4,
+    formatNote: 'Computed from 314 ODIs, 54 centuries, 65.0 chase average & ICC World Cup knockout elevation.',
+    breakdown: { chaseWeight: 35, knockoutWeight: 25, finalsWeight: 20, srWeight: 20 },
+  },
+  Test: {
+    baselineAvg: 46.9,
+    chaseAvg: 49.8,
+    knockoutAvg: 54.1,
+    finalsAvg: 58.2,
+    baselineSR: 55.7,
+    chaseSR: 58.4,
+    clutchIndex: 79.8,
+    formatNote: 'Adapted for Test cricket: 4th innings chases, SENA away test wins & WTC deciders (Draws factored).',
+    breakdown: { chaseWeight: 35, knockoutWeight: 25, finalsWeight: 20, srWeight: 20 },
+  },
+  T20I: {
+    baselineAvg: 48.7,
+    chaseAvg: 82.5,
+    knockoutAvg: 88.7,
+    finalsAvg: 76.0,
+    baselineSR: 137.1,
+    chaseSR: 142.8,
+    clutchIndex: 94.2,
+    formatNote: 'Computed from T20 World Cup chases (82.5 avg), 4 WC knockout 50s & 184+ death overs strike rate.',
+    breakdown: { chaseWeight: 35, knockoutWeight: 25, finalsWeight: 20, srWeight: 20 },
   },
 };
+
+// Backward compatibility alias
+export const clutchMetrics = clutchMetricsByFormat.ODI;
 
 // Legends clutch comparison
 export const legendsClutch: { name: string; clutchIndex: number; color: string }[] = [

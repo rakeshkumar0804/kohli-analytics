@@ -122,6 +122,8 @@ export interface ChaseInnings {
   description: string;
   venue: string;
   format: Format;
+  highlightBadge?: string;
+  isGenerational?: boolean;
 }
 
 export interface LiveAPIStats {

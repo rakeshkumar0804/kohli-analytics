@@ -1,12 +1,9 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useCountUp } from '../../hooks';
+import { heroStatsByFormat } from '../../data/kohliData';
 import './Hero.css';
 
-const STATS = [
-  { value: 28359, label: 'International Runs', decimals: 0, suffix: '' },
-  { value: 85,    label: 'International Centuries', decimals: 0, suffix: '' },
-  { value: 58.59, label: 'ODI Batting Average', decimals: 2, suffix: '' },
-];
+
 
 // CSS-only particle dots
 function ParticleField() {
@@ -114,7 +111,7 @@ function JerseyRing() {
 }
 
 // Single animated stat counter
-function StatCounter({ value, label, decimals }: { value: number; label: string; decimals: number }) {
+function StatCounter({ value, label, subtext, decimals }: { value: number; label: string; subtext: string; decimals: number }) {
   const { count, ref } = useCountUp({ target: value, duration: 2200, decimals, startOnVisible: true });
   return (
     <div className="stat-counter" ref={ref as React.RefObject<HTMLDivElement>}>
@@ -122,16 +119,22 @@ function StatCounter({ value, label, decimals }: { value: number; label: string;
         {decimals > 0 ? count.toFixed(decimals) : count.toLocaleString()}
       </span>
       <span className="stat-label">{label}</span>
+      <span className="stat-subtext" style={{ fontSize: '0.72rem', color: 'var(--text-muted)', display: 'block', marginTop: '0.15rem' }}>
+        {subtext}
+      </span>
     </div>
   );
 }
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
+  const [heroFormat, setHeroFormat] = useState<'ALL' | 'ODI' | 'Test' | 'T20I'>('ALL');
 
   const handleExplore = () => {
     document.getElementById('clutch-index')?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const activeStats = heroStatsByFormat[heroFormat];
 
   return (
     <section id="hero" className="hero-section" ref={heroRef}>
@@ -158,9 +161,37 @@ export default function Hero() {
             told through original metrics you won't find anywhere else.
           </p>
 
+          {/* Format Selector Pills */}
+          <div className="hero-format-pills" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '1.25rem' }}>
+            <span style={{ fontFamily: 'Rajdhani', fontSize: '0.8rem', fontWeight: 700, color: 'var(--gold-primary)', textTransform: 'uppercase', marginRight: '0.3rem' }}>
+              Format Scope:
+            </span>
+            {(['ALL', 'ODI', 'Test', 'T20I'] as const).map((fmt) => (
+              <button
+                key={fmt}
+                className={`format-pill-btn ${heroFormat === fmt ? 'active' : ''}`}
+                style={{
+                  padding: '0.25rem 0.75rem',
+                  fontSize: '0.78rem',
+                  borderRadius: '1rem',
+                  border: '1px solid var(--glass-border)',
+                  background: heroFormat === fmt ? 'var(--red-primary)' : 'rgba(0,0,0,0.3)',
+                  color: heroFormat === fmt ? '#fff' : 'var(--text-muted)',
+                  cursor: 'pointer',
+                  fontFamily: 'Rajdhani',
+                  fontWeight: 800,
+                  transition: 'all 0.2s ease',
+                }}
+                onClick={() => setHeroFormat(fmt)}
+              >
+                {fmt}
+              </button>
+            ))}
+          </div>
+
           <div className="hero-stats">
-            {STATS.map((s) => (
-              <StatCounter key={s.label} value={s.value} label={s.label} decimals={s.decimals} />
+            {activeStats.map((s) => (
+              <StatCounter key={s.label} value={s.value} label={s.label} subtext={s.subtext} decimals={s.decimals} />
             ))}
           </div>
 

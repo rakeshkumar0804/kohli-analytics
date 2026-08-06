@@ -59,7 +59,15 @@
 .legendary-chases-container {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
+}
+
+.chases-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .chases-subtitle {
@@ -70,15 +78,78 @@
   color: var(--text-primary);
 }
 
+/* Scroll Arrows */
+.chase-scroll-arrows {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.scroll-arrow-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  line-height: 1;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.scroll-arrow-btn:hover {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+/* Scrollable Container with Snap & Drag */
 .chases-scroll-wrapper {
   display: flex;
   gap: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding: 0.5rem 0.25rem 1.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  cursor: grab;
+  user-select: none;
 }
 
+.chases-scroll-wrapper.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none; /* Disable snap during drag for smooth motion */
+  scroll-behavior: auto;
+}
+
+.chases-scroll-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.chases-scroll-wrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 3px;
+}
+
+.chases-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: var(--gold-primary);
+  border-radius: 3px;
+}
+
+/* Cards */
 .chase-card {
-  min-width: 300px;
+  min-width: 310px;
   max-width: 320px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -90,6 +161,31 @@
   transform: translateY(-8px);
   border-color: var(--red-primary);
   box-shadow: 0 10px 30px rgba(200, 16, 46, 0.3);
+}
+
+.chase-card.generational-card {
+  border-color: rgba(255, 215, 0, 0.4);
+  background: radial-gradient(circle at top right, rgba(200, 16, 46, 0.15) 0%, rgba(255, 215, 0, 0.05) 50%, rgba(255, 255, 255, 0.03) 100%);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.25), inset 0 0 15px rgba(200, 16, 46, 0.15);
+  position: relative;
+}
+
+.generational-top-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, var(--red-primary) 0%, var(--gold-primary) 100%);
+  color: #000;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.75rem;
+  border-radius: 1rem;
+  white-space: nowrap;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+  z-index: 5;
 }
 
 .chase-card-header {
@@ -175,4 +271,10 @@
   background: rgba(200, 16, 46, 0.2);
   color: var(--red-bright);
   border: 1px solid var(--red-primary);
+}
+
+.result-lost {
+  background: rgba(234, 179, 8, 0.15);
+  color: var(--gold-primary);
+  border: 1px solid var(--border-gold);
 }

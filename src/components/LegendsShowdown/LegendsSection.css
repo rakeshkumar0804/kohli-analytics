@@ -21,6 +21,20 @@
   margin-right: auto;
 }
 
+.secondary-view-header {
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.secondary-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+}
+
 .metric-selector-tabs {
   display: flex;
   justify-content: center;

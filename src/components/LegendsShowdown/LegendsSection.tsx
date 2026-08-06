@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { legendsData } from '../../data/kohliData';
 import { useIntersectionObserver } from '../../hooks';
 import type { LegendStats } from '../../types';
+import LegendsRadarChart from './LegendsRadarChart';
 import './LegendsSection.css';
 
 type MetricType = 'odiCenturies' | 'odiAvg' | 'chaseAvg' | 'knockoutAvg' | 'odiRuns';
@@ -18,10 +19,12 @@ export default function LegendsSection() {
   const [activeMetric, setActiveMetric] = useState<MetricType>('odiCenturies');
   const [sectionRef, isVisible] = useIntersectionObserver(0.2);
 
-  const selectedMetricConfig = METRICS.find(m => m.id === activeMetric)!;
+  const selectedMetricConfig = METRICS.find((m) => m.id === activeMetric)!;
 
   // Sort legends by active metric descending
-  const sortedLegends = [...legendsData].sort((a, b) => (b[activeMetric] as number) - (a[activeMetric] as number));
+  const sortedLegends = [...legendsData].sort(
+    (a, b) => (b[activeMetric] as number) - (a[activeMetric] as number)
+  );
 
   return (
     <section id="legends-showdown" className="legends-section" ref={sectionRef as React.RefObject<HTMLElement>}>
@@ -36,9 +39,17 @@ export default function LegendsSection() {
           </p>
         </div>
 
+        {/* PRIMARY VIEW: Interactive Radar Chart Player Comparison */}
+        <LegendsRadarChart />
+
+        {/* SECONDARY VIEW: Metric Bar Chart Header */}
+        <div className="secondary-view-header">
+          <h3 className="secondary-title">Format & Single-Metric Breakdown</h3>
+        </div>
+
         {/* Metric Selector Tabs */}
         <div className="metric-selector-tabs">
-          {METRICS.map(m => (
+          {METRICS.map((m) => (
             <button
               key={m.id}
               className={`metric-tab-btn ${activeMetric === m.id ? 'active' : ''}`}
