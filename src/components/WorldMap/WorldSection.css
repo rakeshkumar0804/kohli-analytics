@@ -1,0 +1,179 @@
+.world-section {
+  padding: var(--section-pad-y) var(--section-pad-x);
+  background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  position: relative;
+}
+
+.world-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.countries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.country-card {
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-subtle);
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+.country-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.country-card:hover, .country-card.active {
+  border-color: var(--gold-primary);
+  background: rgba(255, 215, 0, 0.04);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.15);
+}
+
+.country-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.country-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.country-code {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.country-stats-preview {
+  display: flex;
+  justify-content: space-between;
+}
+
+.preview-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.stat-lbl {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.country-spotlight {
+  position: sticky;
+  top: 100px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-color: var(--border-gold);
+}
+
+.spotlight-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.spotlight-code {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: var(--gold-primary);
+  background: var(--gold-subtle);
+  padding: 0.2rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-gold);
+}
+
+.spotlight-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.spotlight-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.spotlight-metric {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.metric-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.metric-lbl {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.dominance-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dominance-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.dominance-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dominance-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--red-primary) 0%, var(--gold-primary) 100%);
+  border-radius: 4px;
+  transition: width 0.8s ease;
+}
+
+@media (max-width: 900px) {
+  .world-layout {
+    grid-template-columns: 1fr;
+  }
+  .country-spotlight {
+    position: static;
+  }
+}

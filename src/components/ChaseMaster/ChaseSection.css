@@ -1,0 +1,178 @@
+.chase-section {
+  padding: var(--section-pad-y) var(--section-pad-x);
+  background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg-base) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.chase-bg-glow {
+  position: absolute;
+  top: 40%;
+  left: -10%;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.chase-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.chase-stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.chase-stat-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.chase-stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.chase-stat-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.chase-stat-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.legendary-chases-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.chases-subtitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+
+.chases-scroll-wrapper {
+  display: flex;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.chase-card {
+  min-width: 300px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chase-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--red-primary);
+  box-shadow: 0 10px 30px rgba(200, 16, 46, 0.3);
+}
+
+.chase-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chase-year-badge {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  color: var(--gold-primary);
+}
+
+.chase-format-badge {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.4rem;
+  color: var(--text-secondary);
+}
+
+.chase-card-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.chase-opponent {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.chase-score {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.score-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.8rem;
+  line-height: 1;
+}
+
+.hundred-crown {
+  font-size: 1.5rem;
+}
+
+.chase-target {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.chase-description {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.chase-card-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.chase-result-badge {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.result-won {
+  background: rgba(200, 16, 46, 0.2);
+  color: var(--red-bright);
+  border: 1px solid var(--red-primary);
+}

@@ -1,0 +1,328 @@
+/* ============================================================
+   Hero Section Styles
+   ============================================================ */
+
+.hero-section {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(200,16,46,0.06) 0%, transparent 70%),
+              radial-gradient(ellipse 60% 50% at 10% 80%, rgba(255,215,0,0.04) 0%, transparent 60%),
+              linear-gradient(180deg, #04040A 0%, #080812 100%);
+  overflow: hidden;
+  padding: 6rem clamp(1.5rem, 6vw, 6rem) 4rem;
+}
+
+/* ── Particle Field ── */
+.particle-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-60px) translateX(20px) scale(0.5); opacity: 0; }
+}
+
+/* ── VK Watermark ── */
+.vk-watermark {
+  position: absolute;
+  right: -2%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(200px, 30vw, 400px);
+  color: rgba(255,255,255,0.018);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  letter-spacing: -0.04em;
+}
+
+/* ── Content Layout ── */
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* ── Left Side ── */
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(255,215,0,0.25);
+  background: rgba(255,215,0,0.06);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #FFD700;
+  width: fit-content;
+}
+
+.hero-headline {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.88;
+  gap: 0.05em;
+}
+
+.headline-virat {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4.5rem, 11vw, 9rem);
+  color: rgba(240,240,248,0.92);
+  letter-spacing: 0.04em;
+  display: block;
+}
+
+.headline-kohli {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4.5rem, 11vw, 9rem);
+  color: #C8102E;
+  letter-spacing: 0.04em;
+  display: block;
+  text-shadow: 0 0 60px rgba(200,16,46,0.5);
+  animation: kohliGlitch 8s ease-in-out infinite;
+}
+
+@keyframes kohliGlitch {
+  0%, 90%, 100% {
+    text-shadow: 0 0 60px rgba(200,16,46,0.5);
+    transform: none;
+  }
+  91% {
+    text-shadow: -3px 0 #FFD700, 3px 0 #C8102E, 0 0 60px rgba(200,16,46,0.5);
+    transform: skewX(-1deg);
+  }
+  92% {
+    text-shadow: 3px 0 #FFD700, -3px 0 #C8102E, 0 0 60px rgba(200,16,46,0.5);
+    transform: skewX(1deg);
+  }
+  93% {
+    text-shadow: 0 0 60px rgba(200,16,46,0.5);
+    transform: none;
+  }
+}
+
+.hero-subtext {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  color: rgba(240,240,248,0.6);
+  line-height: 1.75;
+  max-width: 50ch;
+}
+
+/* ── Stat Counters ── */
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-counter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.stat-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  color: #FFD700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 20px rgba(255,215,0,0.3);
+}
+
+.stat-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240,240,248,0.4);
+}
+
+/* ── CTA Button ── */
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 2rem;
+  border-radius: 3rem;
+  border: 1.5px solid #C8102E;
+  background: rgba(200,16,46,0.1);
+  color: #F0F0F8;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  width: fit-content;
+}
+
+.hero-cta:hover {
+  background: #C8102E;
+  box-shadow: 0 0 30px rgba(200,16,46,0.5), 0 0 60px rgba(200,16,46,0.2);
+  transform: translateY(-2px);
+}
+
+.cta-arrow {
+  display: inline-block;
+  animation: arrowBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(4px); }
+}
+
+/* ── Right Side: Jersey Ring ── */
+.hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jersey-ring-wrapper {
+  position: relative;
+  width: clamp(260px, 35vw, 420px);
+  height: clamp(260px, 35vw, 420px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jersey-ring {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 30px rgba(200,16,46,0.3)) drop-shadow(0 0 60px rgba(255,215,0,0.15));
+}
+
+.ring-arc {
+  animation: ringDraw 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ringDraw {
+  from { stroke-dashoffset: 817; }
+  to   { stroke-dashoffset: 0; }
+}
+
+.jersey-number {
+  filter: drop-shadow(0 0 20px rgba(255,215,0,0.5));
+  animation: numberPulse 3s ease-in-out infinite;
+}
+
+@keyframes numberPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.85; }
+}
+
+.ring-dot {
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { r: 4; opacity: 1; }
+  50%       { r: 5; opacity: 0.7; }
+}
+
+/* Orbit lines */
+.orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  pointer-events: none;
+}
+
+.orbit-1 {
+  width: 115%;
+  height: 115%;
+  border-color: rgba(200,16,46,0.12);
+  animation: orbitSpin 20s linear infinite;
+}
+
+.orbit-2 {
+  width: 135%;
+  height: 135%;
+  border-color: rgba(255,215,0,0.07);
+  border-style: dashed;
+  animation: orbitSpin 35s linear infinite reverse;
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Scroll Indicator ── */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(240,240,248,0.25);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  font-weight: 600;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, rgba(200,16,46,0.6));
+  animation: scrollLinePulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollLinePulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50%       { opacity: 1; transform: scaleY(1.1); }
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-badge { margin: 0 auto; }
+  .hero-subtext { margin: 0 auto; }
+  .hero-stats { justify-content: center; }
+  .hero-cta { margin: 0 auto; }
+  .hero-right { display: none; }
+}

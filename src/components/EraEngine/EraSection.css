@@ -1,0 +1,198 @@
+.era-section {
+  padding: var(--section-pad-y) var(--section-pad-x);
+  background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg-1) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.era-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.era-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* ── Era Cards ── */
+.era-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.era-card {
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.era-card--active {
+  background: rgba(255,255,255,0.065) !important;
+  transform: translateX(6px);
+}
+
+.era-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.era-card-years {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: rgba(240,240,248,0.4);
+}
+
+.era-card-badge {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.era-card-stat {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.15rem;
+}
+
+.era-card-stat-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240,240,248,0.35);
+  margin-bottom: 0.5rem;
+}
+
+.era-card-description {
+  font-size: 0.85rem;
+  color: rgba(240,240,248,0.5);
+  line-height: 1.6;
+  display: none;
+}
+
+.era-card--active .era-card-description {
+  display: block;
+}
+
+/* ── Chart Panel ── */
+.era-chart-panel {
+  position: sticky;
+  top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.era-metric-tabs {
+  display: flex;
+  gap: 0.4rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 3rem;
+  padding: 0.3rem;
+  width: fit-content;
+}
+
+.era-metric-tab {
+  padding: 0.4rem 1.1rem;
+  border: none;
+  background: transparent;
+  color: rgba(240,240,248,0.45);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.era-metric-tab--active {
+  background: #C8102E;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(200,16,46,0.4);
+}
+
+.era-chart-wrapper {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  padding: 1rem 0.5rem 0.5rem;
+}
+
+/* ── Active Era Card ── */
+.era-active-card {
+  border: 1px solid;
+}
+
+.era-active-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.era-active-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(240,240,248,0.65);
+}
+
+.era-active-body {
+  font-size: 0.88rem;
+  color: rgba(240,240,248,0.5);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+.era-active-stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.era-mini-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.era-mini-stat span:first-child {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.era-mini-stat span:last-child {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(240,240,248,0.35);
+}
+
+@media (max-width: 900px) {
+  .era-layout { grid-template-columns: 1fr; }
+  .era-chart-panel { position: static; }
+}

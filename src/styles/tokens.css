@@ -1,0 +1,69 @@
+/* ============================================================
+   VIRAT KOHLI ANALYTICS — CSS Design Tokens
+   Theme: Dark Royal — Black, Crimson Red, Championship Gold
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ── Primary Palette ── */
+  --red-primary:    #C8102E;
+  --red-bright:     #E8153A;
+  --red-glow:       rgba(200, 16, 46, 0.4);
+  --red-subtle:     rgba(200, 16, 46, 0.08);
+
+  --gold-primary:   #FFD700;
+  --gold-warm:      #F5B800;
+  --gold-glow:      rgba(255, 215, 0, 0.35);
+  --gold-subtle:    rgba(255, 215, 0, 0.08);
+
+  /* ── Background Layers ── */
+  --bg-base:        #04040A;
+  --bg-1:           #080812;
+  --bg-2:           #0D0D1A;
+  --bg-3:           #121224;
+  --bg-card:        rgba(255, 255, 255, 0.033);
+  --bg-card-hover:  rgba(255, 255, 255, 0.06);
+
+  /* ── Text ── */
+  --text-primary:   #F0F0F8;
+  --text-secondary: rgba(240, 240, 248, 0.65);
+  --text-muted:     rgba(240, 240, 248, 0.35);
+  --text-accent:    var(--gold-primary);
+
+  /* ── Glass Effects ── */
+  --glass-bg:       rgba(255, 255, 255, 0.04);
+  --glass-border:   rgba(255, 255, 255, 0.09);
+  --glass-blur:     blur(16px);
+
+  /* ── Borders ── */
+  --border-subtle:  rgba(255, 255, 255, 0.07);
+  --border-gold:    rgba(255, 215, 0, 0.25);
+  --border-red:     rgba(200, 16, 46, 0.35);
+
+  /* ── Typography ── */
+  --font-display:  'Bebas Neue', sans-serif;
+  --font-heading:  'Rajdhani', sans-serif;
+  --font-body:     'Inter', sans-serif;
+
+  /* ── Spacing ── */
+  --section-pad-y: clamp(5rem, 10vh, 8rem);
+  --section-pad-x: clamp(1.5rem, 5vw, 5rem);
+
+  /* ── Shadows ── */
+  --shadow-red:    0 0 40px rgba(200, 16, 46, 0.25);
+  --shadow-gold:   0 0 40px rgba(255, 215, 0, 0.20);
+  --shadow-card:   0 8px 32px rgba(0, 0, 0, 0.6);
+
+  /* ── Transitions ── */
+  --ease-smooth:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast:     150ms;
+  --dur-mid:      350ms;
+  --dur-slow:     600ms;
+
+  /* ── Z-layers ── */
+  --z-nav:        100;
+  --z-modal:      200;
+  --z-toast:      300;
+}
