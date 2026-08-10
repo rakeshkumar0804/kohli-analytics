@@ -1,22 +1,40 @@
 # 👑 Virat Kohli — The Analytics Story
 
-> A cinematic, scroll-based web experience that tells the data story of Virat Kohli's career through **original computed metrics** — not a fan tribute page, but a data engineering + visualization portfolio project.
+> Not just stats. A data-driven story of the greatest batter of his generation — told through original metrics you won't find anywhere else.
 
 ![React](https://img.shields.io/badge/React-19-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue) ![D3.js](https://img.shields.io/badge/D3.js-7-orange) ![GSAP](https://img.shields.io/badge/GSAP-3.12-green)
+
+**[Live Demo →](https://kohli-analytics.vercel.app)**
 
 ---
 
 ## What Makes This Different
 
-Most Kohli analytics projects display pre-computed aggregates pulled from a stats table. This project **designs and computes original metrics** from situational match data — across **ODI, Test, and T20I formats**, giving a complete format-wise breakdown of Kohli's career instead of just limited-overs stats.
+Most Kohli analytics projects display pre-computed aggregates pulled from a stats table. This project **designs and computes original metrics** from situational match data — and every section has a **live format switcher (ODI / Test / T20I / All)**, so the numbers aren't just career totals, they're broken down the way an analyst would actually want to see them.
 
 | Feature | What It Does |
 |---|---|
-| **Clutch Index** | Composite score measuring performance elevation in high-pressure situations vs. baseline |
-| **Pressure Map** | Heatmap of batting average across match phase × required run rate cells |
-| **Era Engine** | Scrollytelling comparison of 5 career phases with animated metric transitions |
-| **Chase Master** | Deep-dive with situational chase breakdown, not just aggregate numbers |
-| **Legends Showdown** | Multi-metric animated comparison with dataset-backed values |
+| **Clutch Index** | Composite score measuring performance elevation in high-pressure situations vs. baseline — per format |
+| **Captaincy Myth** | Confronts the "flop captain" narrative with actual Test captaincy win %, series records, and ICC final results |
+| **Era Engine** | Scrollytelling comparison of 5 career phases (Youth, Rise, Peak, Drought, Renaissance) with animated metric transitions |
+| **Pressure Map** | D3.js heatmap of batting average across match phase × required run rate, per format |
+| **Chase Master** | Deep-dive into legendary run-chases with a horizontal scroll gallery, not just aggregate numbers |
+| **Legends Showdown** | Multi-player radar chart + bar comparisons (Kohli vs Sachin, Ponting, Rohit, Smith, Root, Williamson) |
+| **Global Dominance** | Country-by-country breakdown of Kohli's record against every Test-playing nation |
+| **Timeline & Quiz** | Interactive career milestone timeline plus a 5-question trivia quiz |
+
+---
+
+## Format Scope
+
+Almost every section carries its own **FORMAT: ODI / Test / T20I** (or **ALL**) toggle, so metrics recompute per format instead of blending everything into one number:
+
+- **Hero section** — combined career snapshot (28,359 international runs, 85 centuries across 54 ODI + 30 Test + 1 T20I, 53.67 combined average, 545 matches) with an ALL/ODI/Test/T20I quick filter
+- **Clutch Index** — format-specific weighted score (e.g. ODI Clutch Index: 87.4/100)
+- **Pressure Map** — format-specific heatmap grid
+- **Legends Showdown** — format-specific radar chart and stat comparisons
+- **Chase Master** — ALL/ODI/Test/T20I chase gallery
+- **Captaincy Myth** — Test-specific (68 Tests captained, 58.82% win rate, India's most successful Test captain by win %)
 
 ---
 
@@ -27,18 +45,20 @@ src/
 ├── api/              ← CricketData.org API integration (live stats)
 ├── data/             ← Pre-processed match dataset + metric constants
 ├── hooks/            ← useCountUp, useCricketAPI, useScrollAnimation
-├── types/             ← Full TypeScript interfaces for all data shapes
+├── types/            ← Full TypeScript interfaces for all data shapes
 ├── components/
-│   ├── Layout/        ← SmoothScrollWrapper (Lenis+GSAP), Navbar
-│   ├── Hero/           ← Cinematic hero with live API stat counters
-│   ├── ClutchIndex/    ← Animated SVG ring + weighted breakdown bars
-│   ├── EraEngine/      ← Scrollytelling with sticky chart + era cards
-│   ├── PressureMap/    ← D3.js SVG heatmap (4×3 situational grid)
-│   ├── ChaseMaster/    ← Famous chases timeline + stat cards
-│   ├── LegendsShowdown/← Animated comparison bars (6 legends)
-│   ├── WorldMap/       ← D3-geo SVG world map with country stats
-│   └── Bonus/          ← Career timeline + trivia quiz
-└── styles/             ← CSS design system (tokens, global, animations)
+│   ├── Layout/            ← SmoothScrollWrapper (Lenis+GSAP), Navbar
+│   ├── Hero/              ← Cinematic hero with live API stat counters + format scope
+│   ├── ClutchIndex/       ← Animated SVG ring + weighted breakdown bars, per format
+│   ├── CaptaincyMyth/     ← Test captaincy record vs Dravid, Dhoni, Ganguly
+│   ├── EraEngine/         ← Scrollytelling with sticky chart + era cards
+│   ├── PressureMap/       ← D3.js SVG heatmap (4×3 situational grid), per format
+│   ├── ChaseMaster/       ← Famous chases horizontal gallery + stat cards
+│   ├── LegendsShowdown/   ← Radar chart + animated comparison bars, per format
+│   ├── GlobalDominance/   ← Country-by-country record cards
+│   ├── TimelineQuiz/      ← Career timeline + trivia quiz
+│   └── WorldMap/          ← D3-geo SVG world map with country stats
+└── styles/                ← CSS design system (tokens, global, animations)
 ```
 
 ---
@@ -48,13 +68,13 @@ src/
 ### Data Sources
 
 **1. Live API Layer** — [CricketData.org](https://cricketdata.org) (free tier)
-- Used for: Current career aggregate stats (hero section counters), across ODI, Test, and T20I
+- Used for: Current career aggregate stats (hero section counters), all formats
 - Endpoint: `GET /api/playerStats?id=253802` (Kohli's player ID)
 - Fallback: Static data if API is unavailable
 
 **2. Pre-processed Dataset** — Derived from Cricsheet.org open data
 - [Cricsheet](https://cricsheet.org) provides ball-by-ball JSON for every international match
-- Processed into typed match records with situational metadata
+- Processed into typed match records with situational metadata, per format
 - Used for: All custom metric computation
 
 **3. Validation Source** — ESPNcricinfo Statsguru
@@ -64,11 +84,11 @@ src/
 
 ## Custom Metric Methodology
 
-### 1. Clutch Index
+### 1. Clutch Index (per format)
 
 **Problem:** How do you quantify a player's ability to perform *better* under pressure, rather than just *perform well* in aggregate?
 
-**Approach:** A composite weighted score comparing situational performance to the baseline.
+**Approach:** A composite weighted score comparing situational performance to the baseline, computed independently for ODI, Test, and T20I.
 
 **Formula:**
 
@@ -84,7 +104,7 @@ Where:
   SR Pressure Boost   = (chase_SR / baseline_SR)        × 20
 ```
 
-**Kohli's Values (ODI):**
+**Kohli's Values (ODI format):**
 
 | Metric | Baseline | Situational | Weight |
 |---|---|---|---|
@@ -93,70 +113,98 @@ Where:
 | Finals Average | 52.3 | 71.2 | 20% |
 | Strike Rate | 87.2 | 93.4 (chase) | 20% |
 
-**Result: Clutch Index = 87.4 / 100**
+**Result: ODI Clutch Index = 87.4 / 100** — computed from 314 ODIs, 54 centuries, 65.0 chase average, ICC World Cup knockout elevation.
+
+**Clutch Index — vs the Greats (ODI):** Kohli 87.4, Ponting 74.1, Rohit 73.5, Smith 72.8, Sachin 71.3, Williamson 68.9, Root 63.4
 
 **Limitations & Honest Notes:**
 - Finals sample size is small (N ≈ 12 innings); more data would improve confidence
 - "Knockout" definition uses ICC tournament quarter-finals onward
 - Baseline excludes chase innings to avoid double-counting
 
-**Why Kohli scores 87.4 vs Sachin's 71.3:** Sachin's chase average (~41) was notably lower than his aggregate (~44.8), suggesting he preferred setting targets. Kohli's chase average (65.0) is 24% above baseline — a rare, statistically significant elevation.
+---
+
+### 2. Captaincy Myth
+
+**Problem:** The media narrative frames Kohli as a captain who "couldn't win ICC trophies." The raw numbers tell a different story.
+
+**Kohli as Test Captain:**
+- 68 Tests captained — 40 wins, 17 losses, 11 draws
+- 58.82% win rate — India's most successful Test captain of all time
+- 42 consecutive months as World No. 1 Test team (Oct 2016 – Mar 2020)
+- First Asian captain to win a Test series in Australia (2018/19)
+- 9 consecutive series wins (2015–2017), equaling Ricky Ponting's global record
+- 15 overseas Test wins — most by any Indian skipper in history
+
+**India's Test Captains — Win % (min. 20 Tests captained):**
+
+| Captain | Win % | Record |
+|---|---|---|
+| Virat Kohli | 58.82% | 40W / 68T |
+| Rahul Dravid | 48% | 12W / 25T |
+| MS Dhoni | 45% | 27W / 60T |
+| S. Ganguly | 42.86% | 21W / 49T |
+
+No ICC trophy as captain — runner-up at the 2017 Champions Trophy and the 2021 WTC final — but statistically India's most dominant Test era.
 
 ---
 
-### 2. Pressure Map
+### 3. Pressure Map (per format)
 
 **Problem:** Traditional heatmaps just show pitch zones. This one shows *situational pressure* — when exactly in a chase does Kohli excel or struggle?
 
 **Grid Definition:**
 
-**X-Axis (Required Run Rate):**
-```
-Comfortable: 0–6 rpo
-Moderate:    6–8 rpo   (competitive)
-Stiff:       8–10 rpo  (under pressure)
-Mountain:    >10 rpo   (near-impossible)
-```
+**X-Axis (Required Run Rate):** Comfortable (<6 rpo) · Moderate (6–8 rpo) · Stiff (8–10 rpo) · Mountain (>10 rpo)
 
-**Y-Axis (Phase):**
-```
-Powerplay: Overs 0–10
-Middle:    Overs 11–40
-Death:     Overs 41–50
-```
+**Y-Axis (Phase):** Powerplay (0–10 ov) · Middle (11–40 ov) · Death (41–50 ov)
 
-**Cell Value:** Kohli's batting average across all innings where he was batting in that phase with that RRR.
+**Cell Value:** Kohli's batting average across all innings where he was batting in that phase with that RRR, reconstructed from ball-by-ball data.
 
-**Reconstruction Method (from ball-by-ball data):**
-
-```python
-# For each Kohli delivery in 2nd innings:
-runs_needed   = target - cumulative_team_runs
-balls_remaining = total_balls - ball_number
-rrr           = (runs_needed / balls_remaining) * 6
-phase         = classify_phase(over_number)
-cell          = (classify_rrr(rrr), phase)
-kohli_avg_per_cell[cell].append(kohli_innings_avg)
-```
-
-**Key Finding:** Kohli's "Mountain" Middle phase (>10 RRR, overs 11–40) average of **48.6** is significantly higher than most world-class batters' *overall* averages. His peak cell (Moderate, Middle overs) is **89.4**.
+**Key Finding (ODI):** Kohli's Middle/Moderate cell (avg **89.4**) is his golden zone — higher than most world-class batters' *overall* careers averages. Even in Mountain situations (>10 RRR) during death overs, he still averages **52.1** — when most batters panic, he accelerates.
 
 **Color Ramp:** D3 sequential scale — `#1a1a2e` → `#C8102E` (red) → `#FFD700` (gold)
 
 ---
 
-### 3. Era Engine
+### 4. Era Engine
 
-**Five Career Phases:**
+**Five Career Phases**, viewable across ODI Avg / Test Avg / Centuries / Chase Avg:
 
 | Era | Years | ODI Avg | Key Stat |
 |---|---|---|---|
 | Youth & Promise | 2008–2011 | 38.6 | Learning to anchor |
+| The Rise | 2012–2015 | 58.4 | Becomes a genius, not just a talent |
 | Absolute Peak | 2016–2019 | 82.1 | Greatest sustained run in modern ODI cricket |
 | The Drought | 2020–2022 | 38.2 | 3-year century drought tests character |
-| Renaissance | 2023–Present | 72.5 | 765 WC runs; T20 WC Final 76 |
+| Renaissance | 2023–Present | 72.5 | 765 WC runs, 16 centuries, 78.3 chase avg, 71 matches — 2024 T20 WC Final: 76 off 59 to seal India's title |
 
 2018 is statistically the greatest single ODI season in history — Kohli averaged **133.55** across that year (minimum 10 innings qualifier), driven by not-outs in chases.
+
+---
+
+### 5. Legends Showdown (per format)
+
+Multi-dimensional skill matrix comparing Kohli against any legend across 6 core batting dimensions (radar chart, 0–100 normalized scale) — plus single-metric bar comparisons (ODI Centuries, ODI Average, Chase Average, Knockout Avg, ODI Runs).
+
+**Kohli vs Sachin (ODI, normalized):**
+
+| Dimension | Kohli | Sachin |
+|---|---|---|
+| Batting Average | 59 | 45 |
+| Strike Rate | 93 | 86 |
+| Centuries | 54 | 49 |
+| Consistency Score | 44.2% | 38.6% |
+
+**ODI Centuries — vs the Greats:** Kohli 54, Sachin 49, Rohit 31, Ponting 30, Root 20, Williamson 15, Smith 12
+
+**Analytical takeaway:** Sachin holds the overall run volume record, but Kohli surpasses all legends in Chase Average (65.0) and ODI Centuries (54) — achieving his milestones in significantly fewer matches than his predecessors.
+
+---
+
+### 6. Global Dominance
+
+Country-by-country breakdown of Kohli's record against every major cricket-playing nation, with per-country average, centuries, and runs, plus a computed Dominance Score (currently 95/100 vs South Africa — 72.24 average, 8 centuries, 42 matches, 2164 runs).
 
 ---
 
@@ -208,7 +256,7 @@ Visit `http://localhost:5173`
 
 Built as a portfolio project demonstrating:
 
-- Custom metric design for sports analytics
+- Custom metric design for sports analytics, computed independently across three formats
 - React + D3.js data visualization architecture
 - GSAP scroll-based narrative storytelling
 - TypeScript-first data engineering patterns
