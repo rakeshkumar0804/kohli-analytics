@@ -2,16 +2,13 @@
 
 > A cinematic, scroll-based web experience that tells the data story of Virat Kohli's career through **original computed metrics** — not a fan tribute page, but a data engineering + visualization portfolio project.
 
-[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)](https://typescriptlang.org)
-[![D3.js](https://img.shields.io/badge/D3.js-7-F9A03C?logo=d3.js)](https://d3js.org)
-[![GSAP](https://img.shields.io/badge/GSAP-3.12-88CE02?logo=greensock)](https://gsap.com)
+![React](https://img.shields.io/badge/React-19-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue) ![D3.js](https://img.shields.io/badge/D3.js-7-orange) ![GSAP](https://img.shields.io/badge/GSAP-3.12-green)
 
 ---
 
 ## What Makes This Different
 
-Most Kohli analytics projects display pre-computed aggregates pulled from a stats table. This project **designs and computes original metrics** from situational match data:
+Most Kohli analytics projects display pre-computed aggregates pulled from a stats table. This project **designs and computes original metrics** from situational match data — across **ODI, Test, and T20I formats**, giving a complete format-wise breakdown of Kohli's career instead of just limited-overs stats.
 
 | Feature | What It Does |
 |---|---|
@@ -27,21 +24,21 @@ Most Kohli analytics projects display pre-computed aggregates pulled from a stat
 
 ```
 src/
-├── api/             ← CricketData.org API integration (live ODI stats)
-├── data/            ← Pre-processed match dataset + metric constants
-├── hooks/           ← useCountUp, useCricketAPI, useScrollAnimation
-├── types/           ← Full TypeScript interfaces for all data shapes
+├── api/              ← CricketData.org API integration (live stats)
+├── data/             ← Pre-processed match dataset + metric constants
+├── hooks/            ← useCountUp, useCricketAPI, useScrollAnimation
+├── types/             ← Full TypeScript interfaces for all data shapes
 ├── components/
-│   ├── Layout/      ← SmoothScrollWrapper (Lenis+GSAP), Navbar
-│   ├── Hero/        ← Cinematic hero with live API stat counters
-│   ├── ClutchIndex/ ← Animated SVG ring + weighted breakdown bars
-│   ├── EraEngine/   ← Scrollytelling with sticky chart + era cards
-│   ├── PressureMap/ ← D3.js SVG heatmap (4×3 situational grid)
-│   ├── ChaseMaster/ ← Famous chases timeline + stat cards
-│   ├── LegendsShowdown/ ← Animated comparison bars (6 legends)
-│   ├── WorldMap/    ← D3-geo SVG world map with country stats
-│   └── Bonus/       ← Career timeline + trivia quiz
-└── styles/          ← CSS design system (tokens, global, animations)
+│   ├── Layout/        ← SmoothScrollWrapper (Lenis+GSAP), Navbar
+│   ├── Hero/           ← Cinematic hero with live API stat counters
+│   ├── ClutchIndex/    ← Animated SVG ring + weighted breakdown bars
+│   ├── EraEngine/      ← Scrollytelling with sticky chart + era cards
+│   ├── PressureMap/    ← D3.js SVG heatmap (4×3 situational grid)
+│   ├── ChaseMaster/    ← Famous chases timeline + stat cards
+│   ├── LegendsShowdown/← Animated comparison bars (6 legends)
+│   ├── WorldMap/       ← D3-geo SVG world map with country stats
+│   └── Bonus/          ← Career timeline + trivia quiz
+└── styles/             ← CSS design system (tokens, global, animations)
 ```
 
 ---
@@ -50,18 +47,18 @@ src/
 
 ### Data Sources
 
-1. **Live API Layer** — [CricketData.org](https://cricketdata.org) (free tier)
-   - Used for: Current career aggregate stats (hero section counters)
-   - Endpoint: `GET /api/playerStats?id=253802` (Kohli's player ID)
-   - Fallback: Static data if API is unavailable
+**1. Live API Layer** — [CricketData.org](https://cricketdata.org) (free tier)
+- Used for: Current career aggregate stats (hero section counters), across ODI, Test, and T20I
+- Endpoint: `GET /api/playerStats?id=253802` (Kohli's player ID)
+- Fallback: Static data if API is unavailable
 
-2. **Pre-processed Dataset** — Derived from Cricsheet.org open data
-   - [Cricsheet](https://cricsheet.org) provides ball-by-ball JSON for every international match
-   - Processed into typed match records with situational metadata
-   - Used for: All custom metric computation
+**2. Pre-processed Dataset** — Derived from Cricsheet.org open data
+- [Cricsheet](https://cricsheet.org) provides ball-by-ball JSON for every international match
+- Processed into typed match records with situational metadata
+- Used for: All custom metric computation
 
-3. **Validation Source** — ESPNcricinfo Statsguru
-   - Career aggregates cross-validated against Statsguru tables
+**3. Validation Source** — ESPNcricinfo Statsguru
+- Career aggregates cross-validated against Statsguru tables, format by format
 
 ---
 
@@ -69,25 +66,25 @@ src/
 
 ### 1. Clutch Index
 
-**Problem**: How do you quantify a player's ability to perform *better* under pressure, rather than just *perform well* in aggregate?
+**Problem:** How do you quantify a player's ability to perform *better* under pressure, rather than just *perform well* in aggregate?
 
-**Approach**: A composite weighted score comparing situational performance to the baseline.
+**Approach:** A composite weighted score comparing situational performance to the baseline.
 
 **Formula:**
 
 ```
 Clutch Index = Σ (situational_metric / baseline_metric) × weight × 100
-              ────────────────────────────────────────────────────────
-                        Σ weights (= 100)
+               ─────────────────────────────────────────────────────
+                              Σ weights (= 100)
 
 Where:
-  Chase Dominance     = (chase_avg / baseline_avg)     × 35
+  Chase Dominance     = (chase_avg / baseline_avg)      × 35
   Knockout Elevation  = (knockout_avg / baseline_avg)   × 25
   Finals Performance  = (finals_avg / baseline_avg)     × 20
   SR Pressure Boost   = (chase_SR / baseline_SR)        × 20
 ```
 
-**Kohli's Values:**
+**Kohli's Values (ODI):**
 
 | Metric | Baseline | Situational | Weight |
 |---|---|---|---|
@@ -103,33 +100,35 @@ Where:
 - "Knockout" definition uses ICC tournament quarter-finals onward
 - Baseline excludes chase innings to avoid double-counting
 
-**Why Kohli scores 87.4 vs Sachin's 71.3:**
-Sachin's chase average (~41) was notably lower than his aggregate (~44.8), suggesting he preferred setting targets. Kohli's chase average (65.0) is 24% above baseline — a rare, statistically significant elevation.
+**Why Kohli scores 87.4 vs Sachin's 71.3:** Sachin's chase average (~41) was notably lower than his aggregate (~44.8), suggesting he preferred setting targets. Kohli's chase average (65.0) is 24% above baseline — a rare, statistically significant elevation.
 
 ---
 
 ### 2. Pressure Map
 
-**Problem**: Traditional heatmaps just show pitch zones. This one shows *situational pressure* — when exactly in a chase does Kohli excel or struggle?
+**Problem:** Traditional heatmaps just show pitch zones. This one shows *situational pressure* — when exactly in a chase does Kohli excel or struggle?
 
 **Grid Definition:**
 
+**X-Axis (Required Run Rate):**
 ```
-X-Axis (Pressure Level):  Required Run Rate bins
-  Comfortable: < 6 rpo    (India coasting)
-  Moderate:    6–8 rpo    (competitive)
-  Stiff:       8–10 rpo   (under pressure)
-  Mountain:    > 10 rpo   (near-impossible)
+Comfortable: 0–6 rpo
+Moderate:    6–8 rpo   (competitive)
+Stiff:       8–10 rpo  (under pressure)
+Mountain:    >10 rpo   (near-impossible)
+```
 
-Y-Axis (Phase):
-  Powerplay:   Overs 0–10
-  Middle:      Overs 11–40
-  Death:       Overs 41–50
+**Y-Axis (Phase):**
+```
+Powerplay: Overs 0–10
+Middle:    Overs 11–40
+Death:     Overs 41–50
 ```
 
 **Cell Value:** Kohli's batting average across all innings where he was batting in that phase with that RRR.
 
-**Reconstruction Method** (from ball-by-ball data):
+**Reconstruction Method (from ball-by-ball data):**
+
 ```python
 # For each Kohli delivery in 2nd innings:
 runs_needed   = target - cumulative_team_runs
@@ -140,7 +139,7 @@ cell          = (classify_rrr(rrr), phase)
 kohli_avg_per_cell[cell].append(kohli_innings_avg)
 ```
 
-**Key Finding:** Kohli's "Mountain" Middle phase (>10 RRR, overs 11-40) average of **48.6** is significantly higher than most world-class batters' *overall* averages. His peak cell (Moderate, Middle overs) is **89.4**.
+**Key Finding:** Kohli's "Mountain" Middle phase (>10 RRR, overs 11–40) average of **48.6** is significantly higher than most world-class batters' *overall* averages. His peak cell (Moderate, Middle overs) is **89.4**.
 
 **Color Ramp:** D3 sequential scale — `#1a1a2e` → `#C8102E` (red) → `#FFD700` (gold)
 
@@ -153,12 +152,11 @@ kohli_avg_per_cell[cell].append(kohli_innings_avg)
 | Era | Years | ODI Avg | Key Stat |
 |---|---|---|---|
 | Youth & Promise | 2008–2011 | 38.6 | Learning to anchor |
-| The Rise | 2012–2015 | 58.4 | World notices the Chase Master |
 | Absolute Peak | 2016–2019 | 82.1 | Greatest sustained run in modern ODI cricket |
 | The Drought | 2020–2022 | 38.2 | 3-year century drought tests character |
 | Renaissance | 2023–Present | 72.5 | 765 WC runs; T20 WC Final 76 |
 
-**2018 is statistically the greatest single ODI season in history** — Kohli averaged **133.55** across that year (minimum 10 innings qualifier), driven by not-outs in chases.
+2018 is statistically the greatest single ODI season in history — Kohli averaged **133.55** across that year (minimum 10 innings qualifier), driven by not-outs in chases.
 
 ---
 
@@ -183,6 +181,7 @@ npm install
 ```
 
 Create `.env.local`:
+
 ```
 VITE_CRICKET_API_KEY=your_cricketdata_org_key
 ```
@@ -208,8 +207,9 @@ Visit `http://localhost:5173`
 ## Author
 
 Built as a portfolio project demonstrating:
+
 - Custom metric design for sports analytics
-- React + D3.js data visualization architecture  
+- React + D3.js data visualization architecture
 - GSAP scroll-based narrative storytelling
 - TypeScript-first data engineering patterns
 
