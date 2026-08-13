@@ -8,6 +8,22 @@
 
 ---
 
+## Screenshots
+
+| Hero | Clutch Index |
+|---|---|
+| ![Hero section](./screenshots/hero.png) | ![Clutch Index](./screenshots/clutch-index.png) |
+
+| Captaincy Myth | Pressure Map |
+|---|---|
+| ![Captaincy Myth](./screenshots/captaincy-myth.png) | ![Pressure Map](./screenshots/pressure-map.png) |
+
+| Era Engine | Legends Showdown |
+|---|---|
+| ![Era Engine](./screenshots/era-engine.png) | ![Legends Showdown](./screenshots/legends-showdown.png) |
+
+---
+
 ## What Makes This Different
 
 Most Kohli analytics projects display pre-computed aggregates pulled from a stats table. This project **designs and computes original metrics** from situational match data — and every section has a **live format switcher (ODI / Test / T20I / All)**, so the numbers aren't just career totals, they're broken down the way an analyst would actually want to see them.
