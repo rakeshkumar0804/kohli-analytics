@@ -12,15 +12,17 @@
 
 | Hero | Clutch Index |
 |---|---|
-| ![Hero section](./screenshots/hero.png) | ![Clutch Index](./screenshots/clutch-index.png) |
+| ![Hero section](./sc<img width="1911" height="926" alt="hero section1" src="https://github.com/user-attachments/assets/2ead27fc-38e9-4412-a076-a4be1e684eb1" />
+reenshots/hero.png) 
 
-| Captaincy Myth | Pressure Map |
-|---|---|
-| ![Captaincy Myth](./screenshots/captaincy-myth.png) | ![Pressure Map](./screenshots/pressure-map.png) |
 
-| Era Engine | Legends Showdown |
 |---|---|
-| ![Era Engine](./screenshots/era-engine.png) | ![Legends Showdown](./screenshots/legends-showdown.png) |
+| ![Captaincy Myth]<img width="1907" height="876" alt="Captaincy Myth" src="https://github.com/user-attachments/assets/de291317-5f7b-4f26-98e3-0f7ec7934585" />
+(./screenshots/captaincy-myth.png) 
+
+| Era Engine | Legends Showdown |<img width="1815" height="888" alt="Legends Showdown1" src="https://github.com/user-attachments/assets/5bda4dc8-97c2-484f-bd7a-15ad008c28bf" />
+
+
 
 ---
 
