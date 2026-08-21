@@ -138,6 +138,9 @@ export default function NextMatchSection() {
             <div className="fallback-icon">🏏</div>
             <h3 className="fallback-title">No upcoming match scheduled yet</h3>
             <p className="fallback-subtext">Check back soon for India's next ODI series fixture schedule</p>
+            <p className="fallback-note" style={{ fontSize: '0.78rem', color: 'var(--text-muted)', opacity: 0.65, marginTop: '0.4rem', fontFamily: 'Rajdhani, sans-serif' }}>
+              Match countdown activates automatically 7–10 days before a scheduled fixture goes live.
+            </p>
           </div>
         )}
       </div>
