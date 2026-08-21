@@ -8,7 +8,7 @@ import { careerStats } from '../data/kohliData';
 // ============================================================
 
 const API_KEY = import.meta.env.VITE_CRICKET_API_KEY || 'bc512d1a-7972-40db-b609-caf7132476a5';
-const BASE_URL = 'https://api.cricketdata.org';
+const BASE_URL = 'https://api.cricapi.com';
 const KOHLI_PLAYER_ID = '253802';
 
 // Static fallback — used when API is unavailable
@@ -27,7 +27,7 @@ const staticFallback: LiveAPIStats = {
  */
 export async function fetchKohliStats(): Promise<LiveAPIStats> {
   try {
-    const url = `${BASE_URL}/api/playersInfo?id=${KOHLI_PLAYER_ID}&apikey=${API_KEY}`;
+    const url = `${BASE_URL}/v1/players_info?id=${KOHLI_PLAYER_ID}&apikey=${API_KEY}`;
     const response = await fetch(url, {
       headers: { 'Accept': 'application/json' },
       signal: AbortSignal.timeout(8000), // 8s timeout
@@ -73,7 +73,7 @@ export async function fetchKohliStats(): Promise<LiveAPIStats> {
  */
 export async function fetchNextMatch(): Promise<import('../types').NextMatchInfo | null> {
   try {
-    const url = `${BASE_URL}/api/v1/cricScore?apikey=${API_KEY}`;
+    const url = `${BASE_URL}/v1/cricScore?apikey=${API_KEY}`;
     const response = await fetch(url, {
       headers: { 'Accept': 'application/json' },
       signal: AbortSignal.timeout(6000),
