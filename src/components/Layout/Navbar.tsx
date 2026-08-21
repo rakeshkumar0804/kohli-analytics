@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const NAV_LINKS = [
+  { label: 'Next Match',   href: '#next-match' },
   { label: 'Clutch Index', href: '#clutch-index' },
   { label: 'Captaincy Myth', href: '#captaincy-myth' },
   { label: 'Era Engine',   href: '#era-engine' },
@@ -9,7 +10,7 @@ const NAV_LINKS = [
   { label: 'Legends',      href: '#legends-showdown' },
 ];
 
-const SECTION_IDS = ['clutch-index', 'captaincy-myth', 'era-engine', 'pressure-map', 'chase-master', 'legends-showdown'];
+const SECTION_IDS = ['next-match', 'clutch-index', 'captaincy-myth', 'era-engine', 'pressure-map', 'chase-master', 'legends-showdown'];
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState('');

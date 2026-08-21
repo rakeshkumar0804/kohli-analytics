@@ -1,6 +1,7 @@
 import SmoothScrollWrapper from './components/Layout/SmoothScrollWrapper';
 import Navbar from './components/Layout/Navbar';
 import Hero from './components/Hero/Hero';
+import NextMatchSection from './components/NextMatch/NextMatchSection';
 import ClutchSection from './components/ClutchIndex/ClutchSection';
 import CaptaincySection from './components/CaptaincyMyth/CaptaincySection';
 import EraSection from './components/EraEngine/EraSection';
@@ -17,6 +18,7 @@ export default function App() {
         <Navbar />
         <main>
           <Hero />
+          <NextMatchSection />
           <ClutchSection />
           <CaptaincySection />
           <EraSection />

@@ -142,3 +142,12 @@ export interface QuizQuestion {
   correct: number;
   explanation: string;
 }
+
+export interface NextMatchInfo {
+  matchName: string;
+  opponent: string;
+  matchType: string;
+  date: string;
+  dateTimeGMT: string;
+  venue: string;
+}

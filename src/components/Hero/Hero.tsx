@@ -131,7 +131,7 @@ export default function Hero() {
   const [heroFormat, setHeroFormat] = useState<'ALL' | 'ODI' | 'Test' | 'T20I'>('ALL');
 
   const handleExplore = () => {
-    document.getElementById('clutch-index')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('next-match')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const activeStats = heroStatsByFormat[heroFormat];
