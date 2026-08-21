@@ -41,6 +41,19 @@ Most Kohli analytics projects display pre-computed aggregates pulled from a stat
 
 ---
 
+### 🏏 Live Next Match Countdown
+
+A dynamic, real-time countdown to Virat Kohli's next scheduled ODI match — built with client-side data fetching (no hardcoded dates, no build-time pre-rendering).
+
+- **Live API integration**: Fetches match schedule from CricAPI in real-time via `useEffect`, directly in the browser on every page load
+- **Zero maintenance**: When a new match is scheduled, the countdown automatically appears — no code changes, no redeployment needed
+- **Graceful fallback handling**: When no match is within the next 7-10 days (CricAPI's fixture population window), displays a clean fallback message instead of breaking or showing stale data
+- **Context-aware**: Includes a status badge noting Kohli's current format focus (ODI-only, having retired from Test and T20I)
+
+This demonstrates handling of a real external API's limitations (delayed fixture population) with proper fallback UX, rather than assuming ideal API behavior.
+
+---
+
 ## Format Scope
 
 Almost every section carries its own **FORMAT: ODI / Test / T20I** (or **ALL**) toggle, so metrics recompute per format instead of blending everything into one number:
