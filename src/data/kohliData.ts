@@ -223,19 +223,19 @@ export const heroStatsByFormat = {
     { value: 53.67, label: 'Combined Average', subtext: '545 Matches (All Formats)', decimals: 2 },
   ],
   ODI: [
-    { value: 14941, label: 'ODI Career Runs', subtext: '314 ODIs (302 Innings)', decimals: 0 },
+    { value: 14941, label: 'ODI Career Runs', subtext: '314 ODIs (302 Innings, 94.0 SR)', decimals: 0 },
     { value: 54,    label: 'ODI Centuries', subtext: 'Passing Sachin\'s 49', decimals: 0 },
-    { value: 58.59, label: 'ODI Batting Average', subtext: 'Highest in Modern ODI Cricket', decimals: 2 },
+    { value: 58.6,  label: 'ODI Batting Average', subtext: 'Highest in Modern ODI Cricket', decimals: 1 },
   ],
   Test: [
-    { value: 9230,  label: 'Test Career Runs', subtext: '123 Tests (210 Innings)', decimals: 0 },
+    { value: 9230,  label: 'Test Career Runs', subtext: '123 Tests (210 Innings, 55.6 SR)', decimals: 0 },
     { value: 30,    label: 'Test Centuries', subtext: '7 Double Centuries', decimals: 0 },
-    { value: 46.85, label: 'Test Batting Average', subtext: '54.1 Away Captaincy Avg', decimals: 2 },
+    { value: 46.9,  label: 'Test Batting Average', subtext: '54.1 Away Captaincy Avg', decimals: 1 },
   ],
   T20I: [
-    { value: 4188,  label: 'T20I Career Runs', subtext: '125 T20Is (117 Innings)', decimals: 0 },
-    { value: 38,    label: 'T20I 50+ Scores', subtext: '1 Century + 37 Fifties', decimals: 0 },
-    { value: 48.70, label: 'T20I Batting Average', subtext: '137.04 Strike Rate', decimals: 2 },
+    { value: 4188,  label: 'T20I Career Runs', subtext: '125 T20Is (117 Innings, 137.0 SR)', decimals: 0 },
+    { value: 39,    label: 'T20I 50+ Scores', subtext: '1 Century + 38 Fifties', decimals: 0 },
+    { value: 48.7,  label: 'T20I Batting Average', subtext: '137.0 Strike Rate', decimals: 1 },
   ],
 };
 
@@ -345,11 +345,11 @@ export const pressureMapData = pressureMapDataByFormat.ODI;
 // ============================================================
 export const clutchMetricsByFormat: Record<Format, ClutchMetrics & { formatNote: string }> = {
   ODI: {
-    baselineAvg: 52.3,
+    baselineAvg: 58.6,
     chaseAvg: 65.0,
     knockoutAvg: 68.4,
     finalsAvg: 71.2,
-    baselineSR: 87.2,
+    baselineSR: 94.0,
     chaseSR: 93.4,
     clutchIndex: 87.4,
     formatNote: 'Computed from 314 ODIs, 54 centuries, 65.0 chase average & ICC World Cup knockout elevation.',
@@ -360,7 +360,7 @@ export const clutchMetricsByFormat: Record<Format, ClutchMetrics & { formatNote:
     chaseAvg: 49.8,
     knockoutAvg: 54.1,
     finalsAvg: 58.2,
-    baselineSR: 55.7,
+    baselineSR: 55.6,
     chaseSR: 58.4,
     clutchIndex: 79.8,
     formatNote: 'Adapted for Test cricket: 4th innings chases, SENA away test wins & WTC deciders (Draws factored).',
@@ -371,7 +371,7 @@ export const clutchMetricsByFormat: Record<Format, ClutchMetrics & { formatNote:
     chaseAvg: 82.5,
     knockoutAvg: 88.7,
     finalsAvg: 76.0,
-    baselineSR: 137.1,
+    baselineSR: 137.0,
     chaseSR: 142.8,
     clutchIndex: 94.2,
     formatNote: 'Computed from T20 World Cup chases (82.5 avg), 4 WC knockout 50s & 184+ death overs strike rate.',
@@ -397,10 +397,11 @@ export const legendsClutch: { name: string; clutchIndex: number; color: string }
 // CAREER STATS — All formats
 // ============================================================
 export const careerStats = {
-  overall: { matches: 545, runs: 28359, centuries: 85, average: 53.67, strikeRate: 89.4, highScore: 254 },
-  odi: { matches: 314, innings: 302, runs: 14941, average: 58.59, strikeRate: 93.2, centuries: 54, fifties: 79, highScore: 183, notOuts: 47 },
-  test: { matches: 123, innings: 210, runs: 9230, average: 46.85, strikeRate: 55.7, centuries: 30, fifties: 31, highScore: 254, notOuts: 11 },
-  t20i: { matches: 125, innings: 117, runs: 4188, average: 48.70, strikeRate: 137.1, centuries: 1, fifties: 38, highScore: 122, notOuts: 31 },
+  overall: { matches: 545, runs: 28359, centuries: 85, average: 53.67, strikeRate: 94.0, highScore: 254 },
+  odi: { matches: 314, innings: 302, runs: 14941, average: 58.6, strikeRate: 94.0, centuries: 54, fifties: 79, highScore: 183, notOuts: 47, ballsFaced: 15903, fours: 1389, sixes: 171 },
+  test: { matches: 123, innings: 210, runs: 9230, average: 46.9, strikeRate: 55.6, centuries: 30, fifties: 31, highScore: 254, notOuts: 13, ballsFaced: 16608, fours: 1027, sixes: 30 },
+  t20i: { matches: 125, innings: 117, runs: 4188, average: 48.7, strikeRate: 137.0, centuries: 1, fifties: 38, highScore: 122, notOuts: 31, ballsFaced: 3056, fours: 369, sixes: 124 },
+  ipl: { matches: 283, innings: 275, runs: 9336, average: 40.4, strikeRate: 134.8, centuries: 9, fifties: 68, highScore: 113, notOuts: 44, ballsFaced: 6926, fours: 844, sixes: 316 },
 };
 
 // ODI Year-wise averages for Era Engine chart
@@ -441,19 +442,23 @@ export const iplCareerData = {
   team: 'Royal Challengers Bengaluru (RCB)',
   yearsActive: '2008 – 2026 (19 Seasons)',
   matches: 283,
-  innings: 274,
+  innings: 275,
+  notOuts: 44,
   runs: 9336,
-  average: 40.42,
-  strikeRate: 134.80,
+  average: 40.4,
+  strikeRate: 134.8,
+  ballsFaced: 6926,
   centuries: 9,
   fifties: 68,
+  fours: 844,
+  sixes: 316,
   highScore: '113*',
   orangeCaps: 2,
   highlightBadge: 'All-time highest run-scorer in IPL history',
   keyMilestones: [
     { label: '973 Runs (2016)', desc: 'Most runs in a single IPL season in history' },
     { label: '9 IPL Centuries', desc: 'Most 100s in IPL history (passes Gayle\'s 6)' },
-    { label: '9,300+ Runs', desc: 'First & only batter to cross 9,000 IPL runs' },
+    { label: '9,336 Runs (275 Innings)', desc: 'First & only batter to cross 9,000 IPL runs' },
     { label: '19 Seasons Loyalty', desc: 'Only player in IPL history to play 19 seasons for 1 franchise' },
   ],
 };

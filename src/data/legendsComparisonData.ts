@@ -93,16 +93,16 @@ export const ALL_RADAR_PLAYERS_FORMATTED: LegendFullProfile[] = [
     flag: '🇮🇳',
     formats: {
       ODI: buildFormatProfile('ODI', {
-        battingAvg: 58.59,
-        strikeRate: 93.20,
+        battingAvg: 58.60,
+        strikeRate: 94.00,
         centuries: 54,
         chaseSuccessRate: 89.4,
         matchWinningInnings: 142,
         consistencyScore: 44.2,
       }),
       TEST: buildFormatProfile('TEST', {
-        battingAvg: 46.85,
-        strikeRate: 55.70,
+        battingAvg: 46.90,
+        strikeRate: 55.60,
         centuries: 30,
         chaseSuccessRate: 52.4,
         matchWinningInnings: 74,
@@ -110,7 +110,7 @@ export const ALL_RADAR_PLAYERS_FORMATTED: LegendFullProfile[] = [
       }),
       T20I: buildFormatProfile('T20I', {
         battingAvg: 48.70,
-        strikeRate: 137.04,
+        strikeRate: 137.00,
         centuries: 1,
         chaseSuccessRate: 82.5,
         matchWinningInnings: 68,
