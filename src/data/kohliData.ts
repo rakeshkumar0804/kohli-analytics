@@ -471,3 +471,80 @@ export const domesticCareerData = {
   foundationalNote: 'The domestic grind that built the foundation for his international career',
   ranjiHighlight: 'Debuted for Delhi in 2006. Famously scored 90 against Karnataka the morning after his father passed away to save Delhi from a collapse.',
 };
+
+// ============================================================
+// FULL CAREER NARRATIVE TIMELINE DATA
+// Purely Cricket Milestones — Struggle, Rise, Peak, Setback, Redemption
+// ============================================================
+export const careerMilestones = [
+  {
+    year: '2008',
+    phase: 'Rising Star',
+    title: 'U-19 World Cup Winning Captain',
+    desc: 'Captained India U-19 to World Cup victory in Malaysia, showcasing his fearless aggression and tactical leadership on the world stage.',
+    badge: '👑 U-19 CHAMPION',
+  },
+  {
+    year: '2011',
+    phase: 'World Stage',
+    title: 'India Debut & ODI World Cup Champion',
+    desc: 'Made the 2011 World Cup squad, scoring a vital 35 in the final chase against Sri Lanka before carrying Sachin Tendulkar on his shoulders.',
+    badge: '🏆 WORLD CUP WINNER',
+  },
+  {
+    year: '2013–2014',
+    phase: 'Rise to Dominance',
+    title: 'White-Ball Mastery & Test Debut Captaincy',
+    desc: 'Established himself as ODI cricket\'s premier run-chaser (133* at Hobart, 52-ball 100 vs AUS). Took over Test captaincy in Adelaide with a courageous 141.',
+    badge: '⚡ CHASE MASTER',
+  },
+  {
+    year: '2017',
+    phase: 'Leadership Era',
+    title: 'Appointed Full-Time All-Format Captain',
+    desc: 'Assumed full-time captaincy across Test, ODI, and T20I formats, initiating India\'s most aggressive, fast-bowling-driven Test dominance.',
+    badge: '⚔️ FULL-TIME SKIPPER',
+  },
+  {
+    year: '2018–2019',
+    phase: 'Peak Pinnacle',
+    title: 'Historic Test Series Win in Australia',
+    desc: 'Became the first Asian captain in cricket history to win a Test series in Australia (2018/19), maintaining India\'s World No. 1 Test ranking for 42 months.',
+    badge: '🌏 HISTORIC WINNER',
+  },
+  {
+    year: '2022',
+    phase: 'The Setback & Narrative',
+    title: 'Captaincy Resignation & Media Backlash',
+    desc: 'Relinquished captaincy following intense media scrutiny. The "failed captain" narrative emerged despite holding India\'s highest Test win % (58.8%).',
+    badge: '🔥 CRUCIBLE OF MEDIA',
+  },
+  {
+    year: '2023',
+    phase: 'Record Breaking',
+    title: '50th ODI Century & World Cup Final',
+    desc: 'Broke Sachin Tendulkar\'s record of 49 ODI centuries by hitting his 50th in the WC semi-final. Named Player of Tournament with 765 runs.',
+    badge: '👑 50TH ODI TON',
+  },
+  {
+    year: '2024',
+    phase: 'Redemption & Farewell',
+    title: 'T20 World Cup Champion & T20I Retirement',
+    desc: 'Man of the Match in the 2024 T20 WC Final (76 off 59) in Bridgetown to lift the trophy, bidding farewell to T20Is at the ultimate high.',
+    badge: '🏆 T20 WC CHAMPION',
+  },
+  {
+    year: '2025',
+    phase: 'Format Specialization',
+    title: 'Test Retirement & Full Focus on ODI',
+    desc: 'Stepped down from Test cricket after 123 Tests and 30 centuries, focusing 100% of his career energy on white-ball ODI endurance.',
+    badge: '🏏 ODI FOCUS',
+  },
+  {
+    year: '2026–Present',
+    phase: 'Current Chapter',
+    title: 'Quest for 2027 ODI World Cup',
+    desc: 'Active solely in ODI cricket, anchoring India\'s top order and building towards the 2027 ODI World Cup in South Africa.',
+    badge: '🎯 2027 WC MISSION',
+  },
+];

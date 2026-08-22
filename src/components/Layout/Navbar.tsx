@@ -8,9 +8,10 @@ const NAV_LINKS = [
   { label: 'Chase Master', href: '#chase-master' },
   { label: 'Legends',      href: '#legends-showdown' },
   { label: 'IPL & Domestic', href: '#ipl-domestic' },
+  { label: 'Timeline',     href: '#career-timeline' },
 ];
 
-const SECTION_IDS = ['next-match', 'clutch-index', 'captaincy-myth', 'era-engine', 'pressure-map', 'chase-master', 'legends-showdown', 'ipl-domestic'];
+const SECTION_IDS = ['next-match', 'clutch-index', 'captaincy-myth', 'era-engine', 'pressure-map', 'chase-master', 'legends-showdown', 'ipl-domestic', 'career-timeline'];
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState('');

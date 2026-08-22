@@ -9,6 +9,7 @@ import PressureSection from './components/PressureMap/PressureSection';
 import ChaseSection from './components/ChaseMaster/ChaseSection';
 import LegendsSection from './components/LegendsShowdown/LegendsSection';
 import IPLSection from './components/IPL/IPLSection';
+import CareerTimelineSection from './components/Timeline/CareerTimelineSection';
 import WorldSection from './components/WorldMap/WorldSection';
 import BonusSection from './components/Bonus/BonusSection';
 
@@ -27,6 +28,7 @@ export default function App() {
           <ChaseSection />
           <LegendsSection />
           <IPLSection />
+          <CareerTimelineSection />
           <WorldSection />
           <BonusSection />
         </main>

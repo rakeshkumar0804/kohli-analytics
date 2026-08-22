@@ -1,0 +1,199 @@
+.timeline-section {
+  position: relative;
+  padding: var(--section-pad-y) 0;
+  background: var(--bg-base);
+  overflow: hidden;
+}
+
+.timeline-bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(200, 16, 46, 0.1) 0%, rgba(255, 215, 0, 0.05) 50%, transparent 75%);
+  pointer-events: none;
+}
+
+.vertical-timeline-wrapper {
+  position: relative;
+  max-width: 1000px;
+  margin: 3rem auto 0 auto;
+  padding: 1rem 0;
+}
+
+.timeline-spine-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, var(--red-primary) 0%, var(--gold-primary) 50%, var(--red-primary) 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.35);
+  opacity: 0.8;
+}
+
+.timeline-nodes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-node-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.node-left {
+  justify-content: flex-start;
+}
+
+.node-right {
+  justify-content: flex-end;
+}
+
+.node-left .node-card {
+  width: calc(50% - 40px);
+  text-align: right;
+}
+
+.node-right .node-card {
+  width: calc(50% - 40px);
+  text-align: left;
+}
+
+.node-center-pin {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+}
+
+.node-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  border: 3px solid var(--bg-base);
+  box-shadow: 0 0 12px var(--gold-primary);
+  transition: transform 0.3s ease;
+}
+
+.timeline-node-item:hover .node-dot {
+  transform: scale(1.35);
+  background: var(--red-primary);
+  box-shadow: 0 0 16px var(--red-primary);
+}
+
+.node-year-tag {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem;
+  color: var(--gold-primary);
+  background: rgba(4, 4, 10, 0.9);
+  padding: 0.1rem 0.55rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  margin-top: 0.35rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+/* Node Card Styling */
+.node-card {
+  padding: 1.4rem 1.6rem;
+  background: rgba(12, 12, 24, 0.7);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  position: relative;
+}
+
+.node-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 215, 0, 0.4);
+}
+
+.node-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.node-left .node-card-top {
+  justify-content: flex-end;
+}
+
+.node-right .node-card-top {
+  justify-content: flex-start;
+}
+
+.node-phase {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.node-badge {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  padding: 0.15rem 0.55rem;
+  border-radius: 1rem;
+}
+
+.node-card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.55rem;
+  color: #fff;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.node-card-desc {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Mobile responsive timeline */
+@media (max-width: 768px) {
+  .timeline-spine-line {
+    left: 20px;
+  }
+  .node-center-pin {
+    left: 20px;
+  }
+  .node-left, .node-right {
+    justify-content: flex-end;
+  }
+  .node-left .node-card, .node-right .node-card {
+    width: calc(100% - 55px);
+    text-align: left;
+  }
+  .node-left .node-card-top {
+    justify-content: flex-start;
+  }
+}
