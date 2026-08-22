@@ -88,13 +88,15 @@ export interface OpponentStats {
   code: string;
   latitude: number;
   longitude: number;
-  odiRuns: number;
-  odiAvg: number;
+  runs: number;
+  avg: number;
   centuries: number;
   fifties: number;
   matches: number;
-  highScore: number;
+  highScore: string | number;
   dominanceScore: number; // 0-100 for map intensity
+  odiRuns?: number;
+  odiAvg?: number;
 }
 
 export interface LegendStats {

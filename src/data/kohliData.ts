@@ -87,18 +87,19 @@ export const eraData: EraStats[] = [
 
 // ============================================================
 // OPPONENT / WORLD MAP DATA
-// Source: ESPNcricinfo player vs. country breakdown
+// Scope: ALL INTERNATIONAL FORMATS (Test + ODI + T20I)
+// Source: Official International Career Match Records
 // ============================================================
 export const opponentData: OpponentStats[] = [
-  { country: 'South Africa', code: 'ZA', latitude: -28.5, longitude: 24.7, odiRuns: 2164, odiAvg: 72.24, centuries: 8, fifties: 9, matches: 42, highScore: 160, dominanceScore: 95 },
-  { country: 'West Indies',  code: 'WI', latitude:  17.1, longitude: -61.8, odiRuns: 1811, odiAvg: 66.25, centuries: 7, fifties: 8, matches: 38, highScore: 139, dominanceScore: 88 },
-  { country: 'Sri Lanka',   code: 'LK', latitude:   7.9, longitude:  80.7, odiRuns: 2418, odiAvg: 60.27, centuries: 9, fifties: 11, matches: 54, highScore: 183, dominanceScore: 82 },
-  { country: 'Pakistan',    code: 'PK', latitude:  30.4, longitude:  69.3, odiRuns: 961,  odiAvg: 59.84, centuries: 3, fifties: 7,  matches: 28, highScore: 183, dominanceScore: 79 },
-  { country: 'Australia',   code: 'AU', latitude: -25.3, longitude: 133.8, odiRuns: 2702, odiAvg: 53.72, centuries: 8, fifties: 14, matches: 64, highScore: 117, dominanceScore: 71 },
-  { country: 'New Zealand', code: 'NZ', latitude: -40.9, longitude: 174.9, odiRuns: 1474, odiAvg: 52.14, centuries: 4, fifties: 8,  matches: 38, highScore: 154, dominanceScore: 68 },
-  { country: 'England',     code: 'EN', latitude:  52.4, longitude:  -1.9, odiRuns: 1631, odiAvg: 41.64, centuries: 4, fifties: 10, matches: 47, highScore: 160, dominanceScore: 55 },
-  { country: 'Bangladesh',  code: 'BD', latitude:  23.7, longitude:  90.4, odiRuns: 1038, odiAvg: 64.88, centuries: 4, fifties: 5,  matches: 22, highScore: 136, dominanceScore: 85 },
-  { country: 'Zimbabwe',    code: 'ZW', latitude: -19.0, longitude:  29.2, odiRuns: 398,  odiAvg: 79.6,  centuries: 2, fifties: 1,  matches: 8,  highScore: 133, dominanceScore: 90 },
+  { country: 'Australia',   code: 'AU', latitude: -25.3, longitude: 133.8, runs: 5265, avg: 50.14, centuries: 16, fifties: 27, matches: 101, highScore: '169',  dominanceScore: 88, odiRuns: 5265, odiAvg: 50.14 },
+  { country: 'Sri Lanka',   code: 'LK', latitude:   7.9, longitude:  80.7, runs: 3937, avg: 60.56, centuries: 15, fifties: 18, matches: 74,  highScore: '243',  dominanceScore: 94, odiRuns: 3937, odiAvg: 60.56 },
+  { country: 'West Indies',  code: 'WI', latitude:  17.1, longitude: -61.8, runs: 3850, avg: 61.11, centuries: 12, fifties: 22, matches: 72,  highScore: '200',  dominanceScore: 95, odiRuns: 3850, odiAvg: 61.11 },
+  { country: 'South Africa', code: 'ZA', latitude: -28.5, longitude: 24.7, runs: 3892, avg: 54.81, centuries: 11, fifties: 18, matches: 72,  highScore: '254*', dominanceScore: 92, odiRuns: 3892, odiAvg: 54.81 },
+  { country: 'England',     code: 'EN', latitude:  52.4, longitude:  -1.9, runs: 4096, avg: 41.37, centuries: 9,  fifties: 22, matches: 95,  highScore: '149',  dominanceScore: 72, odiRuns: 4096, odiAvg: 41.37 },
+  { country: 'New Zealand', code: 'NZ', latitude: -40.9, longitude: 174.9, runs: 2902, avg: 45.34, centuries: 9,  fifties: 14, matches: 59,  highScore: '211',  dominanceScore: 78, odiRuns: 2902, odiAvg: 45.34 },
+  { country: 'Bangladesh',  code: 'BD', latitude:  23.7, longitude:  90.4, runs: 1643, avg: 65.72, centuries: 7,  fifties: 7,  matches: 29,  highScore: '204',  dominanceScore: 91, odiRuns: 1643, odiAvg: 65.72 },
+  { country: 'Pakistan',    code: 'PK', latitude:  30.4, longitude:  69.3, runs: 1166, avg: 61.36, centuries: 3,  fifties: 7,  matches: 27,  highScore: '183',  dominanceScore: 90, odiRuns: 1166, odiAvg: 61.36 },
+  { country: 'Zimbabwe',    code: 'ZW', latitude: -19.0, longitude:  29.2, runs: 315,  avg: 63.00, centuries: 1,  fifties: 2,  matches: 11,  highScore: '115*', dominanceScore: 85, odiRuns: 315,  odiAvg: 63.00 },
 ];
 
 // ============================================================
@@ -559,7 +560,7 @@ export const careerMilestones = [
     year: '2026–Present',
     phase: 'Current Chapter',
     title: 'Quest for 2027 ODI World Cup',
-    desc: 'Continues to represent India in ODI cricket, anchoring the top order while building toward the 2027 ODI World Cup in South Africa.',
+    desc: 'Continues to represent India in ODI cricket, anchoring the top order while building toward the 2027 ODI World Cup in South Africa, Zimbabwe and Namibia.',
     badge: '🎯 2027 WC MISSION',
   },
 ];

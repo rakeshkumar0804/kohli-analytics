@@ -6,11 +6,11 @@ import './BonusSection.css';
 const MILESTONES = [
   { year: '2008', title: 'International Debut', desc: 'ODI debut against Sri Lanka in Dambulla at age 19.' },
   { year: '2011', title: 'World Cup Winner', desc: 'Scored vital 35 in WC Final chase against Sri Lanka.' },
-  { year: '2012', title: 'Hobart Storm (133*)', desc: 'Chased 321 in 36.4 overs vs Australia & Sri Lanka.' },
+  { year: '2012', title: 'Hobart Storm (133*)', desc: 'Chased 321 in 36.4 overs vs Sri Lanka.' },
   { year: '2016', title: '973 IPL Runs Peak', desc: 'All-time IPL record season with 4 centuries.' },
   { year: '2019', title: 'Fastest 20,000 Runs', desc: 'Surpassed Tendulkar & Lara in total innings taken.' },
   { year: '2022', title: '71st Century (122*)', desc: 'Ended 1020-day century drought in Asia Cup.' },
-  { year: '2023', title: '50th ODI Century', desc: 'Broke Sachin\'s record for most ODI tons in WC SF.' },
+  { year: '2023', title: '50th ODI Century', desc: 'Broke Sachin Tendulkar\'s record of 49 ODI centuries in the World Cup semifinal.' },
   { year: '2024', title: 'T20 WC Final Hero', desc: '76 off 59 in Bridgetown to crown India T20 World Champions.' },
 ];
 

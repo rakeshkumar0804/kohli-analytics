@@ -12,10 +12,10 @@ export default function WorldSection() {
     <section id="world-map" className="world-section" ref={sectionRef as React.RefObject<HTMLElement>}>
       <div className="container">
         <div className="section-header">
-          <p className="section-label">GLOBAL DOMINANCE</p>
+          <p className="section-label">GLOBAL DOMINANCE • ALL INTERNATIONAL FORMATS</p>
           <h2 className="section-title">DOMINANCE <span className="text-gold">BY COUNTRY</span></h2>
           <p className="section-body">
-            Virat Kohli has scored international centuries in nearly every major cricket-playing nation. Here is his record against each opposition.
+            Virat Kohli has scored international centuries in nearly every major cricket-playing nation. Here is his record against each opposition across all international formats (Test + ODI + T20I).
           </p>
         </div>
 
@@ -24,6 +24,8 @@ export default function WorldSection() {
           <div className="countries-grid">
             {opponentData.map((opp: OpponentStats) => {
               const isSelected = activeCountry?.country === opp.country;
+              const displayAvg = opp.avg ?? opp.odiAvg ?? 0;
+              const displayRuns = opp.runs ?? opp.odiRuns ?? 0;
               return (
                 <div
                   key={opp.country}
@@ -37,7 +39,7 @@ export default function WorldSection() {
 
                   <div className="country-stats-preview">
                     <div className="preview-stat">
-                      <span className="stat-num text-gold">{opp.odiAvg.toFixed(1)}</span>
+                      <span className="stat-num text-gold">{displayAvg.toFixed(1)}</span>
                       <span className="stat-lbl">Average</span>
                     </div>
 
@@ -47,7 +49,7 @@ export default function WorldSection() {
                     </div>
 
                     <div className="preview-stat">
-                      <span className="stat-num">{opp.odiRuns}</span>
+                      <span className="stat-num">{displayRuns.toLocaleString()}</span>
                       <span className="stat-lbl">Runs</span>
                     </div>
                   </div>
@@ -66,8 +68,8 @@ export default function WorldSection() {
 
               <div className="spotlight-metrics-grid">
                 <div className="spotlight-metric">
-                  <span className="metric-val text-gold">{activeCountry.odiAvg.toFixed(2)}</span>
-                  <span className="metric-lbl">ODI Batting Avg</span>
+                  <span className="metric-val text-gold">{(activeCountry.avg ?? activeCountry.odiAvg ?? 0).toFixed(2)}</span>
+                  <span className="metric-lbl">International Batting Avg</span>
                 </div>
 
                 <div className="spotlight-metric">
@@ -91,7 +93,7 @@ export default function WorldSection() {
                 </div>
 
                 <div className="spotlight-metric">
-                  <span className="metric-val">{activeCountry.odiRuns}</span>
+                  <span className="metric-val">{(activeCountry.runs ?? activeCountry.odiRuns ?? 0).toLocaleString()}</span>
                   <span className="metric-lbl">Total Runs</span>
                 </div>
               </div>
