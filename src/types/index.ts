@@ -88,11 +88,13 @@ export interface OpponentStats {
   code: string;
   latitude: number;
   longitude: number;
+  matches: number;
+  innings?: number;
+  dismissals?: number;
   runs: number;
   avg: number;
   centuries: number;
   fifties: number;
-  matches: number;
   highScore: string | number;
   dominanceScore: number; // 0-100 for map intensity
   odiRuns?: number;

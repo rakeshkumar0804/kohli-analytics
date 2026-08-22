@@ -91,15 +91,15 @@ export const eraData: EraStats[] = [
 // Source: ESPNcricinfo & Official International Career Match Records
 // ============================================================
 export const opponentData: OpponentStats[] = [
-  { country: 'Australia',   code: 'AU', latitude: -25.3, longitude: 133.8, matches: 106, runs: 5551, avg: 48.69, centuries: 17, fifties: 29, highScore: '169',  dominanceScore: 88, odiRuns: 5551, odiAvg: 48.69 },
-  { country: 'South Africa', code: 'ZA', latitude: -28.5, longitude: 24.7, matches: 64,  runs: 4767, avg: 59.15, centuries: 17, fifties: 15, highScore: '254*', dominanceScore: 92, odiRuns: 4767, odiAvg: 59.15 },
-  { country: 'England',     code: 'EN', latitude:  52.4, longitude:  -1.9, matches: 95,  runs: 4096, avg: 41.37, centuries: 9,  fifties: 20, highScore: '149',  dominanceScore: 72, odiRuns: 4096, odiAvg: 41.37 },
-  { country: 'Sri Lanka',   code: 'LK', latitude:   7.9, longitude:  80.7, matches: 74,  runs: 3937, avg: 60.57, centuries: 15, fifties: 18, highScore: '243',  dominanceScore: 94, odiRuns: 3937, odiAvg: 60.57 },
-  { country: 'West Indies',  code: 'WI', latitude:  17.1, longitude: -61.8, matches: 80,  runs: 3850, avg: 59.23, centuries: 23, fifties: 23, highScore: '200',  dominanceScore: 95, odiRuns: 3850, odiAvg: 59.23 },
-  { country: 'New Zealand', code: 'NZ', latitude: -40.9, longitude: 174.9, matches: 59,  runs: 2902, avg: 45.34, centuries: 9,  fifties: 15, highScore: '211',  dominanceScore: 78, odiRuns: 2902, odiAvg: 45.34 },
-  { country: 'Bangladesh',  code: 'BD', latitude:  23.7, longitude:  90.4, matches: 29,  runs: 1643, avg: 65.72, centuries: 7,  fifties: 5,  highScore: '204',  dominanceScore: 91, odiRuns: 1643, odiAvg: 65.72 },
-  { country: 'Pakistan',    code: 'PK', latitude:  30.4, longitude:  69.3, matches: 27,  runs: 1166, avg: 61.37, centuries: 3,  fifties: 7,  highScore: '183',  dominanceScore: 90, odiRuns: 1166, odiAvg: 61.37 },
-  { country: 'Zimbabwe',    code: 'ZW', latitude: -19.0, longitude:  29.2, matches: 11,  runs: 305,  avg: 50.83, centuries: 1,  fifties: 1,  highScore: '115*', dominanceScore: 85, odiRuns: 305,  odiAvg: 50.83 },
+  { country: 'Australia',   code: 'AU', latitude: -25.3, longitude: 133.8, matches: 106, innings: 124, dismissals: 114, runs: 5551, avg: 48.69, centuries: 17, fifties: 29, highScore: '169',  dominanceScore: 88, odiRuns: 5551, odiAvg: 48.69 },
+  { country: 'South Africa', code: 'ZA', latitude: -28.5, longitude: 24.7, matches: 64,  innings: 84,  dismissals: 80.6, runs: 4767, avg: 59.15, centuries: 17, fifties: 15, highScore: '254*', dominanceScore: 92, odiRuns: 4767, odiAvg: 59.15 },
+  { country: 'England',     code: 'EN', latitude:  52.4, longitude:  -1.9, matches: 95,  innings: 125, dismissals: 99,  runs: 4096, avg: 41.37, centuries: 9,  fifties: 20, highScore: '149',  dominanceScore: 72, odiRuns: 4096, odiAvg: 41.37 },
+  { country: 'Sri Lanka',   code: 'LK', latitude:   7.9, longitude:  80.7, matches: 74,  innings: 79,  dismissals: 65,  runs: 3937, avg: 60.57, centuries: 15, fifties: 18, highScore: '243',  dominanceScore: 94, odiRuns: 3937, odiAvg: 60.57 },
+  { country: 'West Indies',  code: 'WI', latitude:  17.1, longitude: -61.8, matches: 80,  innings: 85,  dismissals: 65,  runs: 3850, avg: 59.23, centuries: 23, fifties: 23, highScore: '200',  dominanceScore: 95, odiRuns: 3850, odiAvg: 59.23 },
+  { country: 'New Zealand', code: 'NZ', latitude: -40.9, longitude: 174.9, matches: 59,  innings: 72,  dismissals: 64,  runs: 2902, avg: 45.34, centuries: 9,  fifties: 15, highScore: '211',  dominanceScore: 78, odiRuns: 2902, odiAvg: 45.34 },
+  { country: 'Bangladesh',  code: 'BD', latitude:  23.7, longitude:  90.4, matches: 29,  innings: 33,  dismissals: 25,  runs: 1643, avg: 65.72, centuries: 7,  fifties: 5,  highScore: '204',  dominanceScore: 91, odiRuns: 1643, odiAvg: 65.72 },
+  { country: 'Pakistan',    code: 'PK', latitude:  30.4, longitude:  69.3, matches: 27,  innings: 27,  dismissals: 19,  runs: 1166, avg: 61.37, centuries: 3,  fifties: 7,  highScore: '183',  dominanceScore: 90, odiRuns: 1166, odiAvg: 61.37 },
+  { country: 'Zimbabwe',    code: 'ZW', latitude: -19.0, longitude:  29.2, matches: 11,  innings: 9,   dismissals: 6,   runs: 305,  avg: 50.83, centuries: 1,  fifties: 1,  highScore: '115*', dominanceScore: 85, odiRuns: 305,  odiAvg: 50.83 },
 ];
 
 // ============================================================
