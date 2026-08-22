@@ -220,17 +220,17 @@ export const heroStatsByFormat = {
   ALL: [
     { value: 28359, label: 'International Runs', subtext: 'Test + ODI + T20I combined', decimals: 0 },
     { value: 85,    label: 'International Centuries', subtext: '54 ODI, 30 Test, 1 T20I', decimals: 0 },
-    { value: 53.67, label: 'Combined Average', subtext: '545 Matches (All Formats)', decimals: 2 },
+    { value: 52.71, label: 'Combined Average', subtext: '562 Matches (Test + ODI + T20I)', decimals: 2 },
   ],
   ODI: [
     { value: 14941, label: 'ODI Career Runs', subtext: '314 ODIs (302 Innings, 94.0 SR)', decimals: 0 },
-    { value: 54,    label: 'ODI Centuries', subtext: 'Passing Sachin\'s 49', decimals: 0 },
-    { value: 58.6,  label: 'ODI Batting Average', subtext: 'Highest in Modern ODI Cricket', decimals: 1 },
+    { value: 54,    label: 'ODI Centuries', subtext: 'Most ODI 100s in history', decimals: 0 },
+    { value: 58.6,  label: 'ODI Batting Average', subtext: 'Most ODI Centuries in History', decimals: 1 },
   ],
   Test: [
     { value: 9230,  label: 'Test Career Runs', subtext: '123 Tests (210 Innings, 55.6 SR)', decimals: 0 },
     { value: 30,    label: 'Test Centuries', subtext: '7 Double Centuries', decimals: 0 },
-    { value: 46.9,  label: 'Test Batting Average', subtext: '54.1 Away Captaincy Avg', decimals: 1 },
+    { value: 46.9,  label: 'Test Batting Average', subtext: '31 Fifties', decimals: 1 },
   ],
   T20I: [
     { value: 4188,  label: 'T20I Career Runs', subtext: '125 T20Is (117 Innings, 137.0 SR)', decimals: 0 },
@@ -394,10 +394,10 @@ export const legendsClutch: { name: string; clutchIndex: number; color: string }
 ];
 
 // ============================================================
-// CAREER STATS — All formats
+// CAREER STATS — All formats (Verified Official Table)
 // ============================================================
 export const careerStats = {
-  overall: { matches: 545, runs: 28359, centuries: 85, average: 53.67, strikeRate: 94.0, highScore: 254 },
+  overall: { matches: 562, runs: 28359, centuries: 85, average: 52.71, strikeRate: 94.0, highScore: 254 },
   odi: { matches: 314, innings: 302, runs: 14941, average: 58.6, strikeRate: 94.0, centuries: 54, fifties: 79, highScore: 183, notOuts: 47, ballsFaced: 15903, fours: 1389, sixes: 171 },
   test: { matches: 123, innings: 210, runs: 9230, average: 46.9, strikeRate: 55.6, centuries: 30, fifties: 31, highScore: 254, notOuts: 13, ballsFaced: 16608, fours: 1027, sixes: 30 },
   t20i: { matches: 125, innings: 117, runs: 4188, average: 48.7, strikeRate: 137.0, centuries: 1, fifties: 38, highScore: 122, notOuts: 31, ballsFaced: 3056, fours: 369, sixes: 124 },
@@ -457,26 +457,32 @@ export const iplCareerData = {
   highlightBadge: 'All-time highest run-scorer in IPL history',
   keyMilestones: [
     { label: '973 Runs (2016)', desc: 'Most runs in a single IPL season in history' },
-    { label: '9 IPL Centuries', desc: 'Most 100s in IPL history (passes Gayle\'s 6)' },
-    { label: '9,336 Runs (275 Innings)', desc: 'First & only batter to cross 9,000 IPL runs' },
+    { label: '9 IPL Centuries', desc: 'Most 100s in IPL history' },
+    { label: '9,336 Runs (275 Innings)', desc: 'First player to cross 9,000 IPL runs' },
     { label: '19 Seasons Loyalty', desc: 'Only player in IPL history to play 19 seasons for 1 franchise' },
   ],
 };
 
 export const domesticCareerData = {
-  team: 'Delhi (Ranji Trophy & Domestic First-Class)',
+  team: 'Delhi — Ranji Trophy',
   yearsActive: '2006 – Present',
-  firstClassMatches: 145,
-  firstClassRuns: 10925,
-  firstClassAverage: 50.11,
-  firstClassCenturies: 36,
-  listAMatches: 332,
-  listARuns: 15658, // Total List A career runs (Domestic + International ODIs)
-  listAAverage: 57.14,
-  ranjiMatches: 27,
-  ranjiRuns: 2192,
-  ranjiAverage: 54.80,
-  ranjiCenturies: 7,
+  firstClassMatches: 156,
+  firstClassInnings: 259,
+  firstClassRuns: 11485,
+  firstClassAverage: 48.05,
+  firstClassCenturies: 37,
+  firstClassFifties: 39,
+  listAMatches: 347,
+  listAInnings: 334,
+  listARuns: 16447,
+  listAAverage: 57.91,
+  listAStrikeRate: 94.14,
+  listACenturies: 59,
+  listAFifties: 86,
+  ranjiMatches: 24,
+  ranjiRuns: 1580,
+  ranjiAverage: 49.37,
+  ranjiCenturies: 5,
   foundationalNote: 'The domestic grind that built the foundation for his international career',
   ranjiHighlight: 'Debuted for Delhi in 2006. Famously scored 90 against Karnataka the morning after his father passed away to save Delhi from a collapse.',
 };

@@ -58,7 +58,7 @@ This demonstrates handling of a real external API's limitations (delayed fixture
 
 Almost every section carries its own **FORMAT: ODI / Test / T20I** (or **ALL**) toggle, so metrics recompute per format instead of blending everything into one number:
 
-- **Hero section** — combined career snapshot (28,359 international runs, 85 centuries across 54 ODI + 30 Test + 1 T20I, 53.67 combined average, 545 matches) with an ALL/ODI/Test/T20I quick filter
+- **Hero section** — combined career snapshot (28,359 international runs, 85 centuries across 54 ODI + 30 Test + 1 T20I, 52.71 combined average, 562 matches) with an ALL/ODI/Test/T20I quick filter
 - **Clutch Index** — format-specific weighted score (e.g. ODI Clutch Index: 87.4/100)
 - **Pressure Map** — format-specific heatmap grid
 - **Legends Showdown** — format-specific radar chart and stat comparisons
