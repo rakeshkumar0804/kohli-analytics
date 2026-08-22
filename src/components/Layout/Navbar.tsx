@@ -3,14 +3,14 @@ import { useState, useEffect } from 'react';
 const NAV_LINKS = [
   { label: 'Next Match',   href: '#next-match' },
   { label: 'Clutch Index', href: '#clutch-index' },
-  { label: 'Captaincy Myth', href: '#captaincy-myth' },
   { label: 'Era Engine',   href: '#era-engine' },
   { label: 'Pressure Map', href: '#pressure-map' },
   { label: 'Chase Master', href: '#chase-master' },
   { label: 'Legends',      href: '#legends-showdown' },
+  { label: 'IPL & Domestic', href: '#ipl-domestic' },
 ];
 
-const SECTION_IDS = ['next-match', 'clutch-index', 'captaincy-myth', 'era-engine', 'pressure-map', 'chase-master', 'legends-showdown'];
+const SECTION_IDS = ['next-match', 'clutch-index', 'captaincy-myth', 'era-engine', 'pressure-map', 'chase-master', 'legends-showdown', 'ipl-domestic'];
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState('');

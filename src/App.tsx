@@ -8,6 +8,7 @@ import EraSection from './components/EraEngine/EraSection';
 import PressureSection from './components/PressureMap/PressureSection';
 import ChaseSection from './components/ChaseMaster/ChaseSection';
 import LegendsSection from './components/LegendsShowdown/LegendsSection';
+import IPLSection from './components/IPL/IPLSection';
 import WorldSection from './components/WorldMap/WorldSection';
 import BonusSection from './components/Bonus/BonusSection';
 
@@ -25,6 +26,7 @@ export default function App() {
           <PressureSection />
           <ChaseSection />
           <LegendsSection />
+          <IPLSection />
           <WorldSection />
           <BonusSection />
         </main>
