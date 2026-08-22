@@ -489,7 +489,7 @@ export const domesticCareerData = {
 
 // ============================================================
 // FULL CAREER NARRATIVE TIMELINE DATA
-// Purely Cricket Milestones — Struggle, Rise, Peak, Setback, Redemption
+// Verified Historical Cricket Milestones
 // ============================================================
 export const careerMilestones = [
   {
@@ -502,64 +502,64 @@ export const careerMilestones = [
   {
     year: '2011',
     phase: 'World Stage',
-    title: 'India Debut & ODI World Cup Champion',
-    desc: 'Made the 2011 World Cup squad, scoring a vital 35 in the final chase against Sri Lanka before carrying Sachin Tendulkar on his shoulders.',
+    title: 'ODI World Cup Champion',
+    desc: 'Made India\'s 2011 World Cup squad and played in the tournament-winning campaign, scoring 35 in the final against Sri Lanka.',
     badge: '🏆 WORLD CUP WINNER',
   },
   {
-    year: '2013–2014',
+    year: '2012–2014',
     phase: 'Rise to Dominance',
     title: 'White-Ball Mastery & Test Debut Captaincy',
-    desc: 'Established himself as ODI cricket\'s premier run-chaser (133* at Hobart, 52-ball 100 vs AUS). Took over Test captaincy in Adelaide with a courageous 141.',
+    desc: 'Established himself as a premier ODI run-chaser, scoring 133* at Hobart in 2012 and a 52-ball hundred against Australia in 2013. Took over Test captaincy in Adelaide in 2014, scoring 115 and 141.',
     badge: '⚡ CHASE MASTER',
   },
   {
     year: '2017',
     phase: 'Leadership Era',
     title: 'Appointed Full-Time All-Format Captain',
-    desc: 'Assumed full-time captaincy across Test, ODI, and T20I formats, initiating India\'s most aggressive, fast-bowling-driven Test dominance.',
+    desc: 'Assumed India\'s full-time captaincy across Test, ODI and T20I cricket, beginning a defining leadership era.',
     badge: '⚔️ FULL-TIME SKIPPER',
   },
   {
     year: '2018–2019',
     phase: 'Peak Pinnacle',
     title: 'Historic Test Series Win in Australia',
-    desc: 'Became the first Asian captain in cricket history to win a Test series in Australia (2018/19), maintaining India\'s World No. 1 Test ranking for 42 months.',
+    desc: 'Led India to its first-ever Test series victory in Australia in 2018–19, making India the first Asian side to achieve the feat.',
     badge: '🌏 HISTORIC WINNER',
   },
   {
     year: '2022',
-    phase: 'The Setback & Narrative',
-    title: 'Captaincy Resignation & Media Backlash',
-    desc: 'Relinquished captaincy following intense media scrutiny. The "failed captain" narrative emerged despite holding India\'s highest Test win % (58.8%).',
-    badge: '🔥 CRUCIBLE OF MEDIA',
+    phase: 'Leadership Transition',
+    title: 'Test Captaincy Resignation',
+    desc: 'Stepped down as India\'s Test captain after the South Africa series, ending a leadership tenure that produced 40 Test wins and India\'s highest Test-captain win percentage of 58.82%.',
+    badge: '🏏 CAPTAINCY TRANSITION',
   },
   {
     year: '2023',
     phase: 'Record Breaking',
     title: '50th ODI Century & World Cup Final',
-    desc: 'Broke Sachin Tendulkar\'s record of 49 ODI centuries by hitting his 50th in the WC semi-final. Named Player of Tournament with 765 runs.',
+    desc: 'Broke Sachin Tendulkar\'s record of 49 ODI centuries by scoring his 50th in the 2023 World Cup semifinal. Finished the tournament with a record 765 runs and won Player of the Tournament.',
     badge: '👑 50TH ODI TON',
   },
   {
     year: '2024',
-    phase: 'Redemption & Farewell',
+    phase: 'T20 World Triumph',
     title: 'T20 World Cup Champion & T20I Retirement',
-    desc: 'Man of the Match in the 2024 T20 WC Final (76 off 59) in Bridgetown to lift the trophy, bidding farewell to T20Is at the ultimate high.',
+    desc: 'Player of the Match with 76 off 59 in the 2024 T20 World Cup final as India defeated South Africa by seven runs. Retired from T20Is immediately after the victory.',
     badge: '🏆 T20 WC CHAMPION',
   },
   {
     year: '2025',
     phase: 'Format Specialization',
-    title: 'Test Retirement & Full Focus on ODI',
-    desc: 'Stepped down from Test cricket after 123 Tests and 30 centuries, focusing 100% of his career energy on white-ball ODI endurance.',
+    title: 'Test Retirement & ODI Focus',
+    desc: 'Retired from Test cricket in May 2025 after 123 Tests, 9,230 runs and 30 centuries, continuing his international career in ODI cricket.',
     badge: '🏏 ODI FOCUS',
   },
   {
     year: '2026–Present',
     phase: 'Current Chapter',
     title: 'Quest for 2027 ODI World Cup',
-    desc: 'Active solely in ODI cricket, anchoring India\'s top order and building towards the 2027 ODI World Cup in South Africa.',
+    desc: 'Continues to represent India in ODI cricket, anchoring the top order while building toward the 2027 ODI World Cup in South Africa.',
     badge: '🎯 2027 WC MISSION',
   },
 ];
