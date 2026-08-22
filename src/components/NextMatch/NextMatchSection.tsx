@@ -80,7 +80,7 @@ export default function NextMatchSection() {
         <div className="next-match-status-banner">
           <span className="status-badge-dot" />
           <p className="status-banner-text">
-            Currently active in <strong>ODI cricket only</strong> — retired from Test (2025) & T20I (2024), building towards <strong>2027 ODI World Cup</strong>
+            Currently active in <strong>international ODI cricket</strong> — retired from Test (2025) & T20I (2024), building towards <strong>2027 ODI World Cup</strong>
           </p>
         </div>
 
