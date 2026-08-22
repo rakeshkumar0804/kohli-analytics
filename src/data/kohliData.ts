@@ -435,39 +435,43 @@ export const kohliQuotes = [
 
 // ============================================================
 // IPL & DOMESTIC CAREER DATA
-// Source: Official IPL T20 Records & ESPNcricinfo
+// Verified Records: Official IPL T20 & ESPNcricinfo (2026 Season End)
 // ============================================================
 export const iplCareerData = {
   team: 'Royal Challengers Bengaluru (RCB)',
-  yearsActive: '2008 – Present',
-  matches: 252,
-  innings: 244,
-  runs: 8004,
-  average: 38.66,
-  strikeRate: 131.97,
-  centuries: 8,
-  fifties: 55,
+  yearsActive: '2008 – 2026 (19 Seasons)',
+  matches: 283,
+  innings: 274,
+  runs: 9336,
+  average: 40.42,
+  strikeRate: 134.80,
+  centuries: 9,
+  fifties: 68,
   highScore: '113*',
   orangeCaps: 2,
   highlightBadge: 'All-time highest run-scorer in IPL history',
   keyMilestones: [
     { label: '973 Runs (2016)', desc: 'Most runs in a single IPL season in history' },
-    { label: '8 IPL Centuries', desc: 'Most 100s in IPL history (passes Gayle\'s 6)' },
-    { label: '8,000+ Runs', desc: 'First & only batter to cross 8,000 IPL runs' },
-    { label: 'Single Team Loyalty', desc: 'Only player in IPL history to play 17 seasons for 1 franchise' },
+    { label: '9 IPL Centuries', desc: 'Most 100s in IPL history (passes Gayle\'s 6)' },
+    { label: '9,300+ Runs', desc: 'First & only batter to cross 9,000 IPL runs' },
+    { label: '19 Seasons Loyalty', desc: 'Only player in IPL history to play 19 seasons for 1 franchise' },
   ],
 };
 
 export const domesticCareerData = {
-  team: 'Delhi (Ranji Trophy & List A)',
+  team: 'Delhi (Ranji Trophy & Domestic First-Class)',
   yearsActive: '2006 – Present',
   firstClassMatches: 145,
   firstClassRuns: 10925,
   firstClassAverage: 50.11,
   firstClassCenturies: 36,
   listAMatches: 332,
-  listARuns: 15658,
+  listARuns: 15658, // Total List A career runs (Domestic + International ODIs)
   listAAverage: 57.14,
+  ranjiMatches: 27,
+  ranjiRuns: 2192,
+  ranjiAverage: 54.80,
+  ranjiCenturies: 7,
   foundationalNote: 'The domestic grind that built the foundation for his international career',
   ranjiHighlight: 'Debuted for Delhi in 2006. Famously scored 90 against Karnataka the morning after his father passed away to save Delhi from a collapse.',
 };

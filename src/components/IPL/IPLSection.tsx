@@ -108,14 +108,26 @@ export default function IPLSection() {
                 <div className="domestic-stat-sub-info">
                   <span>{domesticCareerData.firstClassAverage} Avg</span>
                   <span>•</span>
-                  <span>{domesticCareerData.firstClassCenturies} Centuries</span>
+                  <span>{domesticCareerData.firstClassCenturies} Tons</span>
                 </div>
               </div>
 
               <div className="domestic-stat-row">
                 <div className="domestic-stat-group">
-                  <span className="domestic-stat-num text-red">{domesticCareerData.listARuns.toLocaleString()}</span>
-                  <span className="domestic-stat-lbl">List-A Runs</span>
+                  <span className="domestic-stat-num text-red">{domesticCareerData.ranjiRuns.toLocaleString()}</span>
+                  <span className="domestic-stat-lbl">Delhi Ranji Runs</span>
+                </div>
+                <div className="domestic-stat-sub-info">
+                  <span>{domesticCareerData.ranjiAverage} Avg</span>
+                  <span>•</span>
+                  <span>{domesticCareerData.ranjiCenturies} Tons</span>
+                </div>
+              </div>
+
+              <div className="domestic-stat-row" style={{ opacity: 0.85 }}>
+                <div className="domestic-stat-group">
+                  <span className="domestic-stat-num">{domesticCareerData.listARuns.toLocaleString()}</span>
+                  <span className="domestic-stat-lbl">List-A Total Runs</span>
                 </div>
                 <div className="domestic-stat-sub-info">
                   <span>{domesticCareerData.listAAverage} Avg</span>
@@ -127,7 +139,7 @@ export default function IPLSection() {
 
             {/* Ranji Highlight Box */}
             <div className="ranji-highlight-box">
-              <span className="ranji-badge">LEGENDARY FOUNDATION</span>
+              <span className="ranji-badge">FOUNDATIONAL GRIND</span>
               <p className="ranji-desc">{domesticCareerData.ranjiHighlight}</p>
             </div>
           </div>
