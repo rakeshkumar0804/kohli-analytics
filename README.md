@@ -6,7 +6,7 @@
 
 **[Live Demo →](https://kohli-analytics.vercel.app)**
 
---
+---
 
 ## Screenshots
 
