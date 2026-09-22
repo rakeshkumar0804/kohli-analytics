@@ -1,0 +1,151 @@
+{
+  "$schema": "./stage-overrides.schema.json",
+  "version": "1.0.0",
+  "description": "Deterministic match-stage classification overrides and tournament metadata for senior international and franchise matches.",
+  "overrides": [
+    {
+      "matchId": "433606",
+      "assignedStage": "final",
+      "competition": "ICC Cricket World Cup 2011",
+      "reason": "ICC World Cup 2011 Final (India vs Sri Lanka, Wankhede Stadium)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-cricket-world-cup-2010-11-381449/india-vs-sri-lanka-final-433606/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "433605",
+      "assignedStage": "semi-final",
+      "competition": "ICC Cricket World Cup 2011",
+      "reason": "ICC World Cup 2011 2nd Semi-Final (India vs Pakistan, Mohali)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-cricket-world-cup-2010-11-381449/india-vs-pakistan-2nd-semi-final-433605/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "433601",
+      "assignedStage": "quarter-final",
+      "competition": "ICC Cricket World Cup 2011",
+      "reason": "ICC World Cup 2011 2nd Quarter-Final (India vs Australia, Ahmedabad)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-cricket-world-cup-2010-11-381449/india-vs-australia-2nd-quarter-final-433601/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "566948",
+      "assignedStage": "final",
+      "competition": "ICC Champions Trophy 2013",
+      "reason": "ICC Champions Trophy Final (India vs England, Edgbaston)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-champions-trophy-2013-566910/england-vs-india-final-566948/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "566947",
+      "assignedStage": "semi-final",
+      "competition": "ICC Champions Trophy 2013",
+      "reason": "ICC Champions Trophy 2nd Semi-Final (India vs Sri Lanka, Cardiff)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-champions-trophy-2013-566910/india-vs-sri-lanka-2nd-semi-final-566947/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "682965",
+      "assignedStage": "final",
+      "competition": "World T20 2014",
+      "reason": "ICC World Twenty20 2014 Final (India vs Sri Lanka, Mirpur)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/world-t20-2013-14-628368/india-vs-sri-lanka-final-682965/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "682963",
+      "assignedStage": "semi-final",
+      "competition": "World T20 2014",
+      "reason": "ICC World Twenty20 2014 2nd Semi-Final (India vs South Africa, Mirpur)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/world-t20-2013-14-628368/india-vs-south-africa-2nd-semi-final-682963/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "656493",
+      "assignedStage": "semi-final",
+      "competition": "ICC Cricket World Cup 2015",
+      "reason": "ICC Cricket World Cup 2015 2nd Semi-Final (India vs Australia, Sydney)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-cricket-world-cup-2014-15-509587/australia-vs-india-2nd-semi-final-656493/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "656487",
+      "assignedStage": "quarter-final",
+      "competition": "ICC Cricket World Cup 2015",
+      "reason": "ICC Cricket World Cup 2015 2nd Quarter-Final (India vs Bangladesh, Melbourne)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-cricket-world-cup-2014-15-509587/bangladesh-vs-india-2nd-quarter-final-656487/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "951371",
+      "assignedStage": "semi-final",
+      "competition": "World T20 2016",
+      "reason": "ICC World T20 2016 2nd Semi-Final (India vs West Indies, Wankhede Stadium)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/world-t20-2015-16-901359/india-vs-west-indies-2nd-semi-final-951371/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "1022375",
+      "assignedStage": "final",
+      "competition": "ICC Champions Trophy 2017",
+      "reason": "ICC Champions Trophy 2017 Final (India vs Pakistan, The Oval)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-champions-trophy-2017-1022345/india-vs-pakistan-final-1022375/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "1022373",
+      "assignedStage": "semi-final",
+      "competition": "ICC Champions Trophy 2017",
+      "reason": "ICC Champions Trophy 2017 2nd Semi-Final (India vs Bangladesh, Edgbaston)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-champions-trophy-2017-1022345/bangladesh-vs-india-2nd-semi-final-1022373/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "1144528",
+      "assignedStage": "semi-final",
+      "competition": "ICC Cricket World Cup 2019",
+      "reason": "ICC Cricket World Cup 2019 1st Semi-Final (India vs New Zealand, Old Trafford)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-cricket-world-cup-2019-1144415/india-vs-new-zealand-1st-semi-final-1144528/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "1298178",
+      "assignedStage": "semi-final",
+      "competition": "ICC Men's T20 World Cup 2022",
+      "reason": "ICC Men's T20 World Cup 2022 2nd Semi-Final (India vs England, Adelaide)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-men-s-t20-world-cup-2022-23-1298134/england-vs-india-2nd-semi-final-1298178/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "1384438",
+      "assignedStage": "semi-final",
+      "competition": "ICC Men's Cricket World Cup 2023",
+      "reason": "ICC Men's Cricket World Cup 2023 1st Semi-Final (India vs New Zealand, Wankhede Stadium)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/india-vs-new-zealand-1st-semi-final-1384438/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "1384439",
+      "assignedStage": "final",
+      "competition": "ICC Men's Cricket World Cup 2023",
+      "reason": "ICC Men's Cricket World Cup 2023 Final (India vs Australia, Ahmedabad)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/india-vs-australia-final-1384439/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "1415754",
+      "assignedStage": "semi-final",
+      "competition": "ICC Men's T20 World Cup 2024",
+      "reason": "ICC Men's T20 World Cup 2024 2nd Semi-Final (India vs England, Providence)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-men-s-t20-world-cup-2024-1411166/england-vs-india-2nd-semi-final-1415754/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    },
+    {
+      "matchId": "1415755",
+      "assignedStage": "final",
+      "competition": "ICC Men's T20 World Cup 2024",
+      "reason": "ICC Men's T20 World Cup 2024 Final (India vs South Africa, Bridgetown)",
+      "evidenceUrl": "https://www.espncricinfo.com/series/icc-men-s-t20-world-cup-2024-1411166/india-vs-south-africa-final-1415755/full-scorecard",
+      "verifiedOn": "2026-09-21"
+    }
+  ]
+}

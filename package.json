@@ -7,6 +7,17 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
+    "test": "node --test scripts/test-analytics.mjs",
+    "test:data-integration": "node --test scripts/test-data-integration.mjs",
+    "validate:data": "node scripts/validate-data.mjs",
+    "ingest:cricsheet": "node scripts/ingest-cricsheet.mjs",
+    "reconcile:data": "node scripts/derive-kohli-analytics.mjs",
+    "analytics:derive": "node scripts/derive-kohli-analytics.mjs",
+    "data:download": "node scripts/download-cricsheet.mjs",
+    "data:ingest": "node scripts/ingest-cricsheet.mjs",
+    "data:derive": "node scripts/derive-kohli-analytics.mjs",
+    "data:verify": "node scripts/verify-derived-data.mjs",
+    "data:refresh": "node scripts/download-cricsheet.mjs && node scripts/ingest-cricsheet.mjs && node scripts/derive-kohli-analytics.mjs && node scripts/verify-derived-data.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

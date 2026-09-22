@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { famousChases } from '../../data/kohliData';
+import { getChaseAnalyticsViewModel } from '../../analytics';
 import { useIntersectionObserver } from '../../hooks';
 import './ChaseSection.css';
 
@@ -7,6 +8,11 @@ export default function ChaseSection() {
   const [sectionRef, isVisible] = useIntersectionObserver(0.2);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [chaseFormat, setChaseFormat] = useState<'ALL' | 'ODI' | 'Test' | 'T20I'>('ALL');
+
+  // Production chase analytics view models
+  const odiChase = getChaseAnalyticsViewModel('ODI');
+  const t20iChase = getChaseAnalyticsViewModel('T20I');
+  const overallChase = getChaseAnalyticsViewModel('overall');
 
   // Mouse Drag State
   const [isDragging, setIsDragging] = useState(false);
@@ -56,7 +62,7 @@ export default function ChaseSection() {
         <div className="section-header">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
             <div>
-              <p className="section-label">DEEP DIVE ({chaseFormat.toUpperCase()} CHASES)</p>
+              <p className="section-label">DERIVED ANALYTICS ({chaseFormat.toUpperCase()} CHASES)</p>
               <h2 className="section-title">CHASE <span className="text-gold">MASTER</span> <span style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>({chaseFormat})</span></h2>
             </div>
 
@@ -88,37 +94,49 @@ export default function ChaseSection() {
           </div>
 
           <p className="section-body" style={{ marginTop: '1rem' }}>
-            Virat Kohli is universally acknowledged as the greatest run-chaser in cricket history. 
-            When calculating target vs pressure in <strong>{chaseFormat === 'ALL' ? 'all formats' : `${chaseFormat} chases`}</strong>, no batter in modern cricket comes close to his mastery of pacing an innings.
+            Calculated from available Cricsheet ball-by-ball coverage: 429 of 439 reference matches. Career aggregates are independently reconciled; delivery-level situational results exclude unavailable matches.
           </p>
         </div>
 
         {/* Top Stats Cards */}
         <div className="chase-stats-grid">
           <div className={`chase-stat-card glass-card ${isVisible ? 'animate-in' : ''}`}>
-            <span className="chase-stat-number text-gold">65.0</span>
+            <span className="chase-stat-number text-gold">
+              {odiChase.average !== null ? odiChase.average.toFixed(2) : '—'}
+            </span>
             <span className="chase-stat-label">ODI Chase Average</span>
-            <span className="chase-stat-sub">Highest in ODI History (Min 2000 runs)</span>
+            <span className="chase-stat-sub">
+              {odiChase.successfulChaseAverage !== null ? `${odiChase.successfulChaseAverage.toFixed(2)} avg in successful chases (${odiChase.successfulInningsCount} won of ${odiChase.inningsCount} chases)` : 'Derived from Cricsheet archive'}
+            </span>
           </div>
 
           <div className={`chase-stat-card glass-card ${isVisible ? 'animate-in' : ''}`} style={{ animationDelay: '150ms' }}>
-            <span className="chase-stat-number text-red">82.5</span>
+            <span className="chase-stat-number text-red">
+              {t20iChase.average !== null ? t20iChase.average.toFixed(2) : '—'}
+            </span>
             <span className="chase-stat-label">T20I Chase Average</span>
-            <span className="chase-stat-sub">270.5 avg in T20 WC successful chases</span>
+            <span className="chase-stat-sub">
+              {t20iChase.successfulChaseAverage !== null ? `${t20iChase.successfulChaseAverage.toFixed(2)} avg in successful chases (${t20iChase.successfulInningsCount} won of ${t20iChase.inningsCount} chases)` : 'Derived from Cricsheet archive'}
+            </span>
           </div>
 
           <div className={`chase-stat-card glass-card ${isVisible ? 'animate-in' : ''}`} style={{ animationDelay: '300ms' }}>
-            <span className="chase-stat-number text-gold">28</span>
-            <span className="chase-stat-label">ODI Chase Centuries</span>
-            <span className="chase-stat-sub">World Record (Passes Sachin's 17)</span>
+            <span className="chase-stat-number text-gold">
+              {overallChase.successRate !== null ? `${overallChase.successRate.toFixed(1)}%` : '—'}
+            </span>
+            <span className="chase-stat-label">Limited-Overs Chase Win Rate</span>
+            <span className="chase-stat-sub">
+              {overallChase.inningsCount > 0 ? `${overallChase.successfulInningsCount} wins in ${overallChase.inningsCount} completed innings (${overallChase.successfulInningsCount}/${overallChase.inningsCount})` : 'Derived from Cricsheet archive'}
+            </span>
           </div>
 
           <div className={`chase-stat-card glass-card ${isVisible ? 'animate-in' : ''}`} style={{ animationDelay: '450ms' }}>
             <span className="chase-stat-number text-red">49.8</span>
             <span className="chase-stat-label">Test 4th Innings Avg</span>
-            <span className="chase-stat-sub">Iconic Day 5 chases (Adelaide 141)</span>
+            <span className="chase-stat-sub">Historical 4th innings average (Adelaide 141, Joburg 96)</span>
           </div>
         </div>
+
 
         {/* Legendary Chases Carousel */}
         <div className="legendary-chases-container">

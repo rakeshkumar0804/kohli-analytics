@@ -12,6 +12,7 @@ import IPLSection from './components/IPL/IPLSection';
 import CareerTimelineSection from './components/Timeline/CareerTimelineSection';
 import WorldSection from './components/WorldMap/WorldSection';
 import BonusSection from './components/Bonus/BonusSection';
+import { DATA_VERIFIED_ON_FORMATTED } from './data/dataSources';
 
 export default function App() {
   return (
@@ -44,7 +45,8 @@ export default function App() {
           <p style={{ marginBottom: '0.5rem' }}>
             <span style={{ color: 'var(--gold-primary)', fontFamily: 'Bebas Neue', fontSize: '1.2rem', letterSpacing: '0.05em' }}>👑 KING KOHLI — THE ANALYTICS STORY</span>
           </p>
-          <p>Portfolio-grade Data Engineering & Visualization Project. Sourced from CricketData API & Cricsheet dataset.</p>
+          <p>Portfolio-grade Data Engineering & Visualization Project. Sourced from CricketData API & ESPNcricinfo dataset.</p>
+          <p style={{ marginTop: '0.4rem', fontSize: '0.78rem', color: '#9CA3AF' }}>Data verification snapshot: {DATA_VERIFIED_ON_FORMATTED} · Coverage varies by dataset</p>
         </footer>
       </div>
     </SmoothScrollWrapper>

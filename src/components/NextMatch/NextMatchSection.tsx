@@ -25,7 +25,7 @@ export default function NextMatchSection() {
           setMatchInfo(data);
           setLoading(false);
         }
-      } catch (err) {
+      } catch {
         if (isMounted) {
           setMatchInfo(null);
           setLoading(false);

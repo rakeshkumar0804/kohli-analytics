@@ -75,13 +75,30 @@ export interface EraStats {
 
 export interface PressureCell {
   phase: Phase;
-  pressureLevel: 'comfortable' | 'moderate' | 'stiff' | 'mountain';
+  pressureLevel: 'comfortable' | 'moderate' | 'stiff' | 'severe' | 'extreme' | 'mountain';
   rrrRange: string;
-  average: number;
+  rrrBand?: string;
+  average: number | null;
   strikeRate: number;
+  battingStrikeRate?: number;
+  scoringRatePer100LegalDeliveries?: number;
   innings: number;
+  ballsFaced?: number;
+  officialBatterBallsFaced?: number;
+  teamLegalDeliveries?: number;
+  strikerDeliveries?: number;
+  wideDeliveries?: number;
+  noBallDeliveries?: number;
+  runs?: number;
+  dismissals?: number;
+  fours?: number;
+  sixes?: number;
+  dotBallPercentage?: number;
+  boundaryPercentage?: number;
+  sampleSizeBand?: 'insufficient' | 'limited' | 'usable' | 'strong';
   famousKnock?: string;
 }
+
 
 export interface OpponentStats {
   country: string;
@@ -90,6 +107,7 @@ export interface OpponentStats {
   longitude: number;
   matches: number;
   innings?: number;
+  notOuts?: number;
   dismissals?: number;
   runs: number;
   avg: number;
@@ -122,7 +140,7 @@ export interface ChaseInnings {
   opponent: string;
   target: number;
   kohliScore: number;
-  result: 'won' | 'lost';
+  result: 'won' | 'lost' | 'draw';
   description: string;
   venue: string;
   format: Format;

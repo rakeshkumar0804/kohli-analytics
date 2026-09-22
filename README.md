@@ -92,22 +92,126 @@ src/
 
 ---
 
-## Data Engineering
+## Data Engineering & Integrity
 
 ### Data Sources
 
 **1. Live API Layer** — [CricketData.org](https://cricketdata.org) (free tier)
 - Used for: Current career aggregate stats (hero section counters), all formats
-- Endpoint: `GET /api/playerStats?id=253802` (Kohli's player ID)
 - Fallback: Static data if API is unavailable
 
-**2. Pre-processed Dataset** — Derived from Cricsheet.org open data
-- [Cricsheet](https://cricsheet.org) provides ball-by-ball JSON for every international match
-- Processed into typed match records with situational metadata, per format
-- Used for: All custom metric computation
+**2. Curated Benchmark Datasets** — Sourced & cross-validated against ESPNcricinfo Statsguru & Official ICC/BCCI/IPL Scorecards
+- Processed into typed match records and situational benchmark data, per format
+- Used for: Career aggregates, format breakdown, and custom situational metrics
 
 **3. Validation Source** — ESPNcricinfo Statsguru
 - Career aggregates cross-validated against Statsguru tables, format by format
+
+---
+
+## Data Engineering & Pipeline Architecture
+
+### Reproducible Ball-by-Ball Analytics Pipeline (Phase 3)
+
+The repository features a deterministic, typed analytics engine located in `src/analytics/` coupled with an offline Node data ingestion pipeline that ingests open ball-by-ball delivery archives from [Cricsheet](https://cricsheet.org/downloads/) (curated by Stephen Rushe; CC-BY 4.0 / ODbL 1.0):
+
+```
+virat-kohli-analytics/
+├── data/
+│   ├── README.md                      # Complete data acquisition, license & reproduction docs
+│   ├── manifests/
+│   │   └── cricsheet-manifest.json    # Typed manifest with archive SHA-256 checksums and schema
+│   ├── overrides/
+│   │   └── stage-overrides.json       # Deterministic tournament-stage mapping for ICC knockouts
+│   ├── raw/                           # Git-ignored Cricsheet zip archives (.gitkeep preserved)
+│   ├── normalized/                    # Git-ignored intermediate match records (.gitkeep preserved)
+│   └── derived/
+│       ├── kohli-analytics.json       # Compact production artifact (chase, pressure, stages)
+│       └── coverage-report.json       # Coverage reconciliation report vs Phase 1 references
+├── scripts/
+│   ├── download-cricsheet.mjs         # Downloads & verifies Cricsheet archives with SHA-256
+│   ├── ingest-cricsheet.mjs           # Filters Virat Kohli matches & normalizes into typed schema
+│   ├── derive-kohli-analytics.mjs     # Generates 5-band Pressure Maps, Chase Metrics & Stage Splits
+│   ├── verify-derived-data.mjs        # Validates quality gates, schema integrity & atomic writes
+│   ├── test-analytics.mjs             # 80 unit & regression tests across 7 suites
+│   └── test-data-integration.mjs     # End-to-end dataset integration test runner
+└── src/analytics/
+    ├── types.ts                       # Normalized match, innings, delivery, and analytical schemas
+    ├── normalizeMatch.ts              # Match validator and legal delivery normalizer
+    ├── filters.ts                     # Composable match, innings, delivery, and situational filters
+    ├── aggregateBatting.ts            # Pure batting calculations (runs, dismissals, average, SR)
+    ├── chaseMetrics.ts                # Chase engine (target bands, RRR progression, success rates)
+    ├── pressureMetrics.ts             # Pressure grid derivation (3 Phases × 5 RRR bands)
+    ├── clutchMetrics.ts               # Versioned Clutch Index model with trust gate
+    ├── adapters.ts                    # View-model adapters linking pipeline output to React UI
+    └── sources/cricsheet/
+        ├── types.ts                   # Cricsheet raw JSON schema interfaces
+        ├── mapRegistry.ts             # Player identity resolution (Cricinfo ID 253802, aliases)
+        ├── matchStage.ts              # Deterministic tournament stage classification engine
+        ├── parseCricsheetMatch.ts     # Converts Cricsheet match records to NormalizedMatch
+        └── validateCricsheet.ts       # Data-quality gates (unique IDs, sum checks, date formats)
+```
+
+#### Core Calculation Equations:
+- **Batting Average**:
+  $$\text{Batting Average} = \frac{\text{Total Runs}}{\text{Total Dismissals}}$$
+  *(Dismissals = Innings - Not Outs. Never calculated as Runs / Innings).*
+- **Strike Rate**:
+  $$\text{Strike Rate} = \frac{\text{Runs Scored}}{\text{Legal Balls Faced}} \times 100$$
+- **Dot Ball Percentage**:
+  $$\text{Dot Ball } \% = \frac{\text{Dot Balls}}{\text{Legal Balls Faced}} \times 100$$
+- **Boundary Percentage**:
+  $$\text{Boundary } \% = \frac{4 \times \text{Fours} + 6 \times \text{Sixes}}{\text{Total Runs}} \times 100$$
+
+#### Situational Segmentation & Pressure Bands:
+- **5 Explicit RRR Bands**:
+  - `below-6`: RRR < 6.0
+  - `6-to-8`: 6.0 <= RRR < 8.0
+  - `8-to-10`: 8.0 <= RRR < 10.0
+  - `10-to-12`: 10.0 <= RRR < 12.0
+  - `above-12`: RRR >= 12.0
+- **Zero-Indexed Phase Rules**:
+  - **ODI**: Powerplay overs 0–9 (balls 1–60), Middle overs 10–39 (balls 61–240), Death overs 40–49 (balls 241–300)
+  - **T20I / IPL**: Powerplay overs 0–5 (balls 1–36), Middle overs 6–14 (balls 37–90), Death overs 15–19 (balls 91–120)
+- **Test Format Pressure Map Policy**: Test cricket does not utilize limited-overs Required Run Rate or fixed overs death phases; `derivePressureMap(..., 'Test')` returns `status: 'unsupported-format'` with explicit warnings, and UI maintains `EXPERIMENTAL PLACEHOLDER`.
+
+#### Ingestion & Delivery Rules:
+- **Legal Deliveries**: Wides and no-balls do not count as legal balls faced by the batter.
+- **Byes & Leg-Byes**: Legal deliveries attributed to the team total without adding runs or balls faced to the batter.
+- **Run-Outs**: Non-striker run-outs are safely separated from striker dismissals.
+- **DLS Revised Targets**: Preserved directly from `innings.target` without manual re-calculation.
+- **Super Overs**: Isolated from regular innings analytics.
+
+#### Reproduction & Pipeline Execution:
+```bash
+# Refresh data pipeline (download -> checksum -> ingest -> derive -> verify)
+npm run data:refresh
+
+# Run unit tests (80/80 tests passing across 7 suites)
+npm test
+
+# Run dataset integration tests
+npm run test:data-integration
+```
+
+#### Coverage Reconciliation Summary (vs Phase 1 Locked References):
+- **ODI**: 300 / 314 matches ingested (14,819 runs vs 14,941 reference runs; diff: -122 runs; classified: `partial-coverage`).
+- **T20I**: 112 / 125 matches ingested (3,963 runs vs 4,188 reference runs; diff: -225 runs; classified: `partial-coverage`).
+- **Data Integrity Policy**: Phase 1 verified career aggregates remain the permanent displayed career totals. Coverage differences are transparently surfaced as dataset sample limits without artificial adjustment constants.
+- **Clutch Index Status**: Displays `CALIBRATION PENDING — PRODUCTION DATA INGESTED` with zero hardcoded fallbacks.
+
+---
+
+## Data Integrity and Provenance
+
+- **Data Last Verified**: `21 September 2026` (`verifiedOnDate: 2026-09-21`) — Coverage varies by dataset format.
+- **Official Aggregates**: Career totals across Test (123 Tests / 9,230 runs / 46.85 avg), ODI (314 ODIs / 14,941 runs / 58.59 avg), T20I (125 T20Is / 4,188 runs / 48.70 avg), and IPL (283 matches / 9,336 runs / 40.42 avg) are strictly matched against [Cricbuzz Official Profile](https://www.cricbuzz.com/profiles/1413/virat-kohli) and [ESPNcricinfo Statsguru](https://stats.espncricinfo.com/ci/engine/player/253802.html).
+- **Combined International Totals**: `28,359 runs`, `562 matches`, `629 innings`, `91 not-outs`, `538 dismissals`, `52.71 average`. Test + ODI + T20I only (IPL is strictly excluded).
+- **Opponent Dominance Data**: Base inputs (runs, innings, dismissals, average, centuries, fifties, high scores across 9 Test-playing nations) are verified reference aggregates from Statsguru. The `dominanceScore` is an experimental map-intensity heuristic derived from verified opponent aggregates; weighting is not an official cricket statistic.
+- **Experimental Metrics**: Clutch Index and Pressure Map are experimental models built on static situational benchmark datasets.
+- **Validation Suite**: Run `npm run validate:data` locally to verify arithmetic integrity, non-negative integer counts, chase metadata, manifest evidence URLs, and dataset invariants across all 13 project datasets in `src/data/dataSources.ts`.
+- **Validation Scope Disclaimer**: The automated validation script (`npm run validate:data`) proves structural and arithmetic self-consistency of project data files (e.g., averages matching `runs / dismissals`), not live historical scorecard querying against external databases.
+- **Confirmed Phase 4 Security Remediation Item**: The fallback API key in `src/api/cricketData.ts` (`bc512d1a-7972-40db-b609-caf7132476a5`) is hardcoded on the client side for demo reliability. Confirmed for Phase 4 security remediation (serverless API proxy / environment variable enforcement). No changes permitted during Phase 1 Data Freeze.
 
 ---
 
@@ -115,41 +219,27 @@ src/
 
 ### 1. Clutch Index (per format)
 
+**Status:** `Experimental — Calibration Pending`
+
 **Problem:** How do you quantify a player's ability to perform *better* under pressure, rather than just *perform well* in aggregate?
 
-**Approach:** A composite weighted score comparing situational performance to the baseline, computed independently for ODI, Test, and T20I.
+**Approach:** An experimental composite weighted model comparing situational performance to the career baseline, computed independently for ODI, Test, and T20I.
 
-**Formula:**
+**Calibration Status Note:** In Phase 1, Clutch Index scores are set to `Calibration Pending`. Phase 2 will derive and calibrate the score from reproducible ball-by-ball Cricsheet data rather than displaying raw uncalibrated weighted outputs.
 
-```
-Clutch Index = Σ (situational_metric / baseline_metric) × weight × 100
-               ─────────────────────────────────────────────────────
-                              Σ weights (= 100)
-
-Where:
-  Chase Dominance     = (chase_avg / baseline_avg)      × 35
-  Knockout Elevation  = (knockout_avg / baseline_avg)   × 25
-  Finals Performance  = (finals_avg / baseline_avg)     × 20
-  SR Pressure Boost   = (chase_SR / baseline_SR)        × 20
-```
-
-**Kohli's Values (ODI format):**
+**Situational Input Components (ODI format):**
 
 | Metric | Baseline | Situational | Weight |
 |---|---|---|---|
-| ODI Average | 52.3 | 65.0 (chase) | 35% |
-| Knockout Average | 52.3 | 68.4 | 25% |
-| Finals Average | 52.3 | 71.2 | 20% |
-| Strike Rate | 87.2 | 93.4 (chase) | 20% |
-
-**Result: ODI Clutch Index = 87.4 / 100** — computed from 314 ODIs, 54 centuries, 65.0 chase average, ICC World Cup knockout elevation.
-
-**Clutch Index — vs the Greats (ODI):** Kohli 87.4, Ponting 74.1, Rohit 73.5, Smith 72.8, Sachin 71.3, Williamson 68.9, Root 63.4
+| ODI Average | 58.59 | 65.0 (chase) | 35% |
+| Knockout Average | 58.59 | 68.4 | 25% |
+| Finals Average | 58.59 | 71.2 | 20% |
+| Strike Rate | 94.0 | 93.4 (chase) | 20% |
 
 **Limitations & Honest Notes:**
-- Finals sample size is small (N ≈ 12 innings); more data would improve confidence
-- "Knockout" definition uses ICC tournament quarter-finals onward
-- Baseline excludes chase innings to avoid double-counting
+- Experimental metric undergoing ball-by-ball calibration in Phase 2
+- Sample sizes in tournament finals (N ≈ 12 innings) require confidence interval modeling
+- Baseline represents Kohli's full format career average
 
 ---
 
@@ -180,7 +270,7 @@ No ICC trophy as captain — runner-up at the 2017 Champions Trophy and the 2021
 
 ### 3. Pressure Map (per format)
 
-**Problem:** Traditional heatmaps just show pitch zones. This one shows *situational pressure* — when exactly in a chase does Kohli excel or struggle?
+**Problem:** Traditional heatmaps just show pitch zones. This experimental map shows *situational pressure* — when exactly in a chase does Kohli excel or struggle?
 
 **Grid Definition:**
 
@@ -188,9 +278,9 @@ No ICC trophy as captain — runner-up at the 2017 Champions Trophy and the 2021
 
 **Y-Axis (Phase):** Powerplay (0–10 ov) · Middle (11–40 ov) · Death (41–50 ov)
 
-**Cell Value:** Kohli's batting average across all innings where he was batting in that phase with that RRR, reconstructed from ball-by-ball data.
+**Cell Value:** Kohli's batting average across all innings where he was batting in that phase with that RRR, based on curated situational data.
 
-**Key Finding (ODI):** Kohli's Middle/Moderate cell (avg **89.4**) is his golden zone — higher than most world-class batters' *overall* careers averages. Even in Mountain situations (>10 RRR) during death overs, he still averages **52.1** — when most batters panic, he accelerates.
+**Key Finding (ODI):** Kohli's Middle/Moderate cell (avg **89.4**) is his golden zone — higher than most world-class batters' *overall* career averages. Even in Mountain situations (>10 RRR) during death overs, he still averages **52.1** — when most batters panic, he accelerates.
 
 **Color Ramp:** D3 sequential scale — `#1a1a2e` → `#C8102E` (red) → `#FFD700` (gold)
 
@@ -204,7 +294,7 @@ No ICC trophy as captain — runner-up at the 2017 Champions Trophy and the 2021
 |---|---|---|---|
 | Youth & Promise | 2008–2011 | 38.6 | Learning to anchor |
 | The Rise | 2012–2015 | 58.4 | Becomes a genius, not just a talent |
-| Absolute Peak | 2016–2019 | 82.1 | Greatest sustained run in modern ODI cricket |
+| Absolute Peak | 2016–2019 | 82.1 | Greatest sustained run in modern ODI cricket (973 IPL runs in a single season) |
 | The Drought | 2020–2022 | 38.2 | 3-year century drought tests character |
 | Renaissance | 2023–Present | 72.5 | 765 WC runs, 16 centuries, 78.3 chase avg, 71 matches — 2024 T20 WC Final: 76 off 59 to seal India's title |
 
@@ -233,7 +323,7 @@ Multi-dimensional skill matrix comparing Kohli against any legend across 6 core 
 
 ### 6. Global Dominance
 
-Country-by-country breakdown of Kohli's record against every major cricket-playing nation, with per-country average, centuries, and runs, plus a computed Dominance Score (currently 95/100 vs South Africa — 72.24 average, 8 centuries, 42 matches, 2164 runs).
+Country-by-country breakdown of Kohli's record against every major cricket-playing nation, with verified per-country aggregates (average, centuries, runs) across all international formats (Test + ODI + T20I), plus an experimental map-intensity Dominance Score heuristic (e.g. 92/100 vs South Africa — 59.14 average, 10 centuries, 64 matches, 3,608 runs). Base inputs are verified reference aggregates; the dominanceScore is an experimental visual heuristic derived from verified aggregates.
 
 ---
 

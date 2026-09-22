@@ -100,7 +100,7 @@ export default function WorldSection() {
 
               <div className="dominance-bar-container">
                 <div className="dominance-header">
-                  <span>Dominance Score</span>
+                  <span>Dominance Score (Experimental Heuristic)</span>
                   <span className="text-gold">{activeCountry.dominanceScore}/100</span>
                 </div>
                 <div className="dominance-track">

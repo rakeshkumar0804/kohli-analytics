@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "3.3.0",
+  "generatedAt": "2026-09-22T00:30:00.000Z",
+  "description": "Versioned independent scorecard oracle fixtures for Cricsheet parser verification against official published scorecards.",
+  "oracles": [
+    {
+      "checkId": "SC-01",
+      "scenario": "Ordinary dismissal",
+      "matchId": "535798",
+      "date": "2012-03-18",
+      "format": "ODI",
+      "opponent": "Pakistan",
+      "event": "Asia Cup 2011/12",
+      "venue": "Shere Bangla National Stadium, Mirpur",
+      "scorecardUrl": "https://www.espncricinfo.com/series/asia-cup-2011-12-524504/india-vs-pakistan-5th-match-535798/full-scorecard",
+      "innings": 2,
+      "expected": {
+        "runs": 183,
+        "ballsFaced": 148,
+        "fours": 22,
+        "sixes": 1,
+        "dismissal": "caught",
+        "dismissalDetail": "c Mohammad Hafeez b Umar Gul",
+        "matchResult": "win",
+        "completionState": "target-achieved"
+      }
+    },
+    {
+      "checkId": "SC-02",
+      "scenario": "Not-out chase",
+      "matchId": "518966",
+      "date": "2012-02-28",
+      "format": "ODI",
+      "opponent": "Sri Lanka",
+      "event": "Commonwealth Bank Series 2011/12",
+      "venue": "Bellerive Oval, Hobart",
+      "scorecardUrl": "https://www.espncricinfo.com/series/commonwealth-bank-series-2011-12-518940/india-vs-sri-lanka-11th-match-518966/full-scorecard",
+      "innings": 2,
+      "expected": {
+        "runs": 133,
+        "ballsFaced": 86,
+        "fours": 16,
+        "sixes": 2,
+        "dismissal": "not out",
+        "dismissalDetail": "not out",
+        "matchResult": "win",
+        "completionState": "target-achieved"
+      }
+    },
+    {
+      "checkId": "SC-03",
+      "scenario": "Target achieved before over limit",
+      "matchId": "518966",
+      "date": "2012-02-28",
+      "format": "ODI",
+      "opponent": "Sri Lanka",
+      "event": "Commonwealth Bank Series 2011/12",
+      "venue": "Bellerive Oval, Hobart",
+      "scorecardUrl": "https://www.espncricinfo.com/series/commonwealth-bank-series-2011-12-518940/india-vs-sri-lanka-11th-match-518966/full-scorecard",
+      "innings": 2,
+      "expected": {
+        "target": 321,
+        "scheduledOvers": 50.0,
+        "oversUsed": 36.4,
+        "completionState": "target-achieved"
+      }
+    },
+    {
+      "checkId": "SC-04",
+      "scenario": "Wides accounting (zero balls faced increment)",
+      "matchId": "1298150",
+      "date": "2022-10-23",
+      "format": "T20I",
+      "opponent": "Pakistan",
+      "event": "ICC Men's T20 World Cup 2022/23",
+      "venue": "Melbourne Cricket Ground, Melbourne",
+      "scorecardUrl": "https://www.espncricinfo.com/series/icc-men-s-t20-world-cup-2022-23-1298134/india-vs-pakistan-16th-match-group-2-1298150/full-scorecard",
+      "innings": 2,
+      "expected": {
+        "runs": 82,
+        "ballsFaced": 53,
+        "fours": 6,
+        "sixes": 4,
+        "dismissal": "not out",
+        "completionState": "target-achieved"
+      }
+    },
+    {
+      "checkId": "SC-05",
+      "scenario": "No-ball delivery accounting (1 ball faced, batter runs credited)",
+      "matchId": "1298150",
+      "date": "2022-10-23",
+      "format": "T20I",
+      "opponent": "Pakistan",
+      "event": "ICC Men's T20 World Cup 2022/23",
+      "venue": "Melbourne Cricket Ground, Melbourne",
+      "scorecardUrl": "https://www.espncricinfo.com/series/icc-men-s-t20-world-cup-2022-23-1298134/india-vs-pakistan-16th-match-group-2-1298150/full-scorecard",
+      "innings": 2,
+      "expected": {
+        "over19_4_event": "Nawaz no-ball hit for six",
+        "ballsFacedIncrement": 1,
+        "batterRuns": 6,
+        "legalBallIncrement": 0
+      }
+    },
+    {
+      "checkId": "SC-06",
+      "scenario": "Byes accounting (1 ball faced by striker, 0 batter runs, team extras)",
+      "matchId": "1298150",
+      "date": "2022-10-23",
+      "format": "T20I",
+      "opponent": "Pakistan",
+      "event": "ICC Men's T20 World Cup 2022/23",
+      "venue": "Melbourne Cricket Ground, Melbourne",
+      "scorecardUrl": "https://www.espncricinfo.com/series/icc-men-s-t20-world-cup-2022-23-1298134/india-vs-pakistan-16th-match-group-2-1298150/full-scorecard",
+      "innings": 2,
+      "expected": {
+        "over19_4_freehit": "Bowled off free-hit, 3 byes",
+        "strikerBallsIncrement": 1,
+        "strikerRuns": 0,
+        "byes": 3
+      }
+    },
+    {
+      "checkId": "SC-07",
+      "scenario": "Leg-byes accounting",
+      "matchId": "1384437",
+      "date": "2023-11-15",
+      "format": "ODI",
+      "opponent": "New Zealand",
+      "event": "ICC Cricket World Cup 2023/24",
+      "venue": "Wankhede Stadium, Mumbai",
+      "scorecardUrl": "https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1384392/india-vs-new-zealand-1st-semi-final-1384437/full-scorecard",
+      "innings": 1,
+      "expected": {
+        "runs": 117,
+        "ballsFaced": 113,
+        "fours": 9,
+        "sixes": 2,
+        "dismissal": "caught",
+        "dismissalDetail": "c Conway b Southee",
+        "matchResult": "win",
+        "completionState": "overs-exhausted"
+      }
+    },
+    {
+      "checkId": "SC-08",
+      "scenario": "Run-out accounting (non-striker run out preserves striker not out)",
+      "matchId": "1122284",
+      "date": "2018-02-16",
+      "format": "ODI",
+      "opponent": "South Africa",
+      "event": "India tour of South Africa 2017/18",
+      "venue": "SuperSport Park, Centurion",
+      "scorecardUrl": "https://www.espncricinfo.com/series/india-in-south-africa-2017-18-1122723/south-africa-vs-india-6th-odi-1122284/full-scorecard",
+      "innings": 2,
+      "expected": {
+        "runs": 129,
+        "ballsFaced": 96,
+        "fours": 19,
+        "sixes": 2,
+        "dismissal": "not out",
+        "dismissalDetail": "not out (non-striker Shreyas Iyer run out)",
+        "matchResult": "win",
+        "completionState": "target-achieved"
+      }
+    },
+    {
+      "checkId": "SC-09",
+      "scenario": "DLS revised target completion",
+      "matchId": "1188626",
+      "date": "2019-08-14",
+      "format": "ODI",
+      "opponent": "West Indies",
+      "event": "India tour of USA & West Indies 2019",
+      "venue": "Queen's Park Oval, Port of Spain",
+      "scorecardUrl": "https://www.espncricinfo.com/series/india-in-west-indies-2019-1188613/west-indies-vs-india-3rd-odi-1188626/full-scorecard",
+      "innings": 2,
+      "expected": {
+        "runs": 114,
+        "ballsFaced": 99,
+        "fours": 14,
+        "sixes": 0,
+        "dismissal": "not out",
+        "target": 255,
+        "completionState": "revised-target-completed"
+      }
+    },
+    {
+      "checkId": "SC-10",
+      "scenario": "Abandoned / No-result match",
+      "matchId": "1388394",
+      "date": "2023-09-02",
+      "format": "ODI",
+      "opponent": "Pakistan",
+      "event": "Asia Cup 2023",
+      "venue": "Pallekele International Cricket Stadium, Kandy",
+      "scorecardUrl": "https://www.espncricinfo.com/series/asia-cup-2023-1388374/india-vs-pakistan-3rd-match-group-a-1388394/full-scorecard",
+      "innings": 1,
+      "expected": {
+        "runs": 4,
+        "ballsFaced": 7,
+        "fours": 1,
+        "sixes": 0,
+        "dismissal": "bowled",
+        "dismissalDetail": "b Shaheen Shah Afridi",
+        "inningsCompletionState": "all-out",
+        "matchResultState": "no-result",
+        "analyticsInclusionDecision": "included-in-career-excluded-from-chase"
+      }
+    }
+  ]
+}

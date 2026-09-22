@@ -45,7 +45,7 @@ export const eraData: EraStats[] = [
     era: 'peak',
     label: 'Absolute Peak',
     years: '2016–2019',
-    description: 'The greatest era of any batter in modern cricket. 2016 alone: 973 T20I runs in a calendar year. ODI avg 92 in 2018. A machine operating at peak.',
+    description: 'The greatest era of any batter in modern cricket. 2016 alone: 973 IPL runs in a single season (all-time record) & 641 T20I runs at a 106.83 batting average. A machine operating at peak.',
     odiAvg: 82.1,
     testAvg: 62.7,
     odiSR: 95.4,
@@ -91,15 +91,15 @@ export const eraData: EraStats[] = [
 // Source: ESPNcricinfo & Official International Career Match Records
 // ============================================================
 export const opponentData: OpponentStats[] = [
-  { country: 'Australia',   code: 'AU', latitude: -25.3, longitude: 133.8, matches: 106, innings: 124, dismissals: 114, runs: 5551, avg: 48.69, centuries: 17, fifties: 29, highScore: '169',  dominanceScore: 88, odiRuns: 5551, odiAvg: 48.69 },
-  { country: 'South Africa', code: 'ZA', latitude: -28.5, longitude: 24.7, matches: 64,  innings: 84,  dismissals: 80.6, runs: 4767, avg: 59.15, centuries: 17, fifties: 15, highScore: '254*', dominanceScore: 92, odiRuns: 4767, odiAvg: 59.15 },
-  { country: 'England',     code: 'EN', latitude:  52.4, longitude:  -1.9, matches: 95,  innings: 125, dismissals: 99,  runs: 4096, avg: 41.37, centuries: 9,  fifties: 20, highScore: '149',  dominanceScore: 72, odiRuns: 4096, odiAvg: 41.37 },
-  { country: 'Sri Lanka',   code: 'LK', latitude:   7.9, longitude:  80.7, matches: 74,  innings: 79,  dismissals: 65,  runs: 3937, avg: 60.57, centuries: 15, fifties: 18, highScore: '243',  dominanceScore: 94, odiRuns: 3937, odiAvg: 60.57 },
-  { country: 'West Indies',  code: 'WI', latitude:  17.1, longitude: -61.8, matches: 80,  innings: 85,  dismissals: 65,  runs: 3850, avg: 59.23, centuries: 23, fifties: 23, highScore: '200',  dominanceScore: 95, odiRuns: 3850, odiAvg: 59.23 },
-  { country: 'New Zealand', code: 'NZ', latitude: -40.9, longitude: 174.9, matches: 59,  innings: 72,  dismissals: 64,  runs: 2902, avg: 45.34, centuries: 9,  fifties: 15, highScore: '211',  dominanceScore: 78, odiRuns: 2902, odiAvg: 45.34 },
-  { country: 'Bangladesh',  code: 'BD', latitude:  23.7, longitude:  90.4, matches: 29,  innings: 33,  dismissals: 25,  runs: 1643, avg: 65.72, centuries: 7,  fifties: 5,  highScore: '204',  dominanceScore: 91, odiRuns: 1643, odiAvg: 65.72 },
-  { country: 'Pakistan',    code: 'PK', latitude:  30.4, longitude:  69.3, matches: 27,  innings: 27,  dismissals: 19,  runs: 1166, avg: 61.37, centuries: 3,  fifties: 7,  highScore: '183',  dominanceScore: 90, odiRuns: 1166, odiAvg: 61.37 },
-  { country: 'Zimbabwe',    code: 'ZW', latitude: -19.0, longitude:  29.2, matches: 11,  innings: 9,   dismissals: 6,   runs: 305,  avg: 50.83, centuries: 1,  fifties: 1,  highScore: '115*', dominanceScore: 85, odiRuns: 305,  odiAvg: 50.83 },
+  { country: 'Australia',   code: 'AU', latitude: -25.3, longitude: 133.8, matches: 106, innings: 126, notOuts: 12, dismissals: 114, runs: 5551, avg: 48.69, centuries: 17, fifties: 29, highScore: '186',  dominanceScore: 88 },
+  { country: 'Bangladesh',  code: 'BD', latitude:  23.7, longitude:  90.4, matches: 31,  innings: 36,  notOuts: 9,  dismissals: 27,  runs: 1698, avg: 62.88, centuries: 7,  fifties: 5,  highScore: '204',  dominanceScore: 91 },
+  { country: 'England',     code: 'EN', latitude:  52.4, longitude:  -1.9, matches: 90,  innings: 112, notOuts: 11, dismissals: 101, runs: 4180, avg: 41.38, centuries: 8,  fifties: 26, highScore: '235',  dominanceScore: 72 },
+  { country: 'New Zealand', code: 'NZ', latitude: -40.9, longitude: 174.9, matches: 60,  innings: 73,  notOuts: 6,  dismissals: 67,  runs: 3167, avg: 47.26, centuries: 10, fifties: 16, highScore: '211',  dominanceScore: 78 },
+  { country: 'Pakistan',    code: 'PK', latitude:  30.4, longitude:  69.3, matches: 28,  innings: 28,  notOuts: 8,  dismissals: 20,  runs: 1270, avg: 63.50, centuries: 4,  fifties: 7,  highScore: '183',  dominanceScore: 90 },
+  { country: 'South Africa', code: 'ZA', latitude: -28.5, longitude: 24.7, matches: 64,  innings: 73,  notOuts: 12, dismissals: 61,  runs: 3608, avg: 59.14, centuries: 10, fifties: 17, highScore: '254*', dominanceScore: 92 },
+  { country: 'Sri Lanka',   code: 'LK', latitude:   7.9, longitude:  80.7, matches: 75,  innings: 79,  notOuts: 14, dismissals: 65,  runs: 4076, avg: 62.70, centuries: 15, fifties: 18, highScore: '243',  dominanceScore: 94 },
+  { country: 'West Indies',  code: 'WI', latitude:  17.1, longitude: -61.8, matches: 73,  innings: 75,  notOuts: 10, dismissals: 65,  runs: 3850, avg: 59.23, centuries: 12, fifties: 23, highScore: '200',  dominanceScore: 95 },
+  { country: 'Zimbabwe',    code: 'ZW', latitude: -19.0, longitude:  29.2, matches: 11,  innings: 8,   notOuts: 2,  dismissals: 6,   runs: 305,  avg: 50.83, centuries: 1,  fifties: 1,  highScore: '115*', dominanceScore: 85 },
 ];
 
 // ============================================================
@@ -224,25 +224,178 @@ export const heroStatsByFormat = {
     { value: 52.71, label: 'Combined Average', subtext: '562 Matches (Test + ODI + T20I)', decimals: 2 },
   ],
   ODI: [
-    { value: 14941, label: 'ODI Career Runs', subtext: '314 ODIs (302 Innings, 94.0 SR)', decimals: 0 },
+    { value: 14941, label: 'ODI Career Runs', subtext: '314 ODIs (302 Innings, 93.95 SR)', decimals: 0 },
     { value: 54,    label: 'ODI Centuries', subtext: 'Most ODI 100s in history', decimals: 0 },
-    { value: 58.6,  label: 'ODI Batting Average', subtext: 'Most ODI Centuries in History', decimals: 1 },
+    { value: 58.59, label: 'ODI Batting Average', subtext: 'Most ODI Centuries in History', decimals: 2 },
   ],
   Test: [
-    { value: 9230,  label: 'Test Career Runs', subtext: '123 Tests (210 Innings, 55.6 SR)', decimals: 0 },
+    { value: 9230,  label: 'Test Career Runs', subtext: '123 Tests (210 Innings, 55.58 SR)', decimals: 0 },
     { value: 30,    label: 'Test Centuries', subtext: '7 Double Centuries', decimals: 0 },
-    { value: 46.9,  label: 'Test Batting Average', subtext: '31 Fifties', decimals: 1 },
+    { value: 46.85, label: 'Test Batting Average', subtext: '31 Fifties', decimals: 2 },
   ],
   T20I: [
-    { value: 4188,  label: 'T20I Career Runs', subtext: '125 T20Is (117 Innings, 137.0 SR)', decimals: 0 },
+    { value: 4188,  label: 'T20I Career Runs', subtext: '125 T20Is (117 Innings, 137.04 SR)', decimals: 0 },
     { value: 39,    label: 'T20I 50+ Scores', subtext: '1 Century + 38 Fifties', decimals: 0 },
-    { value: 48.7,  label: 'T20I Batting Average', subtext: '137.0 Strike Rate', decimals: 1 },
+    { value: 48.70, label: 'T20I Batting Average', subtext: '137.04 Strike Rate', decimals: 2 },
   ],
 };
 
 // ============================================================
+// CAREER STATS — All formats (Verified Official Table)
+// ============================================================
+export const careerStats = {
+  overall: { matches: 562, innings: 629, notOuts: 91, dismissals: 538, runs: 28359, centuries: 85, fifties: 148, average: 52.71, strikeRate: 79.73, ballsFaced: 35567, ducks: 40, fours: 2785, sixes: 325, catches: 344, highScore: 254 },
+  odi: { matches: 314, innings: 302, notOuts: 47, dismissals: 255, runs: 14941, average: 58.59, strikeRate: 93.95, centuries: 54, fifties: 79, highScore: 183, ballsFaced: 15903, fours: 1389, sixes: 171, ducks: 18, catches: 169 },
+  test: { matches: 123, innings: 210, notOuts: 13, dismissals: 197, runs: 9230, average: 46.85, strikeRate: 55.58, centuries: 30, fifties: 31, highScore: 254, ballsFaced: 16608, fours: 1027, sixes: 30, ducks: 15, catches: 121 },
+  t20i: { matches: 125, innings: 117, notOuts: 31, dismissals: 86, runs: 4188, average: 48.70, strikeRate: 137.04, centuries: 1, fifties: 38, highScore: 122, ballsFaced: 3056, fours: 369, sixes: 124, ducks: 7, catches: 54 },
+  ipl: { matches: 283, innings: 275, notOuts: 44, dismissals: 231, runs: 9336, average: 40.42, strikeRate: 134.8, centuries: 9, fifties: 68, highScore: 113, ballsFaced: 6926, fours: 844, sixes: 316 },
+};
+
+// ============================================================
+// DOMESTIC / ALL-FORMAT CAREER AGGREGATES
+// Source: Cricbuzz & ESPNcricinfo Career Summaries
+// ============================================================
+export const allFormatCareerStats = {
+  firstClass: {
+    batting: {
+      matches: 156,
+      innings: 259,
+      notOuts: 20,
+      dismissals: 239,
+      runs: 11485,
+      highScore: '254*',
+      average: 48.05,
+      ballsFaced: 20526,
+      strikeRate: 55.95,
+      centuries: 37,
+      fifties: 39,
+      fours: 1341,
+      sixes: 45,
+      catches: 152,
+      stumpings: 0,
+    },
+    bowling: {
+      matches: 156,
+      innings: 25,
+      balls: 643,
+      runsConceded: 338,
+      wickets: 3,
+      bbi: '1/19',
+      bbm: '2/42',
+      average: 112.67,
+      sourceDisplayedAverage: 112.66,
+      economy: 3.15,
+      strikeRate: 214.3,
+      fourWickets: 0,
+      fiveWickets: 0,
+      tenWickets: 0,
+    },
+  },
+  listA: {
+    batting: {
+      matches: 350,
+      innings: 337,
+      notOuts: 50,
+      dismissals: 287,
+      runs: 16591,
+      highScore: '183',
+      average: 57.80,
+      ballsFaced: 17601,
+      strikeRate: 94.26,
+      centuries: 59,
+      fifties: 88,
+      fours: 1580,
+      sixes: 199,
+      catches: 189,
+      stumpings: 0,
+    },
+    bowling: {
+      matches: 350,
+      innings: 57,
+      balls: 726,
+      runsConceded: 741,
+      wickets: 5,
+      bbi: '1/13',
+      bbm: '1/13',
+      average: 148.20,
+      economy: 6.12,
+      strikeRate: 145.2,
+      fourWickets: 0,
+      fiveWickets: 0,
+      tenWickets: 0,
+    },
+  },
+  allT20: {
+    batting: {
+      matches: 430,
+      innings: 413,
+      notOuts: 78,
+      dismissals: 335,
+      runs: 14218,
+      highScore: '122*',
+      average: 42.44,
+      ballsFaced: 10463,
+      strikeRate: 135.88,
+      centuries: 10,
+      fifties: 110,
+      fours: 1283,
+      sixes: 460,
+      catches: 194,
+      stumpings: 0,
+    },
+    bowling: {
+      matches: 430,
+      innings: 45,
+      balls: 460,
+      runsConceded: 667,
+      wickets: 8,
+      bbi: '2/25',
+      bbm: '2/25',
+      average: 83.375,
+      sourceDisplayedAverage: 83.37,
+      economy: 8.70,
+      strikeRate: 57.5,
+      fourWickets: 0,
+      fiveWickets: 0,
+      tenWickets: 0,
+    },
+  },
+};
+
+// ============================================================
+// U-19 CAREER AGGREGATES (SEPARATE SCOPE)
+// Source: ESPNcricinfo & BCCI U-19 Match Records
+// ============================================================
+export const u19CareerStats = {
+  u19Test: {
+    matches: 12,
+    innings: null,
+    notOuts: null,
+    runs: 932,
+    average: 51.78,
+    highScore: '144',
+    centuries: 3,
+    fifties: 6,
+    catches: 15,
+  },
+  u19ODI: {
+    matches: 28,
+    innings: null,
+    notOuts: null,
+    runs: 978,
+    average: 46.57,
+    highScore: '100',
+    centuries: 1,
+    fifties: 6,
+    fours: 93,
+    sixes: 14,
+    catches: 16,
+  },
+};
+
+// ============================================================
 // CHASE MASTER — Famous Kohli Chase Innings by Format
-// Source: Official Match Records
+// Source: Official Match Records (Genuine 2nd/4th Innings Chases Only)
 // ============================================================
 export const famousChases: ChaseInnings[] = [
   // T20I Chases
@@ -261,21 +414,21 @@ export const famousChases: ChaseInnings[] = [
   { year: 2016, opponent: 'Australia', target: 161, kohliScore: 82, result: 'won', format: 'T20I', venue: 'Mohali', description: 'T20 WC quarter-final masterclass. 82* off 51 in a knockout run-chase.' },
   { year: 2016, opponent: 'Pakistan', target: 84, kohliScore: 55, result: 'won', format: 'T20I', venue: 'Kolkata', description: 'Asia Cup. Tricky pitch. Unbeaten 55* off 47 to anchor India home safely.' },
   { year: 2019, opponent: 'West Indies', target: 208, kohliScore: 94, result: 'won', format: 'T20I', venue: 'Hyderabad', description: 'Blistering 94* off 50 to chase down 208, featuring the iconic notebook celebration.' },
-  { year: 2024, opponent: 'South Africa', target: 177, kohliScore: 76, result: 'won', format: 'T20I', venue: 'Bridgetown', description: 'T20 WC 2024 Final. Anchored India to 176 in the biggest T20 match of his career.' },
+  { year: 2014, opponent: 'South Africa', target: 173, kohliScore: 72, result: 'won', format: 'T20I', venue: 'Dhaka', description: 'T20 WC 2014 semi-final. Masterful 72* off 44 balls to chase down 173.' },
 
   // ODI Chases
   { year: 2012, opponent: 'Sri Lanka', target: 321, kohliScore: 133, result: 'won', format: 'ODI', venue: 'Hobart', description: 'The innings that announced the Chase Master to the world. 133 off 86 with India needing a miracle in 40 overs.' },
   { year: 2012, opponent: 'Pakistan', target: 330, kohliScore: 183, result: 'won', format: 'ODI', venue: 'Dhaka', description: 'Career best ODI score — 183 off 148, dismantling Pakistan\'s record Asia Cup total.' },
   { year: 2013, opponent: 'Australia', target: 360, kohliScore: 100, result: 'won', format: 'ODI', venue: 'Jaipur', description: 'Fastest ODI century by an Indian — 100 off 52 balls chasing 360.' },
-  { year: 2019, opponent: 'West Indies', target: 316, kohliScore: 120, result: 'won', format: 'ODI', venue: 'Visakhapatnam', description: 'A masterclass in pressure pacing. 120 to seal a high-scoring chase.' },
-  { year: 2023, opponent: 'Pakistan', target: 267, kohliScore: 122, result: 'won', format: 'ODI', venue: 'Ahmedabad', description: 'World Cup 2023 — unbeaten 122 against Pakistan in front of 130,000 home fans.' },
-  { year: 2023, opponent: 'New Zealand', target: 274, kohliScore: 117, result: 'won', format: 'ODI', venue: 'Dharamsala', description: 'World Cup 2023 semi-finals. 117 to power India into the final.' },
+  { year: 2017, opponent: 'England', target: 351, kohliScore: 122, result: 'won', format: 'ODI', venue: 'Pune', description: 'Masterclass in a high-scoring pursuit. 122 off 105 to chase down 351 after India were 63/4.' },
+  { year: 2018, opponent: 'West Indies', target: 323, kohliScore: 140, result: 'won', format: 'ODI', venue: 'Guwahati', description: 'Supreme pacing. 140 off 107 balls to comfortably chase 323.' },
+  { year: 2023, opponent: 'New Zealand', target: 274, kohliScore: 95, result: 'won', format: 'ODI', venue: 'Dharamsala', description: 'World Cup 2023 league stage. Anchored a tough chase of 274 with a sublime 95 off 104 balls.' },
+  { year: 2023, opponent: 'Australia', target: 200, kohliScore: 85, result: 'won', format: 'ODI', venue: 'Chennai', description: 'World Cup 2023 opener. Rescued India from 2/3 with a brilliant 85 under extreme pressure.' },
 
-  // Test Chases & 4th Innings Masterclasses
+  // Test Chases (4th Innings Pursuit)
   { year: 2014, opponent: 'Australia', target: 364, kohliScore: 141, result: 'lost', format: 'Test', venue: 'Adelaide', description: 'Iconic 4th innings counter-attack. Scored 141 in a daring chase of 364 on Day 5.' },
-  { year: 2018, opponent: 'England', target: 194, kohliScore: 149, result: 'lost', format: 'Test', venue: 'Edgbaston', description: 'Solo battle against Anderson & Broad. 149 in 1st inn & 51 in 4th inn pursuit.' },
-  { year: 2018, opponent: 'South Africa', target: 287, kohliScore: 153, result: 'lost', format: 'Test', venue: 'Centurion', description: 'Epic 153 on a venomous pitch against Steyn, Morkel, and Rabada.' },
-  { year: 2015, opponent: 'Sri Lanka', target: 176, kohliScore: 103, result: 'won', format: 'Test', venue: 'Galle', description: 'Masterful Test century anchoring a crucial 1st Test victory.' },
+  { year: 2013, opponent: 'South Africa', target: 458, kohliScore: 96, result: 'draw', format: 'Test', venue: 'Johannesburg', description: 'Valiant 4th innings 96 in a historic Day 5 chase where India reached 450/7.' },
+  { year: 2018, opponent: 'England', target: 194, kohliScore: 51, result: 'lost', format: 'Test', venue: 'Edgbaston', description: 'Fought valiantly in the 4th innings pursuit of 194, scoring 51 before falling.' },
 ];
 
 // ============================================================
@@ -353,7 +506,7 @@ export const clutchMetricsByFormat: Record<Format, ClutchMetrics & { formatNote:
     baselineSR: 94.0,
     chaseSR: 93.4,
     clutchIndex: 87.4,
-    formatNote: 'Computed from 314 ODIs, 54 centuries, 65.0 chase average & ICC World Cup knockout elevation.',
+    formatNote: 'Experimental composite metric computed from 314 ODIs, 54 centuries, 65.0 chase average & ICC World Cup knockout elevation.',
     breakdown: { chaseWeight: 35, knockoutWeight: 25, finalsWeight: 20, srWeight: 20 },
   },
   Test: {
@@ -364,7 +517,7 @@ export const clutchMetricsByFormat: Record<Format, ClutchMetrics & { formatNote:
     baselineSR: 55.6,
     chaseSR: 58.4,
     clutchIndex: 79.8,
-    formatNote: 'Adapted for Test cricket: 4th innings chases, SENA away test wins & WTC deciders (Draws factored).',
+    formatNote: 'Experimental composite metric for Test cricket: 4th innings chases, SENA away test wins & WTC deciders.',
     breakdown: { chaseWeight: 35, knockoutWeight: 25, finalsWeight: 20, srWeight: 20 },
   },
   T20I: {
@@ -375,7 +528,7 @@ export const clutchMetricsByFormat: Record<Format, ClutchMetrics & { formatNote:
     baselineSR: 137.0,
     chaseSR: 142.8,
     clutchIndex: 94.2,
-    formatNote: 'Computed from T20 World Cup chases (82.5 avg), 4 WC knockout 50s & 184+ death overs strike rate.',
+    formatNote: 'Experimental composite metric computed from T20 World Cup chases (82.5 avg), WC knockout 50s & death overs strike rate.',
     breakdown: { chaseWeight: 35, knockoutWeight: 25, finalsWeight: 20, srWeight: 20 },
   },
 };
@@ -394,16 +547,6 @@ export const legendsClutch: { name: string; clutchIndex: number; color: string }
   { name: 'Root',       clutchIndex: 63.4, color: '#3b82f6' },
 ];
 
-// ============================================================
-// CAREER STATS — All formats (Verified Official Table)
-// ============================================================
-export const careerStats = {
-  overall: { matches: 562, runs: 28359, centuries: 85, average: 52.71, strikeRate: 94.0, highScore: 254 },
-  odi: { matches: 314, innings: 302, runs: 14941, average: 58.6, strikeRate: 94.0, centuries: 54, fifties: 79, highScore: 183, notOuts: 47, ballsFaced: 15903, fours: 1389, sixes: 171 },
-  test: { matches: 123, innings: 210, runs: 9230, average: 46.9, strikeRate: 55.6, centuries: 30, fifties: 31, highScore: 254, notOuts: 13, ballsFaced: 16608, fours: 1027, sixes: 30 },
-  t20i: { matches: 125, innings: 117, runs: 4188, average: 48.7, strikeRate: 137.0, centuries: 1, fifties: 38, highScore: 122, notOuts: 31, ballsFaced: 3056, fours: 369, sixes: 124 },
-  ipl: { matches: 283, innings: 275, runs: 9336, average: 40.4, strikeRate: 134.8, centuries: 9, fifties: 68, highScore: 113, notOuts: 44, ballsFaced: 6926, fours: 844, sixes: 316 },
-};
 
 // ODI Year-wise averages for Era Engine chart
 export const yearlyODIAvg: { year: number; avg: number; sr: number; centuries: number }[] = [
@@ -446,7 +589,7 @@ export const iplCareerData = {
   innings: 275,
   notOuts: 44,
   runs: 9336,
-  average: 40.4,
+  average: 40.42,
   strikeRate: 134.8,
   ballsFaced: 6926,
   centuries: 9,

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { clutchMetricsByFormat, legendsClutch } from '../../data/kohliData';
-import { useCountUp, useIntersectionObserver } from '../../hooks';
+import { legendsClutch } from '../../data/kohliData';
+import { getClutchViewModel } from '../../analytics';
+import { useIntersectionObserver } from '../../hooks';
 import './ClutchSection.css';
 
 const BREAKDOWN_ITEMS = [
@@ -8,7 +9,7 @@ const BREAKDOWN_ITEMS = [
     label: 'Chase Dominance',
     weight: 35,
     value: 65.0,
-    baseline: 52.3,
+    baseline: 58.6,
     unit: 'avg',
     color: '#C8102E',
     description: 'ODI batting average while chasing vs baseline',
@@ -17,7 +18,7 @@ const BREAKDOWN_ITEMS = [
     label: 'Knockout Elevation',
     weight: 25,
     value: 68.4,
-    baseline: 52.3,
+    baseline: 58.6,
     unit: 'avg',
     color: '#e07b39',
     description: 'ICC knockout match average',
@@ -26,7 +27,7 @@ const BREAKDOWN_ITEMS = [
     label: 'Finals Performance',
     weight: 20,
     value: 71.2,
-    baseline: 52.3,
+    baseline: 58.6,
     unit: 'avg',
     color: '#FFD700',
     description: 'Tournament finals batting average',
@@ -35,26 +36,18 @@ const BREAKDOWN_ITEMS = [
     label: 'SR Pressure Boost',
     weight: 20,
     value: 93.4,
-    baseline: 87.2,
+    baseline: 94.0,
     unit: 'SR',
     color: '#22c55e',
     description: 'Chase strike rate vs baseline strike rate',
   },
 ];
 
-// Animated SVG Clutch Ring
-function ClutchRing({ index, isVisible }: { index: number; isVisible: boolean }) {
+// Animated SVG Clutch Ring (Option B: Calibration Pending)
+function ClutchRing({ isVisible }: { isVisible: boolean }) {
   const radius = 130;
   const circumference = 2 * Math.PI * radius;
-  const fillAmount = (index / 100) * circumference;
-  const dashOffset = circumference - fillAmount;
-
-  const { count } = useCountUp({
-    target: index,
-    duration: 2500,
-    decimals: 1,
-    startOnVisible: false,
-  });
+  const dashOffset = circumference * 0.25; // 75% visual fill
 
   const [animatedOffset, setAnimatedOffset] = useState(circumference);
 
@@ -66,7 +59,7 @@ function ClutchRing({ index, isVisible }: { index: number; isVisible: boolean })
 
   return (
     <div className="clutch-ring-wrapper">
-      <svg viewBox="0 0 300 300" className="clutch-ring-svg" aria-label={`Clutch Index score: ${index}`}>
+      <svg viewBox="0 0 300 300" className="clutch-ring-svg" aria-label="Clutch Index status: Calibration Pending">
         <defs>
           <linearGradient id="clutchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#C8102E" />
@@ -106,32 +99,33 @@ function ClutchRing({ index, isVisible }: { index: number; isVisible: boolean })
           strokeDasharray="3 6"
         />
 
-        {/* Score text */}
-        <text x="150" y="140" textAnchor="middle"
+        {/* Status text */}
+        <text x="150" y="132" textAnchor="middle"
           fontFamily="'Bebas Neue', sans-serif"
-          fontSize="56"
+          fontSize="30"
+          letterSpacing="1"
           fill={isVisible ? '#FFD700' : 'transparent'}
           style={{ transition: 'fill 0.5s ease' }}
         >
-          {isVisible ? count.toFixed(1) : '0.0'}
+          PENDING
         </text>
 
-        <text x="150" y="166" textAnchor="middle"
+        <text x="150" y="156" textAnchor="middle"
           fontFamily="'Rajdhani', sans-serif"
           fontSize="11"
           fontWeight="700"
-          letterSpacing="4"
-          fill="rgba(255,215,0,0.5)"
+          letterSpacing="2"
+          fill="rgba(255,215,0,0.7)"
         >
-          CLUTCH INDEX
+          CALIBRATION PENDING
         </text>
 
-        <text x="150" y="185" textAnchor="middle"
+        <text x="150" y="178" textAnchor="middle"
           fontFamily="'Inter', sans-serif"
-          fontSize="10"
-          fill="rgba(240,240,248,0.3)"
+          fontSize="9"
+          fill="rgba(240,240,248,0.4)"
         >
-          out of 100
+          Ball-by-ball model in Phase 2
         </text>
       </svg>
     </div>
@@ -194,47 +188,9 @@ export default function ClutchSection() {
   const [sectionRef, isVisible] = useIntersectionObserver(0.2);
   const [clutchFormat, setClutchFormat] = useState<'ODI' | 'Test' | 'T20I'>('ODI');
 
-  const currentMetrics = clutchMetricsByFormat[clutchFormat];
-
-  // Dynamic breakdown items based on selected format
-  const dynamicBreakdown = [
-    {
-      label: clutchFormat === 'Test' ? '4th Innings Chases' : 'Chase Dominance',
-      weight: 35,
-      value: currentMetrics.chaseAvg,
-      baseline: currentMetrics.baselineAvg,
-      unit: 'avg',
-      color: '#C8102E',
-      description: clutchFormat === 'Test' ? '4th innings Test chasing average' : 'Run chase batting average vs baseline',
-    },
-    {
-      label: clutchFormat === 'Test' ? 'SENA Away Test Elevation' : clutchFormat === 'T20I' ? 'T20 WC Knockouts' : 'Knockout Elevation',
-      weight: 25,
-      value: currentMetrics.knockoutAvg,
-      baseline: currentMetrics.baselineAvg,
-      unit: 'avg',
-      color: '#e07b39',
-      description: clutchFormat === 'Test' ? 'SENA test match average' : 'ICC knockout match average',
-    },
-    {
-      label: clutchFormat === 'Test' ? 'WTC Deciders / Finals' : 'Finals Performance',
-      weight: 20,
-      value: currentMetrics.finalsAvg,
-      baseline: currentMetrics.baselineAvg,
-      unit: 'avg',
-      color: '#FFD700',
-      description: clutchFormat === 'Test' ? 'WTC decider batting average' : 'Tournament finals batting average',
-    },
-    {
-      label: clutchFormat === 'T20I' ? 'Death Overs SR Boost' : 'SR Pressure Boost',
-      weight: 20,
-      value: currentMetrics.chaseSR,
-      baseline: currentMetrics.baselineSR,
-      unit: 'SR',
-      color: '#22c55e',
-      description: clutchFormat === 'T20I' ? 'Death overs strike rate in chases' : 'Chase strike rate vs baseline',
-    },
-  ];
+  const viewModel = getClutchViewModel(clutchFormat);
+  const dynamicBreakdown = viewModel.dynamicBreakdown;
+  const clutchCalc = viewModel.clutchCalc;
 
   return (
     <section
@@ -250,7 +206,7 @@ export default function ClutchSection() {
         <div className="section-header">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
             <div>
-              <p className="section-label">CUSTOM METRIC ({clutchFormat.toUpperCase()} FORMAT)</p>
+              <p className="section-label">EXPERIMENTAL METRIC ({clutchFormat.toUpperCase()} FORMAT)</p>
               <h2 className="section-title">CLUTCH <span style={{ color: '#FFD700' }}>INDEX</span> <span style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>({clutchFormat})</span></h2>
             </div>
 
@@ -282,8 +238,7 @@ export default function ClutchSection() {
           </div>
 
           <p className="section-body" style={{ marginTop: '1rem' }}>
-            A composite score measuring how much Kohli elevates his game when stakes are highest in <strong>{clutchFormat} cricket</strong>.
-            Computed from situational averages, knockout records, and pressure strike rates.
+            Calculated from available Cricsheet ball-by-ball coverage: 429 of 439 reference matches. Career aggregates are independently reconciled; delivery-level situational results exclude unavailable matches. Composite Clutch Index weights remain in experimental calibration.
           </p>
         </div>
 
@@ -291,20 +246,20 @@ export default function ClutchSection() {
         <div className="clutch-main">
           {/* Left: Ring */}
           <div className="clutch-left">
-            <ClutchRing index={currentMetrics.clutchIndex} isVisible={isVisible} />
+            <ClutchRing isVisible={isVisible} />
             <div className="clutch-ring-labels">
-              <div className="clutch-tier">🔥 {clutchFormat} Pressure Rating: {currentMetrics.clutchIndex}/100</div>
+              <div className="clutch-tier">🔥 {clutchFormat} Pressure Rating: {clutchCalc.label}</div>
               <p className="clutch-description" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                {currentMetrics.formatNote}
+                {clutchCalc.message}
               </p>
             </div>
           </div>
 
           {/* Right: Breakdown */}
           <div className="clutch-right">
-            <h3 className="clutch-breakdown-title">How It's Computed ({clutchFormat})</h3>
+            <h3 className="clutch-breakdown-title">Situational Input Components ({clutchFormat})</h3>
             <div className="clutch-formula">
-              <code>Clutch Index = Σ (situational / baseline) × weight × 100</code>
+              <code>EXPERIMENTAL INPUT — raw chase and knockout averages pending ball-by-ball source derivation</code>
             </div>
             <div className="breakdown-bars">
               {dynamicBreakdown.map((item, i) => (
@@ -323,7 +278,7 @@ export default function ClutchSection() {
 
         {/* Legends Comparison */}
         <div className="clutch-legends">
-          <h3 className="clutch-legends-title">Clutch Index — vs The Greats</h3>
+          <h3 className="clutch-legends-title">Clutch Index — vs The Greats (Experimental Benchmark)</h3>
           <div className="legends-bars">
             {legendsClutch.map((legend, i) => {
               const isKohli = legend.name === 'Kohli';
@@ -343,7 +298,7 @@ export default function ClutchSection() {
                     />
                   </div>
                   <span className="legend-bar-value" style={{ color: legend.color }}>
-                    {legend.clutchIndex}
+                    Calibration Pending
                   </span>
                 </div>
               );
