@@ -1,234 +1,52 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { legendsClutch } from '../../data/kohliData';
 import { getClutchViewModel } from '../../analytics';
 import { useIntersectionObserver } from '../../hooks';
 import './ClutchSection.css';
 
-const BREAKDOWN_ITEMS = [
-  {
-    label: 'Chase Dominance',
-    weight: 35,
-    value: 65.0,
-    baseline: 58.6,
-    unit: 'avg',
-    color: '#C8102E',
-    description: 'ODI batting average while chasing vs baseline',
-  },
-  {
-    label: 'Knockout Elevation',
-    weight: 25,
-    value: 68.4,
-    baseline: 58.6,
-    unit: 'avg',
-    color: '#e07b39',
-    description: 'ICC knockout match average',
-  },
-  {
-    label: 'Finals Performance',
-    weight: 20,
-    value: 71.2,
-    baseline: 58.6,
-    unit: 'avg',
-    color: '#FFD700',
-    description: 'Tournament finals batting average',
-  },
-  {
-    label: 'SR Pressure Boost',
-    weight: 20,
-    value: 93.4,
-    baseline: 94.0,
-    unit: 'SR',
-    color: '#22c55e',
-    description: 'Chase strike rate vs baseline strike rate',
-  },
-];
-
-// Animated SVG Clutch Ring (Option B: Calibration Pending)
-function ClutchRing({ isVisible }: { isVisible: boolean }) {
-  const radius = 130;
-  const circumference = 2 * Math.PI * radius;
-  const dashOffset = circumference * 0.25; // 75% visual fill
-
-  const [animatedOffset, setAnimatedOffset] = useState(circumference);
-
-  useEffect(() => {
-    if (!isVisible) return;
-    const timer = setTimeout(() => setAnimatedOffset(dashOffset), 100);
-    return () => clearTimeout(timer);
-  }, [isVisible, dashOffset]);
-
-  return (
-    <div className="clutch-ring-wrapper">
-      <svg viewBox="0 0 300 300" className="clutch-ring-svg" aria-label="Clutch Index status: Calibration Pending">
-        <defs>
-          <linearGradient id="clutchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#C8102E" />
-            <stop offset="100%" stopColor="#FFD700" />
-          </linearGradient>
-          <filter id="ringGlow">
-            <feGaussianBlur stdDeviation="8" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
-        </defs>
-
-        {/* Track ring */}
-        <circle cx="150" cy="150" r={radius}
-          fill="none"
-          stroke="rgba(255,255,255,0.05)"
-          strokeWidth="12"
-        />
-
-        {/* Animated fill ring */}
-        <circle cx="150" cy="150" r={radius}
-          fill="none"
-          stroke="url(#clutchGrad)"
-          strokeWidth="12"
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          strokeDashoffset={animatedOffset}
-          transform="rotate(-90 150 150)"
-          style={{ transition: 'stroke-dashoffset 2.5s cubic-bezier(0.16, 1, 0.3, 1)' }}
-          filter="url(#ringGlow)"
-        />
-
-        {/* Inner decorative ring */}
-        <circle cx="150" cy="150" r="105"
-          fill="none"
-          stroke="rgba(200,16,46,0.12)"
-          strokeWidth="1"
-          strokeDasharray="3 6"
-        />
-
-        {/* Status text */}
-        <text x="150" y="132" textAnchor="middle"
-          fontFamily="'Bebas Neue', sans-serif"
-          fontSize="30"
-          letterSpacing="1"
-          fill={isVisible ? '#FFD700' : 'transparent'}
-          style={{ transition: 'fill 0.5s ease' }}
-        >
-          PENDING
-        </text>
-
-        <text x="150" y="156" textAnchor="middle"
-          fontFamily="'Rajdhani', sans-serif"
-          fontSize="11"
-          fontWeight="700"
-          letterSpacing="2"
-          fill="rgba(255,215,0,0.7)"
-        >
-          CALIBRATION PENDING
-        </text>
-
-        <text x="150" y="178" textAnchor="middle"
-          fontFamily="'Inter', sans-serif"
-          fontSize="9"
-          fill="rgba(240,240,248,0.4)"
-        >
-          Ball-by-ball model in Phase 2
-        </text>
-      </svg>
-    </div>
-  );
-}
-
-// Animated breakdown bar
-function BreakdownBar({ item, isVisible, delay }: {
-  item: typeof BREAKDOWN_ITEMS[0];
-  isVisible: boolean;
-  delay: number;
-}) {
-  const maxVal = item.unit === 'avg' ? 80 : 100;
-  const pct = (item.value / maxVal) * 100;
-  const baselinePct = (item.baseline / maxVal) * 100;
-  const [animated, setAnimated] = useState(false);
-
-  useEffect(() => {
-    if (!isVisible) return;
-    const t = setTimeout(() => setAnimated(true), delay);
-    return () => clearTimeout(t);
-  }, [isVisible, delay]);
-
-  return (
-    <div className="breakdown-bar-row">
-      <div className="breakdown-bar-header">
-        <span className="breakdown-label">{item.label}</span>
-        <span className="breakdown-weight-badge">{item.weight}% weight</span>
-      </div>
-      <div className="breakdown-bar-track">
-        {/* Baseline marker */}
-        <div
-          className="breakdown-baseline"
-          style={{ left: `${baselinePct}%` }}
-          title={`Baseline: ${item.baseline} ${item.unit}`}
-        />
-        {/* Fill bar */}
-        <div
-          className="breakdown-fill"
-          style={{
-            width: animated ? `${pct}%` : '0%',
-            background: item.color,
-            transition: `width 1s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
-          }}
-        />
-      </div>
-      <div className="breakdown-values">
-        <span className="breakdown-value" style={{ color: item.color }}>
-          {item.value} {item.unit}
-        </span>
-        <span className="breakdown-baseline-label">
-          baseline: {item.baseline} {item.unit}
-        </span>
-      </div>
-    </div>
-  );
-}
-
 export default function ClutchSection() {
-  const [sectionRef, isVisible] = useIntersectionObserver(0.2);
-  const [clutchFormat, setClutchFormat] = useState<'ODI' | 'Test' | 'T20I'>('ODI');
+  const [sectionRef] = useIntersectionObserver(0.15);
+  const [clutchFormat, setClutchFormat] = useState<'ODI' | 'T20I' | 'Test'>('ODI');
+  const [showResearchSpec, setShowResearchSpec] = useState(false);
 
   const viewModel = getClutchViewModel(clutchFormat);
-  const dynamicBreakdown = viewModel.dynamicBreakdown;
-  const clutchCalc = viewModel.clutchCalc;
+  const perfView = viewModel.pressurePerformance;
 
   return (
     <section
       id="clutch-index"
       className="clutch-section"
       ref={sectionRef as React.RefObject<HTMLElement>}
+      aria-label="Pressure Performance & Situational Batting Analysis"
     >
-      {/* Background glow */}
+      {/* Background radial glow */}
       <div className="clutch-bg-glow" aria-hidden="true" />
 
       <div className="container">
-        {/* Header */}
+        {/* Section Header */}
         <div className="section-header">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+          <div className="clutch-header-top">
             <div>
-              <p className="section-label">EXPERIMENTAL METRIC ({clutchFormat.toUpperCase()} FORMAT)</p>
-              <h2 className="section-title">CLUTCH <span style={{ color: '#FFD700' }}>INDEX</span> <span style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>({clutchFormat})</span></h2>
+              <p className="section-label">EMPIRICAL SITUATIONAL ANALYSIS ({clutchFormat} FORMAT)</p>
+              <h2 className="section-title">
+                PRESSURE <span className="gold-text">PERFORMANCE</span>{' '}
+                <span className="format-badge-subtitle">({clutchFormat})</span>
+              </h2>
             </div>
 
             {/* Format Toggle Pills */}
-            <div className="format-toggle-pills" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(0,0,0,0.4)', padding: '0.3rem 0.6rem', borderRadius: '2rem', border: '1px solid var(--glass-border)' }}>
-              <span style={{ fontFamily: 'Rajdhani', fontSize: '0.78rem', fontWeight: 700, color: 'var(--gold-primary)', textTransform: 'uppercase', marginRight: '0.3rem' }}>Format:</span>
-              {(['ODI', 'Test', 'T20I'] as const).map((fmt) => (
+            <div
+              className="format-toggle-pills"
+              role="group"
+              aria-label="Select format for pressure performance analysis"
+            >
+              <span className="format-toggle-label">Format:</span>
+              {(['ODI', 'T20I', 'Test'] as const).map((fmt) => (
                 <button
                   key={fmt}
+                  type="button"
                   className={`format-pill-btn ${clutchFormat === fmt ? 'active' : ''}`}
-                  style={{
-                    background: clutchFormat === fmt ? 'var(--red-primary)' : 'transparent',
-                    color: clutchFormat === fmt ? '#fff' : 'var(--text-muted)',
-                    border: 'none',
-                    fontFamily: 'Rajdhani',
-                    fontSize: '0.85rem',
-                    fontWeight: 800,
-                    padding: '0.3rem 0.9rem',
-                    borderRadius: '1.5rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                  }}
+                  aria-pressed={clutchFormat === fmt}
                   onClick={() => setClutchFormat(fmt)}
                 >
                   {fmt}
@@ -237,68 +55,332 @@ export default function ClutchSection() {
             </div>
           </div>
 
-          <p className="section-body" style={{ marginTop: '1rem' }}>
-            Calculated from available Cricsheet ball-by-ball coverage: 429 of 439 reference matches. Career aggregates are independently reconciled; delivery-level situational results exclude unavailable matches. Composite Clutch Index weights remain in experimental calibration.
+          <p className="section-body clutch-intro-text">
+            {perfView.coverageDisclosure} Composite score not published; calibration pending due to terminal sample sizes and component overlap. Supported empirical statistics are reported directly below without synthetic weighting.
           </p>
         </div>
 
-        {/* Main content */}
-        <div className="clutch-main">
-          {/* Left: Ring */}
-          <div className="clutch-left">
-            <ClutchRing isVisible={isVisible} />
-            <div className="clutch-ring-labels">
-              <div className="clutch-tier">🔥 {clutchFormat} Pressure Rating: {clutchCalc.label}</div>
-              <p className="clutch-description" style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                {clutchCalc.message}
-              </p>
-            </div>
-          </div>
+        {/* Format-Specific Situational Cards Grid */}
+        {perfView.isApplicable ? (
+          <div className="pressure-dashboard-block">
+            <div className="pressure-cards-grid">
+              {perfView.cards.map((card) => {
+                const isSmallSample = card.sampleStatus === 'insufficient-sample' || card.innings < 10;
+                return (
+                  <div
+                    key={card.id}
+                    className={`pressure-stat-card ${isSmallSample ? 'pressure-card--small-sample' : ''}`}
+                  >
+                    {/* Card Header */}
+                    <div className="pressure-card-top">
+                      <span className="pressure-card-category">{card.category}</span>
+                      <span
+                        className={`pressure-sample-badge ${
+                          isSmallSample ? 'badge--insufficient' : 'badge--usable'
+                        }`}
+                      >
+                        {card.sampleBadgeText}
+                      </span>
+                    </div>
 
-          {/* Right: Breakdown */}
-          <div className="clutch-right">
-            <h3 className="clutch-breakdown-title">Situational Input Components ({clutchFormat})</h3>
-            <div className="clutch-formula">
-              <code>EXPERIMENTAL INPUT — raw chase and knockout averages pending ball-by-ball source derivation</code>
+                    <h3 className="pressure-card-title">{card.title}</h3>
+
+                    {/* Primary Hero Metrics */}
+                    <div className="pressure-metric-hero">
+                      <div className="pressure-avg-block">
+                        <span className="pressure-metric-label">Batting Average</span>
+                        <div className="pressure-avg-value">
+                          {card.battingAvgDisplay}
+                        </div>
+                      </div>
+
+                      <div className="pressure-sr-block">
+                        <span className="pressure-metric-label">Strike Rate</span>
+                        <div className="pressure-sr-value">{card.strikeRateDisplay}</div>
+                      </div>
+                    </div>
+
+                    {/* Baseline & Elevation Comparison */}
+                    <div className="pressure-elevation-row">
+                      <span className="pressure-elevation-label">vs Baseline:</span>
+                      <span
+                        className={`pressure-elevation-value ${
+                          card.isElevationPositive ? 'elevation--positive' : 'elevation--negative'
+                        }`}
+                      >
+                        {card.elevationDisplay}
+                      </span>
+                      <span
+                        className="pressure-baseline-context"
+                        title={card.baselineScopeLabel}
+                      >
+                        (Base: {card.baselineAvgDisplay})
+                      </span>
+                    </div>
+
+                    {/* Detailed Count Invariants Table */}
+                    <div className="pressure-counts-table">
+                      <div className="pressure-count-col">
+                        <span className="count-label">Innings (N)</span>
+                        <span className="count-val">{card.innings}</span>
+                      </div>
+                      <div className="pressure-count-col">
+                        <span className="count-label">Runs</span>
+                        <span className="count-val">{card.runs.toLocaleString()}</span>
+                      </div>
+                      <div className="pressure-count-col">
+                        <span className="count-label">Balls</span>
+                        <span className="count-val">{card.balls.toLocaleString()}</span>
+                      </div>
+                      <div className="pressure-count-col">
+                        <span className="count-label">Dismissals</span>
+                        <span className="count-val">
+                          {card.dismissals}{' '}
+                          <small className="not-out-tag">({card.notOuts} NO)</small>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Scope & Coverage Context */}
+                    <div className="pressure-card-footer">
+                      <p className="pressure-scope-desc">{card.scopeDescription}</p>
+                      <span className="pressure-cov-text">📁 {card.coverageLabel}</span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-            <div className="breakdown-bars">
-              {dynamicBreakdown.map((item, i) => (
-                <BreakdownBar
-                  key={`${clutchFormat}-${item.label}`}
-                  item={item}
-                  isVisible={isVisible}
-                  delay={i * 200}
-                />
-              ))}
+
+            {/* Plain-Language Multicollinearity & Overlap Matrix */}
+            <div className="pressure-overlap-box">
+              <div className="overlap-box-header">
+                <span className="overlap-badge">MATHEMATICAL DISCLOSURE</span>
+                <h3 className="overlap-title">
+                  Component Overlap & Multicollinearity Analysis ({clutchFormat})
+                </h3>
+              </div>
+
+              <div className="overlap-grid">
+                {perfView.overlapRelations.map((rel, idx) => (
+                  <div key={idx} className="overlap-card">
+                    <div className="overlap-card-top">
+                      <span className="overlap-rel-label">{rel.label}</span>
+                      <span className="overlap-rel-containment">{rel.containment}</span>
+                    </div>
+                    <p className="overlap-finding-text">{rel.finding}</p>
+                    <div className="overlap-formula-tag">
+                      <code>{rel.directionalMath}</code>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="overlap-summary-note">
+                <strong style={{ color: 'var(--gold-primary)' }}>
+                  Why No Single Composite Score Is Published:
+                </strong>{' '}
+                {perfView.overlapWarning} Publishing an arbitrary weighted score or letter grade creates false
+                precision and conceals the high variance of small samples (e.g. N=3 in T20I finals). The dashboard
+                therefore presents verified empirical splits directly.
+              </div>
             </div>
           </div>
+        ) : (
+          /* Test Cricket Scope Card */
+          <div className="test-scope-card">
+            <div className="test-scope-icon" aria-hidden="true">
+              🏏
+            </div>
+            <h3 className="test-scope-title">Test Cricket Pressure & Performance Hub</h3>
+            <p className="test-scope-text">
+              Test match cricket is governed by 5-day match duration, session-by-session tactical dynamics, pitch deterioration, and declaration strategy rather than limited-overs Required Run Rates. Sourced and verified Test performance is analyzed across the dedicated sections below:
+            </p>
+            <div className="test-career-pill" style={{ marginBottom: '1.25rem' }}>
+              {perfView.careerAggregatesNote}
+            </div>
+
+            <div className="test-routes-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem', marginTop: '1rem' }}>
+              <a href="#captaincy-myth" style={{ display: 'block', padding: '0.75rem 1rem', background: 'rgba(200,16,46,0.15)', border: '1px solid rgba(200,16,46,0.35)', borderRadius: '0.5rem', textDecoration: 'none', color: '#fff', textAlign: 'left' }}>
+                <span style={{ display: 'block', fontFamily: 'Rajdhani', fontWeight: 700, fontSize: '0.9rem', color: '#FFD700' }}>👑 Test Captaincy Legacy</span>
+                <span style={{ display: 'block', fontSize: '0.78rem', color: 'rgba(240,240,248,0.7)', marginTop: '0.2rem' }}>40 wins in 68 Tests (58.82% win rate), 42 months World #1</span>
+              </a>
+
+              <a
+                href="#defining-innings"
+                onClick={() => window.dispatchEvent(new CustomEvent('set-defining-innings-format', { detail: 'Test' }))}
+                style={{ display: 'block', padding: '0.75rem 1rem', background: 'rgba(255,215,0,0.08)', border: '1px solid rgba(255,215,0,0.25)', borderRadius: '0.5rem', textDecoration: 'none', color: '#fff', textAlign: 'left' }}
+              >
+                <span style={{ display: 'block', fontFamily: 'Rajdhani', fontWeight: 700, fontSize: '0.9rem', color: '#FFD700' }}>🏏 Defining Test Innings</span>
+                <span style={{ display: 'block', fontSize: '0.78rem', color: 'rgba(240,240,248,0.7)', marginTop: '0.2rem' }}>Pune 254*, Edgbaston 149, Adelaide 141 (verified primary scorecards)</span>
+              </a>
+
+              <a
+                href="#era-engine"
+                onClick={() => window.dispatchEvent(new CustomEvent('set-era-metric', { detail: 'testAvg' }))}
+                style={{ display: 'block', padding: '0.75rem 1rem', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '0.5rem', textDecoration: 'none', color: '#fff', textAlign: 'left' }}
+              >
+                <span style={{ display: 'block', fontFamily: 'Rajdhani', fontWeight: 700, fontSize: '0.9rem', color: '#FFD700' }}>📈 Era Engine & Opponents</span>
+                <span style={{ display: 'block', fontSize: '0.78rem', color: 'rgba(240,240,248,0.7)', marginTop: '0.2rem' }}>Peak Era (2016–19) Test avg 66.79; 2,042 runs vs Australia</span>
+              </a>
+
+              <a href="#career-timeline" style={{ display: 'block', padding: '0.75rem 1rem', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '0.5rem', textDecoration: 'none', color: '#fff', textAlign: 'left' }}>
+                <span style={{ display: 'block', fontFamily: 'Rajdhani', fontWeight: 700, fontSize: '0.9rem', color: '#FFD700' }}>📊 Career Milestones</span>
+                <span style={{ display: 'block', fontSize: '0.78rem', color: 'rgba(240,240,248,0.7)', marginTop: '0.2rem' }}>Historical trajectory, 7 Test double hundreds, SENA series wins</span>
+              </a>
+            </div>
+          </div>
+        )}
+
+        {/* Collapsible Research & Formal Calibration Ledger Accordion */}
+        <div className="clutch-research-drawer">
+          <button
+            type="button"
+            className="research-drawer-btn"
+            onClick={() => setShowResearchSpec((prev) => !prev)}
+            aria-expanded={showResearchSpec}
+          >
+            <span>
+              🔬 Formal Statistical Calibration Ledger & Model Spec v{viewModel.modelVersion} (
+              {viewModel.calibrationStatus.toUpperCase()})
+            </span>
+            <span className="drawer-arrow">{showResearchSpec ? '▲ Collapse' : '▼ Expand'}</span>
+          </button>
+
+          {showResearchSpec && (
+            <div className="research-drawer-content">
+              <div className="drawer-meta-bar">
+                <div>
+                  <span className="drawer-status-pill badge--blocked">
+                    STATUS: {viewModel.calibrationStatus.toUpperCase()}
+                  </span>
+                  <span className="drawer-status-pill badge--null">COMPOSITE SCORE NOT PUBLISHED (CALIBRATION PENDING)</span>
+                </div>
+                <span className="drawer-verdict-text">
+                  Formal Blocker: {viewModel.blockerReason}
+                </span>
+              </div>
+
+              {/* Component Accounting Table */}
+              <div className="clutch-table-scroll">
+                <table className="clutch-spec-table">
+                  <thead>
+                    <tr>
+                      <th>Component</th>
+                      <th style={{ textAlign: 'center' }}>Innings (N)</th>
+                      <th style={{ textAlign: 'center' }}>Balls</th>
+                      <th style={{ textAlign: 'center' }}>Runs</th>
+                      <th style={{ textAlign: 'center' }}>Dismissals</th>
+                      <th style={{ textAlign: 'right' }}>Split Avg</th>
+                      <th style={{ textAlign: 'right' }}>Base Avg</th>
+                      <th style={{ textAlign: 'center' }}>Ratio</th>
+                      <th style={{ textAlign: 'center' }}>Tanh Score</th>
+                      <th style={{ textAlign: 'center' }}>Sample Gate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {viewModel.components.map((c) => (
+                      <tr key={c.id}>
+                        <td style={{ fontWeight: 600, color: '#fff' }}>{c.label}</td>
+                        <td
+                          style={{
+                            textAlign: 'center',
+                            fontFamily: 'Rajdhani',
+                            fontWeight: 700,
+                            color:
+                              c.innings >= c.minSampleInnings
+                                ? 'var(--gold-primary)'
+                                : '#FF6B6B',
+                          }}
+                        >
+                          {c.innings}
+                        </td>
+                        <td style={{ textAlign: 'center', color: 'rgba(240,240,248,0.6)' }}>
+                          {c.balls}
+                        </td>
+                        <td style={{ textAlign: 'center', color: 'rgba(240,240,248,0.8)' }}>
+                          {c.runs}
+                        </td>
+                        <td style={{ textAlign: 'center', color: 'rgba(240,240,248,0.6)' }}>
+                          {c.dismissals}
+                        </td>
+                        <td style={{ textAlign: 'right', fontWeight: 700, color: '#FFD700' }}>
+                          {c.splitAvg !== null ? c.splitAvg.toFixed(2) : '—'}
+                        </td>
+                        <td style={{ textAlign: 'right', color: 'rgba(240,240,248,0.5)' }}>
+                          {c.baselineAvg !== null ? c.baselineAvg.toFixed(2) : '—'}
+                        </td>
+                        <td style={{ textAlign: 'center', fontWeight: 700, color: '#22c55e' }}>
+                          {c.ratio !== null ? `${c.ratio.toFixed(2)}x` : '—'}
+                        </td>
+                        <td
+                          style={{
+                            textAlign: 'center',
+                            fontFamily: 'Rajdhani',
+                            fontWeight: 700,
+                            color: '#fff',
+                          }}
+                        >
+                          {c.normalizedScore !== null ? c.normalizedScore.toFixed(1) : 'null'}
+                        </td>
+                        <td style={{ textAlign: 'center' }}>
+                          <span
+                            className={`gate-badge ${
+                              c.status === 'usable-sample' ? 'gate--pass' : 'gate--fail'
+                            }`}
+                          >
+                            {c.status === 'usable-sample'
+                              ? `PASS (N≥${c.minSampleInnings})`
+                              : `FAIL (N=${c.innings} < ${c.minSampleInnings})`}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Calibration Gates Grid */}
+              <div className="calibration-gates-grid">
+                {viewModel.calibrationGates.map((g) => (
+                  <div key={g.gateId} className="gate-card">
+                    <div className="gate-card-header">
+                      <span className="gate-title">
+                        Gate {g.gateId}: {g.gateName.split('(')[0]}
+                      </span>
+                      <span className={`gate-status ${g.passed ? 'pass' : 'blocked'}`}>
+                        {g.passed ? 'PASSED' : 'BLOCKED'}
+                      </span>
+                    </div>
+                    <p className="gate-desc">{g.finding}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="divider" />
 
-        {/* Legends Comparison */}
+        {/* Legends Benchmark */}
         <div className="clutch-legends">
-          <h3 className="clutch-legends-title">Clutch Index — vs The Greats (Experimental Benchmark)</h3>
-          <div className="legends-bars">
-            {legendsClutch.map((legend, i) => {
+          <h3 className="clutch-legends-title">
+            Cross-Player Peer Benchmarking (Withheld — Gate 2 Blocker)
+          </h3>
+          <div className="peer-withheld-card" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1.25rem' }}>
+            <p style={{ fontSize: '0.86rem', color: 'rgba(240,240,248,0.75)', lineHeight: '1.5', margin: 0 }}>
+              <strong style={{ color: 'var(--gold-primary)' }}>Scientific Governance Notice:</strong> Comparative cross-player pressure scoring is withheld. Constructing valid percentile rankings requires a matched multi-player delivery corpus with uniform situational definitions. Synthetic quantitative bars are removed to prevent false precision until authenticated peer archives are calibrated.
+            </p>
+          </div>
+          <div className="legends-peers-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem' }}>
+            {legendsClutch.map((legend) => {
               const isKohli = legend.name === 'Kohli';
               return (
-                <div key={legend.name} className="legend-bar-row">
-                  <span className={`legend-name ${isKohli ? 'legend-name--kohli' : ''}`}>
+                <div key={legend.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem 1rem', background: isKohli ? 'rgba(200,16,46,0.15)' : 'rgba(255,255,255,0.03)', border: isKohli ? '1px solid rgba(200,16,46,0.4)' : '1px solid rgba(255,255,255,0.06)', borderRadius: '0.5rem' }}>
+                  <span className={`legend-name ${isKohli ? 'legend-name--kohli' : ''}`} style={{ fontWeight: isKohli ? 700 : 600, color: isKohli ? '#FFD700' : 'rgba(240,240,248,0.85)' }}>
                     {isKohli && '👑 '}{legend.name}
                   </span>
-                  <div className="legend-bar-track">
-                    <div
-                      className={`legend-bar-fill ${isKohli ? 'legend-bar--kohli' : ''}`}
-                      style={{
-                        width: isVisible ? `${legend.clutchIndex}%` : '0%',
-                        background: legend.color,
-                        transition: `width 1.2s cubic-bezier(0.16, 1, 0.3, 1) ${i * 150}ms`,
-                      }}
-                    />
-                  </div>
-                  <span className="legend-bar-value" style={{ color: legend.color }}>
-                    Calibration Pending
+                  <span style={{ fontSize: '0.72rem', fontFamily: 'Rajdhani', fontWeight: 700, color: 'rgba(240,240,248,0.5)', background: 'rgba(0,0,0,0.3)', padding: '0.15rem 0.5rem', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.08)' }}>
+                    Score Withheld
                   </span>
                 </div>
               );

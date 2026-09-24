@@ -47,8 +47,8 @@
   --font-body:     'Inter', sans-serif;
 
   /* ── Spacing ── */
-  --section-pad-y: clamp(5rem, 10vh, 8rem);
-  --section-pad-x: clamp(1.5rem, 5vw, 5rem);
+  --section-pad-y: clamp(3.5rem, 8vh, 8rem);
+  --section-pad-x: clamp(1rem, 4vw, 5rem);
 
   /* ── Shadows ── */
   --shadow-red:    0 0 40px rgba(200, 16, 46, 0.25);

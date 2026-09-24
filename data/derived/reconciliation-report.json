@@ -1,7 +1,7 @@
 {
   "reportVersion": "4.0.0",
   "datasetId": "cricsheet-male-limited-overs",
-  "generatedAt": "2026-09-22T10:45:11.458Z",
+  "generatedAt": "2026-09-24T10:33:54.961Z",
   "sourceArchiveHashes": [
     {
       "format": "ODI",
@@ -9,7 +9,7 @@
       "url": "https://cricsheet.org/downloads/odis_male_json.zip",
       "sha256": "b6a1d6b683f19110ada34191183db55c03e09acb386d0f4b9bf0be2fb75bbac0",
       "bytes": 17456180,
-      "downloadedAt": "2026-09-21T18:40:05.222Z",
+      "downloadedAt": "2026-09-24T09:39:30.318Z",
       "status": "verified"
     },
     {
@@ -18,7 +18,7 @@
       "url": "https://cricsheet.org/downloads/t20s_male_json.zip",
       "sha256": "e098ad15622ac9e31da60e5e2ecd793c3d33352eb25b2a286b3cf08ffe98fa9e",
       "bytes": 14214702,
-      "downloadedAt": "2026-09-21T18:40:05.346Z",
+      "downloadedAt": "2026-09-24T09:39:30.368Z",
       "status": "verified"
     }
   ],
@@ -334,7 +334,7 @@
           "date": "2012-03-18",
           "opponent": "Pakistan",
           "metric": "sixes",
-          "deliveryIdentifier": "18.4 (Over 18 Ball 4)",
+          "deliveryIdentifier": "18.1 (Over 18 Ball 1)",
           "batterRuns": 6,
           "isNonBoundary": true,
           "difference": 0,
@@ -347,7 +347,7 @@
           "date": "2012-07-31",
           "opponent": "Sri Lanka",
           "metric": "sixes",
-          "deliveryIdentifier": "18.4 (Over 18 Ball 4)",
+          "deliveryIdentifier": "18.2 (Over 18 Ball 2)",
           "batterRuns": 6,
           "isNonBoundary": true,
           "difference": 0,
@@ -5220,7 +5220,7 @@
   ],
   "trustDecision": {
     "isTrusted": true,
-    "decisionTimestamp": "2026-09-22T10:45:11.458Z",
+    "decisionTimestamp": "2026-09-24T10:33:54.962Z",
     "justification": "Every included delivery is deterministically parsed; all aggregate discrepancies are explained at match level; zero unexplained match IDs remain; zero anonymous balancing constants; all 10 independent scorecard checks passed; archive hashes match manifest; repeated ingestion produces identical artifact hashes."
   }
 }

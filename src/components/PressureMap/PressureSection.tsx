@@ -127,7 +127,7 @@ export default function PressureSection() {
           </div>
 
           <p className="section-body" style={{ marginTop: '1rem' }}>
-            Calculated from available Cricsheet ball-by-ball coverage: 429 of 439 reference matches. Career aggregates are independently reconciled; delivery-level situational results exclude unavailable matches.
+            Calculated from available Cricsheet ball-by-ball coverage: 429 of 439 limited-overs reference matches (311/314 ODI + 118/125 T20I). Test cricket is analyzed through verified career scorecards.
           </p>
         </div>
 
@@ -173,16 +173,35 @@ export default function PressureSection() {
           {/* Right: Heatmap or Unsupported Format Message */}
           {pressureFormat === 'Test' ? (
             <div className="pressure-heatmap-wrapper unsupported-format-card">
-              <div style={{ textAlign: 'center', padding: '3rem 1.5rem' }}>
-                <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🏏</div>
-                <h3 style={{ fontFamily: 'Rajdhani', fontSize: '1.4rem', fontWeight: 700, color: 'var(--gold-primary)', marginBottom: '0.8rem' }}>
+              <div style={{ textAlign: 'center', padding: '2.5rem 1.5rem' }}>
+                <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>🏏</div>
+                <h3 style={{ fontFamily: 'Rajdhani', fontSize: '1.4rem', fontWeight: 700, color: 'var(--gold-primary)', marginBottom: '0.6rem' }}>
                   TEST FORMAT SITUATIONAL MODEL
                 </h3>
                 <p style={{ color: 'var(--text-secondary)', maxWidth: '480px', margin: '0 auto', fontSize: '0.92rem', lineHeight: '1.6' }}>
-                  Test cricket situational pressure is governed by match sessions, pitch deterioration, and innings declarations rather than limited-overs Required Run Rates. The 15-cell RRR grid applies exclusively to ODI and T20I chases.
+                  Test cricket situational pressure is governed by match sessions, pitch deterioration, and series context rather than limited-overs Required Run Rates. The 15-cell RRR matrix is reserved for ODI and T20I chases.
                 </p>
-                <div style={{ marginTop: '1.5rem', display: 'inline-block', padding: '0.4rem 1rem', background: 'rgba(255,215,0,0.1)', border: '1px solid rgba(255,215,0,0.3)', borderRadius: '2rem', fontSize: '0.8rem', color: 'var(--gold-primary)' }}>
-                  Status: unsupported-format (Option B policy)
+                <div style={{ margin: '1.25rem 0', display: 'inline-block', padding: '0.35rem 1rem', background: 'rgba(255,215,0,0.1)', border: '1px solid rgba(255,215,0,0.3)', borderRadius: '2rem', fontSize: '0.8rem', color: 'var(--gold-primary)' }}>
+                  Verified Test Baseline: 123 Matches, 210 Innings, 9,230 Runs, 46.85 Avg, 30 100s
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1rem' }}>
+                  <a href="#captaincy-myth" style={{ color: '#fff', background: 'rgba(200,16,46,0.3)', border: '1px solid rgba(200,16,46,0.5)', padding: '0.4rem 0.9rem', borderRadius: '1.5rem', textDecoration: 'none', fontSize: '0.82rem', fontFamily: 'Rajdhani', fontWeight: 700 }}>
+                    👑 Test Captaincy (58.82% Wins)
+                  </a>
+                  <a
+                    href="#defining-innings"
+                    onClick={() => window.dispatchEvent(new CustomEvent('set-defining-innings-format', { detail: 'Test' }))}
+                    style={{ color: '#fff', background: 'rgba(255,215,0,0.15)', border: '1px solid rgba(255,215,0,0.4)', padding: '0.4rem 0.9rem', borderRadius: '1.5rem', textDecoration: 'none', fontSize: '0.82rem', fontFamily: 'Rajdhani', fontWeight: 700 }}
+                  >
+                    🏏 Defining Test Innings (Pune 254*, Adelaide 141)
+                  </a>
+                  <a
+                    href="#era-engine"
+                    onClick={() => window.dispatchEvent(new CustomEvent('set-era-metric', { detail: 'testAvg' }))}
+                    style={{ color: '#fff', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.2)', padding: '0.4rem 0.9rem', borderRadius: '1.5rem', textDecoration: 'none', fontSize: '0.82rem', fontFamily: 'Rajdhani', fontWeight: 700 }}
+                  >
+                    📈 Test Era & Opponent Splits
+                  </a>
                 </div>
               </div>
             </div>

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "Virat Kohli Analytics — Data Dictionary & Methodology Specification",
+  "version": "5.0.0",
+  "generatedAt": "2026-09-24T14:55:00.000Z",
+  "subject": {
+    "canonicalName": "Virat Kohli",
+    "cricsheetPersonId": "ba607b88",
+    "espnCricinfoId": "253802",
+    "country": "India",
+    "roles": ["Top-order Batter", "Former Captain"]
+  },
+  "verifiedCareerTotals": {
+    "ODI": { "matches": 314, "innings": 302, "runs": 14941, "dismissals": 255, "notOuts": 47, "average": 58.59, "centuries": 54, "highScore": 183 },
+    "Test": { "matches": 113, "innings": 191, "runs": 9230, "dismissals": 197, "notOuts": 14, "average": 46.85, "centuries": 30, "highScore": 254 },
+    "T20I": { "matches": 125, "innings": 117, "runs": 4188, "dismissals": 86, "notOuts": 31, "average": 48.70, "centuries": 1, "highScore": 122 },
+    "Combined": { "matches": 552, "innings": 610, "runs": 28359, "average": 52.71, "centuries": 85 }
+  },
+  "analyticalPopulations": {
+    "PopulationA": {
+      "name": "Batting Chases",
+      "definition": "All innings where the team batted second and the batter had an official appearance (batted or DNB in chase).",
+      "odiCount": 165,
+      "t20iCount": 47
+    },
+    "PopulationB": {
+      "name": "Completed Chase Outcomes",
+      "definition": "Chases ending in a definitive match outcome (win, loss, tie) excluding abandoned/no-result encounters.",
+      "odiCount": 165,
+      "t20iCount": 47
+    },
+    "PopulationC": {
+      "name": "Pressure Analytics & Situational Deliveries",
+      "definition": "Ball-by-ball deliveries with verified live target context, required run rate calculation, and innings phase classification.",
+      "odiLegalDeliveries": 8964,
+      "t20iLegalDeliveries": 1448
+    }
+  },
+  "metrics": [
+    {
+      "metricName": "Batting Average",
+      "symbol": "Avg",
+      "mathematicalFormula": "runs / dismissals",
+      "zeroDismissalPolicy": "null (uncomputable division by zero; displayed as undefeated / non-zero runs note, never substituted with runs or virtual dismissal)",
+      "rounding": "Standard 2-decimal half-up (e.g. 4188 / 86 = 48.70)"
+    },
+    {
+      "metricName": "Batting Strike Rate",
+      "symbol": "SR",
+      "mathematicalFormula": "(runs / ballsFaced) * 100",
+      "legalDeliveriesPolicy": "Official balls faced excluding wides. No-balls count toward balls faced per official scoring conventions.",
+      "rounding": "Standard 2-decimal half-up"
+    },
+    {
+      "metricName": "Required Run Rate (RRR)",
+      "symbol": "RRR",
+      "mathematicalFormula": "(runsRemaining / ballsRemaining) * 6",
+      "bands": [
+        { "band": "comfortable", "range": "RRR < 6.0", "label": "Low (<6.0)" },
+        { "band": "moderate", "range": "6.0 <= RRR < 8.0", "label": "Moderate (6.0-7.9)" },
+        { "band": "stiff", "range": "8.0 <= RRR < 10.0", "label": "Stiff (8.0-9.9)" },
+        { "band": "severe", "range": "10.0 <= RRR < 12.0", "label": "Severe (10.0-11.9)" },
+        { "band": "extreme", "range": "RRR >= 12.0", "label": "Extreme (12.0+)" }
+      ]
+    },
+    {
+      "metricName": "Innings Phases",
+      "definition": "Match progression partitioning",
+      "ODI": { "powerplay": "Overs 1–10", "middle": "Overs 11–40", "death": "Overs 41–50" },
+      "T20I": { "powerplay": "Overs 1–6", "middle": "Overs 7–15", "death": "Overs 16–20" }
+    },
+    {
+      "metricName": "Clutch Index (Phase 5 Calibration Baseline)",
+      "formula": "score = 50 + 50 * tanh((splitAvg - baseAvg) / baseAvg)",
+      "status": "calibration-blocked / score: null",
+      "publicationAllowed": false,
+      "whyBlocked": "Tournament finals sample size (N=10 ODI, N=3 T20I), bootstrap uncertainty width > 25 runs/dismissal, 100% containment collinearity, and absence of multi-player peer corpus."
+    }
+  ],
+  "provenance": {
+    "primaryBallByBall": "Cricsheet (Stephen Rushe) - Open Ball-by-Ball Data (CC-BY 4.0)",
+    "officialRecordReconciliation": "ESPNcricinfo verified match archives & scorecards",
+    "deliveryIsolationRule": "Scorecard-only missing match fixtures contribute 0 deliveries to ball-by-ball situational models."
+  }
+}

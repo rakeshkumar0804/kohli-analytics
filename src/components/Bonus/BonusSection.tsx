@@ -123,28 +123,37 @@ export default function BonusSection() {
             <h3 className="column-title">Are You Inner Circle?</h3>
             
             {!quizFinished ? (
-              <div className="quiz-container">
-                <div className="quiz-progress">
+              <div className="quiz-container" role="region" aria-label="Interactive Kohli Quiz">
+                <div className="quiz-progress" aria-live="polite">
                   <span>Question {currentQ + 1} of {QUIZ_QUESTIONS.length}</span>
                   <span className="quiz-score-live">Score: {score}</span>
                 </div>
 
                 <h4 className="quiz-question">{QUIZ_QUESTIONS[currentQ].question}</h4>
 
-                <div className="quiz-options">
+                <div className="quiz-options" role="group" aria-label="Quiz Answer Choices">
                   {QUIZ_QUESTIONS[currentQ].options.map((opt, idx) => {
                     let optClass = 'quiz-opt-btn';
+                    let statusCue = '';
                     if (selectedOpt !== null) {
-                      if (idx === QUIZ_QUESTIONS[currentQ].correct) optClass += ' correct';
-                      else if (idx === selectedOpt) optClass += ' wrong';
+                      if (idx === QUIZ_QUESTIONS[currentQ].correct) {
+                        optClass += ' correct';
+                        statusCue = '✓ (Correct) ';
+                      } else if (idx === selectedOpt) {
+                        optClass += ' wrong';
+                        statusCue = '✗ (Selected) ';
+                      }
                     }
                     return (
                       <button
                         key={idx}
+                        type="button"
                         className={optClass}
                         onClick={() => handleSelect(idx)}
                         disabled={selectedOpt !== null}
+                        aria-pressed={selectedOpt === idx}
                       >
+                        {statusCue ? <span className="sr-only-cue" style={{ fontWeight: 700, marginRight: '0.35rem' }}>{statusCue}</span> : null}
                         {opt}
                       </button>
                     );
@@ -152,21 +161,21 @@ export default function BonusSection() {
                 </div>
 
                 {selectedOpt !== null && (
-                  <div className="explanation-box animate-in">
+                  <div className="explanation-box animate-in" role="status" aria-live="polite">
                     <p>{QUIZ_QUESTIONS[currentQ].explanation}</p>
-                    <button className="next-btn" onClick={handleNext}>
+                    <button type="button" className="next-btn" onClick={handleNext}>
                       {currentQ === QUIZ_QUESTIONS.length - 1 ? 'See Results' : 'Next Question →'}
                     </button>
                   </div>
                 )}
               </div>
             ) : (
-              <div className="quiz-results animate-in">
+              <div className="quiz-results animate-in" role="status" aria-live="polite">
                 <div className="results-badge">RESULTS</div>
                 <div className="results-score text-gold">{score} / {QUIZ_QUESTIONS.length}</div>
                 <h4 className="results-tier-label">{getTier(score).label}</h4>
                 <p className="results-tier-desc">{getTier(score).desc}</p>
-                <button className="reset-btn" onClick={resetQuiz}>Try Again 🔄</button>
+                <button type="button" className="reset-btn" onClick={resetQuiz}>Try Again 🔄</button>
               </div>
             )}
           </div>

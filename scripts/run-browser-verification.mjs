@@ -277,9 +277,9 @@ async function runTests() {
   console.log('  Testing Clutch Index section...');
   const clutchTest = await client.eval(`(() => {
     const text = document.body.innerText;
-    const isPending = text.includes('CALIBRATION PENDING') || text.includes('PENDING');
-    const hasWarning = text.includes('EXPERIMENTAL INPUT') || text.includes('pending ball-by-ball') || text.includes('Calibration Pending');
-    const hasUnverified87_4 = text.includes('87.4 Clutch Index') && !text.includes('Pending');
+    const isPending = text.includes('CALIBRATION PENDING') || text.includes('calibration pending') || text.includes('PENDING');
+    const hasWarning = text.includes('EXPERIMENTAL INPUT') || text.includes('pending ball-by-ball') || text.includes('calibration pending') || text.includes('CALIBRATION PENDING');
+    const hasUnverified87_4 = text.includes('87.4 Clutch Index') && !text.includes('Pending') && !text.includes('pending');
     return { isPending, hasWarning, hasUnverified87_4 };
   })()`);
   results.interactions.clutch = clutchTest;
@@ -449,22 +449,60 @@ async function runTests() {
   console.log('  Domestic / U-19 status:', domesticTest);
 
   // ==========================================
-  // VIEWPORT 2: Tablet (768 x 1024)
+  // VIEWPORT 2: Small Desktop / iPad Landscape (1024 x 768)
   // ==========================================
-  console.log('\n📱 2. Testing Tablet (768 x 1024)...');
+  console.log('\n💻 2. Testing Small Desktop (1024 x 768)...');
+  await client.setViewport(1024, 768, false, 1);
+  await delay(600);
+  results.viewports.smallDesktop = await checkOverflow();
+  console.log('  Small Desktop Overflow:', results.viewports.smallDesktop);
+
+  // ==========================================
+  // VIEWPORT 3: Tablet (768 x 1024)
+  // ==========================================
+  console.log('\n📱 3. Testing Tablet (768 x 1024)...');
   await client.setViewport(768, 1024, true, 2);
   await delay(800);
   results.viewports.tablet = await checkOverflow();
   console.log('  Tablet Overflow:', results.viewports.tablet);
 
   // ==========================================
-  // VIEWPORT 3: Mobile (375 x 812)
+  // VIEWPORT 4: Mobile (375 x 812)
   // ==========================================
-  console.log('\n📱 3. Testing Mobile (375 x 812)...');
+  console.log('\n📱 4. Testing Mobile (375 x 812)...');
   await client.setViewport(375, 812, true, 3);
   await delay(800);
   results.viewports.mobile = await checkOverflow();
   console.log('  Mobile Overflow:', results.viewports.mobile);
+
+  // ==========================================
+  // VIEWPORT 5: Small Mobile (320 x 568)
+  // ==========================================
+  console.log('\n📱 5. Testing Small Mobile (320 x 568)...');
+  await client.setViewport(320, 568, true, 2);
+  await delay(800);
+  results.viewports.smallMobile = await checkOverflow();
+  console.log('  Small Mobile Overflow:', results.viewports.smallMobile);
+
+  // A11y: Skip Link and Reduced Motion Check
+  console.log('\n♿ 6. Testing Accessibility (Skip Link, Landmarks, Reduced Motion)...');
+  const a11yTest = await client.eval(`(() => {
+    const skipLink = document.querySelector('.skip-link');
+    const mainLandmark = document.getElementById('main-content');
+    const focusableButtons = Array.from(document.querySelectorAll('button:not([disabled])'));
+    const allButtonsHaveType = focusableButtons.every(b => b.hasAttribute('type') || b.tagName === 'BUTTON');
+    const hasAriaPressedOnFormat = Boolean(document.querySelector('[aria-pressed="true"]'));
+    return {
+      hasSkipLink: Boolean(skipLink),
+      skipLinkHref: skipLink?.getAttribute('href'),
+      hasMainLandmark: Boolean(mainLandmark),
+      focusableCount: focusableButtons.length,
+      allButtonsHaveType,
+      hasAriaPressedOnFormat,
+    };
+  })()`);
+  results.interactions.accessibility = a11yTest;
+  console.log('  Accessibility audit:', a11yTest);
 
   // Mobile Drawer Toggle
   const mobileDrawer = await client.eval(`(() => {

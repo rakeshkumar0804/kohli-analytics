@@ -35,9 +35,11 @@ body {
 
 /* ── Utility Classes ── */
 .section {
-  padding: var(--section-pad-y) var(--section-pad-x);
+  padding: var(--section-pad-y) 0;
   position: relative;
+  overflow-x: clip;
 }
+
 
 .section-label {
   font-family: var(--font-heading);
@@ -198,8 +200,92 @@ body {
 }
 .h-scroll::-webkit-scrollbar { display: none; }
 
+/* ── Accessibility: Focus Rings & Skip Link ── */
+:focus-visible {
+  outline: 2px solid var(--gold-primary, #FFD700) !important;
+  outline-offset: 3px !important;
+}
+
+.skip-link {
+  position: absolute;
+  top: -120px;
+  left: 1.5rem;
+  background: var(--gold-primary, #FFD700);
+  color: #000000;
+  font-family: var(--font-heading, 'Rajdhani', sans-serif);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 6px 6px;
+  text-decoration: none;
+  z-index: 10000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  transition: top 0.2s ease-in-out;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ── Section Skeleton Fallback for Code-Splitting ── */
+.section-skeleton-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+  padding: 3rem 1.5rem;
+  background: rgba(8, 8, 18, 0.4);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.section-skeleton-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 215, 0, 0.15);
+  border-top-color: var(--gold-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.section-skeleton-text {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Accessibility: Prefers Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .crown,
+  .status-badge-dot,
+  .spinner,
+  .section-skeleton-spinner {
+    animation: none !important;
+  }
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .section-title { font-size: clamp(2.4rem, 12vw, 3.5rem); }
   .glass-card { padding: 1.25rem; }
 }
+
+@media (max-width: 480px) {
+  .section-title { font-size: clamp(2rem, 10vw, 2.8rem); }
+  .glass-card { padding: 1rem; }
+  .format-tabs { padding: 0.2rem; }
+  .format-tab { padding: 0.35rem 0.85rem; font-size: 0.8rem; }
+}
+

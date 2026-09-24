@@ -1,10 +1,10 @@
 # Virat Kohli Analytics — Match-Level Data Reconciliation Report
 
-**Report Version**: `4.0.0`  
-**Dataset ID**: `cricsheet-male-limited-overs`  
-**Generated At**: `2026-09-22T10:45:11.458Z`  
-**Player**: Virat Kohli (Cricsheet: `ba607b88`, ESPNcricinfo: `253802`)  
-**Trust Status**: `CAREER AGGREGATES VERIFIED; DELIVERY COVERAGE PARTIAL`  
+- **Report Version**: `4.0.0`
+- **Dataset ID**: `cricsheet-male-limited-overs`
+- **Generated At**: `2026-09-24T10:33:54.961Z`
+- **Player**: Virat Kohli (Cricsheet: `ba607b88`, ESPNcricinfo: `253802`)
+- **Trust Status**: `CAREER AGGREGATES VERIFIED; DELIVERY COVERAGE PARTIAL`
 
 ---
 
@@ -57,8 +57,8 @@
 | Match ID | Date | Opponent | Metric | Delivery | Runs | Classification | Evidence URL |
 | :--- | :--- | :--- | :--- | :--- | :---: | :--- | :--- |
 | [643667](https://www.espncricinfo.com/series/india-tour-of-zimbabwe-2013-643663/zimbabwe-vs-india-2nd-odi-643667/full-scorecard) | 2013-07-26 | Zimbabwe | fours | `6.1 (Over 6 Ball 1)` | 4 | All-run 4 (non_boundary: true in Cricsheet schema). Excluded from boundary fours per official ICC/Statsguru scoring rules. | [Scorecard](https://www.espncricinfo.com/series/india-tour-of-zimbabwe-2013-643663/zimbabwe-vs-india-2nd-odi-643667/full-scorecard) |
-| [535798](https://www.espncricinfo.com/series/asia-cup-2011-12-535797/india-vs-pakistan-5th-match-535798/full-scorecard) | 2012-03-18 | Pakistan | sixes | `18.4 (Over 18 Ball 4)` | 6 | All-run/overthrows 6 (non_boundary: true in Cricsheet schema). Excluded from boundary sixes per official ICC/Statsguru scoring rules. | [Scorecard](https://www.espncricinfo.com/series/asia-cup-2011-12-535797/india-vs-pakistan-5th-match-535798/full-scorecard) |
-| [564784](https://www.espncricinfo.com/series/india-tour-of-sri-lanka-2012-564778/sri-lanka-vs-india-4th-odi-564784/full-scorecard) | 2012-07-31 | Sri Lanka | sixes | `18.4 (Over 18 Ball 4)` | 6 | All-run/overthrows 6 (non_boundary: true in Cricsheet schema). Excluded from boundary sixes per official ICC/Statsguru scoring rules. | [Scorecard](https://www.espncricinfo.com/series/india-tour-of-sri-lanka-2012-564778/sri-lanka-vs-india-4th-odi-564784/full-scorecard) |
+| [535798](https://www.espncricinfo.com/series/asia-cup-2011-12-535797/india-vs-pakistan-5th-match-535798/full-scorecard) | 2012-03-18 | Pakistan | sixes | `18.1 (Over 18 Ball 1)` | 6 | All-run/overthrows 6 (non_boundary: true in Cricsheet schema). Excluded from boundary sixes per official ICC/Statsguru scoring rules. | [Scorecard](https://www.espncricinfo.com/series/asia-cup-2011-12-535797/india-vs-pakistan-5th-match-535798/full-scorecard) |
+| [564784](https://www.espncricinfo.com/series/india-tour-of-sri-lanka-2012-564778/sri-lanka-vs-india-4th-odi-564784/full-scorecard) | 2012-07-31 | Sri Lanka | sixes | `18.2 (Over 18 Ball 2)` | 6 | All-run/overthrows 6 (non_boundary: true in Cricsheet schema). Excluded from boundary sixes per official ICC/Statsguru scoring rules. | [Scorecard](https://www.espncricinfo.com/series/india-tour-of-sri-lanka-2012-564778/sri-lanka-vs-india-4th-odi-564784/full-scorecard) |
 
 **Dismissal Invariant Verification for ODI**:
 - Ingested Archive: $\text{innings} (300) - \text{notOuts} (46) = 254 \equiv \text{dismissals} (254)$

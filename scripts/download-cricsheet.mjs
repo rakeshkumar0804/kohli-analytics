@@ -84,7 +84,17 @@ async function main() {
     console.log(`[VERIFIED] ${item.filename} | Size: ${(bytes / (1024 * 1024)).toFixed(2)} MB | SHA256: ${sha256.substring(0, 16)}...`);
   }
 
+  let existingManifest = {};
+  if (fs.existsSync(MANIFEST_PATH)) {
+    try {
+      existingManifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'));
+    } catch {
+      // ignore
+    }
+  }
+
   const manifest = {
+    ...existingManifest,
     datasetId: 'cricsheet-male-limited-overs',
     publisher: 'Cricsheet (Stephen Rushe)',
     publisherType: 'Open ball-by-ball cricket data publisher (Not official ICC/BCCI)',
@@ -94,8 +104,19 @@ async function main() {
     schemaVersion: '1.1.0',
     pipelineVersion: PIPELINE_VERSION,
     generatedAt: new Date().toISOString(),
+    player: {
+      canonicalName: 'Virat Kohli',
+      cricsheetPersonId: 'ba607b88',
+      externalIds: {
+        espncricinfo: '253802',
+      },
+    },
     formatsRequested: ARCHIVES.map((a) => a.format),
     archives: archiveManifests,
+    schemaAudit: existingManifest.schemaAudit || {
+      supportedVersions: ['1.0.0', '1.1.0', '1.2.0', '1.3.0', '1.4.0'],
+      corpusDistribution: { '1.2.0': 1 },
+    },
   };
 
   const tempManifestPath = `${MANIFEST_PATH}.tmp`;

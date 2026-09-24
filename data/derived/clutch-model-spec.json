@@ -1,0 +1,179 @@
+{
+  "specVersion": "1.0.0-model-spec",
+  "status": "calibration-blocked",
+  "publicationAllowed": false,
+  "generatedAt": "2026-09-24T11:39:38.239Z",
+  "modelType": "self-relative-descriptive-pressure-elevation",
+  "mathematicalFramework": {
+    "normalization": "tanh-bounded-ratio (50 + 50 * tanh((split - base) / base))",
+    "scale": "[0, 100] bounded interval",
+    "anchorPoint": "50.0 represents parity with baseline (1.0x ratio)",
+    "anchors": {
+      "0.0x": 11.92,
+      "0.5x": 26.89,
+      "1.0x": 50,
+      "1.5x": 73.11,
+      "2.0x": 88.08
+    },
+    "practicalRange": "[11.92, 100) for non-negative batting ratios"
+  },
+  "components": [
+    {
+      "id": "completedChaseDominance",
+      "label": "Chasing Innings Dominance",
+      "description": "Batting performance in 2nd innings run chasing appearances where a target was pursued regardless of final match outcome.",
+      "eligibleFormats": [
+        "ODI",
+        "T20I"
+      ],
+      "inclusionRules": "Second innings chases with known target (excluding abandoned without play).",
+      "deliveryRules": "All legal deliveries and no-balls faced by the batter while chasing.",
+      "numerator": "Runs scored in 2nd innings run chases.",
+      "denominator": "Dismissals in 2nd innings run chases.",
+      "baseline": "Format 1st-innings (setting target) batting average.",
+      "minSampleInnings": 15,
+      "minSampleBalls": 60,
+      "missingDataBehavior": "Returns status: insufficient-sample with score: null.",
+      "normalizationMethod": "Tanh bounded transformation vs baseline: 50 + 50 * tanh((splitAvg - baseAvg) / baseAvg).",
+      "maxWeightContribution": 0.3,
+      "interpretationLimitation": "High score indicates chase elevation, but does not isolate death-over high RRR situations from comfortable chases."
+    },
+    {
+      "id": "highRrrElevation",
+      "label": "High-Pressure Situations (RRR >= 8.0)",
+      "description": "Batting performance during run chase deliveries where the required run rate is stiff, severe, or extreme (>= 8.0 rpo).",
+      "eligibleFormats": [
+        "ODI",
+        "T20I"
+      ],
+      "inclusionRules": "Deliveries with finite requiredRunRate >= 8.0 and ballsRemaining > 0.",
+      "deliveryRules": "Official batter balls faced (legal deliveries + no-balls, excluding wides).",
+      "numerator": "Runs scored when RRR >= 8.0.",
+      "denominator": "Dismissals when RRR >= 8.0 (if dismissals > 0) and official balls faced for strike rate.",
+      "baseline": "Format overall chase strike rate and career average.",
+      "minSampleInnings": 10,
+      "minSampleBalls": 60,
+      "missingDataBehavior": "Returns status: insufficient-sample with score: null.",
+      "normalizationMethod": "Composite metric combining scoring rate elevation and dismissal resistance.",
+      "maxWeightContribution": 0.25,
+      "interpretationLimitation": "Deliveries are situational slices; small-sample cells within specific phases can skew rates."
+    },
+    {
+      "id": "knockoutElevation",
+      "label": "Tournament Knockout Elevation",
+      "description": "Batting performance in ICC and continental tournament knockout fixtures (quarter-finals, semi-finals, finals, Super 8/12 knockout deciders).",
+      "eligibleFormats": [
+        "ODI",
+        "T20I"
+      ],
+      "inclusionRules": "Matches tagged with tournament stage knockout, semi-final, final, or quarter-final in stage overrides.",
+      "deliveryRules": "All deliveries faced in knockout fixtures.",
+      "numerator": "Runs scored in knockout matches.",
+      "denominator": "Dismissals in knockout matches.",
+      "baseline": "Tournament group-stage / non-knockout format average.",
+      "minSampleInnings": 10,
+      "minSampleBalls": 60,
+      "missingDataBehavior": "Returns status: insufficient-sample with score: null.",
+      "normalizationMethod": "Ratio vs baseline transformed via bounded sigmoid / tanh curve.",
+      "maxWeightContribution": 0.25,
+      "interpretationLimitation": "Knockout matches occur infrequently; sample size in T20I (N=7) remains below minimum threshold."
+    },
+    {
+      "id": "finalsContribution",
+      "label": "Tournament Finals Impact",
+      "description": "Batting performance strictly in tournament finals (ICC World Cup, Champions Trophy, T20 World Cup, Asia Cup finals).",
+      "eligibleFormats": [
+        "ODI",
+        "T20I"
+      ],
+      "inclusionRules": "Matches tagged with stage final in verified match stage registry.",
+      "deliveryRules": "All deliveries faced in tournament finals.",
+      "numerator": "Runs scored in finals.",
+      "denominator": "Dismissals in finals.",
+      "baseline": "Format overall tournament batting average.",
+      "minSampleInnings": 10,
+      "minSampleBalls": 60,
+      "missingDataBehavior": "Returns status: insufficient-sample with score: null.",
+      "normalizationMethod": "Bounded deviation scoring vs format baseline.",
+      "maxWeightContribution": 0.2,
+      "interpretationLimitation": "CRITICAL SAMPLE LIMITATION: Limited sample sizes in tournament finals (N=10 ODI, N=3 T20I; T20I knockouts N=7) fail the robust calibration thresholds."
+    }
+  ],
+  "leakageSafeguards": [
+    {
+      "featureName": "requiredRunRate",
+      "computationTime": "live-innings",
+      "usesMatchOutcome": false,
+      "status": "clean-no-leakage",
+      "mitigation": "Computed strictly at delivery start from targetAtStart, scoreBefore, and ballsRemaining."
+    },
+    {
+      "featureName": "inningsPhase",
+      "computationTime": "live-innings",
+      "usesMatchOutcome": false,
+      "status": "clean-no-leakage",
+      "mitigation": "Derived strictly from zero-indexed over boundaries (0–9, 10–39, 40–49 in ODI)."
+    },
+    {
+      "featureName": "tournamentStageKnockout",
+      "computationTime": "pre-delivery",
+      "usesMatchOutcome": false,
+      "status": "clean-no-leakage",
+      "mitigation": "Tournament schedule structure is fixed before match commencement."
+    },
+    {
+      "featureName": "successfulChaseClassification",
+      "computationTime": "post-match",
+      "usesMatchOutcome": true,
+      "status": "clean-no-leakage",
+      "mitigation": "Strictly partitioned into Population B/descriptive metrics; never used as a pre-delivery pressure predictor."
+    }
+  ],
+  "calibrationGates": [
+    {
+      "id": "gate-1-sample-size",
+      "gateId": 1,
+      "gateName": "Minimum Sample Size Gate (Finals N >= 10)",
+      "requirement": "Tournament finals slice must contain at least 10 batted innings in each format to support reliable statistical inference.",
+      "observed": "ODI finals: 10 innings. T20I finals: 3 innings (FAIL: 3 < 10). T20I knockouts: 7 innings (FAIL: 7 < 10).",
+      "finding": "ODI finals: 10 innings. T20I finals: 3 innings (FAIL: 3 < 10). T20I knockouts: 7 innings (FAIL: 7 < 10).",
+      "passed": false,
+      "blockerReason": "Insufficient sample size in T20I tournament finals (N=3) and knockouts (N=7)",
+      "status": "BLOCKED (Insufficient Sample)"
+    },
+    {
+      "id": "gate-2-cross-player-peer-corpus",
+      "gateId": 2,
+      "gateName": "Cross-Player Baseline Peer Corpus Gate",
+      "requirement": "Production cross-player Clutch Index requires a normalized multi-player dataset for empirical percentile calibration.",
+      "observed": "Repository contains strictly Virat Kohli match records. Cross-player peer corpus is unavailable.",
+      "finding": "Repository contains strictly Virat Kohli match records. Cross-player peer corpus is unavailable.",
+      "passed": false,
+      "blockerReason": "Cross-player peer distribution unavailable in single-player dataset scope",
+      "status": "BLOCKED (Single-Player Dataset Scope)"
+    },
+    {
+      "id": "gate-3-collinearity-stability",
+      "gateId": 3,
+      "gateName": "Collinearity & Overlap Stability Gate",
+      "requirement": "Components must not exhibit circular scoring or unadjusted double-counting across overlapping sets.",
+      "observed": "Tournament finals are 100.0% contained in knockouts (10/10 ODI, 3/3 T20I: containment(final in knockout) = 100.0%). Knockouts intersect with chases in 10/18 (55.6%) ODI innings (containment(knockout in chase) = 55.6%) and 2/7 (28.6%) T20I innings (containment(knockout in chase) = 28.6%).",
+      "finding": "Tournament finals are 100.0% contained in knockouts (10/10 ODI, 3/3 T20I: containment(final in knockout) = 100.0%). Knockouts intersect with chases in 10/18 (55.6%) ODI innings (containment(knockout in chase) = 55.6%) and 2/7 (28.6%) T20I innings (containment(knockout in chase) = 28.6%).",
+      "passed": false,
+      "blockerReason": "Strict containment (100.0% finals in knockouts) and high overlap create circular score inflation and multicollinearity",
+      "status": "BLOCKED (High Multicollinearity)"
+    },
+    {
+      "id": "gate-4-uncertainty-bound",
+      "gateId": 4,
+      "gateName": "Bootstrap Uncertainty Bound Gate",
+      "requirement": "95% bootstrap confidence interval width for key component raw batting averages (unit: runs per dismissal) must not exceed 25.0 runs/dismissal, and valid replicate rate must be >= 0.95 across all components.",
+      "observed": "ODI Finals Raw CI width is 25.81 runs/dismissal (SE: ±6.53). T20I Finals Raw CI width is 83 runs/dismissal (SE: ±30.19, valid rate: 96.0%). T20I Knockouts Raw CI width is 251.5 runs/dismissal. Exceeds 25.0 runs/dismissal threshold.",
+      "finding": "ODI Finals Raw CI width is 25.81 runs/dismissal (SE: ±6.53). T20I Finals Raw CI width is 83 runs/dismissal (SE: ±30.19, valid rate: 96.0%). T20I Knockouts Raw CI width is 251.5 runs/dismissal. Exceeds 25.0 runs/dismissal threshold.",
+      "passed": false,
+      "blockerReason": "Confidence interval widths exceed 25.0 runs/dismissal threshold due to small sample sizes in tournament finals and knockouts",
+      "status": "BLOCKED (Excessive Uncertainty Width)"
+    }
+  ],
+  "blockerReason": "Tournament finals sample sizes (N=10 ODI, N=3 T20I; T20I knockouts N=7) fall below the robust threshold, bootstrap uncertainty width exceeds 25.0 runs/dismissal, and cross-player peer corpus is unavailable in a single-player dataset. Public score must remain null."
+}

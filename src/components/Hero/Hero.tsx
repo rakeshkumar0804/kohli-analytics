@@ -169,6 +169,7 @@ export default function Hero() {
             {(['ALL', 'ODI', 'Test', 'T20I'] as const).map((fmt) => (
               <button
                 key={fmt}
+                type="button"
                 className={`format-pill-btn ${heroFormat === fmt ? 'active' : ''}`}
                 style={{
                   padding: '0.25rem 0.75rem',
@@ -183,6 +184,8 @@ export default function Hero() {
                   transition: 'all 0.2s ease',
                 }}
                 onClick={() => setHeroFormat(fmt)}
+                aria-pressed={heroFormat === fmt}
+                aria-label={`Show ${fmt} career statistics`}
               >
                 {fmt}
               </button>

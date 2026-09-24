@@ -1,7 +1,8 @@
 .world-section {
-  padding: var(--section-pad-y) var(--section-pad-x);
+  padding: var(--section-pad-y) 0;
   background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
   position: relative;
+  overflow-x: clip;
 }
 
 .world-layout {
@@ -13,9 +14,10 @@
 
 .countries-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 1rem;
 }
+
 
 .country-card {
   padding: 1.25rem;
@@ -177,3 +179,23 @@
     position: static;
   }
 }
+
+@media (max-width: 480px) {
+  .countries-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .country-card {
+    padding: 0.85rem 0.75rem;
+  }
+  .country-spotlight {
+    padding: 1.25rem 1rem;
+  }
+  .spotlight-metrics-grid {
+    gap: 0.75rem;
+  }
+  .spotlight-metric {
+    padding: 0.6rem 0.75rem;
+  }
+}
+

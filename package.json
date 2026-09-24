@@ -18,6 +18,7 @@
     "data:derive": "node scripts/derive-kohli-analytics.mjs",
     "data:verify": "node scripts/verify-derived-data.mjs",
     "data:refresh": "node scripts/download-cricsheet.mjs && node scripts/ingest-cricsheet.mjs && node scripts/derive-kohli-analytics.mjs && node scripts/verify-derived-data.mjs",
+    "clutch:calibrate": "node scripts/calibrate-clutch-index.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -131,9 +131,9 @@ export default function ChaseSection() {
           </div>
 
           <div className={`chase-stat-card glass-card ${isVisible ? 'animate-in' : ''}`} style={{ animationDelay: '450ms' }}>
-            <span className="chase-stat-number text-red">49.8</span>
-            <span className="chase-stat-label">Test 4th Innings Avg</span>
-            <span className="chase-stat-sub">Historical 4th innings average (Adelaide 141, Joburg 96)</span>
+            <span className="chase-stat-number text-red">46.85</span>
+            <span className="chase-stat-label">Test Career Baseline</span>
+            <span className="chase-stat-sub">123 matches, 210 innings, 9,230 runs (verified Phase 1 baseline)</span>
           </div>
         </div>
 

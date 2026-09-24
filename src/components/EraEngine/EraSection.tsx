@@ -31,6 +31,17 @@ export default function EraSection() {
   const [activeEraIndex, setActiveEraIndex] = useState(0);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  useEffect(() => {
+    const handleMetricEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<Metric>;
+      if (customEvent.detail) {
+        setActiveMetric(customEvent.detail);
+      }
+    };
+    window.addEventListener('set-era-metric', handleMetricEvent);
+    return () => window.removeEventListener('set-era-metric', handleMetricEvent);
+  }, []);
+
   const chartData = eraData.map((era) => ({
     name: era.label.split(' ')[0],
     value: era[activeMetric],

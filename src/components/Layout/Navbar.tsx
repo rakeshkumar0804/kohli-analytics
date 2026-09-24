@@ -2,16 +2,29 @@ import { useState, useEffect } from 'react';
 
 const NAV_LINKS = [
   { label: 'Next Match',   href: '#next-match' },
-  { label: 'Clutch Index', href: '#clutch-index' },
+  { label: 'Pressure Performance', href: '#clutch-index' },
+  { label: 'Captaincy',    href: '#captaincy-myth' },
   { label: 'Era Engine',   href: '#era-engine' },
   { label: 'Pressure Map', href: '#pressure-map' },
   { label: 'Chase Master', href: '#chase-master' },
+  { label: 'Defining Innings', href: '#defining-innings' },
   { label: 'Legends',      href: '#legends-showdown' },
   { label: 'IPL & Domestic', href: '#ipl-domestic' },
   { label: 'Timeline',     href: '#career-timeline' },
 ];
 
-const SECTION_IDS = ['next-match', 'clutch-index', 'captaincy-myth', 'era-engine', 'pressure-map', 'chase-master', 'legends-showdown', 'ipl-domestic', 'career-timeline'];
+const SECTION_IDS = [
+  'next-match',
+  'clutch-index',
+  'captaincy-myth',
+  'era-engine',
+  'pressure-map',
+  'chase-master',
+  'defining-innings',
+  'legends-showdown',
+  'ipl-domestic',
+  'career-timeline',
+];
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState('');
@@ -19,24 +32,36 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setScrolled(scrollY > 60);
 
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    SECTION_IDS.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { threshold: 0.3 }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
+      // Scroll spy: determine which section currently spans the reading area
+      const offset = 140; // Pixels below fixed header
+      let current = '';
+
+      for (const id of SECTION_IDS) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop - offset;
+          const bottom = top + el.offsetHeight;
+          if (scrollY >= top && scrollY < bottom) {
+            current = id;
+            break;
+          }
+        }
+      }
+
+      if (current) {
+        setActiveSection(current);
+      } else if (scrollY < 200) {
+        setActiveSection('');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {

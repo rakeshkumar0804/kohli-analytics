@@ -1,4 +1,5 @@
 import { opponentData, careerStats, famousChases, heroStatsByFormat, allFormatCareerStats, u19CareerStats } from '../src/data/kohliData.ts';
+import { DEFINING_INNINGS_DATA } from '../src/data/definingInningsData.ts';
 import { DATA_VERIFIED_ON, STRUCTURAL_VALIDATION_DISCLAIMER, DATA_PROVENANCE_MANIFEST } from '../src/data/dataSources.ts';
 import { calculateClutchIndex } from '../src/utils/calculateClutchIndex.ts';
 
@@ -265,6 +266,68 @@ assert((28359 / (629 - 91)).toFixed(2) === '52.71', `Combined International avg 
 console.log('--- Checking Clutch Index Calculation Status ---');
 const clutchRes = calculateClutchIndex({ baselineAvg: 58.59, chaseAvg: 65.0, knockoutAvg: 68.4, finalsAvg: 71.2, baselineSR: 93.95, chaseSR: 93.4 });
 assert(clutchRes.status === 'calibration-pending', `Clutch Index status expected 'calibration-pending', got ${clutchRes.status}`);
+
+// 10. Selected Defining Innings Gallery Integrity & Provenance Check
+console.log('--- Checking Selected Defining Innings Gallery Integrity ---');
+assert(Array.isArray(DEFINING_INNINGS_DATA) && DEFINING_INNINGS_DATA.length >= 10, `DEFINING_INNINGS_DATA must contain at least 10 verified innings, found ${DEFINING_INNINGS_DATA.length}`);
+
+const validFormats = new Set(['Test', 'ODI', 'T20I', 'IPL']);
+const validImpacts = new Set(['Rescue & Recovery', 'Record Chase', 'World Milestone', 'Captaincy Masterclass', 'Knockout Heroics']);
+const definingIds = new Set();
+
+DEFINING_INNINGS_DATA.forEach((inn, idx) => {
+  assert(!definingIds.has(inn.id), `[Defining Innings #${idx + 1}] Duplicate ID: ${inn.id}`);
+  definingIds.add(inn.id);
+
+  assert(validFormats.has(inn.format), `[Defining Innings: ${inn.id}] Invalid format: ${inn.format}`);
+  assert(validImpacts.has(inn.impactCategory), `[Defining Innings: ${inn.id}] Invalid impact category: ${inn.impactCategory}`);
+  assert(isNonNegativeInteger(inn.runs), `[Defining Innings: ${inn.id}] runs must be non-negative integer, got ${inn.runs}`);
+  assert(isNonNegativeInteger(inn.ballsFaced) && inn.ballsFaced > 0, `[Defining Innings: ${inn.id}] ballsFaced must be positive integer, got ${inn.ballsFaced}`);
+  assert(typeof inn.notOut === 'boolean', `[Defining Innings: ${inn.id}] notOut must be boolean`);
+  assert(isNonNegativeInteger(inn.fours), `[Defining Innings: ${inn.id}] fours must be non-negative integer`);
+  assert(isNonNegativeInteger(inn.sixes), `[Defining Innings: ${inn.id}] sixes must be non-negative integer`);
+  assert(inn.sourceUrl.startsWith('https://'), `[Defining Innings: ${inn.id}] sourceUrl must start with https://, got ${inn.sourceUrl}`);
+  assert(typeof inn.matchId === 'string' && inn.matchId.length > 0, `[Defining Innings: ${inn.id}] matchId must be valid string`);
+
+  // Verify strike rate formula: (runs / ballsFaced) * 100
+  const calcSR = (inn.runs / inn.ballsFaced) * 100;
+  assert(Math.abs(calcSR - inn.strikeRate) < 0.15, `[Defining Innings: ${inn.id}] Strike rate mismatch! Stored: ${inn.strikeRate}, Calculated: ${calcSR.toFixed(2)}`);
+
+  // Verify candidate screenshot entries and key match records
+  if (inn.id === 'test-254-sa-pune-2019') {
+    assert(inn.runs === 254 && inn.ballsFaced === 336 && inn.fours === 33 && inn.sixes === 2 && inn.notOut === true && inn.opponent === 'South Africa' && inn.format === 'Test', 'Candidate 254* must match verified Test score');
+  }
+  if (inn.id === 'test-149-eng-edgbaston-2018') {
+    assert(inn.runs === 149 && inn.ballsFaced === 225 && inn.fours === 22 && inn.sixes === 1 && inn.opponent === 'England' && inn.format === 'Test', 'Candidate 149 must match verified Test score');
+  }
+  if (inn.id === 'test-141-aus-adelaide-2014') {
+    assert(inn.runs === 141 && inn.ballsFaced === 175 && inn.fours === 16 && inn.sixes === 1 && inn.matchId === '754737' && inn.opponent === 'Australia' && inn.format === 'Test', 'Adelaide 2014 must match verified 141 (175b, 16x4, 1x6, matchId 754737)');
+  }
+  if (inn.id === 'test-123-aus-perth-2018') {
+    assert(inn.runs === 123 && inn.ballsFaced === 257 && inn.fours === 13 && inn.sixes === 1 && inn.matchId === '1144994', 'Perth 2018 must match 123 (257b, 13x4, 1x6)');
+  }
+  if (inn.id === 'odi-133-sl-hobart-2012') {
+    assert(inn.runs === 133 && inn.ballsFaced === 86 && inn.fours === 16 && inn.sixes === 2 && inn.notOut === true && inn.matchId === '518966', 'Hobart 2012 must match 133* (86b, 16x4, 2x6)');
+  }
+  if (inn.id === 'odi-183-pak-dhaka-2012') {
+    assert(inn.runs === 183 && inn.ballsFaced === 148 && inn.fours === 22 && inn.sixes === 1 && inn.matchId === '535798', 'Mirpur 2012 must match 183 (148b, 22x4, 1x6)');
+  }
+  if (inn.id === 'odi-117-nz-mumbai-2023') {
+    assert(inn.runs === 117 && inn.ballsFaced === 113 && inn.fours === 9 && inn.sixes === 2 && inn.matchId === '1384438', 'Mumbai 2023 must match 117 (113b, 9x4, 2x6)');
+  }
+  if (inn.id === 't20i-82-pak-mcg-2022') {
+    assert(inn.runs === 82 && inn.ballsFaced === 53 && inn.fours === 6 && inn.sixes === 4 && inn.notOut === true && inn.matchId === '1298150', 'MCG 2022 must match 82* (53b, 6x4, 4x6)');
+  }
+  if (inn.id === 't20i-82-aus-mohali-2016') {
+    assert(inn.runs === 82 && inn.ballsFaced === 51 && inn.fours === 9 && inn.sixes === 2 && inn.notOut === true && inn.matchId === '951363', 'Mohali 2016 must match 82* (51b, 9x4, 2x6)');
+  }
+  if (inn.id === 't20i-76-sa-barbados-2024') {
+    assert(inn.runs === 76 && inn.ballsFaced === 59 && inn.fours === 6 && inn.sixes === 2 && inn.matchId === '1415755', 'Barbados 2024 must match 76 (59b, 6x4, 2x6)');
+  }
+  if (inn.id === 'ipl-113-kxip-bengaluru-2016') {
+    assert(inn.runs === 113 && inn.ballsFaced === 50 && inn.fours === 12 && inn.sixes === 8 && inn.matchId === '980999', 'Bengaluru 2016 must match 113 (50b, 12x4, 8x6)');
+  }
+});
 
 // Report Results
 if (errors.length > 0) {

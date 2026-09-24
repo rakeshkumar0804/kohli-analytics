@@ -476,11 +476,11 @@ function computePressureInclusionAccounting(formatMatches, format, playerName) {
 
 function generateMarkdownReport(report) {
   let md = `# Virat Kohli Analytics — Match-Level Data Reconciliation Report\n\n`;
-  md += `**Report Version**: \`${report.reportVersion}\`  \n`;
-  md += `**Dataset ID**: \`${report.datasetId}\`  \n`;
-  md += `**Generated At**: \`${report.generatedAt}\`  \n`;
-  md += `**Player**: ${report.player.canonicalName} (Cricsheet: \`${report.player.cricsheetPersonId}\`, ESPNcricinfo: \`${report.player.externalIds.espncricinfo}\`)  \n`;
-  md += `**Trust Status**: \`${report.trust?.careerAggregates?.isTrusted ? 'CAREER AGGREGATES VERIFIED; DELIVERY COVERAGE PARTIAL' : 'RECONCILIATION PENDING'}\`  \n\n`;
+  md += `- **Report Version**: \`${report.reportVersion}\`\n`;
+  md += `- **Dataset ID**: \`${report.datasetId}\`\n`;
+  md += `- **Generated At**: \`${report.generatedAt}\`\n`;
+  md += `- **Player**: ${report.player.canonicalName} (Cricsheet: \`${report.player.cricsheetPersonId}\`, ESPNcricinfo: \`${report.player.externalIds.espncricinfo}\`)\n`;
+  md += `- **Trust Status**: \`${report.trust?.careerAggregates?.isTrusted ? 'CAREER AGGREGATES VERIFIED; DELIVERY COVERAGE PARTIAL' : 'RECONCILIATION PENDING'}\`\n\n`;
   md += `---\n\n`;
 
   md += `## Scoped Trust Architecture\n\n`;

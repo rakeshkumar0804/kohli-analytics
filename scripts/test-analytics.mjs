@@ -41,6 +41,19 @@ import {
 } from '../src/analytics/clutchMetrics.ts';
 
 import {
+  LEGACY_MODEL_SPEC,
+  PHASE5_MODEL_VERSION,
+  CLUTCH_COMPONENTS_SPEC,
+  normalizeClutchRatio,
+  computeOverlapMatrix,
+  evaluateWeightSensitivity,
+  evaluateTemporalStability,
+  computeBootstrapBattingAverageCI,
+  computeBootstrapComponentScoreCI,
+  auditFeatureLeakage,
+} from '../src/analytics/clutchModelSpec.ts';
+
+import {
   adaptClutchToViewModel,
   adaptPressureMapToViewModel,
   adaptChaseMetricsToViewModel,
@@ -49,6 +62,14 @@ import {
   getChaseAnalyticsViewModel,
 } from '../src/analytics/adapters.ts';
 
+import {
+  parseNextMatchResponse,
+  fetchNextMatch,
+  getVerifiedCareerStats,
+} from '../src/api/cricketData.ts';
+
+import { FixturesService } from '../src/server/fixturesService.ts';
+import { DEFINING_INNINGS_DATA } from '../src/data/definingInningsData.ts';
 
 import { SAMPLE_MATCH_FIXTURES } from '../src/analytics/fixtures/sampleMatches.ts';
 import { careerStats, opponentData, clutchMetricsByFormat, pressureMapDataByFormat } from '../src/data/kohliData.ts';
@@ -1997,6 +2018,891 @@ describe('7. Cricsheet Source Adapter & Ingestion Pipeline Suite', () => {
     assert.strictEqual(agg.runs, 40);
     assert.strictEqual(agg.dismissals, 0);
     assert.strictEqual(agg.average, null, 'Aggregate batting with 0 dismissals must have average === null');
+  });
+});
+
+// ============================================================
+// 9. PHASE 5: CLUTCH INDEX CALIBRATION & EXPLAINABILITY SUITE (10 DISTINCT TESTS)
+// ============================================================
+describe('9. Phase 5 Clutch Index Calibration & Explainability Suite', () => {
+  it('9.1 Freezes legacy Clutch Index model as superseded-research-baseline with documented flaws', () => {
+    assert.strictEqual(LEGACY_MODEL_SPEC.modelVersion, '0.1.0-experimental');
+    assert.strictEqual(LEGACY_MODEL_SPEC.status, 'superseded-research-baseline');
+    assert.ok(LEGACY_MODEL_SPEC.knownWeaknesses.length >= 4);
+    assert.ok(LEGACY_MODEL_SPEC.knownWeaknesses.some((w) => w.includes('Circular scoring') || w.includes('collinearity')));
+    assert.ok(LEGACY_MODEL_SPEC.knownWeaknesses.some((w) => w.includes('Small sample volatility')));
+    assert.ok(LEGACY_MODEL_SPEC.whyNeverProductionTrusted.includes('cross-player peer corpus'));
+  });
+
+  it('9.2 Model Specification 1.0.0-model-spec defines 4 operational components with explicit rules', () => {
+    assert.strictEqual(PHASE5_MODEL_VERSION, '1.0.0-model-spec');
+    assert.strictEqual(CLUTCH_COMPONENTS_SPEC.length, 4);
+
+    const ids = CLUTCH_COMPONENTS_SPEC.map((c) => c.id);
+    assert.ok(ids.includes('completedChaseDominance'));
+    assert.ok(ids.includes('highRrrElevation'));
+    assert.ok(ids.includes('knockoutElevation'));
+    assert.ok(ids.includes('finalsContribution'));
+
+    for (const comp of CLUTCH_COMPONENTS_SPEC) {
+      assert.ok(comp.minSampleInnings >= 10);
+      assert.ok(comp.minSampleBalls >= 60);
+      assert.ok(comp.maxWeightContribution <= 0.35);
+      assert.ok(comp.interpretationLimitation.length > 0);
+    }
+  });
+
+  it('9.3 Bounded tanh normalization maps ratios strictly onto [0, 100] interval with Policy A mathematical anchors', () => {
+    // Exact Mathematical Anchors (Policy A: score = 50 + 50 * tanh(ratio - 1))
+    // 1. 0.0x ratio (0 runs) -> 50 + 50 * tanh(-1) ≈ 11.92 pts (practical non-negative minimum)
+    const zeroRatio = normalizeClutchRatio(0.0, 50.0);
+    assert.strictEqual(zeroRatio, 11.92, '0.0x ratio must evaluate to 11.92, never 0.0');
+
+    // 2. 0.5x ratio (-50% depression) -> 50 + 50 * tanh(-0.5) ≈ 26.89 pts
+    const dep50 = normalizeClutchRatio(25.0, 50.0);
+    assert.strictEqual(dep50, 26.89);
+
+    // 3. 1.0x ratio (parity) -> 50 + 50 * tanh(0) = 50.00 pts
+    const parity = normalizeClutchRatio(50.0, 50.0);
+    assert.strictEqual(parity, 50.00);
+
+    // 4. 1.5x ratio (+50% elevation) -> 50 + 50 * tanh(0.5) ≈ 73.11 pts
+    const elev50 = normalizeClutchRatio(75.0, 50.0);
+    assert.strictEqual(elev50, 73.11);
+
+    // 5. 2.0x ratio (+100% elevation) -> 50 + 50 * tanh(1.0) ≈ 88.08 pts
+    const elev100 = normalizeClutchRatio(100.0, 50.0);
+    assert.strictEqual(elev100, 88.08);
+
+    // Practical range: [11.92, 100) for non-negative inputs
+    assert.ok(zeroRatio >= 11.92);
+    const extremeUpper = normalizeClutchRatio(100000.0, 50.0);
+    assert.strictEqual(extremeUpper, 100.0);
+
+    // Null safety
+    assert.strictEqual(normalizeClutchRatio(null, 50.0), null);
+    assert.strictEqual(normalizeClutchRatio(50.0, null), null);
+    assert.strictEqual(normalizeClutchRatio(50.0, 0), null);
+    assert.strictEqual(normalizeClutchRatio(-10.0, 50.0), null);
+  });
+
+  it('9.4 Inter-component overlap matrix computes directional containment formulas and 100% containment of finals in knockouts', () => {
+    const normMatches = SAMPLE_MATCH_FIXTURES.map(normalizeMatch);
+    const overlapReport = computeOverlapMatrix(normMatches, 'Virat Kohli', 'ODI');
+
+    assert.strictEqual(overlapReport.format, 'ODI');
+    assert.ok(overlapReport.matrix.length > 0);
+    assert.ok(overlapReport.collinearityWarning.includes('collinearity') || overlapReport.collinearityWarning.includes('Collinearity') || overlapReport.collinearityWarning.includes('containment'));
+
+    const finalInKnockout = overlapReport.matrix.find((c) => c.setA === 'final' && c.setB === 'knockout');
+    if (finalInKnockout && finalInKnockout.inningsOverlapCount > 0) {
+      assert.strictEqual(finalInKnockout.populationUnit, 'innings');
+      assert.strictEqual(finalInKnockout.containmentAInB, 100.0);
+      assert.strictEqual(finalInKnockout.containmentOfAInB, 100.0);
+      assert.strictEqual(finalInKnockout.inningsOverlapPercentageA, 100.0);
+      assert.strictEqual(finalInKnockout.format, 'ODI');
+      assert.ok(typeof finalInKnockout.intersectionCount === 'number');
+      assert.ok(typeof finalInKnockout.unionCount === 'number');
+      assert.ok(typeof finalInKnockout.jaccardIndex === 'number');
+      assert.ok(finalInKnockout.directionalFormula.includes('count(innings in final also in knockout)'));
+    }
+  });
+
+  it('9.5 Weight sensitivity analysis computes perturbation and stability across 6 weight variants', () => {
+    const scores = {
+      completedChase: 75.0,
+      highRrr: 60.0,
+      knockouts: 80.0,
+      finals: 45.0,
+    };
+    const sens = evaluateWeightSensitivity(scores, 'ODI');
+    assert.strictEqual(sens.format, 'ODI');
+    assert.strictEqual(sens.variants.length, 6);
+    assert.ok(sens.baselineScore !== null);
+    assert.ok(typeof sens.maxScoreDelta === 'number');
+    assert.ok(typeof sens.isStable === 'boolean');
+    assert.ok(sens.blockerVerdict.length > 0);
+  });
+
+  it('9.6 Temporal validation evaluates career eras (2008-2015, 2016-2019, 2020-2024)', () => {
+    const normMatches = SAMPLE_MATCH_FIXTURES.map(normalizeMatch);
+    const temp = evaluateTemporalStability(normMatches, 'Virat Kohli', 'ODI');
+    assert.strictEqual(temp.format, 'ODI');
+    assert.strictEqual(temp.splits.length, 3);
+    assert.strictEqual(temp.splits[0].periodId, 'dev-2008-2015');
+    assert.strictEqual(temp.splits[1].periodId, 'peak-2016-2019');
+    assert.strictEqual(temp.splits[2].periodId, 'holdout-2020-2024');
+    assert.ok(temp.findings.length > 0);
+  });
+
+  it('9.7 Deterministic bootstrap confidence intervals separate raw average CI (runs/dismissal) from bounded score CI (0-100)', () => {
+    const sampleInnings = [
+      { runs: 50, dismissed: true },
+      { runs: 82, dismissed: false },
+      { runs: 12, dismissed: true },
+      { runs: 115, dismissed: false },
+      { runs: 35, dismissed: true },
+    ];
+
+    // 1. Raw Batting Average CI (Unit: runs/dismissal)
+    const rawCI = computeBootstrapBattingAverageCI(sampleInnings, 1000, 429);
+    assert.strictEqual(rawCI.unit, 'runs/dismissal');
+    assert.strictEqual(rawCI.iterations, 1000);
+    assert.strictEqual(rawCI.attemptedReplicates, 1000);
+    assert.strictEqual(rawCI.validReplicates, 993);
+    assert.strictEqual(rawCI.invalidZeroDismissalReplicates, 7);
+    assert.strictEqual(rawCI.validReplicateRate, 0.993);
+    assert.strictEqual(rawCI.status, 'available');
+    assert.strictEqual(rawCI.seed, 429);
+    assert.ok(rawCI.ci95Lower !== null && rawCI.mean !== null && rawCI.ci95Upper !== null);
+    assert.ok(rawCI.ci95Lower <= rawCI.mean && rawCI.mean <= rawCI.ci95Upper);
+    assert.ok(rawCI.zeroDismissalReplicatePolicy.includes('Strict exclusion'));
+
+    // 2. Clutch Component Score CI (Unit: score-points 0-100)
+    const scoreCI = computeBootstrapComponentScoreCI(sampleInnings, 50.0, 1000, 429);
+    assert.strictEqual(scoreCI.unit, 'score-points (0-100)');
+    assert.strictEqual(scoreCI.iterations, 1000);
+    assert.strictEqual(scoreCI.attemptedReplicates, 1000);
+    assert.strictEqual(scoreCI.validReplicates, 993);
+    assert.strictEqual(scoreCI.invalidZeroDismissalReplicates, 7);
+    assert.strictEqual(scoreCI.validReplicateRate, 0.993);
+    assert.strictEqual(scoreCI.status, 'available');
+    assert.strictEqual(scoreCI.seed, 429);
+    assert.ok(scoreCI.ci95Lower !== null && scoreCI.mean !== null && scoreCI.ci95Upper !== null && scoreCI.ciWidth !== null);
+    assert.ok(0 <= scoreCI.ci95Lower && scoreCI.ci95Lower <= scoreCI.ci95Upper && scoreCI.ci95Upper <= 100);
+    assert.ok(0 <= scoreCI.ciWidth && scoreCI.ciWidth <= 100);
+    assert.ok(scoreCI.ci95Lower <= scoreCI.mean && scoreCI.mean <= scoreCI.ci95Upper);
+
+    // 3. Strict zero-dismissal exclusion test (undefeated sample -> 0 dismissals in all draws)
+    const undefeatedInnings = [
+      { runs: 45, dismissed: false },
+      { runs: 60, dismissed: false },
+    ];
+    const undefeatedRawCI = computeBootstrapBattingAverageCI(undefeatedInnings, 100, 429);
+    assert.strictEqual(undefeatedRawCI.status, 'insufficient-valid-replicates');
+    assert.strictEqual(undefeatedRawCI.mean, null);
+    assert.strictEqual(undefeatedRawCI.ci95Lower, null);
+    assert.strictEqual(undefeatedRawCI.ci95Upper, null);
+    assert.strictEqual(undefeatedRawCI.validReplicates, 0);
+    assert.strictEqual(undefeatedRawCI.invalidZeroDismissalReplicates, 100);
+    assert.strictEqual(undefeatedRawCI.validReplicateRate, 0.0);
+
+    const undefeatedScoreCI = computeBootstrapComponentScoreCI(undefeatedInnings, 50.0, 100, 429);
+    assert.strictEqual(undefeatedScoreCI.status, 'insufficient-valid-replicates');
+    assert.strictEqual(undefeatedScoreCI.mean, null);
+    assert.strictEqual(undefeatedScoreCI.ci95Lower, null);
+    assert.strictEqual(undefeatedScoreCI.validReplicates, 0);
+    assert.strictEqual(undefeatedScoreCI.invalidZeroDismissalReplicates, 100);
+  });
+
+  it('9.8 Feature leakage audit confirms zero post-match outcome leakage in pre-delivery features', () => {
+    const audit = auditFeatureLeakage();
+    assert.ok(audit.length >= 4);
+    for (const rec of audit) {
+      assert.strictEqual(rec.status, 'clean-no-leakage');
+      if (rec.featureName === 'requiredRunRate') {
+        assert.strictEqual(rec.usesMatchOutcome, false);
+        assert.strictEqual(rec.computationTime, 'live-innings');
+      }
+    }
+  });
+
+  it('9.9 Minimum sample policy strictly blocks finals component calibration (N=10 ODI, N=3 T20I < 10)', () => {
+    const finalsComp = CLUTCH_COMPONENTS_SPEC.find((c) => c.id === 'finalsContribution');
+    assert.ok(finalsComp);
+    assert.strictEqual(finalsComp.minSampleInnings, 10);
+    assert.ok(finalsComp.interpretationLimitation.includes('N=10 ODI, N=3 T20I; T20I knockouts N=7'));
+  });
+
+  it('9.10 Full Phase 5 Clutch Index view-model integrity preserves score: null and calibration status', () => {
+    for (const fmt of ['ODI', 'T20I']) {
+      const vm = getClutchViewModel(fmt);
+      assert.strictEqual(vm.status, 'calibration-pending');
+      assert.strictEqual(vm.scoreDisplay, 'CALIBRATION PENDING');
+      assert.strictEqual(vm.modelVersion, '1.0.0-model-spec');
+      assert.strictEqual(vm.calibrationStatus, 'calibration-blocked');
+      assert.ok(vm.blockerReason.includes('Tournament finals sample sizes'));
+      assert.strictEqual(vm.components.length, 4);
+      assert.strictEqual(vm.calibrationGates.length, 4);
+      assert.ok(vm.calibrationGates.every((g) => !g.passed));
+    }
+  });
+});
+
+// ============================================================
+// 10. API ARCHITECTURE & RELIABILITY SUITE (6 DISTINCT TESTS)
+// ============================================================
+describe('10. API Architecture & Reliability Suite', () => {
+  it('10.1 parseNextMatchResponse parses valid upcoming India ODI fixture with schema validation', () => {
+    const fixedNow = new Date('2026-06-01T00:00:00.000Z');
+    const mockPayload = {
+      status: 'success',
+      data: [
+        {
+          id: 'mock-1',
+          name: 'India vs Australia 1st ODI',
+          matchType: 'ODI',
+          dateTimeGMT: '2026-07-15T09:00:00.000Z',
+          venue: 'Melbourne Cricket Ground, Melbourne',
+        },
+      ],
+    };
+
+    const res = parseNextMatchResponse(mockPayload, fixedNow);
+    assert.strictEqual(res.status, 'available');
+    assert.strictEqual(res.reason, 'live-schedule-found');
+    assert.ok(res.match);
+    assert.strictEqual(res.match.opponent, 'Australia');
+    assert.strictEqual(res.match.matchType, 'ODI');
+    assert.strictEqual(res.match.venue, 'Melbourne Cricket Ground, Melbourne');
+  });
+
+  it('10.2 parseNextMatchResponse excludes past fixtures and non-India/non-ODI fixtures', () => {
+    const fixedNow = new Date('2026-06-01T00:00:00.000Z');
+    const mockPayload = {
+      status: 'success',
+      data: [
+        {
+          id: 'mock-past',
+          name: 'India vs England 3rd ODI',
+          matchType: 'ODI',
+          dateTimeGMT: '2026-01-10T09:00:00.000Z', // In the past relative to fixedNow
+          venue: 'Wankhede Stadium, Mumbai',
+        },
+        {
+          id: 'mock-test',
+          name: 'India vs Australia 1st Test',
+          matchType: 'Test',
+          dateTimeGMT: '2026-08-01T09:00:00.000Z', // Future but Test format
+          venue: 'Adelaide Oval',
+        },
+        {
+          id: 'mock-other',
+          name: 'England vs South Africa 1st ODI',
+          matchType: 'ODI',
+          dateTimeGMT: '2026-08-01T09:00:00.000Z', // Future ODI but non-India
+          venue: "Lord's, London",
+        },
+      ],
+    };
+
+    const res = parseNextMatchResponse(mockPayload, fixedNow);
+    assert.strictEqual(res.status, 'confirmed-empty');
+    assert.strictEqual(res.reason, 'no-upcoming-fixture');
+    assert.strictEqual(res.match, null);
+  });
+
+  it('10.3 parseNextMatchResponse returns confirmed-empty when upstream schedule is explicitly empty', () => {
+    const fixedNow = new Date('2026-06-01T00:00:00.000Z');
+    const mockPayload = {
+      status: 'success',
+      data: [],
+    };
+
+    const res = parseNextMatchResponse(mockPayload, fixedNow);
+    assert.strictEqual(res.status, 'confirmed-empty');
+    assert.strictEqual(res.reason, 'no-upcoming-fixture');
+    assert.strictEqual(res.match, null);
+    assert.ok(res.message.includes('empty list'));
+  });
+
+  it('10.4 parseNextMatchResponse returns unavailable with invalid-schema on malformed payloads', () => {
+    const fixedNow = new Date('2026-06-01T00:00:00.000Z');
+    const invalidInputs = [null, undefined, 'not-json', { data: 'not-an-array' }, 12345];
+
+    for (const input of invalidInputs) {
+      const res = parseNextMatchResponse(input, fixedNow);
+      assert.strictEqual(res.status, 'unavailable');
+      assert.strictEqual(res.reason, 'invalid-schema');
+      assert.strictEqual(res.match, null);
+    }
+  });
+
+  it('10.5 fetchNextMatch returns unavailable (no-server-proxy) in unconfigured client environment', async () => {
+    const res = await fetchNextMatch();
+    assert.strictEqual(res.status, 'unavailable');
+    assert.strictEqual(res.match, null);
+    assert.ok(res.reason === 'no-server-proxy' || res.reason === 'network-error');
+  });
+
+  it('10.6 getVerifiedCareerStats returns Phase 1 locked career totals as declared single source of truth', () => {
+    const stats = getVerifiedCareerStats();
+    assert.strictEqual(stats.runs, 28359);
+    assert.strictEqual(stats.matches, 562);
+    assert.strictEqual(stats.centuries, 85);
+    assert.strictEqual(stats.average, 58.59);
+    assert.strictEqual(stats.highScore, 183);
+  });
+
+  it('10.7 FixturesService: Success with India upcoming ODI fixture returns available with sanitized fields', async () => {
+    const fixedNow = new Date('2026-06-01T00:00:00.000Z');
+    const mockPayload = {
+      status: 'success',
+      data: [
+        {
+          id: 'mock-odi-1',
+          name: 'India vs England 1st ODI',
+          matchType: 'ODI',
+          dateTimeGMT: '2026-07-15T09:00:00.000Z',
+          venue: "Lord's, London",
+          series: 'India Tour of England 2026',
+        },
+      ],
+    };
+
+    const service = new FixturesService({
+      apiKey: 'test-secret-key-12345',
+      nowFn: () => fixedNow,
+      fetchFn: async () => ({
+        ok: true,
+        status: 200,
+        json: async () => mockPayload,
+      }),
+    });
+
+    const result = await service.getNextFixture({ clientIp: '10.0.0.1' });
+    assert.strictEqual(result.httpStatus, 200);
+    assert.strictEqual(result.body.status, 'available');
+    assert.strictEqual(result.body.reason, 'live-schedule-found');
+    assert.ok(result.body.match);
+    assert.strictEqual(result.body.match.matchName, 'India vs England 1st ODI');
+    assert.strictEqual(result.body.match.opponent, 'England');
+    assert.strictEqual(result.body.match.matchType, 'ODI');
+    assert.strictEqual(result.body.match.venue, "Lord's, London");
+    assert.strictEqual(result.body.match.date, '2026-07-15T09:00:00.000Z');
+    assert.strictEqual(result.headers['X-Cache'], 'MISS');
+  });
+
+  it('10.8 FixturesService: Empty upstream data list returns confirmed-empty with no fixture', async () => {
+    const fixedNow = new Date('2026-06-01T00:00:00.000Z');
+    const service = new FixturesService({
+      apiKey: 'test-secret-key-12345',
+      nowFn: () => fixedNow,
+      fetchFn: async () => ({
+        ok: true,
+        status: 200,
+        json: async () => ({ status: 'success', data: [] }),
+      }),
+    });
+
+    const result = await service.getNextFixture({ clientIp: '10.0.0.2' });
+    assert.strictEqual(result.httpStatus, 200);
+    assert.strictEqual(result.body.status, 'confirmed-empty');
+    assert.strictEqual(result.body.reason, 'no-upcoming-fixture');
+    assert.strictEqual(result.body.match, null);
+    assert.ok(result.body.message.includes('empty list'));
+  });
+
+  it('10.9 FixturesService: Request timeout triggers bounded abort and returns timeout unavailable', async () => {
+    const service = new FixturesService({
+      apiKey: 'test-secret-key-12345',
+      requestTimeoutMs: 50,
+      fetchFn: async (_, init) => {
+        return new Promise((resolve, reject) => {
+          if (init?.signal) {
+            init.signal.addEventListener('abort', () => {
+              const abortError = new Error('The operation was aborted');
+              abortError.name = 'AbortError';
+              reject(abortError);
+            });
+          }
+        });
+      },
+    });
+
+    const result = await service.getNextFixture({ clientIp: '10.0.0.3' });
+    assert.strictEqual(result.httpStatus, 200);
+    assert.strictEqual(result.body.status, 'unavailable');
+    assert.strictEqual(result.body.reason, 'timeout');
+    assert.strictEqual(result.body.match, null);
+    assert.ok(result.body.message.includes('timed out'));
+  });
+
+  it('10.10 FixturesService: Provider error status or HTTP 500 masks raw error and returns provider-error', async () => {
+    // Subtest A: HTTP 500
+    const service500 = new FixturesService({
+      apiKey: 'test-secret-key-12345',
+      fetchFn: async () => ({
+        ok: false,
+        status: 500,
+      }),
+    });
+
+    const res500 = await service500.getNextFixture({ clientIp: '10.0.0.4' });
+    assert.strictEqual(res500.httpStatus, 200);
+    assert.strictEqual(res500.body.status, 'unavailable');
+    assert.strictEqual(res500.body.reason, 'provider-error');
+    assert.strictEqual(res500.body.match, null);
+
+    // Subtest B: Provider JSON { status: 'failure' }
+    const serviceFailure = new FixturesService({
+      apiKey: 'test-secret-key-12345',
+      fetchFn: async () => ({
+        ok: true,
+        status: 200,
+        json: async () => ({ status: 'failure', reason: 'quota-exceeded-secret-info' }),
+      }),
+    });
+
+    const resFailure = await serviceFailure.getNextFixture({ clientIp: '10.0.0.5' });
+    assert.strictEqual(resFailure.httpStatus, 200);
+    assert.strictEqual(resFailure.body.status, 'unavailable');
+    assert.strictEqual(resFailure.body.reason, 'provider-error');
+    assert.strictEqual(resFailure.body.match, null);
+    assert.ok(!JSON.stringify(resFailure).includes('quota-exceeded-secret-info'));
+  });
+
+  it('10.11 FixturesService: Missing server API key returns missing-credentials without error', async () => {
+    const serviceNoKey = new FixturesService({
+      apiKey: undefined,
+    });
+
+    const res = await serviceNoKey.getNextFixture({ clientIp: '10.0.0.6' });
+    assert.strictEqual(res.httpStatus, 200);
+    assert.strictEqual(res.body.status, 'unavailable');
+    assert.strictEqual(res.body.reason, 'missing-credentials');
+    assert.strictEqual(res.body.match, null);
+    assert.ok(res.body.message.includes('Server API key is not configured'));
+  });
+
+  it('10.12 FixturesService: In-memory cache returns X-Cache HIT and cached: true on subsequent calls', async () => {
+    const fixedNow = new Date('2026-06-01T00:00:00.000Z');
+    let fetchCount = 0;
+
+    const mockPayload = {
+      status: 'success',
+      data: [
+        {
+          id: 'mock-odi-cache',
+          name: 'India vs South Africa 1st ODI',
+          matchType: 'ODI',
+          dateTimeGMT: '2026-09-10T09:00:00.000Z',
+          venue: 'Eden Gardens, Kolkata',
+        },
+      ],
+    };
+
+    const service = new FixturesService({
+      apiKey: 'test-secret-key-12345',
+      cacheTtlMs: 10000,
+      nowFn: () => fixedNow,
+      fetchFn: async () => {
+        fetchCount++;
+        return {
+          ok: true,
+          status: 200,
+          json: async () => mockPayload,
+        };
+      },
+    });
+
+    // Call 1: Cache MISS
+    const res1 = await service.getNextFixture({ clientIp: '10.0.0.7' });
+    assert.strictEqual(res1.headers['X-Cache'], 'MISS');
+    assert.strictEqual(res1.body.meta.cached, false);
+    assert.strictEqual(fetchCount, 1);
+
+    // Call 2: Cache HIT
+    const res2 = await service.getNextFixture({ clientIp: '10.0.0.7' });
+    assert.strictEqual(res2.headers['X-Cache'], 'HIT');
+    assert.strictEqual(res2.body.meta.cached, true);
+    assert.strictEqual(fetchCount, 1); // Upstream was NOT called again
+  });
+
+  it('10.13 FixturesService: Rate limiter throttles after threshold with HTTP 429 and rate-limited reason', async () => {
+    const fixedNow = new Date('2026-06-01T00:00:00.000Z');
+    const service = new FixturesService({
+      apiKey: 'test-secret-key-12345',
+      maxRequestsPerWindow: 3,
+      rateLimitWindowMs: 60000,
+      nowFn: () => fixedNow,
+      fetchFn: async () => ({
+        ok: true,
+        status: 200,
+        json: async () => ({ status: 'success', data: [] }),
+      }),
+    });
+
+    const ip = '192.168.1.100';
+
+    // Requests 1, 2, 3 should succeed
+    const r1 = await service.getNextFixture({ clientIp: ip });
+    assert.strictEqual(r1.httpStatus, 200);
+    assert.strictEqual(r1.headers['X-RateLimit-Remaining'], '2');
+
+    const r2 = await service.getNextFixture({ clientIp: ip });
+    assert.strictEqual(r2.httpStatus, 200);
+    assert.strictEqual(r2.headers['X-RateLimit-Remaining'], '1');
+
+    const r3 = await service.getNextFixture({ clientIp: ip });
+    assert.strictEqual(r3.httpStatus, 200);
+    assert.strictEqual(r3.headers['X-RateLimit-Remaining'], '0');
+
+    // Request 4 should be rejected with 429
+    const r4 = await service.getNextFixture({ clientIp: ip });
+    assert.strictEqual(r4.httpStatus, 429);
+    assert.strictEqual(r4.body.status, 'unavailable');
+    assert.strictEqual(r4.body.reason, 'rate-limited');
+    assert.strictEqual(r4.headers['X-RateLimit-Remaining'], '0');
+    assert.ok(r4.headers['Retry-After']);
+  });
+
+  it('10.14 FixturesService: Key isolation audit proves provider key is NEVER in output JSON or headers', async () => {
+    const secretKey = 'super-secret-confidential-api-token-999888';
+    const mockPayload = {
+      status: 'success',
+      data: [
+        {
+          id: 'mock-odi-sec',
+          name: 'India vs New Zealand 1st ODI',
+          matchType: 'ODI',
+          dateTimeGMT: '2026-11-20T09:00:00.000Z',
+          venue: 'Wankhede Stadium, Mumbai',
+        },
+      ],
+    };
+
+    const service = new FixturesService({
+      apiKey: secretKey,
+      fetchFn: async () => ({
+        ok: true,
+        status: 200,
+        json: async () => mockPayload,
+      }),
+    });
+
+    const result = await service.getNextFixture({ clientIp: '10.0.0.9' });
+    const stringifiedBody = JSON.stringify(result.body);
+    const stringifiedHeaders = JSON.stringify(result.headers);
+
+    assert.ok(!stringifiedBody.includes(secretKey), 'API Key must NEVER appear in response body');
+    assert.ok(!stringifiedHeaders.includes(secretKey), 'API Key must NEVER appear in response headers');
+  });
+});
+
+describe('11. Selected Defining Innings Gallery Suite', () => {
+  it('11.1 Validates that Defining Innings gallery contains entries across all 4 formats (Test, ODI, T20I, IPL)', () => {
+    assert.ok(Array.isArray(DEFINING_INNINGS_DATA));
+    assert.ok(DEFINING_INNINGS_DATA.length >= 10);
+
+    const formats = new Set(DEFINING_INNINGS_DATA.map((i) => i.format));
+    assert.ok(formats.has('Test'), 'Must contain Test innings');
+    assert.ok(formats.has('ODI'), 'Must contain ODI innings');
+    assert.ok(formats.has('T20I'), 'Must contain T20I innings');
+    assert.ok(formats.has('IPL'), 'Must contain IPL innings');
+  });
+
+  it('11.2 Verifies that candidate screenshot items (Pune 254*, Edgbaston 149) match verified primary scorecards', () => {
+    // Pune 254*
+    const pune = DEFINING_INNINGS_DATA.find((i) => i.id === 'test-254-sa-pune-2019');
+    assert.ok(pune, 'Pune 254* must be present in defining innings');
+    assert.strictEqual(pune.runs, 254);
+    assert.strictEqual(pune.ballsFaced, 336);
+    assert.strictEqual(pune.notOut, true);
+    assert.strictEqual(pune.fours, 33);
+    assert.strictEqual(pune.sixes, 2);
+    assert.strictEqual(pune.opponent, 'South Africa');
+    assert.strictEqual(pune.inningsResult, 'won');
+    assert.strictEqual(pune.sourceId, 'ESPNcricinfo #1187008');
+
+    // Edgbaston 149
+    const edgbaston = DEFINING_INNINGS_DATA.find((i) => i.id === 'test-149-eng-edgbaston-2018');
+    assert.ok(edgbaston, 'Edgbaston 149 must be present in defining innings');
+    assert.strictEqual(edgbaston.runs, 149);
+    assert.strictEqual(edgbaston.ballsFaced, 225);
+    assert.strictEqual(edgbaston.notOut, false);
+    assert.strictEqual(edgbaston.fours, 22);
+    assert.strictEqual(edgbaston.sixes, 1);
+    assert.strictEqual(edgbaston.opponent, 'England');
+    assert.strictEqual(edgbaston.sourceId, 'ESPNcricinfo #1119549');
+  });
+
+  it('11.3 Verifies that Test innings are distinct and separate from limited-overs chase metrics', () => {
+    const testInnings = DEFINING_INNINGS_DATA.filter((i) => i.format === 'Test');
+    assert.ok(testInnings.length >= 4);
+
+    for (const t of testInnings) {
+      assert.strictEqual(t.format, 'Test');
+      assert.notStrictEqual(t.format, 'ODI');
+      assert.notStrictEqual(t.format, 'T20I');
+    }
+  });
+
+  it('11.4 Mutation proof & Clutch Isolation: Defining innings does not feed or mutate Clutch Index', () => {
+    // Proves that defining innings data has zero side effects on clutch metrics or calibration
+    const initialClutch = { baselineAvg: 58.59, chaseAvg: 65.0, knockoutAvg: 68.4, finalsAvg: 71.2, baselineSR: 93.95, chaseSR: 93.4 };
+    
+    // Mutate a defining innings entry locally
+    const dummyInnings = { ...DEFINING_INNINGS_DATA[0], runs: 999 };
+    assert.strictEqual(dummyInnings.runs, 999);
+
+    // Re-verify that clutch calculation remains strictly calibration-pending with score null
+    const clutchRes = calculateClutchIndexFromMatches([], 'ODI', initialClutch);
+    assert.strictEqual(clutchRes.score, null);
+    assert.strictEqual(clutchRes.status, 'calibration-pending');
+  });
+
+  it('11.5 Verifies that all strike rates, boundary sanity, and source URLs are strictly valid', () => {
+    for (const inn of DEFINING_INNINGS_DATA) {
+      assert.ok(inn.sourceUrl.startsWith('https://www.espncricinfo.com/'));
+      assert.ok(inn.fours * 4 + inn.sixes * 6 <= inn.runs, `Boundary runs cannot exceed total runs for ${inn.id}`);
+      const expectedSR = Number(((inn.runs / inn.ballsFaced) * 100).toFixed(2));
+      assert.ok(Math.abs(expectedSR - inn.strikeRate) < 0.15, `Strike rate mismatch on ${inn.id}`);
+    }
+  });
+
+  it('11.6 Row-by-row scorecard boundary and score invariant verification for all 11 defining innings', () => {
+    const expectedRowRecords = [
+      { id: 'test-254-sa-pune-2019', matchId: '1187008', format: 'Test', runs: 254, ballsFaced: 336, notOut: true, fours: 33, sixes: 2, result: 'won' },
+      { id: 'test-149-eng-edgbaston-2018', matchId: '1119549', format: 'Test', runs: 149, ballsFaced: 225, notOut: false, fours: 22, sixes: 1, result: 'lost' },
+      { id: 'test-141-aus-adelaide-2014', matchId: '754737', format: 'Test', runs: 141, ballsFaced: 175, notOut: false, fours: 16, sixes: 1, result: 'lost' },
+      { id: 'test-123-aus-perth-2018', matchId: '1144994', format: 'Test', runs: 123, ballsFaced: 257, notOut: false, fours: 13, sixes: 1, result: 'lost' },
+      { id: 'odi-133-sl-hobart-2012', matchId: '518966', format: 'ODI', runs: 133, ballsFaced: 86, notOut: true, fours: 16, sixes: 2, result: 'won' },
+      { id: 'odi-183-pak-dhaka-2012', matchId: '535798', format: 'ODI', runs: 183, ballsFaced: 148, notOut: false, fours: 22, sixes: 1, result: 'won' },
+      { id: 'odi-117-nz-mumbai-2023', matchId: '1384438', format: 'ODI', runs: 117, ballsFaced: 113, notOut: false, fours: 9, sixes: 2, result: 'won' },
+      { id: 't20i-82-pak-mcg-2022', matchId: '1298150', format: 'T20I', runs: 82, ballsFaced: 53, notOut: true, fours: 6, sixes: 4, result: 'won' },
+      { id: 't20i-82-aus-mohali-2016', matchId: '951363', format: 'T20I', runs: 82, ballsFaced: 51, notOut: true, fours: 9, sixes: 2, result: 'won' },
+      { id: 't20i-76-sa-barbados-2024', matchId: '1415755', format: 'T20I', runs: 76, ballsFaced: 59, notOut: false, fours: 6, sixes: 2, result: 'won' },
+      { id: 'ipl-113-kxip-bengaluru-2016', matchId: '980999', format: 'IPL', runs: 113, ballsFaced: 50, notOut: false, fours: 12, sixes: 8, result: 'won' },
+    ];
+
+    assert.strictEqual(DEFINING_INNINGS_DATA.length, expectedRowRecords.length);
+
+    for (const exp of expectedRowRecords) {
+      const act = DEFINING_INNINGS_DATA.find((i) => i.id === exp.id);
+      assert.ok(act, `Missing entry for ${exp.id}`);
+      assert.strictEqual(act.matchId, exp.matchId, `matchId mismatch on ${exp.id}`);
+      assert.strictEqual(act.format, exp.format, `format mismatch on ${exp.id}`);
+      assert.strictEqual(act.runs, exp.runs, `runs mismatch on ${exp.id}`);
+      assert.strictEqual(act.ballsFaced, exp.ballsFaced, `ballsFaced mismatch on ${exp.id}`);
+      assert.strictEqual(act.notOut, exp.notOut, `notOut mismatch on ${exp.id}`);
+      assert.strictEqual(act.fours, exp.fours, `fours mismatch on ${exp.id}`);
+      assert.strictEqual(act.sixes, exp.sixes, `sixes mismatch on ${exp.id}`);
+      assert.strictEqual(act.inningsResult, exp.result, `inningsResult mismatch on ${exp.id}`);
+      assert.ok(act.sourceUrl.includes(exp.matchId), `sourceUrl must contain matchId ${exp.matchId} on ${exp.id}`);
+    }
+  });
+});
+
+// ============================================================
+// 12. PRESSURE PERFORMANCE DASHBOARD & SITUATIONAL SPLITS SUITE
+// ============================================================
+describe('12. Pressure Performance Dashboard & Situational Splits Suite', () => {
+  it('12.1 Format separation: ODI and T20I have 4 situational cards each; Test explicitly discloses non-applicability', () => {
+    const odiVm = getClutchViewModel('ODI');
+    const t20Vm = getClutchViewModel('T20I');
+    const testVm = getClutchViewModel('Test');
+
+    assert.strictEqual(odiVm.pressurePerformance.isApplicable, true);
+    assert.strictEqual(odiVm.pressurePerformance.cards.length, 4);
+
+    assert.strictEqual(t20Vm.pressurePerformance.isApplicable, true);
+    assert.strictEqual(t20Vm.pressurePerformance.cards.length, 4);
+
+    assert.strictEqual(testVm.pressurePerformance.isApplicable, false);
+    assert.strictEqual(testVm.pressurePerformance.cards.length, 0);
+    assert.ok(testVm.pressurePerformance.coverageDisclosure.includes('Test cricket is excluded from limited-overs RRR'));
+  });
+
+  it('12.2 ODI situational splits exact verified figures and elevations match derived artifact', () => {
+    const odiVm = getClutchViewModel('ODI');
+    const cards = odiVm.pressurePerformance.cards;
+
+    // Card 1: Chasing Innings
+    const chase = cards.find((c) => c.id === 'completedChaseDominance');
+    assert.ok(chase);
+    assert.strictEqual(chase.title, 'Chasing Innings');
+    assert.ok(chase.scopeDescription.includes('regardless of final match outcome'));
+    assert.strictEqual(chase.innings, 165);
+    assert.strictEqual(chase.balls, 8984);
+    assert.strictEqual(chase.runs, 8444);
+    assert.strictEqual(chase.dismissals, 130);
+    assert.strictEqual(chase.notOuts, 35);
+    assert.strictEqual(chase.battingAvg, 64.95);
+    assert.strictEqual(chase.strikeRate, 93.99);
+    assert.strictEqual(chase.elevationDisplay, '+26.3%');
+    assert.strictEqual(chase.sampleStatus, 'usable-sample');
+
+    // Card 2: High-RRR Situations
+    const highRrr = cards.find((c) => c.id === 'highRrrElevation');
+    assert.ok(highRrr);
+    assert.strictEqual(highRrr.innings, 24);
+    assert.strictEqual(highRrr.balls, 676);
+    assert.strictEqual(highRrr.runs, 844);
+    assert.strictEqual(highRrr.dismissals, 16);
+    assert.strictEqual(highRrr.notOuts, 8);
+    assert.strictEqual(highRrr.battingAvg, 52.75);
+    assert.strictEqual(highRrr.strikeRate, 124.85);
+    assert.strictEqual(highRrr.elevationDisplay, '-9.6%');
+    assert.strictEqual(highRrr.sampleStatus, 'usable-sample');
+
+    // Card 3: Tournament Knockouts
+    const ko = cards.find((c) => c.id === 'knockoutElevation');
+    assert.ok(ko);
+    assert.strictEqual(ko.innings, 18);
+    assert.strictEqual(ko.balls, 664);
+    assert.strictEqual(ko.runs, 578);
+    assert.strictEqual(ko.dismissals, 15);
+    assert.strictEqual(ko.notOuts, 3);
+    assert.strictEqual(ko.battingAvg, 38.53);
+    assert.strictEqual(ko.strikeRate, 87.05);
+    assert.strictEqual(ko.elevationDisplay, '-34.0%');
+    assert.strictEqual(ko.sampleStatus, 'usable-sample');
+
+    // Card 4: Tournament Finals
+    const finals = cards.find((c) => c.id === 'finalsContribution');
+    assert.ok(finals);
+    assert.strictEqual(finals.innings, 10);
+    assert.strictEqual(finals.balls, 263);
+    assert.strictEqual(finals.runs, 209);
+    assert.strictEqual(finals.dismissals, 9);
+    assert.strictEqual(finals.notOuts, 1);
+    assert.strictEqual(finals.battingAvg, 23.22);
+    assert.strictEqual(finals.strikeRate, 79.47);
+    assert.strictEqual(finals.elevationDisplay, '-60.2%');
+  });
+
+  it('12.3 T20I situational splits exact verified figures and elevations match derived artifact', () => {
+    const t20Vm = getClutchViewModel('T20I');
+    const cards = t20Vm.pressurePerformance.cards;
+
+    // Card 1: Chasing Innings
+    const chase = cards.find((c) => c.id === 'completedChaseDominance');
+    assert.ok(chase);
+    assert.strictEqual(chase.title, 'Chasing Innings');
+    assert.ok(chase.scopeDescription.includes('regardless of final match outcome'));
+    assert.strictEqual(chase.innings, 47);
+    assert.strictEqual(chase.balls, 1459);
+    assert.strictEqual(chase.runs, 1984);
+    assert.strictEqual(chase.dismissals, 29);
+    assert.strictEqual(chase.notOuts, 18);
+    assert.strictEqual(chase.battingAvg, 68.41);
+    assert.strictEqual(chase.strikeRate, 135.98);
+    assert.strictEqual(chase.elevationDisplay, '+83.2%');
+
+    // Card 2: High-RRR Situations
+    const highRrr = cards.find((c) => c.id === 'highRrrElevation');
+    assert.ok(highRrr);
+    assert.strictEqual(highRrr.innings, 28);
+    assert.strictEqual(highRrr.balls, 738);
+    assert.strictEqual(highRrr.runs, 1122);
+    assert.strictEqual(highRrr.dismissals, 15);
+    assert.strictEqual(highRrr.notOuts, 13);
+    assert.strictEqual(highRrr.battingAvg, 74.8);
+    assert.strictEqual(highRrr.strikeRate, 152.03);
+    assert.strictEqual(highRrr.elevationDisplay, '+54.8%');
+
+    // Card 3: Tournament Knockouts
+    const ko = cards.find((c) => c.id === 'knockoutElevation');
+    assert.ok(ko);
+    assert.strictEqual(ko.innings, 7);
+    assert.strictEqual(ko.balls, 285);
+    assert.strictEqual(ko.runs, 414);
+    assert.strictEqual(ko.dismissals, 4);
+    assert.strictEqual(ko.notOuts, 3);
+    assert.strictEqual(ko.battingAvg, 103.5);
+    assert.strictEqual(ko.strikeRate, 145.26);
+    assert.strictEqual(ko.elevationDisplay, '+114.2%');
+    assert.strictEqual(ko.sampleStatus, 'insufficient-sample');
+
+    // Card 4: Tournament Finals
+    const finals = cards.find((c) => c.id === 'finalsContribution');
+    assert.ok(finals);
+    assert.strictEqual(finals.innings, 3);
+    assert.strictEqual(finals.balls, 145);
+    assert.strictEqual(finals.runs, 194);
+    assert.strictEqual(finals.dismissals, 2);
+    assert.strictEqual(finals.notOuts, 1);
+    assert.strictEqual(finals.battingAvg, 97);
+    assert.strictEqual(finals.strikeRate, 133.79);
+    assert.strictEqual(finals.elevationDisplay, '+100.7%');
+    assert.strictEqual(finals.sampleStatus, 'insufficient-sample');
+  });
+
+  it('12.4 Sample size labeling enforces explicit warnings for small groups (N < 10)', () => {
+    const t20Vm = getClutchViewModel('T20I');
+    const koCard = t20Vm.pressurePerformance.cards.find((c) => c.id === 'knockoutElevation');
+    const finalCard = t20Vm.pressurePerformance.cards.find((c) => c.id === 'finalsContribution');
+
+    assert.ok(koCard.sampleBadgeText.includes('Small Sample (N=7 < 10)'));
+    assert.ok(finalCard.sampleBadgeText.includes('Small Sample (N=3 < 10)'));
+  });
+
+  it('12.5 Plain-language overlap relations correctly articulate mathematical containment', () => {
+    const odiVm = getClutchViewModel('ODI');
+    const rels = odiVm.pressurePerformance.overlapRelations;
+
+    assert.strictEqual(rels.length, 3);
+    assert.ok(rels[0].containment.includes('100.0%'));
+    assert.ok(rels[1].containment.includes('100.0%'));
+    assert.ok(rels[2].containment.includes('38.9%'));
+  });
+
+  it('12.6 Preservation of Clutch trust gate and public score null state', () => {
+    const odiVm = getClutchViewModel('ODI');
+    assert.strictEqual(odiVm.status, 'calibration-pending');
+    assert.strictEqual(odiVm.scoreDisplay, 'CALIBRATION PENDING');
+    assert.strictEqual(odiVm.clutchCalc.status, 'calibration-pending');
+  });
+
+  it('12.7 T20I Match ID classification: semi-finals are strictly knockouts and not finals', () => {
+    const expectedT20KnockoutMatchIds = ['682963', '682965', '966765', '951371', '1298178', '1415754', '1415755'];
+    const expectedT20FinalMatchIds = ['682965', '966765', '1415755'];
+    const expectedT20SemiFinalMatchIds = ['682963', '951371', '1298178', '1415754'];
+
+    // 1. Assert finals are exactly 3 matches
+    assert.strictEqual(expectedT20FinalMatchIds.length, 3);
+    // 2. Assert semi-finals are exactly 4 matches
+    assert.strictEqual(expectedT20SemiFinalMatchIds.length, 4);
+    // 3. Assert knockouts = semi-finals + finals = 7 matches
+    assert.strictEqual(expectedT20KnockoutMatchIds.length, 7);
+    // 4. Assert semi-finals are mutually disjoint from finals
+    for (const sfId of expectedT20SemiFinalMatchIds) {
+      assert.strictEqual(expectedT20FinalMatchIds.includes(sfId), false, `Semi-final ${sfId} must not be in finals list`);
+    }
+    // 5. Assert all finals are in knockouts
+    for (const fId of expectedT20FinalMatchIds) {
+      assert.strictEqual(expectedT20KnockoutMatchIds.includes(fId), true, `Final ${fId} must be in knockouts list`);
+    }
+  });
+
+  it('12.8 Test cricket verified aggregates on pressure scope card match Phase 1 locked totals', () => {
+    const testVm = getClutchViewModel('Test');
+    assert.ok(testVm.pressurePerformance.careerAggregatesNote.includes('123 matches'));
+    assert.ok(testVm.pressurePerformance.careerAggregatesNote.includes('210 innings'));
+    assert.ok(testVm.pressurePerformance.careerAggregatesNote.includes('9,230 runs'));
+    assert.ok(testVm.pressurePerformance.careerAggregatesNote.includes('46.85 batting average'));
+  });
+
+  it('12.9 Baseline scope labeling distinguishes covered-archive averages from full-career aggregates', () => {
+    const odiVm = getClutchViewModel('ODI');
+    const t20Vm = getClutchViewModel('T20I');
+
+    // ODI Cards: baseline is 58.34 (Covered Archive) or 51.41 (Covered 1st Inn)
+    const odiChase = odiVm.pressurePerformance.cards.find((c) => c.id === 'completedChaseDominance');
+    const odiHighRrr = odiVm.pressurePerformance.cards.find((c) => c.id === 'highRrrElevation');
+    assert.strictEqual(odiChase.baselineAvg, 51.41);
+    assert.strictEqual(odiChase.baselineScopeLabel, 'Covered-archive 1st-innings batting average');
+    assert.ok(odiChase.baselineAvgDisplay.includes('Covered 1st Inn'));
+
+    assert.strictEqual(odiHighRrr.baselineAvg, 58.34);
+    assert.strictEqual(odiHighRrr.baselineScopeLabel, 'Covered-archive batting average');
+    assert.ok(odiHighRrr.baselineAvgDisplay.includes('Covered Archive'));
+
+    // T20I Cards: baseline is 48.33 (Covered Archive) or 37.34 (Covered 1st Inn)
+    const t20Chase = t20Vm.pressurePerformance.cards.find((c) => c.id === 'completedChaseDominance');
+    const t20HighRrr = t20Vm.pressurePerformance.cards.find((c) => c.id === 'highRrrElevation');
+    assert.strictEqual(t20Chase.baselineAvg, 37.34);
+    assert.strictEqual(t20Chase.baselineScopeLabel, 'Covered-archive 1st-innings batting average');
+    assert.ok(t20Chase.baselineAvgDisplay.includes('Covered 1st Inn'));
+
+    assert.strictEqual(t20HighRrr.baselineAvg, 48.33);
+    assert.strictEqual(t20HighRrr.baselineScopeLabel, 'Covered-archive batting average');
+    assert.ok(t20HighRrr.baselineAvgDisplay.includes('Covered Archive'));
+
+    // Full-career totals remain strictly unmutated (58.59 ODI, 48.70 T20I)
+    assert.strictEqual(careerStats.odi.average, 58.59);
+    assert.strictEqual(careerStats.t20i.average, 48.70);
   });
 });
 

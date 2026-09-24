@@ -8,6 +8,7 @@ import { calculateClutchIndexFromMatches } from './clutchMetrics.ts';
 import { derivePressureMap } from './pressureMetrics.ts';
 import { clutchMetricsByFormat, pressureMapDataByFormat } from '../data/kohliData.ts';
 import rawArtifact from '../data/derived/kohliAnalyticsArtifact.json' with { type: 'json' };
+import clutchArtifact from '../data/derived/clutchCalibrationArtifact.json' with { type: 'json' };
 
 export interface BreakdownItemViewModel {
   label: string;
@@ -19,8 +20,75 @@ export interface BreakdownItemViewModel {
   description: string;
 }
 
+export interface ClutchComponentViewModel {
+  id: string;
+  label: string;
+  innings: number;
+  balls: number;
+  runs: number;
+  dismissals: number;
+  splitAvg: number | null;
+  baselineAvg: number | null;
+  ratio: number | null;
+  normalizedScore: number | null;
+  minSampleInnings: number;
+  status: string;
+}
+
+export interface CalibrationGateViewModel {
+  gateId: number;
+  gateName: string;
+  requirement: string;
+  finding: string;
+  passed: boolean;
+  status: string;
+}
+
+export interface SituationalViewCard {
+  id: string;
+  title: string;
+  category: string;
+  innings: number;
+  balls: number;
+  runs: number;
+  dismissals: number;
+  notOuts: number;
+  battingAvg: number | null;
+  battingAvgDisplay: string;
+  strikeRate: number | null;
+  strikeRateDisplay: string;
+  baselineAvg: number | null;
+  baselineAvgDisplay: string;
+  baselineScopeLabel: string;
+  elevationPercent: number | null;
+  elevationDisplay: string;
+  isElevationPositive: boolean;
+  minSampleInnings: number;
+  sampleStatus: 'usable-sample' | 'insufficient-sample';
+  sampleBadgeText: string;
+  coverageLabel: string;
+  scopeDescription: string;
+}
+
+export interface OverlapRelation {
+  label: string;
+  containment: string;
+  finding: string;
+  directionalMath: string;
+}
+
+export interface PressurePerformanceFormatView {
+  format: 'ODI' | 'T20I' | 'Test';
+  isApplicable: boolean;
+  cards: SituationalViewCard[];
+  overlapRelations: OverlapRelation[];
+  overlapWarning: string;
+  coverageDisclosure: string;
+  careerAggregatesNote: string;
+}
+
 export interface ClutchViewModel {
-  status: 'calibration-pending' | 'computed' | 'insufficient-data';
+  status: 'calibration-pending' | 'calibration-blocked' | 'computed' | 'insufficient-data';
   scoreDisplay: string;
   badgeLabel: string;
   subtext: string;
@@ -33,6 +101,13 @@ export interface ClutchViewModel {
     sublabel: string;
     message: string;
   };
+  modelVersion: string;
+  calibrationStatus: string;
+  blockerReason: string;
+  components: ClutchComponentViewModel[];
+  overlapWarning?: string;
+  calibrationGates: CalibrationGateViewModel[];
+  pressurePerformance: PressurePerformanceFormatView;
 }
 
 export interface PressureMapViewModel {
@@ -45,17 +120,226 @@ export interface PressureMapViewModel {
 }
 
 /**
+ * Builds structured situational cards for Pressure Performance dashboard.
+ */
+function buildSituationalCards(format: 'ODI' | 'T20I'): SituationalViewCard[] {
+  const fmtData = clutchArtifact?.formats?.[format];
+  const comps = fmtData?.components || [];
+
+  const compMap: Record<string, typeof comps[0]> = {};
+  for (const c of comps) {
+    compMap[c.id] = c;
+  }
+
+  const titles: Record<string, { title: string; category: string; desc: string; cov: string }> = {
+    completedChaseDominance: {
+      title: 'Chasing Innings',
+      category: '2nd Innings Target Pursuit',
+      desc: 'All 2nd innings run chasing appearances where a target was pursued regardless of final match outcome.',
+      cov: format === 'ODI' ? '165 chasing innings (311 archive matches)' : '47 chasing innings (118 archive matches)',
+    },
+    highRrrElevation: {
+      title: 'High-RRR Situations',
+      category: 'High Required Run Rate (RRR ≥ 8.0)',
+      desc: 'Deliveries faced in 2nd innings run chases when required run rate was 8.0+ rpo.',
+      cov: format === 'ODI' ? '24 high-pressure chase innings' : '28 high-pressure chase innings',
+    },
+    knockoutElevation: {
+      title: 'Tournament Knockouts',
+      category: format === 'ODI' ? 'ICC Elimination Matches' : 'Tournament Elimination Matches',
+      desc: format === 'ODI' ? 'Quarter-finals, semi-finals, and finals in ICC ODI tournaments (CWC & CT).' : "Semi-finals and finals across ICC Men's T20 World Cups and Asia Cup T20 (including 2016 Final #966765).",
+      cov: format === 'ODI' ? '18 ICC knockout innings' : '7 tournament knockout innings (6 ICC T20 World Cup + 1 Asia Cup Final)',
+    },
+    finalsContribution: {
+      title: 'Tournament Finals',
+      category: 'Championship Deciders',
+      desc: format === 'ODI' ? 'Championship finals across ICC and Asia Cup tournaments.' : "Championship finals across ICC Men's T20 World Cups and Asia Cup T20 (3 matches: 2014 Final, 2016 Asia Cup Final, 2024 Final).",
+      cov: format === 'ODI' ? '10 tournament finals innings (100% inside Knockouts)' : '3 tournament finals innings (100% inside Knockouts)',
+    },
+  };
+
+  const cardOrder = ['completedChaseDominance', 'highRrrElevation', 'knockoutElevation', 'finalsContribution'];
+
+  return cardOrder.map((id) => {
+    const c = compMap[id] || {
+      id,
+      innings: 0,
+      balls: 0,
+      runs: 0,
+      dismissals: 0,
+      splitAvg: null,
+      baselineAvg: null,
+      minSampleInnings: 10,
+      status: 'insufficient-sample',
+    };
+
+    const notOuts = Math.max(0, c.innings - c.dismissals);
+    const battingAvg = c.dismissals > 0 ? Number((c.runs / c.dismissals).toFixed(2)) : (c.runs > 0 ? null : null);
+    const battingAvgDisplay = c.dismissals > 0 ? (c.runs / c.dismissals).toFixed(2) : 'N/A (Unbeaten)';
+    const strikeRate = c.balls > 0 ? Number(((c.runs / c.balls) * 100).toFixed(2)) : null;
+    const strikeRateDisplay = strikeRate !== null ? strikeRate.toFixed(2) : '—';
+    const baselineAvg = c.baselineAvg ?? (format === 'ODI' ? 58.34 : 48.33);
+    const baselineScopeLabel = id === 'completedChaseDominance'
+      ? 'Covered-archive 1st-innings batting average'
+      : 'Covered-archive batting average';
+    const baselineAvgDisplay = baselineAvg !== null
+      ? `${baselineAvg.toFixed(2)} (${id === 'completedChaseDominance' ? 'Covered 1st Inn' : 'Covered Archive'})`
+      : '—';
+    
+    let elevationPercent: number | null = null;
+    if (c.splitAvg !== null && baselineAvg !== null && baselineAvg > 0) {
+      elevationPercent = Number((((c.splitAvg - baselineAvg) / baselineAvg) * 100).toFixed(1));
+    }
+    const elevationDisplay = elevationPercent !== null
+      ? (elevationPercent >= 0 ? `+${elevationPercent.toFixed(1)}%` : `${elevationPercent.toFixed(1)}%`)
+      : '—';
+    const isElevationPositive = elevationPercent !== null && elevationPercent >= 0;
+
+    const sampleStatus = (c.innings >= c.minSampleInnings ? 'usable-sample' : 'insufficient-sample') as 'usable-sample' | 'insufficient-sample';
+    const sampleBadgeText = c.innings >= 15
+      ? `Standard Sample (N=${c.innings} ≥ 15)`
+      : c.innings >= 10
+      ? `Moderate Sample (N=${c.innings} ≥ 10)`
+      : `Small Sample (N=${c.innings} < 10) ⚠️`;
+
+    const meta = titles[id] || {
+      title: c.label,
+      category: 'Pressure Metric',
+      desc: 'Situational metric from ball-by-ball archive.',
+      cov: `${c.innings} innings`,
+    };
+
+    return {
+      id,
+      title: meta.title,
+      category: meta.category,
+      innings: c.innings,
+      balls: c.balls,
+      runs: c.runs,
+      dismissals: c.dismissals,
+      notOuts,
+      battingAvg,
+      battingAvgDisplay,
+      strikeRate,
+      strikeRateDisplay,
+      baselineAvg,
+      baselineAvgDisplay,
+      baselineScopeLabel,
+      elevationPercent,
+      elevationDisplay,
+      isElevationPositive,
+      minSampleInnings: c.minSampleInnings,
+      sampleStatus,
+      sampleBadgeText,
+      coverageLabel: meta.cov,
+      scopeDescription: meta.desc,
+    };
+  });
+}
+
+/**
+ * Builds plain language overlap relations for the format.
+ */
+function buildOverlapRelations(format: 'ODI' | 'T20I'): OverlapRelation[] {
+  if (format === 'ODI') {
+    return [
+      {
+        label: 'Finals ⊆ Knockouts (100% Containment)',
+        containment: '10 / 10 innings (100.0%)',
+        finding: 'Every tournament final is already fully counted inside the tournament knockouts population (10 finals + 8 semi-finals/quarter-finals = 18 knockouts). Combining them with additive weights causes circular double-counting.',
+        directionalMath: 'count(finals in knockouts) / count(finals) = 10/10 (100.0%)',
+      },
+      {
+        label: 'High-RRR ⊆ Chasing Innings (100% Containment)',
+        containment: '24 / 24 innings (100.0%)',
+        finding: 'High required run rate situations (RRR ≥ 8.0) exist strictly within 2nd innings chasing innings. They represent high-stress phase subsets, not separate match fixtures.',
+        directionalMath: 'count(high-RRR in chases) / count(high-RRR) = 24/24 (100.0%)',
+      },
+      {
+        label: 'Knockouts ∩ Chasing Innings (38.9% Intersection)',
+        containment: '7 / 18 innings (38.9%)',
+        finding: '7 of 18 ODI knockout innings occurred while chasing (e.g. 2011 CWC Final 35). The remaining 11 occurred while batting first (e.g. 2023 CWC Semi-Final 117).',
+        directionalMath: 'count(knockouts in chases) / count(knockouts) = 7/18 (38.9%)',
+      },
+    ];
+  }
+
+  return [
+    {
+      label: 'Finals ⊆ Knockouts (100% Containment)',
+      containment: '3 / 3 innings (100.0%)',
+      finding: 'All 3 T20I finals (2014 Final vs SL #682965, 2016 Asia Cup Final vs BAN #966765, 2024 Final vs SA #1415755) are strictly contained within the 7 knockout matches. Semi-finals (#682963, #951371, #1298178, #1415754) are knockouts, not finals. With N=3, isolated sub-group weighting has severe sample sparsity.',
+      directionalMath: 'count(finals in knockouts) / count(finals) = 3/3 (100.0%)',
+    },
+    {
+      label: 'High-RRR ⊆ Chasing Innings (100% Containment)',
+      containment: '28 / 28 innings (100.0%)',
+      finding: 'All 28 high-RRR situations occurred during 2nd innings chasing innings. They capture acceleration pressure within existing chase innings.',
+      directionalMath: 'count(high-RRR in chases) / count(high-RRR) = 28/28 (100.0%)',
+    },
+    {
+      label: 'Knockouts ∩ Chasing Innings (28.6% Intersection)',
+      containment: '2 / 7 innings (28.6%)',
+      finding: '2 of 7 T20I knockout innings were in chases (2014 SF 72* #682963, 2016 SF 89* #951371). The 2016 Asia Cup Final (41*), 2014 Final (77), 2022 SF (50), 2024 SF (9), and 2024 Final (76) were target-setting games.',
+      directionalMath: 'count(knockouts in chases) / count(knockouts) = 2/7 (28.6%)',
+    },
+  ];
+}
+
+/**
+ * Builds format-specific Pressure Performance view model.
+ */
+export function getPressurePerformanceView(format: 'ODI' | 'T20I' | 'Test'): PressurePerformanceFormatView {
+  if (format === 'Test') {
+    return {
+      format: 'Test',
+      isApplicable: false,
+      cards: [],
+      overlapRelations: [],
+      overlapWarning: 'Test match cricket does not utilize limited-overs target metrics (Required Run Rate) or tournament knockout brackets.',
+      coverageDisclosure: 'Test cricket is excluded from limited-overs RRR and chase pressure analytics because Test structures do not have fixed overs or tournament knockout brackets. Test 4th-innings chases and SENA series deciders are evaluated with session-by-session context in the Career Timeline and Opponent Dominance sections.',
+      careerAggregatesNote: 'Virat Kohli Test career: 123 matches, 210 innings, 9,230 runs, 46.85 batting average, 30 centuries.',
+    };
+  }
+
+  const cards = buildSituationalCards(format);
+  const overlapRelations = buildOverlapRelations(format);
+  const overlapWarning = format === 'ODI'
+    ? 'Directional containment analysis reveals Tournament Finals are 100.0% contained within Knockouts (10/10), and High-RRR is 100.0% contained in Chases (24/24). Unadjusted additive combination causes circular scoring inflation.'
+    : 'Directional containment analysis reveals Tournament Finals are 100.0% contained within Knockouts (3/3), and Knockouts intersect with Chases (2/7 = 28.6%). Unadjusted additive combination causes circular scoring inflation.';
+
+  const coverageDisclosure = format === 'ODI'
+    ? 'Calculated from 311 of 314 official ODI matches (300 batting innings + 11 DNB) with delivery-level data. Career aggregates (14,941 runs, 58.59 avg) are independently verified.'
+    : 'Calculated from 118 of 125 official T20I matches (112 batting innings + 6 DNB) with delivery-level data. Career aggregates (4,188 runs, 48.70 avg) are independently verified.';
+
+  const careerAggregatesNote = format === 'ODI'
+    ? 'Virat Kohli ODI career: 314 matches, 302 innings, 14,941 runs, 58.59 batting average, 54 centuries.'
+    : 'Virat Kohli T20I career: 125 matches, 117 innings, 4,188 runs, 48.70 batting average, 1 century, 38 fifties.';
+
+  return {
+    format,
+    isApplicable: true,
+    cards,
+    overlapRelations,
+    overlapWarning,
+    coverageDisclosure,
+    careerAggregatesNote,
+  };
+}
+
+/**
  * Transforms Clutch Index pipeline output into a presentation-ready View Model for UI components.
  */
 export function adaptClutchToViewModel(output: ClutchIndexOutput): ClutchViewModel {
   const isPending = output.status === 'calibration-pending' || output.score === null;
+  const pressurePerformance = getPressurePerformanceView('ODI');
 
   return {
     status: output.status,
     scoreDisplay: output.score !== null ? output.score.toFixed(1) : 'CALIBRATION PENDING',
     badgeLabel: isPending ? 'CALIBRATION PENDING' : 'COMPUTED INDEX',
     subtext: isPending
-      ? 'Ball-by-ball model in Phase 3'
+      ? 'Ball-by-ball model in Phase 5'
       : `Model v${output.modelVersion} (${output.sampleSize.innings} innings analyzed)`,
     warningNote: 'EXPERIMENTAL INPUT — raw chase and knockout averages derived from ball-by-ball dataset',
     formatNote: 'Experimental composite metric under calibration.',
@@ -64,8 +348,15 @@ export function adaptClutchToViewModel(output: ClutchIndexOutput): ClutchViewMod
       status: 'calibration-pending',
       label: 'CALIBRATION PENDING',
       sublabel: 'Experimental Metric',
-      message: 'Phase 3 derives situational performance from open Cricsheet ball-by-ball data.',
+      message: 'Phase 5 Clutch Index calibration blocked: insufficient finals sample size & cross-player baseline absence.',
     },
+    modelVersion: clutchArtifact?.modelVersion || '1.0.0-model-spec',
+    calibrationStatus: clutchArtifact?.calibrationStatus || 'calibration-blocked',
+    blockerReason: clutchArtifact?.blockerReason || 'Tournament finals sample sizes fall below minimum threshold.',
+    components: (clutchArtifact?.formats?.ODI?.components as ClutchComponentViewModel[]) || [],
+    overlapWarning: clutchArtifact?.formats?.ODI?.overlapMatrix?.collinearityWarning,
+    calibrationGates: (clutchArtifact?.calibrationGates as CalibrationGateViewModel[]) || [],
+    pressurePerformance,
   };
 }
 
@@ -126,8 +417,11 @@ export function getClutchViewModel(format: 'ODI' | 'Test' | 'T20I'): ClutchViewM
     : 'CALIBRATION PENDING';
 
   const subtext = hasIngestedData
-    ? `Ball-by-ball model in Phase 3 (${rawArtifact.coverage.totalMatches} matches ingested; composite weights under calibration)`
-    : 'Ball-by-ball model in Phase 3';
+    ? `Ball-by-ball model in Phase 5 (${rawArtifact.coverage.totalMatches} matches ingested; composite weights under calibration)`
+    : 'Ball-by-ball model in Phase 5';
+
+  const formatCalibration = format === 'ODI' || format === 'T20I' ? clutchArtifact?.formats?.[format] : null;
+  const pressurePerformance = getPressurePerformanceView(format);
 
   return {
     status: pipelineOutput.status,
@@ -141,8 +435,15 @@ export function getClutchViewModel(format: 'ODI' | 'Test' | 'T20I'): ClutchViewM
       status: 'calibration-pending',
       label: 'CALIBRATION PENDING',
       sublabel: 'Experimental Metric',
-      message: 'Phase 3 derives situational performance from open Cricsheet ball-by-ball data.',
+      message: 'Phase 5 Clutch Index calibration blocked: insufficient finals sample size & cross-player baseline absence.',
     },
+    modelVersion: clutchArtifact?.modelVersion || '1.0.0-model-spec',
+    calibrationStatus: clutchArtifact?.calibrationStatus || 'calibration-blocked',
+    blockerReason: clutchArtifact?.blockerReason || 'Tournament finals sample sizes fall below minimum threshold.',
+    components: (formatCalibration?.components as ClutchComponentViewModel[]) || [],
+    overlapWarning: formatCalibration?.overlapMatrix?.collinearityWarning,
+    calibrationGates: (clutchArtifact?.calibrationGates as CalibrationGateViewModel[]) || [],
+    pressurePerformance,
   };
 }
 

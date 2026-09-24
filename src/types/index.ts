@@ -173,3 +173,39 @@ export interface NextMatchInfo {
   dateTimeGMT: string;
   venue: string;
 }
+
+export type DefiningInningsFormat = 'Test' | 'ODI' | 'T20I' | 'IPL';
+
+export type DefiningInningsImpact =
+  | 'Rescue & Recovery'
+  | 'Record Chase'
+  | 'World Milestone'
+  | 'Captaincy Masterclass'
+  | 'Knockout Heroics';
+
+export interface DefiningInnings {
+  id: string;
+  title: string;
+  matchId: string;
+  date: string;
+  format: DefiningInningsFormat;
+  opponent: string;
+  venue: string;
+  tournament: string;
+  stage?: string;
+  runs: number;
+  ballsFaced: number;
+  notOut: boolean;
+  fours: number;
+  sixes: number;
+  strikeRate: number;
+  inningsNumber?: number;
+  inningsResult: 'won' | 'lost' | 'draw' | 'tied';
+  impactCategory: DefiningInningsImpact;
+  verifiedNarrative: string;
+  sourceType: 'cricsheet-archive' | 'primary-scorecard';
+  sourceId: string;
+  sourceUrl: string;
+  candidateSource: 'user-screenshot-candidate' | 'curated-archive-evidence';
+}
+

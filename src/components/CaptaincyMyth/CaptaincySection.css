@@ -3,12 +3,13 @@
    ============================================================ */
 
 .captaincy-section {
-  padding: var(--section-pad-y) var(--section-pad-x);
+  padding: var(--section-pad-y) 0;
   background: linear-gradient(180deg, var(--bg-2) 0%, #030307 50%, var(--bg-1) 100%);
   position: relative;
   overflow: hidden;
   min-height: 100vh;
 }
+
 
 /* ── Beat 1 Image Background ── */
 .captaincy-hero-bg {

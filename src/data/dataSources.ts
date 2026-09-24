@@ -10,7 +10,7 @@ export const STRUCTURAL_VALIDATION_DISCLAIMER =
   'AUTOMATED SUITE DISCLAIMER: The validation suite (npm run validate:data) proves mathematical and structural self-consistency of stored data structures (e.g., averages matching runs / dismissals, non-negative bounds), not historical scorecard accuracy against live external databases.';
 
 export const PHASE_4_SECURITY_NOTICE = 
-  'CONFIRMED PHASE 4 SECURITY ISSUE: Client-side API key in src/api/cricketData.ts (bc512d1a-7972-40db-b609-caf7132476a5) is hardcoded as a fallback. Identified and confirmed for Phase 4 security remediation (serverless proxy / environment variable enforcement). Do not modify in Phase 1.';
+  'PHASE 4 SECURITY REMEDIATION: Hardcoded client-side API key has been removed from src/api/cricketData.ts. In client-side Vite builds, browser environment variables are public and cannot secure upstream credentials. The previously committed key (<REDACTED_API_KEY>) must be treated as exposed and rotated on the CricketData.org provider dashboard. Production live fixture integration requires a server-side proxy route with server-only credentials.';
 
 export type DataClassification = 
   | 'official-source' 

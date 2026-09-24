@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchNextMatch } from '../../api/cricketData';
+import { fetchNextMatch, type NextMatchResult } from '../../api/cricketData';
 import type { NextMatchInfo } from '../../types';
 import './NextMatchSection.css';
 
@@ -11,7 +11,7 @@ interface TimeLeft {
 }
 
 export default function NextMatchSection() {
-  const [matchInfo, setMatchInfo] = useState<NextMatchInfo | null>(null);
+  const [result, setResult] = useState<NextMatchResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
   const [secTicking, setSecTicking] = useState(false);
@@ -20,21 +20,31 @@ export default function NextMatchSection() {
     let isMounted = true;
     async function loadMatch() {
       try {
-        const data = await fetchNextMatch();
+        const res = await fetchNextMatch();
         if (isMounted) {
-          setMatchInfo(data);
+          setResult(res);
           setLoading(false);
         }
       } catch {
         if (isMounted) {
-          setMatchInfo(null);
+          setResult({
+            status: 'unavailable',
+            match: null,
+            message: 'An unexpected error occurred while fetching fixture information.',
+            reason: 'network-error',
+            fetchedAt: new Date().toISOString(),
+          });
           setLoading(false);
         }
       }
     }
     loadMatch();
-    return () => { isMounted = false; };
+    return () => {
+      isMounted = false;
+    };
   }, []);
+
+  const matchInfo: NextMatchInfo | null = result?.match ?? null;
 
   useEffect(() => {
     if (!matchInfo?.date) return;
@@ -56,29 +66,30 @@ export default function NextMatchSection() {
       };
     }
 
-    // Initial calculation
     setTimeLeft(calculateTimeLeft());
 
     const interval = setInterval(() => {
       const remaining = calculateTimeLeft();
       setTimeLeft(remaining);
       setSecTicking(true);
-      setTimeout(() => setSecTicking(false), 300);
+      const timer = setTimeout(() => setSecTicking(false), 300);
+      return () => clearTimeout(timer);
     }, 1000);
 
     return () => clearInterval(interval);
   }, [matchInfo]);
 
-  const hasUpcomingMatch = matchInfo && timeLeft;
+  const isAvailable = result?.status === 'available' && matchInfo && timeLeft;
+  const isConfirmedEmpty = result?.status === 'confirmed-empty';
 
   return (
-    <section id="next-match" className="next-match-section">
+    <section id="next-match" className="next-match-section" aria-labelledby="next-match-heading">
       <div className="next-match-glow" aria-hidden="true" />
 
       <div className="container">
-        {/* Status Line */}
+        {/* Status Banner */}
         <div className="next-match-status-banner">
-          <span className="status-badge-dot" />
+          <span className="status-badge-dot" aria-hidden="true" />
           <p className="status-banner-text">
             Currently active in <strong>international ODI cricket</strong> — retired from Test (2025) & T20I (2024), building towards <strong>2027 ODI World Cup</strong>
           </p>
@@ -86,43 +97,43 @@ export default function NextMatchSection() {
 
         {/* Section Header */}
         <div className="next-match-header">
-          <span className="section-label">UPCOMING FIXTURE</span>
-          <h2 className="section-title">
-            NEXT <span className="text-gold">MATCH</span> COUNTDOWN
+          <span className="section-label">FIXTURE STATUS</span>
+          <h2 id="next-match-heading" className="section-title">
+            NEXT <span className="text-gold">MATCH</span> STATUS
           </h2>
         </div>
 
-        {/* Loading / Match Card / Fallback */}
+        {/* Loading / Available Match / Honest Unavailable State */}
         {loading ? (
-          <div className="next-match-card glass-card loading-state">
-            <div className="spinner" />
-            <p>Checking CricketData schedule...</p>
+          <div className="next-match-card glass-card loading-state" role="status" aria-live="polite">
+            <div className="spinner" aria-hidden="true" />
+            <p>Checking verified schedule status...</p>
           </div>
-        ) : hasUpcomingMatch ? (
+        ) : isAvailable ? (
           <div className="next-match-card glass-card">
             <div className="match-meta-header">
-              <span className="format-tag">ODI MATCH</span>
+              <span className="format-tag">ODI FIXTURE</span>
               <span className="match-name">{matchInfo.matchName}</span>
               <span className="match-venue">📍 {matchInfo.venue}</span>
             </div>
 
             {/* Countdown Grid */}
-            <div className="countdown-grid">
+            <div className="countdown-grid" role="timer" aria-label="Time remaining until match">
               <div className="countdown-box">
                 <span className="countdown-number">{String(timeLeft.days).padStart(2, '0')}</span>
                 <span className="countdown-label">DAYS</span>
               </div>
-              <span className="countdown-colon">:</span>
+              <span className="countdown-colon" aria-hidden="true">:</span>
               <div className="countdown-box">
                 <span className="countdown-number">{String(timeLeft.hours).padStart(2, '0')}</span>
                 <span className="countdown-label">HOURS</span>
               </div>
-              <span className="countdown-colon">:</span>
+              <span className="countdown-colon" aria-hidden="true">:</span>
               <div className="countdown-box">
                 <span className="countdown-number">{String(timeLeft.minutes).padStart(2, '0')}</span>
                 <span className="countdown-label">MINUTES</span>
               </div>
-              <span className="countdown-colon">:</span>
+              <span className="countdown-colon" aria-hidden="true">:</span>
               <div className={`countdown-box seconds-box ${secTicking ? 'tick-flip' : ''}`}>
                 <span className="countdown-number text-gold">{String(timeLeft.seconds).padStart(2, '0')}</span>
                 <span className="countdown-label">SECONDS</span>
@@ -133,15 +144,37 @@ export default function NextMatchSection() {
               <span>📅 Scheduled Date: <strong>{new Date(matchInfo.date).toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</strong></span>
             </div>
           </div>
+        ) : isConfirmedEmpty ? (
+          <div className="next-match-card glass-card fallback-state">
+            <div className="fallback-icon" aria-hidden="true">🏏</div>
+            <h3 className="fallback-title">No upcoming ODI fixtures currently scheduled</h3>
+            <p className="fallback-subtext">Verified calendar contains no confirmed international fixtures for India at this time.</p>
+          </div>
         ) : (
           <div className="next-match-card glass-card fallback-state">
-            <div className="fallback-icon">🏏</div>
-            <h3 className="fallback-title">No upcoming match scheduled yet</h3>
-            <p className="fallback-subtext">Check back soon for India's next ODI series fixture schedule</p>
-            <p className="fallback-note" style={{ fontSize: '0.82rem', color: '#9CA3AF', marginTop: '0.55rem', fontFamily: 'Rajdhani, sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem' }}>
-              <span style={{ fontSize: '0.85rem' }}>ℹ️</span>
-              <span>Match countdown activates automatically 7–10 days before a scheduled fixture goes live.</span>
+            <div className="fallback-icon" aria-hidden="true">🛡️</div>
+            <span className="format-tag" style={{ background: 'rgba(255,215,0,0.1)', borderColor: 'rgba(255,215,0,0.3)', color: 'var(--gold-primary)' }}>
+              FEED STATUS
+            </span>
+            <h3 className="fallback-title">
+              {result?.reason === 'rate-limited'
+                ? 'Rate Limit Exceeded (Please Retry Shortly)'
+                : result?.reason === 'missing-credentials'
+                ? 'Provider Credentials Pending Server Configuration'
+                : 'Live Fixture Feed Unavailable'}
+            </h3>
+            <p className="fallback-subtext">
+              {result?.message || 'Real-time schedule data is temporarily unavailable from the upstream provider.'}
             </p>
+            <div className="fixture-disclosure-box">
+              <p className="fallback-note">
+                <span aria-hidden="true">ℹ️</span>
+                <span><strong>Active Competition Status:</strong> Virat Kohli is active in international ODI cricket preparing for the 2027 ICC World Cup.</span>
+              </p>
+              <p className="fallback-note" style={{ marginTop: '0.35rem', color: '#9CA3AF' }}>
+                <span>Fixture feed routes through a secure server-side endpoint with bounded caching and isolated provider credentials.</span>
+              </p>
+            </div>
           </div>
         )}
       </div>

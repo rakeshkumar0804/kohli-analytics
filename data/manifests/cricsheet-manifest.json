@@ -7,7 +7,14 @@
   "licenseUrl": "https://cricsheet.org/license/",
   "schemaVersion": "1.1.0",
   "pipelineVersion": "3.0.0",
-  "generatedAt": "2026-09-21T18:40:05.346Z",
+  "generatedAt": "2026-09-24T09:39:30.368Z",
+  "player": {
+    "canonicalName": "Virat Kohli",
+    "cricsheetPersonId": "ba607b88",
+    "externalIds": {
+      "espncricinfo": "253802"
+    }
+  },
   "formatsRequested": [
     "ODI",
     "T20I"
@@ -19,7 +26,7 @@
       "url": "https://cricsheet.org/downloads/odis_male_json.zip",
       "sha256": "b6a1d6b683f19110ada34191183db55c03e09acb386d0f4b9bf0be2fb75bbac0",
       "bytes": 17456180,
-      "downloadedAt": "2026-09-21T18:40:05.222Z",
+      "downloadedAt": "2026-09-24T09:39:30.318Z",
       "status": "verified"
     },
     {
@@ -28,17 +35,10 @@
       "url": "https://cricsheet.org/downloads/t20s_male_json.zip",
       "sha256": "e098ad15622ac9e31da60e5e2ecd793c3d33352eb25b2a286b3cf08ffe98fa9e",
       "bytes": 14214702,
-      "downloadedAt": "2026-09-21T18:40:05.346Z",
+      "downloadedAt": "2026-09-24T09:39:30.368Z",
       "status": "verified"
     }
   ],
-  "player": {
-    "canonicalName": "Virat Kohli",
-    "cricsheetPersonId": "ba607b88",
-    "externalIds": {
-      "espncricinfo": "253802"
-    }
-  },
   "schemaAudit": {
     "supportedVersions": [
       "1.0.0",
@@ -78,5 +78,5 @@
     "super-8": 1
   },
   "qualityTrusted": true,
-  "ingestedAt": "2026-09-22T09:07:28.415Z"
+  "ingestedAt": "2026-09-24T09:40:46.382Z"
 }
