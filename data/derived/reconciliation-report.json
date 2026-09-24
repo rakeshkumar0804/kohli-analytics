@@ -1,7 +1,7 @@
 {
   "reportVersion": "4.0.0",
   "datasetId": "cricsheet-male-limited-overs",
-  "generatedAt": "2026-09-24T10:33:54.961Z",
+  "generatedAt": "2026-09-24T12:19:03.820Z",
   "sourceArchiveHashes": [
     {
       "format": "ODI",
@@ -5220,7 +5220,7 @@
   ],
   "trustDecision": {
     "isTrusted": true,
-    "decisionTimestamp": "2026-09-24T10:33:54.962Z",
+    "decisionTimestamp": "2026-09-24T12:19:03.821Z",
     "justification": "Every included delivery is deterministically parsed; all aggregate discrepancies are explained at match level; zero unexplained match IDs remain; zero anonymous balancing constants; all 10 independent scorecard checks passed; archive hashes match manifest; repeated ingestion produces identical artifact hashes."
   }
 }

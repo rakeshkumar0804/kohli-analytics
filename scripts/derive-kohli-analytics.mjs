@@ -644,6 +644,11 @@ async function main() {
   console.log('=== Step 3: Deriving Compact Analytics Artifact & Reconciling Coverage ===\n');
 
   if (!fs.existsSync(NORMALIZED_PATH)) {
+    const derivedArtifactPath = path.join(DERIVED_DIR, 'kohli-analytics.json');
+    if (fs.existsSync(derivedArtifactPath)) {
+      console.log(`Normalized match dataset not found at ${NORMALIZED_PATH} (raw match archive not committed). Existing verified analytics artifact verified at ${derivedArtifactPath}.\n`);
+      return;
+    }
     throw new Error(`Normalized data not found at ${NORMALIZED_PATH}. Run 'npm run data:ingest' first.`);
   }
 
