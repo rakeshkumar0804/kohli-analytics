@@ -53,11 +53,13 @@ async function main() {
 
   const archiveManifests = [];
 
+  const forceDownload = process.argv.includes('--force') || process.env.FORCE_DOWNLOAD === 'true';
+
   for (const item of ARCHIVES) {
     const destPath = path.join(RAW_DIR, item.filename);
 
-    // Check if already present and valid
-    if (fs.existsSync(destPath) && fs.statSync(destPath).size > 1000) {
+    // Check if already present and valid (unless force is requested)
+    if (!forceDownload && fs.existsSync(destPath) && fs.statSync(destPath).size > 1000) {
       console.log(`Archive ${item.filename} already exists locally. Verifying...`);
     } else {
       try {

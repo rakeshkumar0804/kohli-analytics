@@ -1,0 +1,61 @@
+name: Auto-Sync Match Stats & Analytics
+
+on:
+  schedule:
+    # Run twice daily at 03:00 UTC (08:30 IST) and 15:00 UTC (20:30 IST)
+    - cron: '0 3,15 * * *'
+  workflow_dispatch: # Allows manual run anytime from GitHub Actions UI
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-update:
+    name: Sync Match Scorecards & Update Analytics
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refresh Data & Ingest Latest Scorecards
+        run: |
+          FORCE_DOWNLOAD=true npm run data:refresh
+        env:
+          FORCE_DOWNLOAD: "true"
+
+      - name: Validate Integrity & Verify Invariants
+        run: |
+          npm run validate:data
+          npm test
+          npm run test:data-integration
+
+      - name: Build Production Bundle
+        run: npm run build
+
+      - name: Commit and Push if Changes Found
+        run: |
+          # Check for changes in data or src/data
+          if [ -n "$(git status --porcelain data/ src/data/)" ]; then
+            echo "New match scorecards or statistical updates detected! Committing changes..."
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/ src/data/
+            git commit -m "chore(data): auto-sync latest match scorecards and career analytics [skip ci]"
+            git push origin main
+            echo "✅ Successfully synced and pushed new career data to main branch."
+          else
+            echo "ℹ️ No new scorecards detected. Repository data is already up-to-date."
+          fi
