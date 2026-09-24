@@ -175,7 +175,7 @@ export default function ChaseSection() {
           >
             {filteredChases.map((chase, idx) => (
               <div 
-                key={`${chase.year}-${chase.opponent}-${chase.venue}`} 
+                key={`${chase.year}-${chase.opponent}-${chase.venue}-${chase.target}`} 
                 className={`chase-card glass-card ${chase.isGenerational ? 'generational-card' : ''}`}
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
@@ -193,8 +193,10 @@ export default function ChaseSection() {
                 <div className="chase-card-main">
                   <span className="chase-opponent">vs {chase.opponent}</span>
                   <div className="chase-score">
-                    <span className="score-val text-gold">{chase.kohliScore}*</span>
-                    <span className="hundred-crown">👑</span>
+                    <span className="score-val text-gold">
+                      {chase.kohliScore}{chase.isNotOut ? '*' : ''}
+                    </span>
+                    {chase.kohliScore >= 100 && <span className="hundred-crown">👑</span>}
                   </div>
                   <span className="chase-target">Target: <strong>{chase.target}</strong> ({chase.venue})</span>
                 </div>
@@ -202,7 +204,7 @@ export default function ChaseSection() {
                 <p className="chase-description">{chase.description}</p>
 
                 <div className="chase-card-footer">
-                  <span className={`chase-result-badge ${chase.result === 'won' ? 'result-won' : 'result-lost'}`}>
+                  <span className={`chase-result-badge ${chase.result === 'won' ? 'result-won' : chase.result === 'draw' ? 'result-draw' : 'result-lost'}`}>
                     {chase.result.toUpperCase()}
                   </span>
                 </div>

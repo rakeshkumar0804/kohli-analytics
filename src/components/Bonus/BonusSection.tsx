@@ -38,10 +38,10 @@ const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
   {
     id: 4,
-    question: "What is Kohli's ODI batting average in successful run chases?",
-    options: ["72.4", "82.1", "89.4", "95.6"],
+    question: "What is Kohli's ODI batting average in successful run chases across the covered archive?",
+    options: ["72.4", "82.1", "88.29", "95.6"],
     correct: 2,
-    explanation: "In matches where India successfully completed a run chase, Kohli averages a legendary 89.4."
+    explanation: "In ODI matches where India successfully completed a run chase across the covered archive (102 wins in 152 chases), Kohli scored 5,739 runs in 65 dismissals, averaging a legendary 88.29."
   },
   {
     id: 5,

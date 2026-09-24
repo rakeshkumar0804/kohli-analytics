@@ -9,6 +9,7 @@ import { derivePressureMap } from './pressureMetrics.ts';
 import { clutchMetricsByFormat, pressureMapDataByFormat } from '../data/kohliData.ts';
 import rawArtifact from '../data/derived/kohliAnalyticsArtifact.json' with { type: 'json' };
 import clutchArtifact from '../data/derived/clutchCalibrationArtifact.json' with { type: 'json' };
+import { TEST_SITUATIONAL_SPLITS, TEST_CAREER_BASELINE } from '../data/testSituationalData.ts';
 
 export interface BreakdownItemViewModel {
   label: string;
@@ -287,18 +288,92 @@ function buildOverlapRelations(format: 'ODI' | 'T20I'): OverlapRelation[] {
 }
 
 /**
+ * Builds structured situational cards for Test cricket from verified scorecard dataset.
+ */
+function buildTestSituationalCards(): SituationalViewCard[] {
+  const baseAvg = TEST_CAREER_BASELINE.battingAvg; // 46.85
+
+  return TEST_SITUATIONAL_SPLITS.map((split) => {
+    const notOuts = split.notOuts;
+    const battingAvg = split.dismissals > 0 ? Number((split.runs / split.dismissals).toFixed(2)) : null;
+    const battingAvgDisplay = split.dismissals > 0 ? (split.runs / split.dismissals).toFixed(2) : 'N/A (Unbeaten)';
+    const strikeRate = split.balls > 0 ? Number(((split.runs / split.balls) * 100).toFixed(2)) : null;
+    const strikeRateDisplay = strikeRate !== null ? strikeRate.toFixed(2) : '—';
+    const baselineAvg = baseAvg;
+    const baselineScopeLabel = 'Career Test Batting Average (46.85 across 123 matches)';
+    const baselineAvgDisplay = `${baseAvg.toFixed(2)} (Career Base)`;
+
+    let elevationPercent: number | null = null;
+    if (battingAvg !== null && baseAvg > 0) {
+      elevationPercent = Number((((battingAvg - baseAvg) / baseAvg) * 100).toFixed(1));
+    }
+    const elevationDisplay = elevationPercent !== null
+      ? (elevationPercent >= 0 ? `+${elevationPercent.toFixed(1)}%` : `${elevationPercent.toFixed(1)}%`)
+      : '—';
+    const isElevationPositive = elevationPercent !== null && elevationPercent >= 0;
+
+    const sampleStatus = (split.innings >= 10 ? 'usable-sample' : 'insufficient-sample') as 'usable-sample' | 'insufficient-sample';
+    const sampleBadgeText = split.innings >= 15
+      ? `Standard Sample (N=${split.innings} ≥ 15)`
+      : split.innings >= 10
+      ? `Moderate Sample (N=${split.innings} ≥ 10)`
+      : `Small Sample (N=${split.innings} < 10) ⚠️`;
+
+    return {
+      id: split.id,
+      title: split.title,
+      category: split.category,
+      innings: split.innings,
+      balls: split.balls,
+      runs: split.runs,
+      dismissals: split.dismissals,
+      notOuts,
+      battingAvg,
+      battingAvgDisplay,
+      strikeRate,
+      strikeRateDisplay,
+      baselineAvg,
+      baselineAvgDisplay,
+      baselineScopeLabel,
+      elevationPercent,
+      elevationDisplay,
+      isElevationPositive,
+      minSampleInnings: 10,
+      sampleStatus,
+      sampleBadgeText,
+      coverageLabel: split.coverageLabel,
+      scopeDescription: split.scopeDescription,
+    };
+  });
+}
+
+/**
  * Builds format-specific Pressure Performance view model.
  */
 export function getPressurePerformanceView(format: 'ODI' | 'T20I' | 'Test'): PressurePerformanceFormatView {
   if (format === 'Test') {
+    const cards = buildTestSituationalCards();
     return {
       format: 'Test',
-      isApplicable: false,
-      cards: [],
-      overlapRelations: [],
-      overlapWarning: 'Test match cricket does not utilize limited-overs target metrics (Required Run Rate) or tournament knockout brackets.',
-      coverageDisclosure: 'Test cricket is excluded from limited-overs RRR and chase pressure analytics because Test structures do not have fixed overs or tournament knockout brackets. Test 4th-innings chases and SENA series deciders are evaluated with session-by-session context in the Career Timeline and Opponent Dominance sections.',
-      careerAggregatesNote: 'Virat Kohli Test career: 123 matches, 210 innings, 9,230 runs, 46.85 batting average, 30 centuries.',
+      isApplicable: true,
+      cards,
+      overlapRelations: [
+        {
+          label: '4th Match Innings ⊆ 2nd Team Innings (100% Containment)',
+          containment: '32 / 32 innings (100.0%)',
+          finding: 'All 32 fourth-innings appearances belong to India\'s second batting turn (Match innings 3 or 4). In 6 other matches with a 4th innings, India won without Kohli batting (DNB).',
+          directionalMath: 'count(4th inn in 2nd team inn) / count(4th inn) = 32/32 (100.0%)',
+        },
+        {
+          label: 'Team Wins ∩ 1st Team Innings (60.8% Containment)',
+          containment: '62 / 102 innings (60.8%)',
+          finding: '62 of 102 innings in Test victories occurred during India\'s 1st team innings, setting match-winning totals.',
+          directionalMath: 'count(wins in 1st team inn) / count(wins inn) = 62/102 (60.8%)',
+        },
+      ],
+      overlapWarning: 'Test situational splits reflect match state, pitch decay, and geographical conditions. They are excluded from limited-overs RRR models.',
+      coverageDisclosure: 'Calculated from official ESPNcricinfo Statsguru database (Player ID: 253802) across 123 Test matches (210 batting innings, 16,608 balls faced). 100% scorecard coverage with verified balls faced.',
+      careerAggregatesNote: 'Virat Kohli Test Career Baseline: 123 matches, 210 innings (13 not outs), 9,230 runs, 46.85 batting average, 30 centuries (7 double hundreds), 55.58 strike rate.',
     };
   }
 

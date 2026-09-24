@@ -135,8 +135,8 @@ virat-kohli-analytics/
 │   ├── ingest-cricsheet.mjs           # Filters Virat Kohli matches & normalizes into typed schema
 │   ├── derive-kohli-analytics.mjs     # Generates 5-band Pressure Maps, Chase Metrics & Stage Splits
 │   ├── verify-derived-data.mjs        # Validates quality gates, schema integrity & atomic writes
-│   ├── test-analytics.mjs             # 123 unit & regression tests across 8 suites
-│   └── test-data-integration.mjs     # 30 dataset integration & independent oracle tests
+│   ├── test-analytics.mjs             # 152 unit & regression tests across 12 suites
+│   └── test-data-integration.mjs     # 31 dataset integration & independent oracle tests
 └── src/analytics/
     ├── types.ts                       # Normalized match, innings, delivery, and analytical schemas
     ├── normalizeMatch.ts              # Match validator and legal delivery normalizer
@@ -192,10 +192,10 @@ npm run data:refresh
 # Run calibration & model spec generator (Phase 5)
 npm run clutch:calibrate
 
-# Run unit tests (123/123 tests passing across 8 suites)
+# Run unit tests (152/152 tests passing across 12 suites)
 npm test
 
-# Run dataset integration tests (30/30 tests passing)
+# Run dataset integration tests (31/31 tests passing)
 npm run test:data-integration
 ```
 
@@ -210,7 +210,7 @@ npm run test:data-integration
 
 ## Data Integrity and Provenance
 
-- **Data Last Verified**: `24 September 2026` (`verifiedOnDate: 2026-09-24`) — Coverage varies by dataset format.
+- **Data Last Verified**: `21 September 2026` (`verifiedOnDate: 2026-09-21`) — Coverage varies by dataset format.
 - **Official Aggregates**: Career totals across Test (123 Tests / 9,230 runs / 46.85 avg), ODI (314 ODIs / 14,941 runs / 58.59 avg), T20I (125 T20Is / 4,188 runs / 48.70 avg), and IPL (283 matches / 9,336 runs / 40.42 avg) are strictly matched against [Cricbuzz Official Profile](https://www.cricbuzz.com/profiles/1413/virat-kohli) and [ESPNcricinfo Statsguru](https://stats.espncricinfo.com/ci/engine/player/253802.html).
 - **Combined International Totals**: `28,359 runs`, `562 matches`, `629 innings`, `91 not-outs`, `538 dismissals`, `52.71 average`. Test + ODI + T20I only (IPL is strictly excluded).
 - **Opponent Dominance Data**: Base inputs (runs, innings, dismissals, average, centuries, fifties, high scores across 9 Test-playing nations) are verified reference aggregates from Statsguru. The `dominanceScore` is an experimental map-intensity heuristic derived from verified opponent aggregates; weighting is not an official cricket statistic.
@@ -383,8 +383,8 @@ npm run data:verify
 npm run validate:data
 
 # 4. Run test suites
-npm test                      # Unit tests (129/129 passing across 9 suites)
-npm run test:data-integration # Integration tests (30/30 passing)
+npm test                      # Unit tests (152/152 passing across 12 suites)
+npm run test:data-integration # Integration tests (31/31 passing)
 
 # 5. Lint and Build
 npm run lint                  # 0 errors, 0 warnings

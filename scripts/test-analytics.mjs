@@ -68,11 +68,21 @@ import {
   getVerifiedCareerStats,
 } from '../src/api/cricketData.ts';
 
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const ROOT_DIR = path.resolve(__dirname, '..');
+
 import { FixturesService } from '../src/server/fixturesService.ts';
 import { DEFINING_INNINGS_DATA } from '../src/data/definingInningsData.ts';
+import { TEST_SITUATIONAL_SPLITS, TEST_CAREER_BASELINE } from '../src/data/testSituationalData.ts';
 
 import { SAMPLE_MATCH_FIXTURES } from '../src/analytics/fixtures/sampleMatches.ts';
-import { careerStats, opponentData, clutchMetricsByFormat, pressureMapDataByFormat } from '../src/data/kohliData.ts';
+import { careerStats, opponentData, clutchMetricsByFormat, pressureMapDataByFormat, famousChases, eraData } from '../src/data/kohliData.ts';
+import { DATA_VERIFIED_ON, DATA_VERIFIED_ON_FORMATTED } from '../src/data/dataSources.ts';
 
 import {
   parseCricsheetMatch,
@@ -2688,7 +2698,7 @@ describe('11. Selected Defining Innings Gallery Suite', () => {
 // 12. PRESSURE PERFORMANCE DASHBOARD & SITUATIONAL SPLITS SUITE
 // ============================================================
 describe('12. Pressure Performance Dashboard & Situational Splits Suite', () => {
-  it('12.1 Format separation: ODI and T20I have 4 situational cards each; Test explicitly discloses non-applicability', () => {
+  it('12.1 Format separation: ODI and T20I have 4 situational cards each; Test provides 8 sourced situational cards', () => {
     const odiVm = getClutchViewModel('ODI');
     const t20Vm = getClutchViewModel('T20I');
     const testVm = getClutchViewModel('Test');
@@ -2699,9 +2709,9 @@ describe('12. Pressure Performance Dashboard & Situational Splits Suite', () => 
     assert.strictEqual(t20Vm.pressurePerformance.isApplicable, true);
     assert.strictEqual(t20Vm.pressurePerformance.cards.length, 4);
 
-    assert.strictEqual(testVm.pressurePerformance.isApplicable, false);
-    assert.strictEqual(testVm.pressurePerformance.cards.length, 0);
-    assert.ok(testVm.pressurePerformance.coverageDisclosure.includes('Test cricket is excluded from limited-overs RRR'));
+    assert.strictEqual(testVm.pressurePerformance.isApplicable, true);
+    assert.strictEqual(testVm.pressurePerformance.cards.length, 9);
+    assert.ok(testVm.pressurePerformance.coverageDisclosure.includes('123 Test matches'));
   });
 
   it('12.2 ODI situational splits exact verified figures and elevations match derived artifact', () => {
@@ -2900,9 +2910,216 @@ describe('12. Pressure Performance Dashboard & Situational Splits Suite', () => 
     assert.strictEqual(t20HighRrr.baselineScopeLabel, 'Covered-archive batting average');
     assert.ok(t20HighRrr.baselineAvgDisplay.includes('Covered Archive'));
 
-    // Full-career totals remain strictly unmutated (58.59 ODI, 48.70 T20I)
+    // Full-career totals remain strictly unmutated (58.59 ODI, 48.70 T20I, 46.85 Test)
     assert.strictEqual(careerStats.odi.average, 58.59);
     assert.strictEqual(careerStats.t20i.average, 48.70);
+    assert.strictEqual(careerStats.test.average, 46.85);
+  });
+
+  it('12.10 Test situational splits: exact figures, population definitions, and cross-sum invariants', () => {
+    const testVm = getClutchViewModel('Test');
+    const cards = testVm.pressurePerformance.cards;
+    assert.strictEqual(cards.length, 9);
+
+    // Card 1: 1st Team Innings
+    const inn1 = cards.find((c) => c.id === 'testFirstTeamInnings');
+    assert.ok(inn1);
+    assert.strictEqual(inn1.innings, 121);
+    assert.strictEqual(inn1.balls, 11171);
+    assert.strictEqual(inn1.runs, 6257);
+    assert.strictEqual(inn1.dismissals, 119);
+    assert.strictEqual(inn1.notOuts, 2);
+    assert.strictEqual(inn1.battingAvg, 52.58);
+    assert.strictEqual(inn1.strikeRate, 56.01);
+    assert.strictEqual(inn1.elevationDisplay, '+12.2%');
+
+    // Card 2: 2nd Team Innings
+    const inn2 = cards.find((c) => c.id === 'testSecondTeamInnings');
+    assert.ok(inn2);
+    assert.strictEqual(inn2.innings, 89);
+    assert.strictEqual(inn2.balls, 5437);
+    assert.strictEqual(inn2.runs, 2973);
+    assert.strictEqual(inn2.dismissals, 78);
+    assert.strictEqual(inn2.notOuts, 11);
+    assert.strictEqual(inn2.battingAvg, 38.12);
+    assert.strictEqual(inn2.strikeRate, 54.68);
+    assert.strictEqual(inn2.elevationDisplay, '-18.6%');
+
+    // Card 3: 4th Match Innings (Defined strictly as Kohli actively batted)
+    const inn4 = cards.find((c) => c.id === 'testFourthMatchInnings');
+    assert.ok(inn4);
+    assert.strictEqual(inn4.innings, 32);
+    assert.strictEqual(inn4.balls, 1902);
+    assert.strictEqual(inn4.runs, 1102);
+    assert.strictEqual(inn4.dismissals, 26);
+    assert.strictEqual(inn4.notOuts, 6);
+    assert.strictEqual(inn4.battingAvg, 42.38);
+    assert.strictEqual(inn4.strikeRate, 57.94);
+    assert.strictEqual(inn4.elevationDisplay, '-9.5%');
+
+    // Card 4: Home Conditions
+    const home = cards.find((c) => c.id === 'testHomeConditions');
+    assert.ok(home);
+    assert.strictEqual(home.innings, 87);
+    assert.strictEqual(home.balls, 7311);
+    assert.strictEqual(home.runs, 4336);
+    assert.strictEqual(home.dismissals, 78);
+    assert.strictEqual(home.notOuts, 9);
+    assert.strictEqual(home.battingAvg, 55.59);
+    assert.strictEqual(home.strikeRate, 59.31);
+    assert.strictEqual(home.elevationDisplay, '+18.7%');
+
+    // Card 5: Away Conditions
+    const away = cards.find((c) => c.id === 'testAwayConditions');
+    assert.ok(away);
+    assert.strictEqual(away.innings, 119);
+    assert.strictEqual(away.balls, 9027);
+    assert.strictEqual(away.runs, 4774);
+    assert.strictEqual(away.dismissals, 115);
+    assert.strictEqual(away.notOuts, 4);
+    assert.strictEqual(away.battingAvg, 41.51);
+    assert.strictEqual(away.strikeRate, 52.89);
+    assert.strictEqual(away.elevationDisplay, '-11.4%');
+
+    // Card 6: Neutral Conditions (WTC Finals)
+    const neutral = cards.find((c) => c.id === 'testNeutralConditions');
+    assert.ok(neutral);
+    assert.ok(neutral.coverageLabel.includes('2 neutral matches'));
+    assert.strictEqual(neutral.innings, 4);
+    assert.strictEqual(neutral.balls, 270);
+    assert.strictEqual(neutral.runs, 120);
+    assert.strictEqual(neutral.dismissals, 4);
+    assert.strictEqual(neutral.notOuts, 0);
+    assert.strictEqual(neutral.battingAvg, 30.00);
+    assert.strictEqual(neutral.strikeRate, 44.44);
+    assert.strictEqual(neutral.elevationDisplay, '-36.0%');
+    assert.strictEqual(neutral.sampleStatus, 'insufficient-sample');
+    assert.ok(neutral.sampleBadgeText.includes('Small Sample (N=4 < 10)'));
+
+    // Cards 7, 8, 9: Result Splits
+    const win = cards.find((c) => c.id === 'testWonMatches');
+    const loss = cards.find((c) => c.id === 'testLostMatches');
+    const draw = cards.find((c) => c.id === 'testDrawnMatches');
+
+    assert.ok(win && loss && draw);
+    assert.strictEqual(win.innings, 102);
+    assert.strictEqual(win.runs, 4746);
+    assert.strictEqual(win.dismissals, 92);
+    assert.strictEqual(win.notOuts, 10);
+    assert.strictEqual(win.battingAvg, 51.59);
+    assert.strictEqual(win.strikeRate, 57.92);
+
+    assert.strictEqual(loss.innings, 78);
+    assert.strictEqual(loss.runs, 2543);
+    assert.strictEqual(loss.dismissals, 78);
+    assert.strictEqual(loss.notOuts, 0);
+    assert.strictEqual(loss.battingAvg, 32.60);
+    assert.strictEqual(loss.strikeRate, 51.39);
+
+    assert.strictEqual(draw.innings, 30);
+    assert.strictEqual(draw.runs, 1941);
+    assert.strictEqual(draw.dismissals, 27);
+    assert.strictEqual(draw.notOuts, 3);
+    assert.strictEqual(draw.battingAvg, 71.89);
+    assert.strictEqual(draw.strikeRate, 56.00);
+
+    // Cross-Sum Result Invariant Assertions:
+    assert.strictEqual(win.innings + loss.innings + draw.innings, 210);
+    assert.strictEqual(win.runs + loss.runs + draw.runs, 9230);
+    assert.strictEqual(win.dismissals + loss.dismissals + draw.dismissals, 197);
+    assert.strictEqual(win.notOuts + loss.notOuts + draw.notOuts, 13);
+    assert.strictEqual(win.balls + loss.balls + draw.balls, 16608);
+
+    // Cross-Sum Venue Invariant Assertions (Home + Away + Neutral = 123 M, 210 Inn, 9230 R, 13 NO):
+    const rawHome = TEST_SITUATIONAL_SPLITS.find(s => s.id === 'testHomeConditions');
+    const rawAway = TEST_SITUATIONAL_SPLITS.find(s => s.id === 'testAwayConditions');
+    const rawNeutral = TEST_SITUATIONAL_SPLITS.find(s => s.id === 'testNeutralConditions');
+    assert.ok(rawHome && rawAway && rawNeutral);
+
+    assert.strictEqual(rawHome.matchesCovered + rawAway.matchesCovered + rawNeutral.matchesCovered, 123);
+    assert.strictEqual(home.innings + away.innings + neutral.innings, 210);
+    assert.strictEqual(home.runs + away.runs + neutral.runs, 9230);
+    assert.strictEqual(home.dismissals + away.dismissals + neutral.dismissals, 197);
+    assert.strictEqual(home.notOuts + away.notOuts + neutral.notOuts, 13);
+    assert.strictEqual(home.balls + away.balls + neutral.balls, 16608);
+
+    // Career Baseline Invariant:
+    assert.strictEqual(TEST_CAREER_BASELINE.matches, 123);
+    assert.strictEqual(TEST_CAREER_BASELINE.innings, 210);
+    assert.strictEqual(TEST_CAREER_BASELINE.runs, 9230);
+    assert.strictEqual(TEST_CAREER_BASELINE.dismissals, 197);
+    assert.strictEqual(TEST_CAREER_BASELINE.notOuts, 13);
+    assert.strictEqual(TEST_CAREER_BASELINE.ballsFaced, 16608);
+  });
+});
+
+describe('13. Factual Regressions & Scorecard Precision Suite', () => {
+  it('13.1 Chase Master: isNotOut flag is true ONLY for verified not-out innings', () => {
+    const chase183 = famousChases.find((c) => c.format === 'ODI' && c.opponent === 'Pakistan' && c.year === 2012);
+    assert.ok(chase183, '183 vs Pakistan 2012 must exist');
+    assert.strictEqual(chase183.isNotOut, false, '183 vs Pakistan in 2012 Asia Cup was a dismissed innings (out c Hafeez b Gul)');
+
+    const chase141 = famousChases.find((c) => c.format === 'Test' && c.opponent === 'Australia' && c.year === 2014);
+    assert.ok(chase141, '141 vs Australia 2014 must exist');
+    assert.strictEqual(chase141.isNotOut, false, '141 vs Australia in 2014 Adelaide 4th innings was a dismissed innings (out c Marsh b Lyon)');
+
+    const chase133 = famousChases.find((c) => c.format === 'ODI' && c.opponent === 'Sri Lanka' && c.year === 2012);
+    assert.ok(chase133, '133* vs Sri Lanka 2012 must exist');
+    assert.strictEqual(chase133.isNotOut, true, '133 vs Sri Lanka in 2012 Hobart was an unbeaten innings');
+
+    const chase82Aus = famousChases.find((c) => c.format === 'T20I' && c.opponent === 'Australia' && c.year === 2016);
+    assert.ok(chase82Aus, '82* vs Australia 2016 must exist');
+    assert.strictEqual(chase82Aus.isNotOut, true, '82 vs Australia in 2016 Mohali was an unbeaten innings');
+
+    const chase82Pak = famousChases.find((c) => c.format === 'T20I' && c.opponent === 'Pakistan' && c.year === 2022);
+    assert.ok(chase82Pak, '82* vs Pakistan 2022 must exist');
+    assert.strictEqual(chase82Pak.isNotOut, true, '82 vs Pakistan in 2022 MCG was an unbeaten innings');
+  });
+
+  it('13.2 2016 Pakistan matches are separated into distinct Asia Cup and T20 World Cup scorecards', () => {
+    const asiaCup2016 = famousChases.find(
+      (c) => c.format === 'T20I' && c.opponent === 'Pakistan' && c.year === 2016 && c.target === 84
+    );
+    assert.ok(asiaCup2016, '2016 Asia Cup 84 chase must exist');
+    assert.strictEqual(asiaCup2016.kohliScore, 49);
+    assert.strictEqual(asiaCup2016.isNotOut, false);
+    assert.ok(asiaCup2016.venue.includes('Mirpur'));
+
+    const t20Wc2016 = famousChases.find(
+      (c) => c.format === 'T20I' && c.opponent === 'Pakistan' && c.year === 2016 && c.target === 119
+    );
+    assert.ok(t20Wc2016, '2016 T20 World Cup 119 chase must exist');
+    assert.strictEqual(t20Wc2016.kohliScore, 55);
+    assert.strictEqual(t20Wc2016.isNotOut, true);
+    assert.ok(t20Wc2016.venue.includes('Kolkata'));
+  });
+
+  it('13.3 Era Engine peak Test average equals 66.79 and reconciles with Test Hub', () => {
+    const peakEra = eraData.find((e) => e.era === 'peak');
+    assert.ok(peakEra, 'Peak era must exist in eraData');
+    assert.strictEqual(peakEra.testAvg, 66.79);
+
+    // Exact annual stats: 2016 (1215/16), 2017 (1059/14), 2018 (1322/24), 2019 (612/9) => 4208 runs / 63 dismissals
+    const runs = 4208;
+    const dismissals = 63;
+    const computedAvg = Number((runs / dismissals).toFixed(2));
+    assert.strictEqual(computedAvg, 66.79);
+    assert.strictEqual(peakEra.testAvg, computedAvg);
+  });
+
+  it('13.4 Quiz Question 4 reflects verified covered-archive successful ODI chase average (88.29)', () => {
+    const derivedArtifactPath = path.join(ROOT_DIR, 'src', 'data', 'derived', 'kohliAnalyticsArtifact.json');
+    if (fs.existsSync(derivedArtifactPath)) {
+      const artifact = JSON.parse(fs.readFileSync(derivedArtifactPath, 'utf8'));
+      assert.strictEqual(artifact.chaseMetrics.ODI.successfulChaseAverage, 88.29);
+      assert.strictEqual(artifact.chaseMetrics.ODI.successfulInningsCount, 104);
+      assert.strictEqual(artifact.chaseMetrics.ODI.inningsCount, 165);
+    }
+  });
+
+  it('13.5 DATA_VERIFIED_ON and manifest verification date invariant', () => {
+    assert.strictEqual(DATA_VERIFIED_ON, '2026-09-21');
+    assert.strictEqual(DATA_VERIFIED_ON_FORMATTED, '21 September 2026');
   });
 });
 

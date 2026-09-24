@@ -768,10 +768,11 @@ test('Data Integration & Independent Oracle Suite', async (t) => {
     assert.equal(odiVm.pressurePerformance.cards.length, 4);
     assert.equal(t20Vm.pressurePerformance.isApplicable, true);
     assert.equal(t20Vm.pressurePerformance.cards.length, 4);
-    assert.equal(testVm.pressurePerformance.isApplicable, false);
+    assert.equal(testVm.pressurePerformance.isApplicable, true);
+    assert.equal(testVm.pressurePerformance.cards.length, 9);
 
-    // Verify zero-dismissal safety and valid numbers across all cards
-    for (const card of [...odiVm.pressurePerformance.cards, ...t20Vm.pressurePerformance.cards]) {
+    // Verify zero-dismissal safety, arithmetic consistency, and valid numbers across all cards
+    for (const card of [...odiVm.pressurePerformance.cards, ...t20Vm.pressurePerformance.cards, ...testVm.pressurePerformance.cards]) {
       assert.ok(card.innings > 0);
       assert.ok(card.runs >= 0);
       assert.ok(card.balls >= 0);

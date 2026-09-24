@@ -140,6 +140,8 @@ export interface ChaseInnings {
   opponent: string;
   target: number;
   kohliScore: number;
+  isNotOut?: boolean;
+  ballsFaced?: number;
   result: 'won' | 'lost' | 'draw';
   description: string;
   venue: string;

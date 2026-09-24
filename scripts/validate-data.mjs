@@ -1,5 +1,6 @@
-import { opponentData, careerStats, famousChases, heroStatsByFormat, allFormatCareerStats, u19CareerStats } from '../src/data/kohliData.ts';
+import { opponentData, careerStats, famousChases, heroStatsByFormat, allFormatCareerStats, u19CareerStats, eraData } from '../src/data/kohliData.ts';
 import { DEFINING_INNINGS_DATA } from '../src/data/definingInningsData.ts';
+import { TEST_SITUATIONAL_SPLITS, TEST_CAREER_BASELINE } from '../src/data/testSituationalData.ts';
 import { DATA_VERIFIED_ON, STRUCTURAL_VALIDATION_DISCLAIMER, DATA_PROVENANCE_MANIFEST } from '../src/data/dataSources.ts';
 import { calculateClutchIndex } from '../src/utils/calculateClutchIndex.ts';
 
@@ -237,10 +238,28 @@ famousChases.forEach((chase, idx) => {
   assert(isNonNegativeInteger(chase.target), `[Chase #${idx + 1}] Target must be positive integer: ${chase.target}`);
   assert(isNonNegativeInteger(chase.kohliScore), `[Chase #${idx + 1}] Kohli score must be positive integer: ${chase.kohliScore}`);
   
-  const key = `${chase.format}-${chase.year}-${chase.opponent}-${chase.venue}-${chase.kohliScore}`;
+  const key = `${chase.format}-${chase.year}-${chase.opponent}-${chase.venue}-${chase.kohliScore}-${chase.target}`;
   assert(!chaseKeys.has(key), `[Chase #${idx + 1}] Duplicate chase entry detected: ${key}`);
   chaseKeys.add(key);
 });
+
+// Explicit Scorecard Audits for Famous Chases (Not-out flag and separation)
+const chase183 = famousChases.find((c) => c.format === 'ODI' && c.opponent === 'Pakistan' && c.year === 2012);
+assert(chase183 && chase183.kohliScore === 183 && chase183.isNotOut === false, 'Mirpur 2012 183 vs Pakistan was a dismissed innings (isNotOut === false)');
+
+const chase141 = famousChases.find((c) => c.format === 'Test' && c.opponent === 'Australia' && c.year === 2014);
+assert(chase141 && chase141.kohliScore === 141 && chase141.isNotOut === false, 'Adelaide 2014 141 vs Australia 4th innings was a dismissed innings (isNotOut === false)');
+
+const asiaCup2016 = famousChases.find((c) => c.format === 'T20I' && c.opponent === 'Pakistan' && c.year === 2016 && c.target === 84);
+assert(asiaCup2016 && asiaCup2016.kohliScore === 49 && asiaCup2016.isNotOut === false && asiaCup2016.venue.includes('Mirpur'), '2016 Asia Cup chase of 84 must feature 49 (dismissed) at Mirpur');
+
+const t20Wc2016 = famousChases.find((c) => c.format === 'T20I' && c.opponent === 'Pakistan' && c.year === 2016 && c.target === 119);
+assert(t20Wc2016 && t20Wc2016.kohliScore === 55 && t20Wc2016.isNotOut === true && t20Wc2016.venue.includes('Kolkata'), '2016 T20 World Cup chase of 119 must feature 55* (not out) at Kolkata');
+
+// Era Data Peak Test Average Invariant Check
+const peakEra = eraData.find((e) => e.era === 'peak');
+assert(peakEra && peakEra.testAvg === 66.79, `Peak era (2016-2019) Test avg in eraData must be 66.79 (4208 runs / 63 dismissals), found ${peakEra?.testAvg}`);
+assert((4208 / 63).toFixed(2) === '66.79', 'Exact peak Test average arithmetic must equal 66.79');
 
 // 7. Hero Stats Alignment Check
 console.log('--- Checking Hero Stats Alignment ---');
@@ -328,6 +347,46 @@ DEFINING_INNINGS_DATA.forEach((inn, idx) => {
     assert(inn.runs === 113 && inn.ballsFaced === 50 && inn.fours === 12 && inn.sixes === 8 && inn.matchId === '980999', 'Bengaluru 2016 must match 113 (50b, 12x4, 8x6)');
   }
 });
+
+// 13. Test Situational Splits Integrity Check
+console.log('--- Checking Test Situational Splits Integrity ---');
+assert(TEST_CAREER_BASELINE.matches === 123, 'Test baseline matches must be 123');
+assert(TEST_CAREER_BASELINE.innings === 210, 'Test baseline innings must be 210');
+assert(TEST_CAREER_BASELINE.runs === 9230, 'Test baseline runs must be 9,230');
+assert(TEST_CAREER_BASELINE.dismissals === 197, 'Test baseline dismissals must be 197');
+assert(TEST_CAREER_BASELINE.notOuts === 13, 'Test baseline notOuts must be 13');
+assert(TEST_CAREER_BASELINE.battingAvg === 46.85, 'Test baseline average must be 46.85');
+assert(TEST_CAREER_BASELINE.ballsFaced === 16608, 'Test baseline balls must be 16,608');
+assert(TEST_SITUATIONAL_SPLITS.length === 9, 'TEST_SITUATIONAL_SPLITS must contain 9 splits');
+
+TEST_SITUATIONAL_SPLITS.forEach((split) => {
+  assert(split.innings === split.dismissals + split.notOuts, `[Test Split: ${split.id}] innings (${split.innings}) must equal dismissals (${split.dismissals}) + notOuts (${split.notOuts})`);
+  assert(isNonNegativeInteger(split.runs), `[Test Split: ${split.id}] runs must be non-negative integer`);
+  assert(isNonNegativeInteger(split.balls), `[Test Split: ${split.id}] balls must be non-negative integer`);
+  assert(isNonNegativeInteger(split.matchesCovered), `[Test Split: ${split.id}] matchesCovered must be non-negative integer`);
+  if (split.dismissals > 0) {
+    const calcAvg = Number((split.runs / split.dismissals).toFixed(2));
+    assert(split.battingAvg === calcAvg, `[Test Split: ${split.id}] battingAvg (${split.battingAvg}) does not match runs/dismissals (${calcAvg})`);
+  }
+  if (split.balls > 0) {
+    const calcSR = Number(((split.runs / split.balls) * 100).toFixed(2));
+    assert(split.strikeRate === calcSR, `[Test Split: ${split.id}] strikeRate (${split.strikeRate}) does not match runs/balls*100 (${calcSR})`);
+  }
+});
+
+// Cross-Sum Venue Reconciliation Invariant (Home + Away + Neutral = Career Total)
+const homeSplit = TEST_SITUATIONAL_SPLITS.find(s => s.id === 'testHomeConditions');
+const awaySplit = TEST_SITUATIONAL_SPLITS.find(s => s.id === 'testAwayConditions');
+const neutralSplit = TEST_SITUATIONAL_SPLITS.find(s => s.id === 'testNeutralConditions');
+
+assert(homeSplit && awaySplit && neutralSplit, 'Home, Away, and Neutral splits must exist');
+assert(homeSplit.matchesCovered + awaySplit.matchesCovered + neutralSplit.matchesCovered === 123, 'Venue matches must reconcile to 123 (55 Home + 66 Away + 2 Neutral)');
+assert(homeSplit.innings + awaySplit.innings + neutralSplit.innings === 210, 'Venue innings must reconcile to 210 (87 Home + 119 Away + 4 Neutral)');
+assert(homeSplit.runs + awaySplit.runs + neutralSplit.runs === 9230, 'Venue runs must reconcile to 9,230 (4336 Home + 4774 Away + 120 Neutral)');
+assert(homeSplit.dismissals + awaySplit.dismissals + neutralSplit.dismissals === 197, 'Venue dismissals must reconcile to 197 (78 Home + 115 Away + 4 Neutral)');
+assert(homeSplit.notOuts + awaySplit.notOuts + neutralSplit.notOuts === 13, 'Venue not outs must reconcile to 13 (9 Home + 4 Away + 0 Neutral)');
+assert(homeSplit.balls + awaySplit.balls + neutralSplit.balls === 16608, 'Venue balls faced must reconcile to 16,608 (7311 Home + 9027 Away + 270 Neutral)');
+
 
 // Report Results
 if (errors.length > 0) {
