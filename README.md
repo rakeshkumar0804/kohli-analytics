@@ -16,13 +16,13 @@
 
 ## 📸 Screenshots & Interactive Views
 
-| Hero & Format Scope | Test Situational Analysis |
+| Hero & Format Scope | Live Next Match Countdown |
 | :---: | :---: |
-| <img width="900" alt="Hero Section" src="https://github.com/user-attachments/assets/2ead27fc-38e9-4412-a076-a4be1e684eb1" /> | <img width="900" alt="Captaincy Myth & Test Analysis" src="https://github.com/user-attachments/assets/de291317-5f7b-4f26-98e3-0f7ec7934585" /> |
+| <img width="900" alt="Hero Section" src="https://github.com/user-attachments/assets/2ead27fc-38e9-4412-a076-a4be1e684eb1" /> | <img width="900" alt="Live Next Match Countdown" src="./docs/screenshots/02-next-match-live.png" /> |
 
 | Legends Radar Showdown | Pressure Map (15 Situational Cells) |
 | :---: | :---: |
-| <img width="900" alt="Legends Showdown" src="https://github.com/user-attachments/assets/5bda4dc8-97c2-484f-bd7a-15ad008c28bf" /> | <img width="900" alt="Pressure Map Grid" src="https://github.com/user-attachments/assets/de291317-5f7b-4f26-98e3-0f7ec7934585" /> |
+| <img width="900" alt="Legends Showdown" src="https://github.com/user-attachments/assets/5bda4dc8-97c2-484f-bd7a-15ad008c28bf" /> | <img width="900" alt="15-Cell Situational Pressure Map" src="./docs/screenshots/04-pressure-map-5band.png" /> |
 
 ---
 
