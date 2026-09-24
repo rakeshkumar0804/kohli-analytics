@@ -81,7 +81,7 @@ export function parseNextMatchResponse(json: unknown, now: Date = new Date()): N
   }
 
   // Fallback parsing for raw CricAPI data array format
-  const dataList = (record.data || record.dataList || record.matches || []) as unknown[];
+  const dataList = (record.data || record.dataList || record.matches || record.matchList || []) as unknown[];
 
   if (!Array.isArray(dataList)) {
     return {
@@ -103,7 +103,9 @@ export function parseNextMatchResponse(json: unknown, now: Date = new Date()): N
     };
   }
 
-  // Filter future matches involving India and limited overs / ODI
+  // Collect and sort all valid upcoming India ODI matches
+  const upcomingIndiaODIs: Array<NextMatchInfo & { timestamp: number }> = [];
+
   for (const item of dataList) {
     if (!item || typeof item !== 'object') continue;
     const match = item as Record<string, unknown>;
@@ -111,41 +113,80 @@ export function parseNextMatchResponse(json: unknown, now: Date = new Date()): N
     const matchName = String(match.name || match.title || '').trim();
     const matchType = String(match.matchType || match.type || '').toUpperCase();
     const matchDateStr = String(match.dateTimeGMT || match.date || '').trim();
+    const series = match.series ? String(match.series).trim() : undefined;
 
     if (!matchDateStr) continue;
-    const matchDate = new Date(matchDateStr);
+    const normalizedDateStr =
+      matchDateStr.includes('T') && !matchDateStr.endsWith('Z') && !/[+-]\d{2}:\d{2}$/.test(matchDateStr)
+        ? `${matchDateStr}Z`
+        : matchDateStr;
+    const matchDate = new Date(normalizedDateStr);
 
     if (isNaN(matchDate.getTime()) || matchDate.getTime() <= now.getTime()) continue;
 
-    const isIndiaMatch = matchName.toLowerCase().includes('india');
-    const isODI = matchType.includes('ODI') || matchName.toLowerCase().includes('odi');
+    // Extract teams from various CricAPI payload shapes
+    const teamsArr: string[] = Array.isArray(match.teams)
+      ? (match.teams as string[]).map((t) => String(t).trim())
+      : [];
+    const teamInfoArr: Array<{ name?: string; shortname?: string }> = Array.isArray(match.teamInfo)
+      ? (match.teamInfo as Array<{ name?: string; shortname?: string }>)
+      : [];
+
+    const hasIndiaInTeams =
+      teamsArr.some((t) => /\bindia\b/i.test(t)) ||
+      teamInfoArr.some((ti) => (ti.name && /\bindia\b/i.test(ti.name)) || (ti.shortname && /^ind$/i.test(ti.shortname)));
+
+    const isIndiaMatch = hasIndiaInTeams || /\bindia\b/i.test(matchName);
+    const isExcludedContext =
+      /\b(women|u19|under-19|u-19|lions)\b/i.test(matchName) ||
+      (series ? /\b(women|u19|under-19|u-19|lions)\b/i.test(series) : false);
+
+    const isT20OrTest = /\b(t20|twenty20|test)\b/i.test(matchName);
+    const isODI =
+      (matchType === 'ODI' || matchType.includes('ODI') || /\bodi\b|\bone[\s-]day\b/i.test(matchName)) &&
+      !isExcludedContext &&
+      !isT20OrTest;
 
     if (isIndiaMatch && isODI) {
-      const teams = matchName.split(/vs|v/i);
-      let rawOpponent = 'Opponent';
-      if (teams.length >= 2) {
-        rawOpponent = teams[0].toLowerCase().includes('india') ? teams[1].trim() : teams[0].trim();
-      }
-      const opponent =
-        rawOpponent.replace(/(\d+(st|nd|rd|th)\s*)?(ODI|T20I?|Test|Match).*$/i, '').trim() || rawOpponent;
+      let opponent = 'Opponent';
+      const nonIndiaTeam = teamsArr.find((t) => !/\bindia\b/i.test(t));
+      const nonIndiaInfo = teamInfoArr.find((ti) => !/\bindia\b/i.test(ti.name || '') && !/^ind$/i.test(ti.shortname || ''));
 
-      const nextMatch: NextMatchInfo = {
+      if (nonIndiaTeam) {
+        opponent = nonIndiaTeam;
+      } else if (nonIndiaInfo && nonIndiaInfo.name) {
+        opponent = nonIndiaInfo.name;
+      } else {
+        const splitTeams = matchName.split(/vs|v\b/i);
+        if (splitTeams.length >= 2) {
+          const rawOpp = splitTeams[0].toLowerCase().includes('india') ? splitTeams[1].trim() : splitTeams[0].trim();
+          opponent = rawOpp.replace(/(\d+(st|nd|rd|th)\s*)?(ODI|T20I?|Test|Match).*$/i, '').trim() || rawOpp;
+        }
+      }
+
+      upcomingIndiaODIs.push({
         matchName,
         opponent,
         matchType: 'ODI',
         date: matchDate.toISOString(),
         dateTimeGMT: matchDateStr,
         venue: String(match.venue || 'International Stadium').trim(),
-      };
-
-      return {
-        status: 'available',
-        match: nextMatch,
-        message: 'Upcoming fixture successfully retrieved and verified.',
-        reason: 'live-schedule-found',
-        fetchedAt,
-      };
+        timestamp: matchDate.getTime(),
+      });
     }
+  }
+
+  if (upcomingIndiaODIs.length > 0) {
+    upcomingIndiaODIs.sort((a, b) => a.timestamp - b.timestamp);
+    const { timestamp: _t, ...closestMatch } = upcomingIndiaODIs[0];
+
+    return {
+      status: 'available',
+      match: closestMatch,
+      message: 'Upcoming fixture successfully retrieved and verified.',
+      reason: 'live-schedule-found',
+      fetchedAt,
+    };
   }
 
   return {
@@ -196,10 +237,11 @@ export async function fetchNextMatch(now: Date = new Date()): Promise<NextMatchR
   try {
     const response = await fetch(endpoint, {
       headers: { Accept: 'application/json' },
-      signal: AbortSignal.timeout(6000), // Strict 6s client timeout
+      signal: AbortSignal.timeout(10000), // Strict 10s client timeout
     });
 
     if (!response.ok && response.status === 404) {
+      console.warn('[cricketData:fetchNextMatch] 404 response on endpoint:', endpoint);
       // 404 indicates server route is not available (static CDN host)
       const result: NextMatchResult = {
         status: 'unavailable',
@@ -212,6 +254,7 @@ export async function fetchNextMatch(now: Date = new Date()): Promise<NextMatchR
     }
 
     if (!response.ok && response.status === 429) {
+      console.warn('[cricketData:fetchNextMatch] 429 rate limit exceeded on endpoint:', endpoint);
       const result: NextMatchResult = {
         status: 'unavailable',
         match: null,
@@ -223,6 +266,7 @@ export async function fetchNextMatch(now: Date = new Date()): Promise<NextMatchR
     }
 
     if (!response.ok) {
+      console.error(`[cricketData:fetchNextMatch] HTTP error ${response.status} from endpoint:`, endpoint);
       const result: NextMatchResult = {
         status: 'unavailable',
         match: null,
@@ -242,6 +286,10 @@ export async function fetchNextMatch(now: Date = new Date()): Promise<NextMatchR
     return result;
   } catch (error) {
     const isTimeout = error instanceof Error && error.name === 'TimeoutError';
+    console.error(
+      `[cricketData:fetchNextMatch] Network exception communicating with ${endpoint}:`,
+      error instanceof Error ? error.message : String(error)
+    );
 
     const result: NextMatchResult = {
       status: 'unavailable',

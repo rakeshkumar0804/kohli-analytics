@@ -25,7 +25,8 @@ export default function NextMatchSection() {
           setResult(res);
           setLoading(false);
         }
-      } catch {
+      } catch (err: unknown) {
+        console.error('[NextMatchSection] Exception loading match fixture:', err);
         if (isMounted) {
           setResult({
             status: 'unavailable',
