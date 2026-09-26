@@ -118,8 +118,13 @@ test('Data Integration & Independent Oracle Suite', async (t) => {
     fs.mkdirSync(tempOracleDir + '/t20', { recursive: true });
 
     try {
-      execSync(`tar -xf "${odiZip}" -C "${tempOracleDir}/odi"`, { stdio: 'pipe' });
-      execSync(`tar -xf "${t20Zip}" -C "${tempOracleDir}/t20"`, { stdio: 'pipe' });
+      try {
+        execSync(`unzip -q -o "${odiZip}" -d "${tempOracleDir}/odi"`, { stdio: 'pipe' });
+        execSync(`unzip -q -o "${t20Zip}" -d "${tempOracleDir}/t20"`, { stdio: 'pipe' });
+      } catch {
+        execSync(`tar -xf "${odiZip}" -C "${tempOracleDir}/odi"`, { stdio: 'pipe' });
+        execSync(`tar -xf "${t20Zip}" -C "${tempOracleDir}/t20"`, { stdio: 'pipe' });
+      }
 
 
       // Oracle 1: Hobart 2012 (518966.json) -> 133* off 86 balls (16 fours, 2 sixes, not out)

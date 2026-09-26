@@ -23,12 +23,24 @@ function extractArchive(zipPath, destDir) {
   fs.mkdirSync(destDir, { recursive: true });
   console.log(`Extracting ${path.basename(zipPath)} to ${destDir}...`);
 
+  // 1. Try unzip (standard on Linux/macOS runners in CI)
   try {
-    // Try tar -xf (works on Windows 10/11 and Unix)
-    execSync(`tar -xf "${zipPath}" -C "${destDir}"`, { stdio: 'pipe' });
+    execSync(`unzip -q -o "${zipPath}" -d "${destDir}"`, { stdio: 'pipe' });
+    return;
   } catch {
-    // Fallback to PowerShell Expand-Archive on Windows
-    execSync(`powershell.exe -NoProfile -Command "Expand-Archive -Force -Path '${zipPath}' -DestinationPath '${destDir}'"`, { stdio: 'inherit' });
+    // 2. Try tar -xf (works on Windows 10/11 bsdtar and modern Unix)
+    try {
+      execSync(`tar -xf "${zipPath}" -C "${destDir}"`, { stdio: 'pipe' });
+      return;
+    } catch {
+      // 3. Fallback to PowerShell Expand-Archive on legacy Windows
+      try {
+        execSync(`powershell.exe -NoProfile -Command "Expand-Archive -Force -Path '${zipPath}' -DestinationPath '${destDir}'"`, { stdio: 'pipe' });
+      } catch (err) {
+        console.error(`Failed to extract ${zipPath}:`, err.message);
+        throw err;
+      }
+    }
   }
 }
 
