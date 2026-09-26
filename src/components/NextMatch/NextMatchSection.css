@@ -1,6 +1,6 @@
 .next-match-section {
   position: relative;
-  padding: 3.5rem 0;
+  padding: 4rem 0;
   background: var(--bg-base);
   overflow: hidden;
   border-bottom: 1px solid var(--glass-border);
@@ -11,45 +11,49 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
-  height: 250px;
-  background: radial-gradient(ellipse at center, rgba(200, 16, 46, 0.12) 0%, rgba(255, 215, 0, 0.05) 50%, transparent 70%);
+  width: 700px;
+  max-width: 100vw;
+  height: 280px;
+  background: radial-gradient(ellipse at center, rgba(224, 32, 66, 0.1) 0%, rgba(251, 191, 36, 0.05) 45%, transparent 70%);
   pointer-events: none;
+  filter: blur(20px);
 }
 
 .next-match-status-banner {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  background: rgba(200, 16, 46, 0.08);
-  border: 1px solid rgba(200, 16, 46, 0.25);
-  padding: 0.5rem 1.25rem;
+  gap: 0.65rem;
+  background: rgba(224, 32, 66, 0.07);
+  border: 1px solid rgba(224, 32, 66, 0.22);
+  padding: 0.55rem 1.4rem;
   border-radius: 2rem;
   max-width: 820px;
-  margin: 0 auto 2rem auto;
+  margin: 0 auto 2.2rem auto;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
 }
 
 .status-badge-dot {
   width: 8px;
   height: 8px;
-  background: var(--red-primary);
+  background: var(--red-bright);
   border-radius: 50%;
-  box-shadow: 0 0 10px var(--red-primary);
-  animation: pulse-dot 1.8s infinite ease-in-out;
+  box-shadow: 0 0 12px var(--red-bright);
+  animation: pulse-dot 2.2s infinite ease-in-out;
   flex-shrink: 0;
 }
 
 @keyframes pulse-dot {
-  0%, 100% { opacity: 0.3; transform: scale(0.9); }
-  50% { opacity: 1; transform: scale(1.3); }
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 
 .status-banner-text {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.94rem;
+  font-weight: 600;
   color: var(--text-secondary);
   line-height: 1.4;
   margin: 0;
@@ -57,6 +61,7 @@
 
 .status-banner-text strong {
   color: var(--gold-primary);
+  font-weight: 700;
 }
 
 .next-match-header {
@@ -65,17 +70,24 @@
 }
 
 .next-match-card {
-  max-width: 780px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 2.2rem 2.5rem;
+  padding: 2.4rem 2.8rem;
   text-align: center;
-  background: rgba(12, 12, 24, 0.65);
-  backdrop-filter: blur(16px);
+  background: rgba(16, 19, 34, 0.72);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
-  border-radius: 1.25rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  border-radius: 1.5rem;
+  box-shadow: 0 16px 45px -10px rgba(0, 0, 0, 0.65), 0 0 1px 1px rgba(255, 255, 255, 0.06);
   position: relative;
   overflow: hidden;
+  transition: transform var(--dur-mid) var(--ease-smooth), box-shadow var(--dur-mid) var(--ease-smooth);
+}
+
+.next-match-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.75), 0 0 20px rgba(251, 191, 36, 0.1);
 }
 
 .next-match-card::before {
@@ -92,33 +104,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.4rem;
-  margin-bottom: 1.8rem;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
 }
 
 .format-tag {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
-  color: var(--red-primary);
-  background: rgba(200, 16, 46, 0.15);
-  padding: 0.2rem 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--red-bright);
+  background: rgba(224, 32, 66, 0.12);
+  padding: 0.25rem 0.85rem;
   border-radius: 1rem;
-  border: 1px solid rgba(200, 16, 46, 0.3);
+  border: 1px solid rgba(224, 32, 66, 0.28);
 }
 
 .match-name {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-primary);
   letter-spacing: 0.04em;
 }
 
 .match-venue {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: var(--text-muted);
 }
 
@@ -126,8 +138,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.2rem;
-  margin: 1.5rem 0 2rem 0;
+  gap: 1.25rem;
+  margin: 1.5rem 0 2.2rem 0;
 }
 
 .countdown-box {
@@ -135,13 +147,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(4, 4, 10, 0.75);
-  border: 1px solid rgba(255, 215, 0, 0.18);
-  border-radius: 0.85rem;
-  padding: 0.9rem 1.4rem;
-  min-width: 90px;
-  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  background: rgba(10, 12, 22, 0.85);
+  border: 1px solid rgba(251, 191, 36, 0.18);
+  border-radius: 1.1rem;
+  padding: 1rem 1.4rem;
+  min-width: 95px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 24px rgba(0, 0, 0, 0.5);
+  transition: transform var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) var(--ease-smooth);
 }
 
 .countdown-box:hover {
@@ -150,30 +162,30 @@
 }
 
 .seconds-box {
-  border-color: rgba(200, 16, 46, 0.35);
+  border-color: rgba(224, 32, 66, 0.32);
 }
 
 .tick-flip {
-  animation: tickPulse 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: tickPulse 0.4s var(--ease-spring);
 }
 
 @keyframes tickPulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.08); border-color: var(--gold-primary); }
+  50% { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
 
 .countdown-number {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 3.4rem;
+  font-size: 3.5rem;
   line-height: 1;
   color: var(--gold-primary);
-  text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+  text-shadow: 0 0 18px rgba(251, 191, 36, 0.3);
 }
 
 .countdown-label {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   color: var(--text-muted);
@@ -182,18 +194,18 @@
 
 .countdown-colon {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   color: var(--red-primary);
   margin-top: -1.2rem;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .match-meta-footer {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: var(--text-secondary);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding-top: 1.2rem;
 }
 
 .match-meta-footer strong {
@@ -206,7 +218,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .fallback-icon {
@@ -217,7 +229,7 @@
 
 .fallback-title {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
@@ -225,39 +237,39 @@
 
 .fallback-subtext {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   color: var(--text-muted);
   margin: 0;
 }
 
 .spinner {
-  width: 32px;
-  height: 32px;
-  border: 3px solid rgba(255, 215, 0, 0.2);
+  width: 34px;
+  height: 34px;
+  border: 3px solid rgba(251, 191, 36, 0.2);
   border-top-color: var(--gold-primary);
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  animation: spin 0.85s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 .fixture-disclosure-box {
-  margin-top: 1rem;
-  background: rgba(0, 0, 0, 0.4);
+  margin-top: 1.2rem;
+  background: rgba(8, 9, 17, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  padding: 0.85rem 1.25rem;
+  border-radius: 0.75rem;
+  padding: 0.95rem 1.35rem;
   text-align: left;
   max-width: 620px;
 }
 
 .fallback-note {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
   margin: 0;
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 @keyframes spin {
@@ -266,19 +278,21 @@
 
 @media (max-width: 640px) {
   .countdown-grid {
-    gap: 0.4rem;
+    gap: 0.45rem;
   }
   .countdown-box {
-    padding: 0.6rem 0.75rem;
-    min-width: 65px;
+    padding: 0.7rem 0.85rem;
+    min-width: 68px;
+    border-radius: 0.85rem;
   }
   .countdown-number {
-    font-size: 2.2rem;
+    font-size: 2.3rem;
   }
   .countdown-colon {
     font-size: 1.8rem;
   }
   .next-match-card {
-    padding: 1.5rem 1rem;
+    padding: 1.6rem 1.2rem;
+    border-radius: 1.1rem;
   }
 }

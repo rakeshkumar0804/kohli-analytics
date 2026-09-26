@@ -1,5 +1,5 @@
 /* ============================================================
-   GLOBAL STYLES
+   GLOBAL STYLES — Obsidian Velvet & Radiant Gold
    ============================================================ */
 @import './tokens.css';
 
@@ -12,6 +12,7 @@
 html {
   scroll-behavior: auto; /* Lenis handles smooth scroll */
   font-size: 16px;
+  background-color: var(--bg-base);
 }
 
 body {
@@ -19,19 +20,29 @@ body {
   background-color: var(--bg-base);
   color: var(--text-primary);
   overflow-x: hidden;
-  line-height: 1.6;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* ── Scrollbar ── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-1); }
-::-webkit-scrollbar-thumb { background: var(--red-primary); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--red-bright); }
+/* ── Refined Slim Scrollbar ── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  border: 2px solid var(--bg-base);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-warm);
+}
 
 /* ── Selection ── */
-::selection { background: var(--red-primary); color: #fff; }
+::selection {
+  background: rgba(224, 32, 66, 0.4);
+  color: #fff;
+}
 
 /* ── Utility Classes ── */
 .section {
@@ -40,78 +51,87 @@ body {
   overflow-x: clip;
 }
 
-
 .section-label {
   font-family: var(--font-heading);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold-primary);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .section-label::before {
   content: '';
   display: block;
-  width: 2rem;
+  width: 2.2rem;
   height: 2px;
-  background: var(--gold-primary);
+  border-radius: 1px;
+  background: linear-gradient(90deg, var(--gold-primary), transparent);
 }
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 7vw, 6rem);
-  line-height: 0.95;
-  letter-spacing: 0.02em;
+  font-size: clamp(2.8rem, 7vw, 5.8rem);
+  line-height: 0.98;
+  letter-spacing: 0.03em;
   color: var(--text-primary);
 }
 
 .section-title span {
   color: var(--red-primary);
+  background: linear-gradient(135deg, var(--red-bright) 0%, var(--red-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .section-body {
   font-family: var(--font-body);
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
   color: var(--text-secondary);
-  max-width: 56ch;
+  max-width: 58ch;
   line-height: 1.75;
 }
 
-/* ── Glass Card ── */
+/* ── Silk Glass Card ── */
 .glass-card {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  border-radius: 1rem;
-  padding: 1.75rem;
+  border-radius: 1.25rem;
+  padding: 1.85rem;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--dur-mid) var(--ease-smooth),
+              box-shadow var(--dur-mid) var(--ease-smooth),
+              border-color var(--dur-mid) var(--ease-smooth),
+              background var(--dur-mid) var(--ease-smooth);
 }
 
 .glass-card:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-gold);
-  box-shadow: var(--shadow-gold);
-  transition: all var(--dur-mid) var(--ease-smooth);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 45px -12px rgba(0, 0, 0, 0.65), 0 0 20px rgba(251, 191, 36, 0.12);
 }
 
-/* ── Glow Text ── */
+/* ── Glow Text (Soft & Warm) ── */
 .text-red { color: var(--red-primary); }
 .text-gold { color: var(--gold-primary); }
 
-.glow-red  { text-shadow: 0 0 30px var(--red-glow), 0 0 60px var(--red-glow); }
-.glow-gold { text-shadow: 0 0 30px var(--gold-glow), 0 0 60px var(--gold-glow); }
+.glow-red  { text-shadow: 0 0 24px var(--red-glow); }
+.glow-gold { text-shadow: 0 0 24px var(--gold-glow); }
 
 /* ── Gradient Dividers ── */
 .divider {
   width: 100%;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--border-red), var(--border-gold), transparent);
-  margin: 2rem 0;
+  margin: 2.5rem 0;
+  opacity: 0.7;
 }
 
 /* ── Stat Badge ── */
@@ -119,48 +139,56 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.35rem 0.85rem;
+  padding: 0.38rem 0.95rem;
   border-radius: 2rem;
   font-family: var(--font-heading);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   background: var(--red-subtle);
   border: 1px solid var(--border-red);
   color: var(--red-bright);
+  backdrop-filter: blur(8px);
 }
 
-/* ── Format Tab ── */
+/* ── Format Tabs (Pill Segmented Control) ── */
 .format-tabs {
   display: flex;
-  gap: 0.5rem;
-  background: var(--glass-bg);
+  gap: 0.35rem;
+  background: rgba(14, 17, 30, 0.75);
   border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
   border-radius: 3rem;
   padding: 0.35rem;
   width: fit-content;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .format-tab {
-  padding: 0.5rem 1.5rem;
+  padding: 0.55rem 1.6rem;
   border: none;
   background: transparent;
   color: var(--text-muted);
   font-family: var(--font-heading);
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   border-radius: 2rem;
   cursor: pointer;
   transition: all var(--dur-mid) var(--ease-smooth);
 }
 
+.format-tab:hover:not(.active) {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
 .format-tab.active {
-  background: var(--red-primary);
+  background: linear-gradient(135deg, var(--red-bright) 0%, var(--red-primary) 100%);
   color: #fff;
-  box-shadow: var(--shadow-red);
+  box-shadow: 0 4px 18px rgba(224, 32, 66, 0.38);
 }
 
 /* ── Responsive Container ── */
@@ -174,12 +202,12 @@ body {
 /* ── Crown Icon ── */
 .crown {
   display: inline-block;
-  animation: crownPulse 2s ease-in-out infinite;
+  animation: crownPulse 3s ease-in-out infinite;
 }
 
 @keyframes crownPulse {
-  0%, 100% { filter: drop-shadow(0 0 8px var(--gold-glow)); }
-  50%       { filter: drop-shadow(0 0 20px var(--gold-glow)) drop-shadow(0 0 40px var(--gold-glow)); }
+  0%, 100% { filter: drop-shadow(0 0 6px var(--gold-glow)); transform: scale(1); }
+  50%       { filter: drop-shadow(0 0 16px var(--gold-glow)); transform: scale(1.04); }
 }
 
 /* ── Noise Overlay ── */
@@ -187,7 +215,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 0;
 }
@@ -197,12 +225,13 @@ body {
   overflow-x: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  scroll-behavior: smooth;
 }
 .h-scroll::-webkit-scrollbar { display: none; }
 
 /* ── Accessibility: Focus Rings & Skip Link ── */
 :focus-visible {
-  outline: 2px solid var(--gold-primary, #FFD700) !important;
+  outline: 2px solid var(--gold-primary) !important;
   outline-offset: 3px !important;
 }
 
@@ -210,17 +239,17 @@ body {
   position: absolute;
   top: -120px;
   left: 1.5rem;
-  background: var(--gold-primary, #FFD700);
-  color: #000000;
+  background: var(--gold-primary);
+  color: #080911;
   font-family: var(--font-heading, 'Rajdhani', sans-serif);
-  font-weight: 700;
+  font-weight: 800;
   font-size: 0.95rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 0 0 6px 6px;
+  padding: 0.75rem 1.35rem;
+  border-radius: 0 0 8px 8px;
   text-decoration: none;
   z-index: 10000;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-  transition: top 0.2s ease-in-out;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  transition: top 0.3s var(--ease-smooth);
 }
 
 .skip-link:focus {
@@ -235,24 +264,25 @@ body {
   justify-content: center;
   min-height: 380px;
   padding: 3rem 1.5rem;
-  background: rgba(8, 8, 18, 0.4);
+  background: rgba(13, 15, 27, 0.4);
   border-bottom: 1px solid var(--glass-border);
 }
 
 .section-skeleton-spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid rgba(255, 215, 0, 0.15);
+  border: 3px solid rgba(251, 191, 36, 0.15);
   border-top-color: var(--gold-primary);
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  animation: spin 0.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   margin-bottom: 1rem;
 }
 
 .section-skeleton-text {
   font-family: var(--font-heading);
   font-size: 0.9rem;
-  letter-spacing: 0.1em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
@@ -278,14 +308,14 @@ body {
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .section-title { font-size: clamp(2.4rem, 12vw, 3.5rem); }
-  .glass-card { padding: 1.25rem; }
+  .section-title { font-size: clamp(2.3rem, 11vw, 3.4rem); }
+  .glass-card { padding: 1.35rem; border-radius: 1rem; }
 }
 
 @media (max-width: 480px) {
-  .section-title { font-size: clamp(2rem, 10vw, 2.8rem); }
-  .glass-card { padding: 1rem; }
-  .format-tabs { padding: 0.2rem; }
-  .format-tab { padding: 0.35rem 0.85rem; font-size: 0.8rem; }
+  .section-title { font-size: clamp(1.9rem, 9.5vw, 2.6rem); }
+  .glass-card { padding: 1.1rem; }
+  .format-tabs { padding: 0.25rem; }
+  .format-tab { padding: 0.4rem 0.95rem; font-size: 0.82rem; }
 }
 

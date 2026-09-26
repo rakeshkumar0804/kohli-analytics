@@ -55,10 +55,11 @@ export default function SmoothScrollWrapper({ children }: SmoothScrollWrapperPro
       ref={lenisRef}
       options={{
         autoRaf: false,
-        lerp: 0.08,
-        duration: 1.2,
+        lerp: 0.09,
+        duration: 1.1,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        touchMultiplier: 2,
+        wheelMultiplier: 0.95,
+        touchMultiplier: 1.6,
         infinite: false,
       }}
     >

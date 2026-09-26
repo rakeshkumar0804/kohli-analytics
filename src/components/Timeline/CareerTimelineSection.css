@@ -13,10 +13,10 @@
   width: 900px;
   max-width: 100vw;
   height: 600px;
-  background: radial-gradient(ellipse at center, rgba(200, 16, 46, 0.1) 0%, rgba(255, 215, 0, 0.05) 50%, transparent 75%);
+  background: radial-gradient(ellipse at center, rgba(224, 32, 66, 0.08) 0%, rgba(251, 191, 36, 0.04) 50%, transparent 75%);
   pointer-events: none;
+  filter: blur(25px);
 }
-
 
 .vertical-timeline-wrapper {
   position: relative;
@@ -34,14 +34,14 @@
   transform: translateX(-50%);
   background: linear-gradient(180deg, var(--red-primary) 0%, var(--gold-primary) 50%, var(--red-primary) 100%);
   border-radius: 2px;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.35);
-  opacity: 0.8;
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.35);
+  opacity: 0.75;
 }
 
 .timeline-nodes-list {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2.8rem;
   position: relative;
   z-index: 2;
 }
@@ -87,51 +87,54 @@
   border-radius: 50%;
   background: var(--gold-primary);
   border: 3px solid var(--bg-base);
-  box-shadow: 0 0 12px var(--gold-primary);
-  transition: transform 0.3s ease;
+  box-shadow: 0 0 14px rgba(251, 191, 36, 0.6);
+  transition: transform var(--dur-fast) var(--ease-spring), background var(--dur-fast) var(--ease-smooth);
 }
 
 .timeline-node-item:hover .node-dot {
   transform: scale(1.35);
-  background: var(--red-primary);
-  box-shadow: 0 0 16px var(--red-primary);
+  background: var(--red-bright);
+  box-shadow: 0 0 18px var(--red-bright);
 }
 
 .node-year-tag {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   color: var(--gold-primary);
-  background: rgba(4, 4, 10, 0.9);
-  padding: 0.1rem 0.55rem;
-  border-radius: 0.4rem;
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  margin-top: 0.35rem;
+  background: rgba(10, 12, 22, 0.92);
+  padding: 0.15rem 0.65rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  margin-top: 0.4rem;
   letter-spacing: 0.05em;
   white-space: nowrap;
+  backdrop-filter: blur(8px);
 }
 
 /* Node Card Styling */
 .node-card {
-  padding: 1.4rem 1.6rem;
-  background: rgba(12, 12, 24, 0.7);
-  backdrop-filter: blur(14px);
+  padding: 1.5rem 1.75rem;
+  background: rgba(18, 21, 38, 0.68);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
-  border-radius: 1rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--dur-mid) var(--ease-smooth), border-color var(--dur-mid) var(--ease-smooth), box-shadow var(--dur-mid) var(--ease-smooth);
   position: relative;
 }
 
 .node-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(255, 215, 0, 0.4);
+  border-color: rgba(251, 191, 36, 0.4);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), 0 0 20px rgba(251, 191, 36, 0.12);
 }
 
 .node-card-top {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.5rem;
+  gap: 0.65rem;
+  margin-bottom: 0.55rem;
   flex-wrap: wrap;
 }
 
@@ -145,7 +148,7 @@
 
 .node-phase {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 800;
   color: var(--text-muted);
   text-transform: uppercase;
@@ -154,29 +157,29 @@
 
 .node-badge {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 800;
   color: var(--gold-primary);
-  background: rgba(255, 215, 0, 0.1);
-  border: 1px solid rgba(255, 215, 0, 0.25);
-  padding: 0.15rem 0.55rem;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  padding: 0.18rem 0.65rem;
   border-radius: 1rem;
 }
 
 .node-card-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.55rem;
-  color: #fff;
+  font-size: 1.65rem;
+  color: var(--text-primary);
   letter-spacing: 0.04em;
   line-height: 1.1;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.55rem;
 }
 
 .node-card-desc {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   color: var(--text-secondary);
-  line-height: 1.45;
+  line-height: 1.5;
   margin: 0;
 }
 

@@ -8,22 +8,28 @@
 .world-layout {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  gap: 2.5rem;
+  gap: 2.8rem;
   align-items: start;
 }
 
 .countries-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 1.1rem;
 }
 
-
 .country-card {
-  padding: 1.25rem;
+  padding: 1.35rem 1.15rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  border-radius: 1rem;
+  transition: transform var(--dur-mid) var(--ease-smooth),
+              border-color var(--dur-mid) var(--ease-smooth),
+              background var(--dur-mid) var(--ease-smooth),
+              box-shadow var(--dur-mid) var(--ease-smooth);
   border: 1px solid var(--border-subtle);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   opacity: 0;
   transform: translateY(15px);
 }
@@ -35,28 +41,28 @@
 
 .country-card:hover, .country-card.active {
   border-color: var(--gold-primary);
-  background: rgba(255, 215, 0, 0.04);
+  background: rgba(251, 191, 36, 0.08);
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.15);
+  box-shadow: 0 10px 25px rgba(251, 191, 36, 0.18);
 }
 
 .country-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
 }
 
 .country-name {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
 .country-code {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
 }
 
@@ -72,45 +78,51 @@
 
 .stat-num {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   line-height: 1;
 }
 
 .stat-lbl {
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .country-spotlight {
   position: sticky;
   top: 100px;
-  padding: 2rem;
+  padding: 2.2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.6rem;
+  border-radius: 1.4rem;
   border-color: var(--border-gold);
+  background: rgba(18, 21, 38, 0.75);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--shadow-card);
 }
 
 .spotlight-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.1rem;
 }
 
 .spotlight-code {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   color: var(--gold-primary);
   background: var(--gold-subtle);
-  padding: 0.2rem 0.8rem;
-  border-radius: 0.5rem;
+  padding: 0.25rem 0.9rem;
+  border-radius: 0.65rem;
   border: 1px solid var(--border-gold);
 }
 
 .spotlight-title {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -124,21 +136,22 @@
 .spotlight-metric {
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.02);
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.025);
+  padding: 0.85rem 1.15rem;
+  border-radius: 0.75rem;
   border: 1px solid var(--border-subtle);
 }
 
 .metric-val {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 2rem;
+  font-size: 2.1rem;
   line-height: 1;
 }
 
 .metric-lbl {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
+  font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
 }
@@ -146,29 +159,30 @@
 .dominance-bar-container {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .dominance-header {
   display: flex;
   justify-content: space-between;
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   font-weight: 700;
 }
 
 .dominance-track {
-  height: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 5px;
   overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .dominance-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--red-primary) 0%, var(--gold-primary) 100%);
-  border-radius: 4px;
-  transition: width 0.8s ease;
+  border-radius: 5px;
+  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (max-width: 900px) {
@@ -183,19 +197,19 @@
 @media (max-width: 480px) {
   .countries-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
+    gap: 0.6rem;
   }
   .country-card {
-    padding: 0.85rem 0.75rem;
+    padding: 0.95rem 0.85rem;
   }
   .country-spotlight {
-    padding: 1.25rem 1rem;
+    padding: 1.35rem 1.1rem;
   }
   .spotlight-metrics-grid {
-    gap: 0.75rem;
+    gap: 0.85rem;
   }
   .spotlight-metric {
-    padding: 0.6rem 0.75rem;
+    padding: 0.7rem 0.85rem;
   }
 }
 
