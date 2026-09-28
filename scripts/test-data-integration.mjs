@@ -358,23 +358,23 @@ test('Data Integration & Independent Oracle Suite', async (t) => {
     assert.equal(artifact.trust.clutchIndex.status, 'calibration-pending', 'clutchIndex.status must be calibration-pending');
 
     assert.ok(artifact.coverage, 'Artifact must have coverage metadata');
-    assert.equal(artifact.coverage.referenceMatches, 439);
+    assert.equal(artifact.coverage.referenceMatches, 440);
     assert.equal(artifact.coverage.archiveMatches, 429);
-    assert.equal(artifact.coverage.missingMatches, 10);
-    assert.equal(artifact.coverage.matchCoveragePercent, 97.72);
+    assert.equal(artifact.coverage.missingMatches, 11);
+    assert.equal(artifact.coverage.matchCoveragePercent, Number(((429 / 440) * 100).toFixed(2)));
 
-    assert.equal(artifact.coverage.referenceBattingInnings, 419);
+    assert.equal(artifact.coverage.referenceBattingInnings, 420);
     assert.equal(artifact.coverage.archiveBattingInnings, 412);
-    assert.equal(artifact.coverage.missingBattingInnings, 7);
-    assert.equal(artifact.coverage.inningsCoveragePercent, 98.33);
+    assert.equal(artifact.coverage.missingBattingInnings, 8);
+    assert.equal(artifact.coverage.inningsCoveragePercent, Number(((412 / 420) * 100).toFixed(2)));
 
     // Format specific coverage
-    assert.equal(artifact.coverage.formats.ODI.referenceMatches, 314);
+    assert.equal(artifact.coverage.formats.ODI.referenceMatches, 315);
     assert.equal(artifact.coverage.formats.ODI.archiveMatches, 311);
-    assert.equal(artifact.coverage.formats.ODI.missingMatches, 3);
-    assert.equal(artifact.coverage.formats.ODI.referenceInnings, 302);
+    assert.equal(artifact.coverage.formats.ODI.missingMatches, 4);
+    assert.equal(artifact.coverage.formats.ODI.referenceInnings, 303);
     assert.equal(artifact.coverage.formats.ODI.archiveInnings, 300);
-    assert.equal(artifact.coverage.formats.ODI.missingInnings, 2);
+    assert.equal(artifact.coverage.formats.ODI.missingInnings, 3);
 
     assert.equal(artifact.coverage.formats.T20I.referenceMatches, 125);
     assert.equal(artifact.coverage.formats.T20I.archiveMatches, 118);
@@ -390,10 +390,10 @@ test('Data Integration & Independent Oracle Suite', async (t) => {
       ...(missingFixtures.formats.ODI?.missingMatches || []),
       ...(missingFixtures.formats.T20I?.missingMatches || []),
     ];
-    assert.equal(allMissing.length, 11, 'Total missing match fixtures in catalog (10 official + 1 abandoned no-toss)');
+    assert.equal(allMissing.length, 12, 'Total missing match fixtures in catalog (11 official + 1 abandoned no-toss)');
 
     const officialMissing = allMissing.filter((m) => m.officialPlayerAppearance);
-    assert.equal(officialMissing.length, 10, 'Must have exactly 10 official missing matches');
+    assert.equal(officialMissing.length, 11, 'Must have exactly 11 official missing matches');
 
     // 1. Assert scorecard fixtures contain zero delivery objects or situational model properties
     for (const m of allMissing) {
@@ -461,11 +461,11 @@ test('Data Integration & Independent Oracle Suite', async (t) => {
     assert.equal(artifact.provenance.parserVersion, '4.0.0');
     assert.equal(artifact.provenance.modelVersion, '5-band-rrr-v2');
     assert.equal(artifact.provenance.matchCounts.totalArchiveMatches, 429);
-    assert.equal(artifact.provenance.matchCounts.referenceMatches, 439);
-    assert.equal(artifact.provenance.matchCounts.unavailableMatches, 10);
+    assert.equal(artifact.provenance.matchCounts.referenceMatches, 440);
+    assert.equal(artifact.provenance.matchCounts.unavailableMatches, 11);
     assert.equal(artifact.provenance.inningsCounts.totalArchiveInnings, 412);
-    assert.equal(artifact.provenance.inningsCounts.referenceInnings, 419);
-    assert.equal(artifact.provenance.inningsCounts.unavailableInnings, 7);
+    assert.equal(artifact.provenance.inningsCounts.referenceInnings, 420);
+    assert.equal(artifact.provenance.inningsCounts.unavailableInnings, 8);
   });
 
   await t.test('Integration 18: Pressure Map View-Model Native 5-Level Preserved', () => {
@@ -623,26 +623,26 @@ test('Data Integration & Independent Oracle Suite', async (t) => {
     }
   });
 
-  await t.test('Integration 26: Forensic ODI Population Ledger & Invariants (302 = 300 archive + 2 missing)', () => {
+  await t.test('Integration 26: Forensic ODI Population Ledger & Invariants (303 = 300 archive + 3 missing)', () => {
     const calReportJsonPath = path.join(ROOT_DIR, 'data', 'derived', 'clutch-calibration-report.json');
     const calReport = JSON.parse(fs.readFileSync(calReportJsonPath, 'utf8'));
 
     // Format-level baseline scope checks
     assert.equal(calReport.formats.ODI.archiveCoveredBaselineAverage, 58.34);
-    assert.equal(calReport.formats.ODI.fullCareerVerifiedAverage, 58.59);
+    assert.equal(calReport.formats.ODI.fullCareerVerifiedAverage, 59.14);
     assert.equal(calReport.formats.ODI.archiveCoveredMatches, 311);
-    assert.equal(calReport.formats.ODI.fullCareerMatches, 314);
+    assert.equal(calReport.formats.ODI.fullCareerMatches, 315);
     assert.equal(calReport.formats.ODI.archiveCoveredBattedInnings, 300);
-    assert.equal(calReport.formats.ODI.fullCareerBattedInnings, 302);
-    assert.equal(calReport.formats.ODI.missingMatchesCount, 3);
-    assert.equal(calReport.formats.ODI.missingBattedInningsCount, 2);
+    assert.equal(calReport.formats.ODI.fullCareerBattedInnings, 303);
+    assert.equal(calReport.formats.ODI.missingMatchesCount, 4);
+    assert.equal(calReport.formats.ODI.missingBattedInningsCount, 3);
     assert.equal(calReport.formats.ODI.missingDnbMatchesCount, 1);
 
     // Invariants
-    assert.equal(calReport.formats.ODI.archiveCoveredBattedInnings + calReport.formats.ODI.missingBattedInningsCount, 302);
-    assert.equal(calReport.formats.ODI.archiveCoveredMatches + calReport.formats.ODI.missingMatchesCount, 314);
-    assert.equal(calReport.formats.ODI.fullCareerDismissals + calReport.formats.ODI.fullCareerNotOuts, 302);
-    assert.equal(255 + 47, 302);
+    assert.equal(calReport.formats.ODI.archiveCoveredBattedInnings + calReport.formats.ODI.missingBattedInningsCount, 303);
+    assert.equal(calReport.formats.ODI.archiveCoveredMatches + calReport.formats.ODI.missingMatchesCount, 315);
+    assert.equal(calReport.formats.ODI.fullCareerDismissals + calReport.formats.ODI.fullCareerNotOuts, 303);
+    assert.equal(255 + 48, 303);
     assert.equal(calReport.formats.ODI.archiveCoveredDismissals + calReport.formats.ODI.archiveCoveredNotOuts, 300);
     assert.equal(254 + 46, 300);
 
@@ -651,7 +651,7 @@ test('Data Integration & Independent Oracle Suite', async (t) => {
     assert.ok(fs.existsSync(missingFixturePath));
     const missingFixture = JSON.parse(fs.readFileSync(missingFixturePath, 'utf8'));
     const odiMissing = missingFixture.formats.ODI.missingMatches;
-    assert.equal(odiMissing.length, 3);
+    assert.equal(odiMissing.length, 4);
 
     const m1144510 = odiMissing.find((m) => m.matchId === '1144510');
     assert.ok(m1144510);

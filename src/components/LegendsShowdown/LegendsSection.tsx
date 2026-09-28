@@ -107,7 +107,7 @@ export default function LegendsSection() {
             <h4>Analytical takeaway</h4>
             <p>
               While Sachin Tendulkar holds the overall run volume record, Kohli surpasses all legends in 
-              <strong> Chase Average (65.0)</strong> and <strong>ODI Centuries (54)</strong> — achieving his milestones in significantly fewer matches than his predecessors.
+              <strong> Chase Average (65.0)</strong> and <strong>ODI Centuries (55)</strong> — achieving his milestones in significantly fewer matches than his predecessors.
             </p>
           </div>
         </div>

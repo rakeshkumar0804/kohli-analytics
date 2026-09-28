@@ -1029,11 +1029,11 @@ describe('6. Phase 1 Data Invariants Regression Suite', () => {
     assert.strictEqual(careerStats.test.average, 46.85);
 
     // ODI
-    assert.strictEqual(careerStats.odi.matches, 314);
-    assert.strictEqual(careerStats.odi.innings, 302);
-    assert.strictEqual(careerStats.odi.runs, 14941);
-    assert.strictEqual(careerStats.odi.notOuts, 47);
-    assert.strictEqual(careerStats.odi.average, 58.59);
+    assert.strictEqual(careerStats.odi.matches, 315);
+    assert.strictEqual(careerStats.odi.innings, 303);
+    assert.strictEqual(careerStats.odi.runs, 15080);
+    assert.strictEqual(careerStats.odi.notOuts, 48);
+    assert.strictEqual(careerStats.odi.average, 59.14);
 
     // T20I
     assert.strictEqual(careerStats.t20i.matches, 125);
@@ -1050,20 +1050,20 @@ describe('6. Phase 1 Data Invariants Regression Suite', () => {
     assert.strictEqual(careerStats.ipl.average, 40.42);
 
     // COMBINED INTERNATIONAL (TEST + ODI + T20I ONLY)
-    assert.strictEqual(careerStats.overall.matches, 562);
-    assert.strictEqual(careerStats.overall.innings, 629);
-    assert.strictEqual(careerStats.overall.runs, 28359);
-    assert.strictEqual(careerStats.overall.notOuts, 91);
-    assert.strictEqual(careerStats.overall.average, 52.71);
-    assert.strictEqual(careerStats.overall.centuries, 85);
+    assert.strictEqual(careerStats.overall.matches, 563);
+    assert.strictEqual(careerStats.overall.innings, 630);
+    assert.strictEqual(careerStats.overall.runs, 28498);
+    assert.strictEqual(careerStats.overall.notOuts, 92);
+    assert.strictEqual(careerStats.overall.average, 52.97);
+    assert.strictEqual(careerStats.overall.centuries, 86);
     assert.strictEqual(careerStats.overall.fifties, 148);
 
     // EXACT MATHEMATICAL DIVISION CHECKS
     assert.strictEqual(Number((9230 / (210 - 13)).toFixed(2)), 46.85);
-    assert.strictEqual(Number((14941 / (302 - 47)).toFixed(2)), 58.59);
+    assert.strictEqual(Number((15080 / (303 - 48)).toFixed(2)), 59.14);
     assert.strictEqual(Number((4188 / (117 - 31)).toFixed(2)), 48.70);
     assert.strictEqual(Number((9336 / (275 - 44)).toFixed(2)), 40.42);
-    assert.strictEqual(Number((28359 / (629 - 91)).toFixed(2)), 52.71);
+    assert.strictEqual(Number((28498 / (630 - 92)).toFixed(2)), 52.97);
 
     // 9 SENIOR OPPONENTS
     assert.strictEqual(opponentData.length, 9);
@@ -2337,10 +2337,10 @@ describe('10. API Architecture & Reliability Suite', () => {
 
   it('10.6 getVerifiedCareerStats returns Phase 1 locked career totals as declared single source of truth', () => {
     const stats = getVerifiedCareerStats();
-    assert.strictEqual(stats.runs, 28359);
-    assert.strictEqual(stats.matches, 562);
-    assert.strictEqual(stats.centuries, 85);
-    assert.strictEqual(stats.average, 58.59);
+    assert.strictEqual(stats.runs, 28498);
+    assert.strictEqual(stats.matches, 563);
+    assert.strictEqual(stats.centuries, 86);
+    assert.strictEqual(stats.average, 59.14);
     assert.strictEqual(stats.highScore, 183);
   });
 
@@ -2654,7 +2654,7 @@ describe('11. Selected Defining Innings Gallery Suite', () => {
 
   it('11.5 Verifies that all strike rates, boundary sanity, and source URLs are strictly valid', () => {
     for (const inn of DEFINING_INNINGS_DATA) {
-      assert.ok(inn.sourceUrl.startsWith('https://www.espncricinfo.com/'));
+      assert.ok(inn.sourceUrl.startsWith('https://www.espncricinfo.com/') || inn.sourceUrl.startsWith('https://www.cricbuzz.com/'));
       assert.ok(inn.fours * 4 + inn.sixes * 6 <= inn.runs, `Boundary runs cannot exceed total runs for ${inn.id}`);
       const expectedSR = Number(((inn.runs / inn.ballsFaced) * 100).toFixed(2));
       assert.ok(Math.abs(expectedSR - inn.strikeRate) < 0.15, `Strike rate mismatch on ${inn.id}`);
@@ -2670,6 +2670,7 @@ describe('11. Selected Defining Innings Gallery Suite', () => {
       { id: 'odi-133-sl-hobart-2012', matchId: '518966', format: 'ODI', runs: 133, ballsFaced: 86, notOut: true, fours: 16, sixes: 2, result: 'won' },
       { id: 'odi-183-pak-dhaka-2012', matchId: '535798', format: 'ODI', runs: 183, ballsFaced: 148, notOut: false, fours: 22, sixes: 1, result: 'won' },
       { id: 'odi-117-nz-mumbai-2023', matchId: '1384438', format: 'ODI', runs: 117, ballsFaced: 113, notOut: false, fours: 9, sixes: 2, result: 'won' },
+      { id: 'odi-139-wi-trivandrum-2026', matchId: '151532', format: 'ODI', runs: 139, ballsFaced: 88, notOut: true, fours: 10, sixes: 9, result: 'won' },
       { id: 't20i-82-pak-mcg-2022', matchId: '1298150', format: 'T20I', runs: 82, ballsFaced: 53, notOut: true, fours: 6, sixes: 4, result: 'won' },
       { id: 't20i-82-aus-mohali-2016', matchId: '951363', format: 'T20I', runs: 82, ballsFaced: 51, notOut: true, fours: 9, sixes: 2, result: 'won' },
       { id: 't20i-76-sa-barbados-2024', matchId: '1415755', format: 'T20I', runs: 76, ballsFaced: 59, notOut: false, fours: 6, sixes: 2, result: 'won' },
@@ -2910,8 +2911,8 @@ describe('12. Pressure Performance Dashboard & Situational Splits Suite', () => 
     assert.strictEqual(t20HighRrr.baselineScopeLabel, 'Covered-archive batting average');
     assert.ok(t20HighRrr.baselineAvgDisplay.includes('Covered Archive'));
 
-    // Full-career totals remain strictly unmutated (58.59 ODI, 48.70 T20I, 46.85 Test)
-    assert.strictEqual(careerStats.odi.average, 58.59);
+    // Full-career totals remain strictly unmutated (59.14 ODI, 48.70 T20I, 46.85 Test)
+    assert.strictEqual(careerStats.odi.average, 59.14);
     assert.strictEqual(careerStats.t20i.average, 48.70);
     assert.strictEqual(careerStats.test.average, 46.85);
   });
@@ -3118,8 +3119,8 @@ describe('13. Factual Regressions & Scorecard Precision Suite', () => {
   });
 
   it('13.5 DATA_VERIFIED_ON and manifest verification date invariant', () => {
-    assert.strictEqual(DATA_VERIFIED_ON, '2026-09-21');
-    assert.strictEqual(DATA_VERIFIED_ON_FORMATTED, '21 September 2026');
+    assert.strictEqual(DATA_VERIFIED_ON, '2026-09-28');
+    assert.strictEqual(DATA_VERIFIED_ON_FORMATTED, '28 September 2026');
   });
 });
 

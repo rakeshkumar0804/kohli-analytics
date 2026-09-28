@@ -93,11 +93,11 @@ export const ALL_RADAR_PLAYERS_FORMATTED: LegendFullProfile[] = [
     flag: '🇮🇳',
     formats: {
       ODI: buildFormatProfile('ODI', {
-        battingAvg: 58.60,
-        strikeRate: 94.00,
-        centuries: 54,
+        battingAvg: 59.14,
+        strikeRate: 94.30,
+        centuries: 55,
         chaseSuccessRate: 89.4,
-        matchWinningInnings: 142,
+        matchWinningInnings: 143,
         consistencyScore: 44.2,
       }),
       TEST: buildFormatProfile('TEST', {

@@ -2,7 +2,7 @@
 
 - **Report Version**: `4.0.0`
 - **Dataset ID**: `cricsheet-male-limited-overs`
-- **Generated At**: `2026-09-27T18:53:11.129Z`
+- **Generated At**: `2026-09-28T08:35:16.501Z`
 - **Player**: Virat Kohli (Cricsheet: `ba607b88`, ESPNcricinfo: `253802`)
 - **Trust Status**: `CAREER AGGREGATES VERIFIED; DELIVERY COVERAGE PARTIAL`
 
@@ -19,9 +19,9 @@
 
 ## Explicit Coverage Summary
 
-- **Overall Matches**: 429 of 439 reference matches (97.72% coverage, 10 unavailable matches)
-- **Overall Batting Innings**: 412 of 419 reference innings (98.33% coverage, 7 unavailable batting innings)
-- **ODI Coverage**: 311 of 314 matches (99.04%), 300 of 302 innings (99.34%)
+- **Overall Matches**: 429 of 440 reference matches (97.5% coverage, 11 unavailable matches)
+- **Overall Batting Innings**: 412 of 420 reference innings (98.1% coverage, 8 unavailable batting innings)
+- **ODI Coverage**: 311 of 315 matches (98.73%), 300 of 303 innings (99.01%)
 - **T20I Coverage**: 118 of 125 matches (94.4%), 112 of 117 innings (95.73%)
 
 ---
@@ -32,22 +32,23 @@
 
 | Metric | Canonical Reference (Target) | Ingested Archive | Unavailable Matches | Verified Corrections | Reconciled Sum | Equation Balance | Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **matches** | 314 | 311 | 3 | 0 | 314 | `311 + 3 + 0 = 314` | resolved-reconciled |
-| **innings** | 302 | 300 | 2 | 0 | 302 | `300 + 2 + 0 = 302` | resolved-reconciled |
-| **runs** | 14941 | 14819 | 122 | 0 | 14941 | `14819 + 122 + 0 = 14941` | resolved-reconciled |
-| **ballsFaced** | 15903 | 15784 | 119 | 0 | 15903 | `15784 + 119 + 0 = 15903` | resolved-reconciled |
-| **centuries** | 54 | 54 | 0 | 0 | 54 | `54 + 0 + 0 = 54` | resolved-reconciled |
+| **matches** | 315 | 311 | 4 | 0 | 315 | `311 + 4 + 0 = 315` | resolved-reconciled |
+| **innings** | 303 | 300 | 3 | 0 | 303 | `300 + 3 + 0 = 303` | resolved-reconciled |
+| **runs** | 15080 | 14819 | 261 | 0 | 15080 | `14819 + 261 + 0 = 15080` | resolved-reconciled |
+| **ballsFaced** | 15991 | 15784 | 207 | 0 | 15991 | `15784 + 207 + 0 = 15991` | resolved-reconciled |
+| **centuries** | 55 | 54 | 1 | 0 | 55 | `54 + 1 + 0 = 55` | resolved-reconciled |
 | **fifties** | 79 | 77 | 2 | 0 | 79 | `77 + 2 + 0 = 79` | resolved-reconciled |
 | **ducks** | 18 | 18 | 0 | 0 | 18 | `18 + 0 + 0 = 18` | resolved-reconciled |
-| **fours** | 1389 | 1378 | 11 | 0 | 1389 | `1378 + 11 + 0 = 1389` | resolved-reconciled |
-| **sixes** | 171 | 171 | 0 | 0 | 171 | `171 + 0 + 0 = 171` | resolved-reconciled |
-| **notOuts** | 47 | 46 | 1 | 0 | 47 | `46 + 1 + 0 = 47` | resolved-reconciled |
+| **fours** | 1399 | 1378 | 21 | 0 | 1399 | `1378 + 21 + 0 = 1399` | resolved-reconciled |
+| **sixes** | 180 | 171 | 9 | 0 | 180 | `171 + 9 + 0 = 180` | resolved-reconciled |
+| **notOuts** | 48 | 46 | 2 | 0 | 48 | `46 + 2 + 0 = 48` | resolved-reconciled |
 | **dismissals** | 255 | 254 | 1 | 0 | 255 | `254 + 1 + 0 = 255` | resolved-reconciled |
 
 ### Missing Reference Matches for ODI
 
 | Match ID | Date | Opponent | Event | Appearance | Batted/DNB | R (B) | 4s | 6s | 50/100 | Dismissal | Reason |
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- | :--- |
+| [151532](https://www.cricbuzz.com/live-cricket-scorecard/151532/ind-vs-wi-1st-odi-west-indies-tour-of-india-2026) | 2026-09-27 | West Indies | West Indies tour of India 2026 (1st ODI) | Yes | Batted | 139 (88) | 10 | 9 | 100 | not out (139* milestone 55th ODI hundred) | Recent fixture concluded 2026-09-27; pending next periodic Cricsheet archive refresh. |
 | [1144510](https://www.espncricinfo.com/series/icc-cricket-world-cup-2019-1144415/afghanistan-vs-india-28th-match-1144510/full-scorecard) | 2019-06-22 | Afghanistan | ICC Cricket World Cup 2019 (28th Match) | Yes | Batted | 67 (63) | 5 | 0 | 50 | c Rahmat Shah b Mohammad Nabi | Excluded from odis_male_json.zip due to Cricsheet archive partitioning of Afghanistan ODI matches |
 | [1384390](https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1384392/india-vs-afghanistan-9th-match-1384390/full-scorecard) | 2023-10-11 | Afghanistan | ICC Cricket World Cup 2023/24 (9th Match) | Yes | Batted | 55 (56) | 6 | 0 | 50 | not out | Excluded from odis_male_json.zip due to Cricsheet archive partitioning of Afghanistan ODI matches |
 | [710305](https://www.espncricinfo.com/series/asia-cup-2013-14-656463/afghanistan-vs-india-9th-match-710305/full-scorecard) | 2014-03-05 | Afghanistan | Asia Cup 2013/14 (9th Match) | Yes | DNB | DNB | 0 | 0 | - | Did Not Bat (India 160/2 in 32.2 ov) | Excluded from odis_male_json.zip due to Cricsheet archive partitioning of Afghanistan ODI matches |
@@ -62,9 +63,9 @@
 
 **Dismissal Invariant Verification for ODI**:
 - Ingested Archive: $\text{innings} (300) - \text{notOuts} (46) = 254 \equiv \text{dismissals} (254)$
-- Unavailable Matches: $\text{innings} (2) - \text{notOuts} (1) = 1 \equiv \text{dismissals} (1)$
-- Reconstructed Career: $\text{innings} (302) - \text{notOuts} (47) = 255 \equiv \text{dismissals} (255)$
-- Canonical Reference: $\text{innings} (302) - \text{notOuts} (47) = 255 \equiv \text{dismissals} (255)$
+- Unavailable Matches: $\text{innings} (3) - \text{notOuts} (2) = 1 \equiv \text{dismissals} (1)$
+- Reconstructed Career: $\text{innings} (303) - \text{notOuts} (48) = 255 \equiv \text{dismissals} (255)$
+- Canonical Reference: $\text{innings} (303) - \text{notOuts} (48) = 255 \equiv \text{dismissals} (255)$
 
 ## T20I Format Reconciliation Ledger
 
@@ -209,7 +210,7 @@
 
 - **Present & Included**: 429 matches
 - **Present but DNB**: 17 matches
-- **Unavailable in Cricsheet**: 11 matches (ODI: 3, T20I: 8)
+- **Unavailable in Cricsheet**: 12 matches (ODI: 4, T20I: 8)
 - **Abandoned / No-Result Matches**: 8 matches
 - **Duplicates Detected**: 0
 - **Unresolved Discrepancies**: 0

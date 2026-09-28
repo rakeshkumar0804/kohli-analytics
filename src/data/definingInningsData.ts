@@ -201,6 +201,32 @@ export const DEFINING_INNINGS_DATA: DefiningInnings[] = [
     sourceUrl: 'https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1367856/india-vs-new-zealand-1st-semi-final-1384438/full-scorecard',
     candidateSource: 'curated-archive-evidence',
   },
+  {
+    id: 'odi-139-wi-trivandrum-2026',
+    title: '55th ODI Ton & 15,000 Runs (139*)',
+    matchId: '151532',
+    date: '2026-09-27',
+    format: 'ODI',
+    opponent: 'West Indies',
+    venue: 'Greenfield International Stadium, Thiruvananthapuram',
+    tournament: 'West Indies Tour of India 2026 (1st ODI)',
+    stage: 'Run Chase (Batted #3)',
+    runs: 139,
+    ballsFaced: 88,
+    notOut: true,
+    fours: 10,
+    sixes: 9,
+    strikeRate: 157.95,
+    inningsNumber: 2,
+    inningsResult: 'won',
+    impactCategory: 'Record Chase',
+    verifiedNarrative:
+      'Masterclass 139* off 88 balls with 9 sixes and 10 boundaries chasing 300 to seal an 8-wicket victory. Smashed his 55th ODI century, 86th international century, and breached the 15,000 ODI runs barrier.',
+    sourceType: 'primary-scorecard',
+    sourceId: 'Cricbuzz #151532',
+    sourceUrl: 'https://www.cricbuzz.com/live-cricket-scorecard/151532/ind-vs-wi-1st-odi-west-indies-tour-of-india-2026',
+    candidateSource: 'user-screenshot-candidate',
+  },
 
   // ── T20I DEFINING INNINGS ──
   {

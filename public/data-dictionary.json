@@ -11,10 +11,10 @@
     "roles": ["Top-order Batter", "Former Captain"]
   },
   "verifiedCareerTotals": {
-    "ODI": { "matches": 314, "innings": 302, "runs": 14941, "dismissals": 255, "notOuts": 47, "average": 58.59, "centuries": 54, "highScore": 183 },
+    "ODI": { "matches": 315, "innings": 303, "runs": 15080, "dismissals": 255, "notOuts": 48, "average": 59.14, "centuries": 55, "highScore": 183 },
     "Test": { "matches": 113, "innings": 191, "runs": 9230, "dismissals": 197, "notOuts": 14, "average": 46.85, "centuries": 30, "highScore": 254 },
     "T20I": { "matches": 125, "innings": 117, "runs": 4188, "dismissals": 86, "notOuts": 31, "average": 48.70, "centuries": 1, "highScore": 122 },
-    "Combined": { "matches": 552, "innings": 610, "runs": 28359, "average": 52.71, "centuries": 85 }
+    "Combined": { "matches": 553, "innings": 611, "runs": 28498, "average": 52.97, "centuries": 86 }
   },
   "analyticalPopulations": {
     "PopulationA": {

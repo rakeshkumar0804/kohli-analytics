@@ -144,10 +144,10 @@ async function main() {
     if (!artifact.coverage) {
       errors.push('Artifact missing coverage metadata');
     } else {
-      if (artifact.coverage.referenceMatches !== 439 || artifact.coverage.archiveMatches !== 429 || artifact.coverage.missingMatches !== 10) {
+      if (artifact.coverage.referenceMatches !== 440 || artifact.coverage.archiveMatches !== 429 || artifact.coverage.missingMatches !== 11) {
         errors.push(`Artifact match coverage counts mismatch: ref=${artifact.coverage.referenceMatches}, arch=${artifact.coverage.archiveMatches}, missing=${artifact.coverage.missingMatches}`);
       }
-      if (artifact.coverage.referenceBattingInnings !== 419 || artifact.coverage.archiveBattingInnings !== 412 || artifact.coverage.missingBattingInnings !== 7) {
+      if (artifact.coverage.referenceBattingInnings !== 420 || artifact.coverage.archiveBattingInnings !== 412 || artifact.coverage.missingBattingInnings !== 8) {
         errors.push(`Artifact innings coverage counts mismatch: ref=${artifact.coverage.referenceBattingInnings}, arch=${artifact.coverage.archiveBattingInnings}, missing=${artifact.coverage.missingBattingInnings}`);
       }
       if (!artifact.coverage.formats?.ODI || !artifact.coverage.formats?.T20I) {

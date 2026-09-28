@@ -2,7 +2,7 @@
 
 - **Model Version**: `1.0.0-model-spec`
 - **Status**: `calibration-blocked`
-- **Generated At**: `2026-09-24T12:19:01.111Z`
+- **Generated At**: `2026-09-28T08:35:19.909Z`
 - **Player**: Virat Kohli
 - **Baseline Definition**: `Self-relative descriptive model against archive-covered format baseline averages (ODI: 58.34 across 311 archive matches; T20I: 48.33 across 118 matches). Cross-player calibration blocked due to single-player scope.`
 - **Publication Allowed**: `false`
@@ -48,7 +48,7 @@ $$\text{score} = 50 + 50 \times \tanh\left(\frac{\text{splitAvg} - \text{baseAvg
 ### ODI Format Component Accounting
 
 - **Archive-Covered Baseline Average**: **58.34** (14819 runs / 254 dismissals across 311 matches, 300 batted innings)
-- **Phase 1 Full-Career Verified Average**: **58.59** (14941 runs / 255 dismissals across 314 matches, 302 batted innings)
+- **Phase 1 Full-Career Verified Average**: **59.14** (15080 runs / 255 dismissals across 315 matches, 303 batted innings)
 - *Scope Rationale*: Situational splits within the delivery dataset are evaluated against the archive-covered baseline average to prevent delivery-subset mismatch.
 
 | Component | Innings | Balls | Runs | Dismissals | Split Avg | Baseline Avg | Ratio | Tanh Score (0-100) | Min Req | Status |

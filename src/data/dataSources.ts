@@ -3,8 +3,8 @@
 // Phase 1 Data Integrity Freeze
 // ============================================================
 
-export const DATA_VERIFIED_ON = '2026-09-21';
-export const DATA_VERIFIED_ON_FORMATTED = '21 September 2026';
+export const DATA_VERIFIED_ON = '2026-09-28';
+export const DATA_VERIFIED_ON_FORMATTED = '28 September 2026';
 
 export const STRUCTURAL_VALIDATION_DISCLAIMER = 
   'AUTOMATED SUITE DISCLAIMER: The validation suite (npm run validate:data) proves mathematical and structural self-consistency of stored data structures (e.g., averages matching runs / dismissals, non-negative bounds), not historical scorecard accuracy against live external databases.';
@@ -47,10 +47,10 @@ export const DATA_PROVENANCE_MANIFEST: DataSourceEntry[] = [
     sourceUrl: 'https://www.cricbuzz.com/profiles/1413/virat-kohli',
     referenceLandingPage: 'https://www.cricbuzz.com',
     statsThroughDate: null,
-    coverageNote: 'Coverage varies by format. Last included Test in supplied evidence: 3 January 2025 vs Australia. Last included ODI in supplied evidence: 19 July 2026 vs England. Last included T20I in supplied evidence: 29 June 2024 vs South Africa. IPL: snapshot cutoff date pending.',
+    coverageNote: 'Coverage varies by format. Last included Test in supplied evidence: 3 January 2025 vs Australia. Last included ODI in supplied evidence: 27 September 2026 vs West Indies (1st ODI). Last included T20I in supplied evidence: 29 June 2024 vs South Africa. IPL: snapshot cutoff date pending.',
     formatCoverageDates: {
       Test: '2025-01-03',
-      ODI: '2026-07-19',
+      ODI: '2026-09-27',
       T20I: '2024-06-29',
       IPL: null,
     },
@@ -71,7 +71,7 @@ export const DATA_PROVENANCE_MANIFEST: DataSourceEntry[] = [
     coverageNote: 'Coverage varies by format; inherits format-specific dates from careerStats.',
     formatCoverageDates: {
       Test: '2025-01-03',
-      ODI: '2026-07-19',
+      ODI: '2026-09-27',
       T20I: '2024-06-29',
     },
     verifiedOnDate: DATA_VERIFIED_ON,

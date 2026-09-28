@@ -12,22 +12,23 @@ const MILESTONES = [
   { year: '2022', title: '71st Century (122*)', desc: 'Ended 1020-day century drought in Asia Cup.' },
   { year: '2023', title: '50th ODI Century', desc: 'Broke Sachin Tendulkar\'s record of 49 ODI centuries in the World Cup semifinal.' },
   { year: '2024', title: 'T20 WC Final Hero', desc: '76 off 59 in Bridgetown to crown India T20 World Champions.' },
+  { year: '2026', title: '55th ODI Century (139*)', desc: 'Smashed 139* off 88 balls vs West Indies in Thiruvananthapuram, passing 15,000 ODI runs.' },
 ];
 
 const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: 1,
     question: "What is Virat Kohli's career ODI batting average?",
-    options: ["44.83", "58.59", "51.42", "62.11"],
+    options: ["44.83", "59.14", "51.42", "62.11"],
     correct: 1,
-    explanation: "Kohli averages 58.59 in ODIs — highest amongst all modern batters with over 5,000 runs."
+    explanation: "Kohli averages 59.14 in ODIs — highest amongst all modern batters with over 5,000 runs."
   },
   {
     id: 2,
     question: "How many ODI centuries has Kohli scored to date?",
-    options: ["49", "51", "54", "60"],
+    options: ["49", "51", "55", "60"],
     correct: 2,
-    explanation: "Kohli passed Sachin Tendulkar's 49 centuries by scoring his 50th at the 2023 World Cup, currently at 54."
+    explanation: "Kohli passed Sachin Tendulkar's 49 centuries by scoring his 50th at the 2023 World Cup, currently at 55 (and 86 international centuries overall)."
   },
   {
     id: 3,
