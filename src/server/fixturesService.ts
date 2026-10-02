@@ -502,7 +502,7 @@ export class FixturesService {
         if (controller.signal.aborted || (seriesErr instanceof Error && (seriesErr.name === 'AbortError' || seriesErr.message.includes('abort')))) {
           throw seriesErr;
         }
-        console.warn('[FixturesService] Series fetch error:', seriesErr);
+        console.warn('[FixturesService] Series request failed.');
       }
 
       if (hadProviderError) {
@@ -549,7 +549,7 @@ export class FixturesService {
           if (controller.signal.aborted || (cmErr instanceof Error && (cmErr.name === 'AbortError' || cmErr.message.includes('abort')))) {
             throw cmErr;
           }
-          console.warn('[FixturesService] currentMatches fetch error:', cmErr);
+          console.warn('[FixturesService] Current-matches request failed.');
         }
 
         // Strategy C: If still empty, check matches endpoint
@@ -571,7 +571,7 @@ export class FixturesService {
             if (controller.signal.aborted || (mErr instanceof Error && (mErr.name === 'AbortError' || mErr.message.includes('abort')))) {
               throw mErr;
             }
-            console.warn('[FixturesService] matches fetch error:', mErr);
+            console.warn('[FixturesService] Matches request failed.');
           }
         }
       }
@@ -645,7 +645,7 @@ export class FixturesService {
         (error.name === 'AbortError' || error.name === 'TimeoutError' || error.message.includes('abort'));
 
       console.error(
-        `[FixturesService] Exception during upstream fetch: ${error instanceof Error ? error.message : String(error)}`
+        '[FixturesService] Upstream request failed; provider details withheld.'
       );
 
       return {

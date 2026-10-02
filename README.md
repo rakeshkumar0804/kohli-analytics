@@ -1,3 +1,30 @@
+# Kohli Analytics — local rebuild v6
+
+A cricket exploration app combining career storytelling, sourced innings, comparisons, and an IPL season archive. This local rebuild has not been committed, pushed or deployed.
+
+- **Cricket Club**: World Cup stories, comparisons across generations and a 40-question Cricket Gauntlet with saved progress, answer explanations and a winner’s digital trophy.
+- **Flexible comparison**: choose either focus player, including pairs without Kohli, and share your selected view.
+- **687 covered batting innings**: 300 ODI, 112 T20I and 275 IPL, with searchable scorecards, bowler matchups, bookmarks and CSV exports.
+- **The RCB chapter**: explore 19 seasons, scoring phases, opposition and downloadable season cards.
+- **Discovery Lab**: inspect an innings mosaic, scoring patterns, winning chases, centuries and your personal collection.
+- **The Kohli story**: career eras, four checkpoint replays, innings comparison, captaincy and rivalries.
+- International career totals exclude IPL. Test delivery data is not included. Coverage and source fingerprints are explained in the app.
+
+```sh
+npm ci
+npm run dev
+```
+
+Use Node 22.12+ or Node 24. Analytics work without fixture-provider credentials. See [LOCAL_REBUILD.md](./LOCAL_REBUILD.md) for source scope, verification, and a local review walkthrough.
+
+| Cricket Club | Player comparison |
+| --- | --- |
+| ![Cricket Club](./docs/screenshots/v6-club.png) | ![Flexible player comparison](./docs/screenshots/v6-comparison.png) |
+
+## Original project documentation
+
+The material below describes the original version; the live URL still points to that deployment. The local rebuild is documented above.
+
 # 👑 Virat Kohli — The Analytics Story
 
 > Not just stats. A data-driven story of the greatest batter of his generation — told through original metrics, ball-by-ball situational pressure analysis, and verified multi-format datasets.

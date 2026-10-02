@@ -3,7 +3,7 @@
   "modelVersion": "1.0.0-model-spec",
   "calibrationStatus": "calibration-blocked",
   "publicationAllowed": false,
-  "generatedAt": "2026-09-28T08:35:19.909Z",
+  "generatedAt": "2026-10-02T09:13:43.228Z",
   "player": "Virat Kohli",
   "baselineChoice": "Self-relative descriptive model against archive-covered format baseline averages (ODI: 58.34 across 311 archive matches; T20I: 48.33 across 118 matches). Cross-player calibration blocked due to single-player scope.",
   "publicScore": null,

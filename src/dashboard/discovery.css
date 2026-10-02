@@ -1,0 +1,1103 @@
+/* Discovery and the RCB season experience */
+.explore-entrances {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 24px 0;
+}
+.explore-entrances > button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  gap: 20px;
+  padding: 25px;
+  border: 1px solid #69414b;
+  border-radius: 12px;
+  background: linear-gradient(115deg, #381b29, #1a1b25);
+  color: #f4eadb;
+  overflow: hidden;
+}
+.explore-entrances > button:nth-child(2) {
+  border-color: #365254;
+  background: linear-gradient(115deg, #173238, #191e26);
+}
+.explore-entrances h3 {
+  font: 600 27px var(--sport-font);
+  margin: 10px 0;
+}
+.explore-entrances p {
+  font-size: 12px;
+  line-height: 1.7;
+  max-width: 350px;
+  color: #abb0bd;
+}
+.explore-entrances > button > strong {
+  font: 700 110px var(--sport-font);
+  color: #ddad7655;
+  transform: rotate(-10deg);
+}
+.explore-entrances > button > svg {
+  color: #82c7bc44;
+  flex-shrink: 0;
+}
+.explore-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #e7c788;
+  font-size: 11px;
+  margin-top: 18px;
+}
+.discovery-lab,
+.ipl-hub {
+  --mint: #86c9b9;
+  --gold: #e5c17f;
+}
+.lab-intro {
+  padding: 35px 0 30px;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: center;
+}
+.lab-intro h2 {
+  font: 600 clamp(42px, 5vw, 72px) / 0.98 var(--sport-font);
+  letter-spacing: -1px;
+  margin: 14px 0 22px;
+}
+.lab-intro h2 em {
+  font-style: normal;
+  color: var(--mint);
+}
+.lab-intro p {
+  color: #a8b1c2;
+  font-size: 13px;
+  line-height: 1.8;
+  max-width: 460px;
+}
+.lab-intro-counter {
+  text-align: right;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 12px;
+}
+.lab-intro-counter > strong {
+  font: 600 86px/0.95 var(--sport-font);
+  color: var(--mint);
+}
+.lab-intro-counter > span {
+  font-size: 11px;
+  color: #9da8bb;
+}
+.lens-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 15px 0;
+}
+.lens-list button {
+  background: #191f29;
+  border: 1px solid #323a49;
+  border-radius: 7px;
+  color: #b5becd;
+  padding: 11px 14px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lens-list button span {
+  font-size: 10px;
+  color: #8493a7;
+}
+.lens-list button.active {
+  background: #203a37;
+  color: #c3e9da;
+  border-color: #5a9383;
+}
+.lab-active {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 11px;
+  color: #9faebc;
+  line-height: 1.7;
+  margin: 20px 0;
+}
+.lab-active > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #a1cebb;
+}
+.innings-atlas {
+  padding: 26px;
+}
+.atlas-key {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.atlas-key > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: #a4afbc;
+}
+.atlas-key i {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  display: block;
+}
+.low {
+  --score: #445163;
+}
+.start {
+  --score: #619c91;
+}
+.fifty {
+  --score: #a6cdb1;
+}
+.hundred {
+  --score: #e4be72;
+}
+.atlas-key i,
+.atlas-cell,
+.form-bars button > span {
+  background: var(--score);
+}
+.atlas-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 25px;
+}
+.atlas-year {
+  display: grid;
+  grid-template-columns: 44px 1fr 76px;
+  gap: 15px;
+  align-items: start;
+  border-radius: 5px;
+  padding: 6px 4px;
+}
+.atlas-year.selected {
+  background: #29342f;
+}
+.atlas-year > button {
+  background: none;
+  border: 0;
+  padding: 2px 0;
+  color: #aeb9c9;
+  font-size: 11px;
+  text-align: left;
+}
+.atlas-year > div {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.atlas-cell {
+  border: 1px solid #ffffff12;
+  border-radius: 3px;
+  width: 17px;
+  height: 17px;
+  padding: 0;
+  flex: 0 0 17px;
+  transition: transform 0.15s;
+}
+.atlas-cell:hover,
+.atlas-cell:focus-visible {
+  transform: scale(1.3);
+  outline: 2px solid #f5e5b9;
+  outline-offset: 2px;
+  z-index: 1;
+}
+.atlas-year > span {
+  text-align: right;
+  font-size: 11px;
+  color: #c1c9d4;
+  padding-top: 2px;
+}
+.atlas-year small {
+  font-size: 9px;
+  color: #7f8b9d;
+}
+.lab-empty {
+  text-align: center;
+  padding: 40px 15px;
+  color: #a8b4c8;
+}
+.lab-empty h3 {
+  font-size: 19px;
+  color: #e3e7ed;
+}
+.lab-empty p {
+  font-size: 12px;
+  line-height: 1.7;
+}
+.lab-empty button {
+  margin-top: 15px;
+}
+.form-panel {
+  margin: 22px 0;
+}
+.form-bars {
+  display: grid;
+  grid-template-columns: repeat(20, minmax(0, 1fr));
+  gap: 7px;
+  align-items: end;
+  margin: 30px 0 10px;
+  min-height: 125px;
+}
+.form-bars button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  background: none;
+  padding: 0;
+  color: #b7c2d0;
+  min-width: 0;
+}
+.form-bars strong {
+  font-size: 10px;
+  font-weight: 500;
+}
+.form-bars button > span {
+  width: 100%;
+  max-width: 28px;
+  border-radius: 3px 3px 0 0;
+}
+.form-bars small {
+  font-size: 8px;
+  color: #8d9ab0;
+}
+.lab-results-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 32px 0 20px;
+  gap: 15px;
+}
+.lab-results-heading h2 {
+  font: 600 29px var(--sport-font);
+  margin: 7px 0;
+}
+.lab-results-heading h2 small {
+  font: 400 11px var(--font-body, Arial);
+  margin-left: 14px;
+  color: #95a3b8;
+}
+.discovery-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.discovery-card {
+  border: 1px solid #333b48;
+  border-top: 2px solid var(--score);
+  border-radius: 10px;
+  background: linear-gradient(140deg, #202631, #151b24);
+  padding: 17px;
+  min-width: 0;
+}
+.discovery-card-kicker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #a9b6c7;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+.discovery-card-main {
+  display: block;
+  text-align: left;
+  color: inherit;
+  padding: 10px 0 16px;
+  background: none;
+  border: 0;
+  width: 100%;
+}
+.discovery-card-main > strong {
+  font: 600 56px var(--sport-font);
+  color: var(--score);
+}
+.discovery-card-main > strong small {
+  font: 400 16px var(--sport-font);
+  color: #a8b3c1;
+}
+.discovery-card-main h3 {
+  font: 600 22px var(--sport-font);
+  margin: 8px 0;
+}
+.discovery-card-main p {
+  min-height: 32px;
+  font-size: 10px;
+  line-height: 1.6;
+  color: #96a2b6;
+  margin: 6px 0 18px;
+}
+.discovery-card-main > span {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #acb7c7;
+}
+.discovery-card footer {
+  border-top: 1px solid #313946;
+  padding-top: 12px;
+  font-size: 9px;
+  display: flex;
+  justify-content: space-between;
+  color: #95a5b9;
+  gap: 10px;
+}
+.discovery-card .icon-button {
+  color: #c2ac7f;
+}
+.lab-more {
+  display: flex;
+  margin: 24px auto;
+}
+.rcb-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  padding: 40px 44px;
+  background:
+    radial-gradient(ellipse at 90% 50%, #861f39 0%, transparent 62%),
+    linear-gradient(110deg, #271822, #351722);
+  border: 1px solid #793747;
+  border-radius: 14px;
+  overflow: hidden;
+  min-height: 340px;
+}
+.rcb-editorial {
+  z-index: 1;
+}
+.rcb-editorial > .eyebrow {
+  color: #e5bb82;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rcb-editorial .eyebrow i {
+  width: 6px;
+  height: 6px;
+  background: #eb5368;
+  border-radius: 50%;
+}
+.rcb-editorial h2 {
+  font: 700 clamp(38px, 4.8vw, 67px) / 1.02 var(--sport-font);
+  letter-spacing: -1.2px;
+  margin: 23px 0 17px;
+}
+.rcb-editorial h2 em {
+  color: #ebc68d;
+  font-style: normal;
+}
+.rcb-editorial p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #c4b1b8;
+  max-width: 400px;
+}
+.rcb-editorial > div {
+  display: flex;
+  gap: 15px;
+  font-size: 10px;
+  color: #ddbfb0;
+  margin: 20px 0 25px;
+}
+.rcb-art {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-8deg);
+  position: relative;
+}
+.rcb-art:before,
+.rcb-art:after {
+  content: "";
+  position: absolute;
+  width: 270px;
+  height: 270px;
+  border: 1px solid #e2bd7c30;
+  border-radius: 50%;
+}
+.rcb-art:after {
+  width: 315px;
+  height: 315px;
+  border-style: dashed;
+}
+.rcb-art strong {
+  font: 700 clamp(140px, 19vw, 260px) / 1 var(--sport-font);
+  letter-spacing: -10px;
+  color: #e6be80;
+  text-shadow: 8px 8px 0 #471825;
+}
+.rcb-art > span {
+  color: #ddb374;
+  font-size: 10px;
+  letter-spacing: 5px;
+  z-index: 1;
+}
+.season-command {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 32px 0 20px;
+}
+.season-command h2 {
+  font: 600 45px var(--sport-font);
+  margin: 6px 0;
+}
+.season-command h2 span {
+  font: 400 15px var(--sport-font);
+  margin-left: 12px;
+  color: #a6afbc;
+}
+.season-selector {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  padding: 8px 0 14px;
+  scrollbar-color: #68474b #171b24;
+}
+.season-selector > button {
+  flex: 1;
+  min-width: 43px;
+  background: #191e28;
+  border: 1px solid #323744;
+  border-radius: 6px;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 9px;
+  height: 112px;
+  color: #9ba8ba;
+}
+.season-selector span {
+  font-size: 9px;
+  margin-bottom: auto;
+}
+.season-selector i {
+  width: 14px;
+  background: #5e464e;
+  border-radius: 3px 3px 0 0;
+}
+.season-selector strong {
+  font-size: 10px;
+  font-weight: 500;
+}
+.season-selector > button.active {
+  border-color: #d2a876;
+  color: #ead2a7;
+  background: #35232a;
+}
+.season-selector > button.active i {
+  background: #e4bf7f;
+}
+.season-spotlight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  padding: 32px 0 27px;
+}
+.season-spotlight h3 {
+  font: 600 34px var(--sport-font);
+  margin: 10px 0;
+}
+.season-spotlight p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #9ba8bb;
+  max-width: 510px;
+}
+.season-run-total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.season-run-total > strong {
+  font: 600 85px/1 var(--sport-font);
+  color: #e9c588;
+}
+.season-run-total > span {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #b0a188;
+  margin-top: 8px;
+}
+.lab-metrics {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid #3c3540;
+  background: linear-gradient(110deg, #221d27, #191e27);
+  border-radius: 10px;
+  margin-bottom: 24px;
+}
+.lab-metrics > div {
+  padding: 23px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-right: 1px solid #39303b;
+}
+.lab-metrics > div:last-child {
+  border: 0;
+}
+.lab-metrics strong {
+  font: 600 31px var(--sport-font);
+  color: #e6c890;
+}
+.lab-metrics span {
+  font-size: 10px;
+  color: #9ca9be;
+}
+.season-scoreline {
+  margin-bottom: 20px;
+}
+.season-matches {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 25px 0 15px;
+}
+.season-matches > button {
+  flex: 1;
+  min-width: 49px;
+  max-width: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #202631;
+  border: 1px solid #38404c;
+  border-radius: 7px;
+  padding: 12px 6px;
+  gap: 8px;
+  color: var(--score);
+}
+.season-matches > button > span {
+  font-size: 8px;
+  color: #7d8a9d;
+}
+.season-matches strong {
+  font: 600 30px var(--sport-font);
+}
+.season-matches small {
+  font-size: 9px;
+  color: #9ba9bb;
+}
+.season-matches i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  margin-top: 4px;
+  background: #586477;
+}
+.season-matches i.won {
+  background: #87c4a4;
+}
+.ipl-analysis-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 20px;
+}
+.phase-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+}
+.phase-cards article {
+  border-right: 1px solid #363b49;
+  padding-right: 12px;
+}
+.phase-cards article:last-child {
+  border: 0;
+}
+.phase-cards article > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.phase-cards span {
+  font-size: 10px;
+  color: #c6b294;
+}
+.phase-cards small {
+  font-size: 9px;
+  color: #9da9bb;
+}
+.phase-cards strong {
+  display: block;
+  font: 600 35px var(--sport-font);
+  margin: 25px 0 15px;
+  color: #eee0be;
+}
+.phase-cards strong small {
+  display: block;
+  font: 400 9px Arial;
+  margin-top: 5px;
+}
+.phase-track {
+  height: 5px;
+  border-radius: 3px;
+  background: #323c4b;
+}
+.phase-track span {
+  display: block;
+  height: 100%;
+  background: #b99966;
+  border-radius: 3px;
+}
+.phase-cards p {
+  font-size: 10px;
+  line-height: 1.9;
+  color: #97a6bb;
+  margin-top: 14px;
+}
+.ipl-opponents {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  margin: 25px 0 8px;
+}
+.ipl-opponents > button {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  color: #abbace;
+}
+.ipl-opponents > button > span {
+  width: 53px;
+  flex-shrink: 0;
+  font-size: 11px;
+}
+.ipl-opponents small {
+  display: block;
+  font-size: 8px;
+  color: #79889d;
+  margin-top: 4px;
+}
+.ipl-opponents > button > div {
+  flex: 1;
+  height: 5px;
+  background: #303947;
+  border-radius: 3px;
+}
+.ipl-opponents i {
+  display: block;
+  height: 100%;
+  background: #c98b85;
+  border-radius: 3px;
+}
+.ipl-opponents strong {
+  font: 500 18px var(--sport-font);
+  color: #e0c3a0;
+}
+.season-finale {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  border: 1px solid #5e4d39;
+  background: linear-gradient(100deg, #30281f, #201d25);
+  padding: 25px;
+  border-radius: 10px;
+  margin: 22px 0;
+}
+.season-finale > svg {
+  color: #dfbd78;
+  flex-shrink: 0;
+}
+.season-finale > div {
+  flex: 1;
+}
+.season-finale h3 {
+  font: 600 26px var(--sport-font);
+  margin: 7px 0;
+}
+.season-finale p {
+  font-size: 10px;
+  color: #a99f93;
+  line-height: 1.7;
+}
+.ipl-source {
+  padding: 20px 0;
+}
+.ipl-source p {
+  font-size: 11px;
+  color: #8f9db1;
+  line-height: 1.8;
+  max-width: 750px;
+}
+.ipl-source a {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 11px;
+  color: #c5a577;
+}
+.page-ipl .page-header,
+.page-discover .page-header {
+  margin-bottom: 24px;
+}
+@media (min-width: 1100px) {
+  .sidebar .main-nav {
+    gap: 3px;
+  }
+}
+@media (max-width: 1000px) {
+  .ipl-analysis-grid {
+    grid-template-columns: 1fr;
+  }
+  .rcb-hero {
+    padding: 30px;
+  }
+  .rcb-art:before {
+    width: 210px;
+    height: 210px;
+  }
+  .rcb-art:after {
+    width: 250px;
+    height: 250px;
+  }
+  .season-finale {
+    flex-wrap: wrap;
+  }
+  .season-finale > div {
+    min-width: 65%;
+  }
+  .discovery-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .explore-entrances > button {
+    padding: 20px;
+  }
+  .explore-entrances > button > strong,
+  .explore-entrances > button > svg {
+    display: none;
+  }
+}
+@media (max-width: 700px) {
+  .explore-entrances {
+    grid-template-columns: 1fr;
+  }
+  .explore-entrances h3 {
+    font-size: 26px;
+  }
+  .lab-intro {
+    padding: 20px 0;
+    gap: 15px;
+  }
+  .lab-intro h2 {
+    font-size: 40px;
+  }
+  .lab-intro p {
+    font-size: 11px;
+  }
+  .lab-intro-counter > strong {
+    font-size: 54px;
+  }
+  .lab-intro-counter > span {
+    max-width: 100px;
+    line-height: 1.6;
+  }
+  .lab-intro-counter button {
+    font-size: 10px;
+    padding: 9px;
+    white-space: nowrap;
+  }
+  .lens-list {
+    gap: 7px;
+  }
+  .lens-list button {
+    font-size: 10px;
+    padding: 10px;
+  }
+  .lab-active {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .innings-atlas {
+    padding: 16px;
+  }
+  .innings-atlas .panel-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .atlas-year {
+    grid-template-columns: 32px 1fr 43px;
+    gap: 8px;
+  }
+  .atlas-cell {
+    width: 14px;
+    height: 14px;
+    flex-basis: 14px;
+  }
+  .atlas-year > div {
+    gap: 4px;
+  }
+  .atlas-year small {
+    display: none;
+  }
+  .atlas-year > span {
+    font-size: 9px;
+  }
+  .atlas-year > button {
+    font-size: 10px;
+  }
+  .form-bars {
+    gap: 5px;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    row-gap: 20px;
+  }
+  .form-bars button {
+    height: 125px;
+    justify-content: flex-end;
+  }
+  .form-bars strong {
+    font-size: 9px;
+  }
+  .form-bars small {
+    font-size: 8px;
+  }
+  .form-panel .panel-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .discovery-cards {
+    gap: 10px;
+  }
+  .discovery-card {
+    padding: 12px;
+  }
+  .discovery-card-main > strong {
+    font-size: 43px;
+  }
+  .discovery-card-main h3 {
+    font-size: 19px;
+  }
+  .discovery-card-main p {
+    min-height: 44px;
+    font-size: 9px;
+  }
+  .discovery-card footer {
+    flex-direction: column;
+    font-size: 9px;
+    gap: 6px;
+  }
+  .discovery-card-kicker {
+    font-size: 8px;
+    letter-spacing: 0;
+  }
+  .discovery-card-kicker .icon-button {
+    width: 30px;
+    height: 30px;
+  }
+  .lab-results-heading h2 {
+    font-size: 26px;
+  }
+  .lab-results-heading h2 small {
+    display: block;
+    margin: 5px 0;
+    font-size: 10px;
+  }
+  .rcb-hero {
+    grid-template-columns: 1fr;
+    padding: 27px 22px;
+    min-height: 0;
+  }
+  .rcb-editorial h2 {
+    font-size: 43px;
+    max-width: 290px;
+    position: relative;
+  }
+  .rcb-editorial p {
+    max-width: 230px;
+    font-size: 11px;
+  }
+  .rcb-art {
+    position: absolute;
+    right: -36px;
+    top: 50px;
+    opacity: 0.17;
+    pointer-events: none;
+  }
+  .rcb-art strong {
+    font-size: 220px;
+  }
+  .rcb-art span {
+    display: none;
+  }
+  .rcb-editorial > .eyebrow {
+    font-size: 8px;
+  }
+  .rcb-editorial > div {
+    gap: 12px;
+    font-size: 9px;
+  }
+  .season-command {
+    align-items: flex-end;
+  }
+  .season-command h2 {
+    font-size: 38px;
+  }
+  .season-command > .secondary {
+    font-size: 9px;
+    padding: 10px;
+    max-width: 142px;
+  }
+  .season-command .eyebrow {
+    font-size: 8px;
+  }
+  .season-spotlight {
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .season-spotlight h3 {
+    font-size: 29px;
+  }
+  .season-spotlight p {
+    font-size: 11px;
+  }
+  .season-spotlight .eyebrow {
+    font-size: 8px;
+  }
+  .season-run-total > strong {
+    font-size: 57px;
+  }
+  .season-run-total > span {
+    font-size: 8px;
+    letter-spacing: 0;
+  }
+  .lab-metrics {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .lab-metrics > div {
+    padding: 16px 12px;
+  }
+  .lab-metrics > div:nth-child(3) {
+    border-right: 0;
+  }
+  .lab-metrics > div:nth-child(n + 4) {
+    border-top: 1px solid #39303b;
+  }
+  .lab-metrics strong {
+    font-size: 27px;
+  }
+  .lab-metrics span {
+    font-size: 9px;
+  }
+  .season-scoreline .panel-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .season-matches {
+    gap: 6px;
+  }
+  .season-matches > button {
+    min-width: 44px;
+    max-width: none;
+    flex: 0 0 calc((100% - 30px) / 6);
+  }
+  .season-matches strong {
+    font-size: 25px;
+  }
+  .phase-cards {
+    gap: 10px;
+  }
+  .phase-cards article {
+    padding-right: 8px;
+  }
+  .phase-cards strong {
+    font-size: 29px;
+  }
+  .phase-cards span {
+    font-size: 9px;
+  }
+  .phase-cards p {
+    font-size: 9px;
+  }
+  .season-finale {
+    padding: 18px;
+    gap: 15px;
+  }
+  .season-finale > div {
+    min-width: 70%;
+  }
+  .season-finale h3 {
+    font-size: 24px;
+  }
+  .mobile-nav {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atlas-cell {
+    transition: none;
+  }
+}
+.source-hash {
+  overflow-wrap: anywhere;
+  font: 11px/1.8 monospace;
+  color: #98a8bb;
+}
+.discovery-card.low .discovery-card-main > strong,
+.season-matches > button.low strong {
+  color: #b5c0d0;
+}
+.ipl-archive-entrance {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 22px;
+  border: 1px solid #62414d;
+  background: linear-gradient(105deg, #321f2b, #1d222d);
+  border-radius: 9px;
+  margin: 20px 0;
+  color: #e7c490;
+}
+.ipl-archive-entrance strong {
+  display: block;
+  font: 600 23px var(--sport-font);
+}
+.ipl-archive-entrance small {
+  display: block;
+  font-size: 10px;
+  line-height: 1.8;
+  margin-top: 6px;
+  color: #b5a9b3;
+}
+@media (max-width: 700px) {
+  .ipl-archive-entrance {
+    padding: 15px;
+  }
+  .ipl-archive-entrance strong {
+    font-size: 21px;
+  }
+  .ipl-archive-entrance svg {
+    flex-shrink: 0;
+  }
+}

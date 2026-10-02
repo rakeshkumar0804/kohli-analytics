@@ -1,0 +1,602 @@
+[
+  {
+    "id": "q01",
+    "category": "World cricket",
+    "prompt": "Who led the wicket-taking table at the 1983 men’s World Cup?",
+    "options": [
+      "Roger Binny",
+      "Madan Lal",
+      "Joel Garner",
+      "Mohinder Amarnath"
+    ],
+    "answer": 0,
+    "explanation": "Binny finished with 18 wickets.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/on-this-day-india-win-the-1983-world-cup",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q02",
+    "category": "World cricket",
+    "prompt": "Whose seven-wicket haul against Australia was the best bowling return of the 1983 men’s World Cup?",
+    "options": [
+      "Winston Davis",
+      "Michael Holding",
+      "Malcolm Marshall",
+      "Andy Roberts"
+    ],
+    "answer": 0,
+    "explanation": "Davis took 7/51.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/on-this-day-india-win-the-1983-world-cup",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q03",
+    "category": "World cricket",
+    "prompt": "Who led the run-scoring table at the 1983 men’s World Cup?",
+    "options": [
+      "David Gower",
+      "Viv Richards",
+      "Kapil Dev",
+      "Gordon Greenidge"
+    ],
+    "answer": 0,
+    "explanation": "Gower finished with 384 runs.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/on-this-day-india-win-the-1983-world-cup",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q04",
+    "category": "World cricket",
+    "prompt": "Who bowled Gordon Greenidge early in the 1983 World Cup final?",
+    "options": [
+      "Balwinder Sandhu",
+      "Kapil Dev",
+      "Roger Binny",
+      "Madan Lal"
+    ],
+    "answer": 0,
+    "explanation": "Sandhu removed Greenidge for one.",
+    "source": "https://www.icc-cricket.com/news/1983-crickets-greatest-underdog-story-scripted-by-kapils-devils",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q05",
+    "category": "World cricket",
+    "prompt": "Which England spinner took four wickets against India in the 1987 World Cup semi-final?",
+    "options": [
+      "Eddie Hemmings",
+      "John Emburey",
+      "Phil Edmonds",
+      "Graham Gooch"
+    ],
+    "answer": 0,
+    "explanation": "Hemmings took four in England’s Mumbai semi-final win.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/world-cup-memories-england-v-india",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q06",
+    "category": "World cricket",
+    "prompt": "After the tied 1999 semi-final, which rule sent Australia to the final?",
+    "options": [
+      "Higher position in the Super Six table",
+      "Better group-stage net run rate alone",
+      "More boundaries in the semi-final",
+      "A bowl-out"
+    ],
+    "answer": 0,
+    "explanation": "The Super Six finishing positions broke the tie.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-1999-overview",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q07",
+    "category": "World cricket",
+    "prompt": "Which New Zealand bowler shared the 1999 World Cup wicket lead with Shane Warne?",
+    "options": [
+      "Geoff Allott",
+      "Chris Cairns",
+      "Dion Nash",
+      "Daniel Vettori"
+    ],
+    "answer": 0,
+    "explanation": "Allott and Warne each took 20 wickets.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-1999-overview",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q08",
+    "category": "World cricket",
+    "prompt": "Who bowled the last over of the tied Australia–South Africa semi-final in 1999?",
+    "options": [
+      "Damien Fleming",
+      "Glenn McGrath",
+      "Paul Reiffel",
+      "Shane Warne"
+    ],
+    "answer": 0,
+    "explanation": "Fleming bowled the over ending in Donald’s run-out.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/on-this-day-in-1999-the-greatest-game-of-all-time",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q09",
+    "category": "World cricket",
+    "prompt": "Who scored an unbeaten century for Pakistan in the 1999 semi-final against New Zealand?",
+    "options": [
+      "Saeed Anwar",
+      "Ijaz Ahmed",
+      "Inzamam-ul-Haq",
+      "Saleem Malik"
+    ],
+    "answer": 0,
+    "explanation": "Anwar’s 133 not out helped Pakistan win by nine wickets.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-1999-overview",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q10",
+    "category": "World cricket",
+    "prompt": "Which two batters rebuilt Australia’s 1996 semi-final innings from 15/4?",
+    "options": [
+      "Stuart Law and Michael Bevan",
+      "Steve Waugh and Ricky Ponting",
+      "Mark Waugh and Ian Healy",
+      "Michael Bevan and Shane Warne"
+    ],
+    "answer": 0,
+    "explanation": "Both made fifties before Australia defended 207.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-1996-overview",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q11",
+    "category": "World cricket",
+    "prompt": "Who took the most wickets at the 1996 men’s World Cup?",
+    "options": [
+      "Anil Kumble",
+      "Shane Warne",
+      "Waqar Younis",
+      "Muttiah Muralitharan"
+    ],
+    "answer": 0,
+    "explanation": "Kumble led with 15 wickets.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-1996-overview",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q12",
+    "category": "World cricket",
+    "prompt": "Which three teams made their men’s World Cup debuts in 1996?",
+    "options": [
+      "Kenya, Netherlands and UAE",
+      "Bangladesh, Kenya and UAE",
+      "Ireland, Netherlands and Kenya",
+      "Canada, Scotland and UAE"
+    ],
+    "answer": 0,
+    "explanation": "These three qualified through the 1994 ICC Trophy.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-1996-overview",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q13",
+    "category": "World cricket",
+    "prompt": "Besides making a century, what was Aravinda de Silva’s bowling return in the 1996 World Cup final?",
+    "options": [
+      "3/42",
+      "2/35",
+      "4/36",
+      "1/47"
+    ],
+    "answer": 0,
+    "explanation": "His three wickets preceded an unbeaten 107.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-1996-overview",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q14",
+    "category": "World cricket",
+    "prompt": "Who hit the winning six in the 2015 New Zealand–South Africa semi-final, and off whom?",
+    "options": [
+      "Grant Elliott off Dale Steyn",
+      "Corey Anderson off Morne Morkel",
+      "Grant Elliott off Vernon Philander",
+      "Brendon McCullum off Dale Steyn"
+    ],
+    "answer": 0,
+    "explanation": "Elliott finished it on the penultimate ball.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-2015-overview",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q15",
+    "category": "World cricket",
+    "prompt": "Which pair added 182 for Australia’s second wicket against India in the 2015 semi-final?",
+    "options": [
+      "Aaron Finch and Steve Smith",
+      "David Warner and Steve Smith",
+      "Aaron Finch and Michael Clarke",
+      "Steve Smith and Shane Watson"
+    ],
+    "answer": 0,
+    "explanation": "Their stand anchored Australia’s 328/7.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-2015-overview",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q16",
+    "category": "World cricket",
+    "prompt": "Which pair shared the bowling wicket lead at the 2015 men’s World Cup?",
+    "options": [
+      "Mitchell Starc and Trent Boult",
+      "Mitchell Starc and Tim Southee",
+      "Trent Boult and Morne Morkel",
+      "Wahab Riaz and Mitchell Johnson"
+    ],
+    "answer": 0,
+    "explanation": "Both took 22 wickets.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-2015-overview",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q17",
+    "category": "Umpire’s call",
+    "prompt": "Under MCC Law 21, which set contains ONLY dismissals that remain possible off a no-ball?",
+    "options": [
+      "Run out, obstructing the field, hit the ball twice",
+      "Run out, stumped, hit wicket",
+      "Bowled, run out, obstructing the field",
+      "Caught, hit the ball twice, run out"
+    ],
+    "answer": 0,
+    "explanation": "Law 21 preserves these three exceptions.",
+    "source": "https://www.lords.org/mcc/the-laws/no-ball",
+    "sourceLabel": "MCC Laws · checked 2 Oct 2026"
+  },
+  {
+    "id": "q18",
+    "category": "Umpire’s call",
+    "prompt": "A wide is called. The striker breaks their own wicket while playing at the delivery. Which dismissal is still available under MCC Law 22?",
+    "options": [
+      "Hit wicket",
+      "Bowled",
+      "Caught",
+      "LBW"
+    ],
+    "answer": 0,
+    "explanation": "Hit wicket remains possible off a wide.",
+    "source": "https://www.lords.org/mcc/the-laws/wide-ball",
+    "sourceLabel": "MCC Laws · checked 2 Oct 2026"
+  },
+  {
+    "id": "q19",
+    "category": "Umpire’s call",
+    "prompt": "A no-ball is called and the keeper removes the bails while the striker is out of the crease, not attempting a run. Can this be Stumped?",
+    "options": [
+      "No — Stumped is unavailable off a no-ball",
+      "Yes, because the keeper alone removed the bails",
+      "Yes, if the batter missed it",
+      "Only if the keeper appeals before Dead ball"
+    ],
+    "answer": 0,
+    "explanation": "Stumped is not among Law 21’s no-ball exceptions.",
+    "source": "https://www.lords.org/mcc/the-laws/no-ball",
+    "sourceLabel": "MCC Laws · checked 2 Oct 2026"
+  },
+  {
+    "id": "q20",
+    "category": "Umpire’s call",
+    "prompt": "A fair ball pitches outside leg stump and would hit middle stump. No shot is offered. What is the LBW decision?",
+    "options": [
+      "Not out — pitching outside leg excludes LBW",
+      "Out, because no shot was offered",
+      "Out, if impact is in line",
+      "Out, if the ball hits below the knee"
+    ],
+    "answer": 0,
+    "explanation": "The pitching requirement still applies when no shot is offered.",
+    "source": "https://www.lords.org/mcc/the-laws/leg-before-wicket",
+    "sourceLabel": "MCC Laws · checked 2 Oct 2026"
+  },
+  {
+    "id": "q21",
+    "category": "Umpire’s call",
+    "prompt": "A fair ball pitches outside off, strikes the pad outside off without first touching the bat, and would hit the wicket. No genuine shot is attempted. Is LBW possible?",
+    "options": [
+      "Yes, if all other LBW conditions are satisfied",
+      "No, impact must always be in line",
+      "Only against spin",
+      "Only if the batter is on the back foot"
+    ],
+    "answer": 0,
+    "explanation": "Outside-off impact can qualify when no genuine shot is attempted.",
+    "source": "https://www.lords.org/mcc/the-laws/leg-before-wicket",
+    "sourceLabel": "MCC Laws · checked 2 Oct 2026"
+  },
+  {
+    "id": "q22",
+    "category": "Umpire’s call",
+    "prompt": "On a fair delivery, the non-striker deliberately prevents a catch of the striker. Under MCC Law 37, who is out for obstructing the field?",
+    "options": [
+      "The striker",
+      "The non-striker",
+      "Both batters",
+      "Neither; five penalty runs only"
+    ],
+    "answer": 0,
+    "explanation": "When obstruction prevents a lawful catch, the striker is the batter dismissed.",
+    "source": "https://www.lords.org/mcc/the-laws/obstructing-the-field",
+    "sourceLabel": "MCC Laws · checked 2 Oct 2026"
+  },
+  {
+    "id": "q23",
+    "category": "Umpire’s call",
+    "prompt": "Before any fielder touches the ball, a striker deliberately hits it again with the bat solely to protect the wicket, without preventing a catch. Is that automatically Hit the ball twice?",
+    "options": [
+      "No — lawful wicket protection is an exception",
+      "Yes, every deliberate second hit is out",
+      "Only if the second hit scores a run",
+      "Only in limited-overs cricket"
+    ],
+    "answer": 0,
+    "explanation": "Law 34 allows a lawful second strike to guard the wicket.",
+    "source": "https://www.lords.org/mcc/the-laws/hit-the-ball-twice",
+    "sourceLabel": "MCC Laws · checked 2 Oct 2026"
+  },
+  {
+    "id": "q24",
+    "category": "Umpire’s call",
+    "prompt": "Under MCC Law 38.3, after the bowler reaches the point where the ball would normally be released, can they still use that provision to run out a non-striker who left early?",
+    "options": [
+      "No — that specific opportunity has ended",
+      "Yes, until the front foot lands",
+      "Yes, until the striker receives it",
+      "Yes, until the umpire calls Dead ball"
+    ],
+    "answer": 0,
+    "explanation": "The normal release point is the limit of this provision.",
+    "source": "https://www.lords.org/mcc/the-laws/run-out",
+    "sourceLabel": "MCC Laws · checked 2 Oct 2026"
+  },
+  {
+    "id": "q25",
+    "category": "Deep archive",
+    "prompt": "During Kohli’s 82* at Melbourne in 2022, which bowler delivered the most balls he faced?",
+    "options": [
+      "Shadab Khan",
+      "Shaheen Shah Afridi",
+      "Haris Rauf",
+      "Mohammad Nawaz"
+    ],
+    "answer": 0,
+    "explanation": "The archive credits 13 balls faced against Shadab.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet match 1298150"
+  },
+  {
+    "id": "q26",
+    "category": "Deep archive",
+    "prompt": "In Kohli’s 82* at Mohali in 2016, which bowler conceded the fewest batter runs to him?",
+    "options": [
+      "Adam Zampa",
+      "Shane Watson",
+      "Glenn Maxwell",
+      "Josh Hazlewood"
+    ],
+    "answer": 0,
+    "explanation": "Kohli scored three from six balls against Zampa.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet match 951363"
+  },
+  {
+    "id": "q27",
+    "category": "Deep archive",
+    "prompt": "Which bowler did Kohli score 44 runs off in his 133* at Hobart in 2012?",
+    "options": [
+      "Lasith Malinga",
+      "Thisara Perera",
+      "Nuwan Kulasekara",
+      "Angelo Mathews"
+    ],
+    "answer": 0,
+    "explanation": "Those 44 runs came from 15 balls faced against Malinga.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet match 518966"
+  },
+  {
+    "id": "q28",
+    "category": "Deep archive",
+    "prompt": "In Kohli’s 183 against Pakistan in Mirpur, which bowler did he face most often?",
+    "options": [
+      "Umar Gul",
+      "Saeed Ajmal",
+      "Shahid Afridi",
+      "Mohammad Hafeez"
+    ],
+    "answer": 0,
+    "explanation": "The archive records 36 balls against Gul.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet match 535798"
+  },
+  {
+    "id": "q29",
+    "category": "Deep archive",
+    "prompt": "Which Gujarat Lions bowler conceded the most batter runs to Kohli during his 109 on 14 May 2016?",
+    "options": [
+      "Shivil Kaushik",
+      "Dwayne Bravo",
+      "Praveen Kumar",
+      "Ravindra Jadeja"
+    ],
+    "answer": 0,
+    "explanation": "Kaushik conceded 37 to Kohli in that innings.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet match 980987"
+  },
+  {
+    "id": "q30",
+    "category": "Deep archive",
+    "prompt": "In Kohli’s 113 against Kings XI Punjab on 18 May 2016, which bowler conceded the most runs to him?",
+    "options": [
+      "KC Cariappa",
+      "Sandeep Sharma",
+      "Mohit Sharma",
+      "Kyle Abbott"
+    ],
+    "answer": 0,
+    "explanation": "The batter-to-bowler breakdown is 42 runs from 14 balls.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet match 980999"
+  },
+  {
+    "id": "q31",
+    "category": "Deep archive",
+    "prompt": "Which ground hosted Kohli’s first IPL hundred, against Gujarat Lions in 2016?",
+    "options": [
+      "Saurashtra Cricket Association Stadium",
+      "M Chinnaswamy Stadium",
+      "Green Park",
+      "Wankhede Stadium"
+    ],
+    "answer": 0,
+    "explanation": "The 100* was played in Rajkot on 24 April.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet match 980937"
+  },
+  {
+    "id": "q32",
+    "category": "Deep archive",
+    "prompt": "In Kohli’s 108* against Rising Pune Supergiants on 7 May 2016, which bowler did he face most?",
+    "options": [
+      "Rajat Bhatia",
+      "Adam Zampa",
+      "RP Singh",
+      "Ashok Dinda"
+    ],
+    "answer": 0,
+    "explanation": "He faced 14 balls from Bhatia, scoring 26.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet match 980969"
+  },
+  {
+    "id": "q33",
+    "category": "Scorekeeper",
+    "prompt": "A batter has 600 runs from 15 innings, three not out. They next make 60* and then 0, dismissed. What is the new batting average?",
+    "options": [
+      "50.77",
+      "44.00",
+      "55.00",
+      "47.14"
+    ],
+    "answer": 0,
+    "explanation": "660 runs divided by 13 dismissals = 50.77.",
+    "source": "#/sources",
+    "sourceLabel": "Worked scoring example · hypothetical"
+  },
+  {
+    "id": "q34",
+    "category": "Scorekeeper",
+    "prompt": "A bowler concedes 37 runs in 4.2 six-ball overs. What is the economy rate, to two decimals?",
+    "options": [
+      "8.54",
+      "8.81",
+      "9.25",
+      "7.40"
+    ],
+    "answer": 0,
+    "explanation": "4.2 means 26 legal balls. 37 × 6 ÷ 26 = 8.54.",
+    "source": "#/sources",
+    "sourceLabel": "Worked scoring example · hypothetical"
+  },
+  {
+    "id": "q35",
+    "category": "Scorekeeper",
+    "prompt": "A side needs 37 runs from 4.2 six-ball overs. What is its required run rate?",
+    "options": [
+      "8.54",
+      "8.81",
+      "9.25",
+      "7.40"
+    ],
+    "answer": 0,
+    "explanation": "26 legal balls remain; the rate is 37 × 6 ÷ 26.",
+    "source": "#/sources",
+    "sourceLabel": "Worked scoring example · hypothetical"
+  },
+  {
+    "id": "q36",
+    "category": "Scorekeeper",
+    "prompt": "A batter scores 30 from 25 balls, then 45 from the next 15. What is the overall strike rate?",
+    "options": [
+      "187.50",
+      "210.00",
+      "180.00",
+      "225.00"
+    ],
+    "answer": 0,
+    "explanation": "Use aggregate totals: 75 ÷ 40 × 100, not the mean of the two rates.",
+    "source": "#/sources",
+    "sourceLabel": "Worked scoring example · hypothetical"
+  },
+  {
+    "id": "q37",
+    "category": "Scorekeeper",
+    "prompt": "Two bowlers deliver 3.4 and 2.5 overs. How many legal balls is that altogether?",
+    "options": [
+      "39",
+      "36",
+      "40",
+      "45"
+    ],
+    "answer": 0,
+    "explanation": "22 + 17 = 39 legal balls, or 6.3 overs.",
+    "source": "#/sources",
+    "sourceLabel": "Worked scoring example · hypothetical"
+  },
+  {
+    "id": "q38",
+    "category": "Scorekeeper",
+    "prompt": "A batter makes 78 with six fours and three sixes. What percentage came in boundaries?",
+    "options": [
+      "53.85%",
+      "46.15%",
+      "61.54%",
+      "50.00%"
+    ],
+    "answer": 0,
+    "explanation": "42 boundary runs divided by 78 gives 53.85%.",
+    "source": "#/sources",
+    "sourceLabel": "Worked scoring example · hypothetical"
+  },
+  {
+    "id": "q39",
+    "category": "Scorekeeper",
+    "prompt": "A batter has 80*, 40*, and 0*. What is their batting average for that sample?",
+    "options": [
+      "Undefined — there are no dismissals",
+      "40.00",
+      "120.00",
+      "0.00"
+    ],
+    "answer": 0,
+    "explanation": "Average divides runs by dismissals. Zero dismissals leaves it undefined.",
+    "source": "#/sources",
+    "sourceLabel": "Worked scoring example · hypothetical"
+  },
+  {
+    "id": "q40",
+    "category": "Scorekeeper",
+    "prompt": "Across two samples a batter scores 100 from 50 balls and 100 from 100 balls. What is the combined strike rate?",
+    "options": [
+      "133.33",
+      "150.00",
+      "125.00",
+      "100.00"
+    ],
+    "answer": 0,
+    "explanation": "200 runs from 150 balls gives 133.33, not an unweighted mean of 200 and 100.",
+    "source": "#/sources",
+    "sourceLabel": "Worked scoring example · hypothetical"
+  }
+]

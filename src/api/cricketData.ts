@@ -224,11 +224,11 @@ function getEnvVar(key: string): string | undefined {
  *
  * Never converts API failures into a false "no matches scheduled" claim.
  */
-export async function fetchNextMatch(now: Date = new Date()): Promise<NextMatchResult> {
+export async function fetchNextMatch(now: Date = new Date(), options: { forceRefresh?: boolean } = {}): Promise<NextMatchResult> {
   const currentEpoch = now.getTime();
 
   // Return valid client cache if within TTL
-  if (clientCachedResult && currentEpoch - lastClientFetchTimestamp < CLIENT_CACHE_TTL_MS) {
+  if (!options.forceRefresh && clientCachedResult && currentEpoch - lastClientFetchTimestamp < CLIENT_CACHE_TTL_MS) {
     return clientCachedResult;
   }
 
@@ -236,7 +236,7 @@ export async function fetchNextMatch(now: Date = new Date()): Promise<NextMatchR
 
   try {
     const response = await fetch(endpoint, {
-      headers: { Accept: 'application/json' },
+      headers: { Accept: 'application/json', ...(options.forceRefresh ? { 'Cache-Control': 'no-cache' } : {}) },
       signal: AbortSignal.timeout(10000), // Strict 10s client timeout
     });
 

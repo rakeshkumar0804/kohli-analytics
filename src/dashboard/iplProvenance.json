@@ -1,0 +1,15 @@
+{
+  "source": "Cricsheet",
+  "sourceUrl": "https://cricsheet.org/downloads/ipl_json.zip",
+  "licenseUrl": "https://cricsheet.org/license/",
+  "sourceHash": "841b98290a08bdf2a063a9f4d6342fb2363ff246491ed3db4c571bddb6ea2a79",
+  "generatedAt": "2026-10-02T03:10:59.380517+00:00",
+  "coverageStart": "2008-04-18",
+  "coverageEnd": "2026-05-31",
+  "matches": 282,
+  "innings": 275,
+  "runs": 9336,
+  "balls": 6926,
+  "dismissals": 231,
+  "excluded": "DNB appearances and super overs. Archive coverage is separate from career snapshots."
+}
