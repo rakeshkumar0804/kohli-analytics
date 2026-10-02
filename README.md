@@ -12,14 +12,6 @@
 
 ## 📸 Screenshots
 
-Hero & Format Scope | Live Next Match Countdown
-:---: | :---:
-![Hero Section](https://github.com/user-attachments/assets/2ead27fc-38e9-4412-a076-a4be1e684eb1) | ![Live Next Match Countdown](./docs/screenshots/02-next-match-live.png)
-
-Legends Radar Showdown | 15-Cell Situational Pressure Map
-:---: | :---:
-![Legends Showdown](https://github.com/user-attachments/assets/5bda4dc8-97c2-484f-bd7a-15ad008c28bf) | ![Pressure Map](./docs/screenshots/04-pressure-map-5band.png)
-
 Cricket Club | Player Comparison | RCB Chapter
 :---: | :---: | :---:
 ![Cricket Club](./docs/screenshots/v6-club.png) | ![Player Comparison](./docs/screenshots/v6-comparison.png) | ![RCB Chapter](./docs/screenshots/v5-rcb.png)
