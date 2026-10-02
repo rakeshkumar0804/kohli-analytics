@@ -5,6 +5,8 @@ type Player = {
   name: string;
   shortName: string;
   stats: { battingAvg: number; strikeRate: number; centuries: number };
+  innings?: number | Record<string, number>;
+  lastUpdated?: string;
 };
 const colors = ["#ef9b7d", "#87bdb7", "#b6a2e4", "#d3bf7b"];
 export function CompareVisual({
@@ -70,35 +72,60 @@ export function CompareVisual({
           >
             Strike rate →
           </text>
-          {players.map((p, i) => {
-            const x = 52 + (p.stats.battingAvg / maxAvg) * 513,
-              y = 232 - (p.stats.strikeRate / maxSR) * 192;
-            return (
-              <g key={p.id}>
-                <title>
-                  {p.name}: average {p.stats.battingAvg}, strike rate{" "}
-                  {p.stats.strikeRate}
-                </title>
-                <circle cx={x} cy={y} r="14" fill={colors[i]} opacity=".1" />
-                <circle
-                  cx={x}
-                  cy={y}
-                  r="6"
-                  fill={colors[i]}
-                  stroke="#16202b"
-                  strokeWidth="2"
-                />
-                <text
-                  x={x > 475 ? x - 12 : x + 12}
-                  y={y + (i % 2 ? 18 : -12)}
-                  textAnchor={x > 475 ? "end" : "start"}
-                  fill={colors[i]}
-                >
-                  {p.shortName}
-                </text>
-              </g>
-            );
-          })}
+          {(() => {
+            // Calculate positions first, then resolve label collisions
+            const positions = players.map((p, i) => ({
+              player: p,
+              index: i,
+              x: 52 + (p.stats.battingAvg / maxAvg) * 513,
+              y: 232 - (p.stats.strikeRate / maxSR) * 192,
+            }));
+            // Smart label offsets: alternate above/below, shift if dots are close
+            return positions.map((pos, i) => {
+              const { player: p, x, y } = pos;
+              // Check for nearby dots and shift labels accordingly
+              const nearby = positions.filter(
+                (other, j) =>
+                  j !== i &&
+                  Math.abs(other.x - x) < 60 &&
+                  Math.abs(other.y - y) < 30,
+              );
+              const baseYOff = i % 2 === 0 ? -14 : 20;
+              const yOff =
+                nearby.length > 0
+                  ? (i % 3 === 0 ? -18 : i % 3 === 1 ? 22 : -30)
+                  : baseYOff;
+              const anchor = x > 475 ? "end" : x < 100 ? "start" : "start";
+              const xOff = x > 475 ? -12 : 12;
+              return (
+                <g key={p.id}>
+                  <title>
+                    {p.name}: average {p.stats.battingAvg}, strike rate{" "}
+                    {p.stats.strikeRate}
+                  </title>
+                  <circle cx={x} cy={y} r="14" fill={colors[i]} opacity=".1" />
+                  <circle
+                    cx={x}
+                    cy={y}
+                    r="6"
+                    fill={colors[i]}
+                    stroke="#16202b"
+                    strokeWidth="2"
+                  />
+                  <text
+                    x={x + xOff}
+                    y={y + yOff}
+                    textAnchor={anchor}
+                    fill={colors[i]}
+                    fontSize="11"
+                    fontWeight="600"
+                  >
+                    {p.shortName}
+                  </text>
+                </g>
+              );
+            });
+          })()}
         </svg>
         <p className="panel-footnote">
           Higher and further right means faster scoring and more runs per
@@ -199,8 +226,30 @@ export function CompareVisual({
           </p>
         )}
         <p className="panel-footnote">
-          Differences use stored records. Players may have different career
-          cutoffs and very different sample sizes.
+          Differences use stored career snapshots. Players may have different
+          career cutoffs, eras, and sample sizes.
+          {(() => {
+            const getInn = (p?: Player) => {
+              if (!p || p.innings === undefined) return undefined;
+              if (typeof p.innings === "number") return p.innings;
+              const k = format === "Test" ? "TEST" : format;
+              return p.innings[k] ?? p.innings[format];
+            };
+            const fInn = getInn(focus);
+            const pInn = getInn(peer);
+            return (
+              focus &&
+              peer &&
+              fInn !== undefined &&
+              pInn !== undefined && (
+                <> {focus.shortName}: {fInn} inn.
+                {focus.lastUpdated && <> ({focus.lastUpdated})</>}
+                {" · "}{peer.shortName}: {pInn} inn.
+                {peer.lastUpdated && <> ({peer.lastUpdated})</>}
+                </>
+              )
+            );
+          })()}
         </p>
       </Panel>
     </div>

@@ -26,10 +26,10 @@
   --bg-card:        rgba(255, 255, 255, 0.038);
   --bg-card-hover:  rgba(255, 255, 255, 0.075);
 
-  /* ── Text (Gentle contrast, anti-glare) ── */
+  /* ── Text (Improved contrast for readability) ── */
   --text-primary:   #F4F5F9;
-  --text-secondary: rgba(244, 245, 249, 0.72);
-  --text-muted:     rgba(244, 245, 249, 0.44);
+  --text-secondary: rgba(244, 245, 249, 0.80);
+  --text-muted:     rgba(244, 245, 249, 0.54);
   --text-accent:    var(--gold-primary);
 
   /* ── Glass Effects (Subtle blur with saturated backdrop) ── */

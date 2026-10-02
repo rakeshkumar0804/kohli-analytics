@@ -124,6 +124,14 @@ export default function CricketQuiz() {
   const [size, setSize] = useState(12);
   const [celebrate, setCelebrate] = useState(false);
   const [storage, setStorage] = useState(true);
+  const [seenCount, setSeenCount] = useState(() => {
+    try {
+      const raw = localStorage.getItem("cricket-gauntlet-seen");
+      return raw ? (JSON.parse(raw) as string[]).length : 0;
+    } catch {
+      return 0;
+    }
+  });
   const [best, setBest] = useState(() => {
     try {
       return Number(localStorage.getItem("cricket-gauntlet-best")) || 0;
@@ -152,6 +160,19 @@ export default function CricketQuiz() {
       }
     }
   }, [round, best]);
+  // Track unique seen questions across all rounds
+  useEffect(() => {
+    if (!round?.done) return;
+    try {
+      const raw = localStorage.getItem("cricket-gauntlet-seen");
+      const seen = new Set<string>(raw ? JSON.parse(raw) : []);
+      round.deck.forEach((d) => seen.add(d.id));
+      localStorage.setItem("cricket-gauntlet-seen", JSON.stringify([...seen]));
+      setSeenCount(seen.size);
+    } catch {
+      /* storage unavailable */
+    }
+  }, [round]);
   const current = round?.deck[round.index];
   const q = questions.find((q) => q.id === current?.id);
   const chosen = q && round ? round.answers[q.id] : undefined;
@@ -183,6 +204,16 @@ export default function CricketQuiz() {
             History. Laws. The overlooked details.
             <br />A challenge for people who stay after the highlights.
           </p>
+          {round && !round.done && (
+            <button
+              className="primary"
+              style={{ marginTop: '14px' }}
+              onClick={() => questionRef.current?.focus()}
+            >
+              Continue quiz — Q{round.index + 1}/{round.deck.length}
+              <ArrowRight size={16} />
+            </button>
+          )}
         </div>
         <div className="gauntlet-seal">
           <Trophy size={28} />
@@ -237,8 +268,9 @@ export default function CricketQuiz() {
               Win with {Math.ceil(size * 0.9)}/{size}. No timer. Every answer
               has an explanation.
               <br />
-              {best > 0 ? `Your best on this device: ${best}%. ` : ""}Progress
-              stays on this device.
+              {best > 0 ? `Your best on this device: ${best}%. ` : ""}
+              {seenCount > 0 ? `${seenCount}/40 questions seen. ` : ""}
+              Progress stays on this device.
             </p>
           </div>
         </div>
