@@ -12,11 +12,11 @@
 
 ## 📸 Screenshots
 
-Cricket Club | Player Comparison | RCB Chapter
+Cricket Club (v7) | Flexible Player Comparison (v7) | The RCB Chapter
 :---: | :---: | :---:
-![Cricket Club](./docs/screenshots/v6-club.png) | ![Player Comparison](./docs/screenshots/v6-comparison.png) | ![RCB Chapter](./docs/screenshots/v5-rcb.png)
+![Cricket Club](./docs/screenshots/v7-club.png) | ![Player Comparison](./docs/screenshots/v7-comparison.png) | ![RCB Chapter](./docs/screenshots/v5-rcb.png)
 
-Discovery Lab | Quiz on Mobile
+Discovery Lab | Daily & Practice Quiz on Mobile
 :---: | :---:
 ![Discovery Lab](./docs/screenshots/v5-discovery.png) | ![Quiz Mobile](./docs/screenshots/v6-quiz-mobile.png)
 
@@ -26,26 +26,27 @@ Discovery Lab | Quiz on Mobile
 
 Most cricket dashboards display static career tables copied from statistics portals. This application **engineers original metrics** directly from ball-by-ball delivery archives and scorecard populations.
 
-### 🏏 Core Experiences
+### 🏏 Core Experiences (Revision 7)
 
-- **Cricket Club** — World Cup chapters with ICC retrospectives, cross-generation comparison routes, and a 40-question Cricket Gauntlet with saved progress, answer explanations, and a downloadable SVG trophy
-- **Dual-Focus Comparison** — Select either focus player, including pairs without Kohli, across Test, ODI, and T20I presets with shareable URLs
-- **687 Innings Archive** — 300 ODI + 112 T20I + 275 IPL batting innings with searchable scorecards, bowler matchups, bookmarks, and CSV exports
-- **The RCB Chapter** — 19 IPL seasons with scoring phases, opposition breakdown, and downloadable season cards
-- **Discovery Lab** — Innings mosaic, scoring patterns, winning chases, centuries, and personal collection
-- **The Kohli Story** — 5 career eras with checkpoint replays, innings comparison, captaincy analysis, and rivalry deep-dives
+- **🏏 Cricket Club & Daily Eight** — A shared deterministic UTC-day challenge with two questions per discipline, resume support, completed-result review, and a winner’s digital trophy for a perfect 8/8. Unseen-first practice rounds across 64 sourced questions.
+- **🆚 Dated Comparison Snapshots** — Seven players across Test, ODI, and T20I with explicitly dated match cutoffs, innings counts, and direct source links. Numbered markers and a separate legend prevent name overlap; switch between focused and zero-based axes.
+- **🏆 Enriched World Cup Chapters** — 1983, 1996, 1999, and 2015 chapters with match scorecards, three pivotal turning points per chapter, and ICC retrospective references.
+- **📊 687 Innings Archive** — 300 ODI + 112 T20I + 275 IPL batting innings with searchable scorecards, bowler matchups, bookmarks, and CSV exports.
+- **🔴 The RCB Chapter** — 19 IPL seasons with scoring phases, opposition breakdown, and downloadable season cards.
+- **🔬 Discovery Lab** — Innings mosaic, scoring patterns, winning chases, centuries, and personal collection.
+- **📖 The Kohli Story** — 5 career eras with checkpoint replays, innings comparison, captaincy analysis, and rivalry deep-dives.
 
 ### 📊 Analytics & Visualizations
 
-- **Live Fixture Countdown** — Server-side CricAPI proxy with multi-strategy schedule discovery, rate limiting (30 req/min), and 15-min caching. Zero browser secret exposure
-- **15-Cell Pressure Map** — D3.js heatmap (Match Phase × Required Run Rate) across 6,889 ODI and 1,525 T20I chase deliveries with zero-dismissal null handling
-- **Clutch Index** — Bounded Hyperbolic Tangent normalization protected by 4 statistical trust gates. Displays `CALIBRATION PENDING` until all gates pass
-- **Pressure Dashboard** — Format-separated situational analysis: 4 high-leverage chase cards for ODI/T20I, 8 sourced splits for Test cricket
-- **Era Engine** — Interactive scrollytelling across 5 career eras (Youth → Rise → Peak → Drought → Renaissance) with dynamic chart morphing
-- **Chase Master** — Deep analysis of 165 ODI chases (88.29 winning chase average) with a horizontal defining chase gallery
-- **Legends Showdown** — 6-dimension normalized radar comparing Kohli vs Sachin, Ponting, Rohit, Smith, Root, and Williamson
-- **World Dominance Map** — D3-geo SVG world map with country-by-country career records against every Test nation
-- **Captaincy Myth Buster** — Verified Test captaincy win % (58.82%), 42 months at World No. 1, and overseas series records
+- **Live Fixture Countdown** — Server-side CricAPI proxy with multi-strategy schedule discovery, rate limiting (30 req/min), and 15-min caching. Zero browser secret exposure.
+- **15-Cell Pressure Map** — D3.js heatmap (Match Phase × Required Run Rate) across 6,889 ODI and 1,525 T20I chase deliveries with zero-dismissal null handling.
+- **Clutch Index** — Bounded Hyperbolic Tangent normalization protected by 4 statistical trust gates. Displays `CALIBRATION PENDING` until all gates pass.
+- **Pressure Dashboard** — Format-separated situational analysis: 4 high-leverage chase cards for ODI/T20I, 8 sourced splits for Test cricket.
+- **Era Engine** — Interactive scrollytelling across 5 career eras (Youth → Rise → Peak → Drought → Renaissance) with dynamic chart morphing.
+- **Chase Master** — Deep analysis of 165 ODI chases (88.29 winning chase average) with a horizontal defining chase gallery.
+- **Legends Showdown** — 6-dimension normalized radar comparing Kohli vs Sachin, Ponting, Rohit, Smith, Root, and Williamson.
+- **World Dominance Map** — D3-geo SVG world map with country-by-country career records against every Test nation.
+- **Captaincy Myth Buster** — Verified Test captaincy win % (58.82%), 42 months at World No. 1, and overseas series records.
 
 ---
 
@@ -54,6 +55,7 @@ Most cricket dashboards display static career tables copied from statistics port
 Layer | Technology
 ---|---
 **Frontend** | React 19 · TypeScript 6 · Vite 8
+**Typography** | Self-hosted DM Sans & Manrope variable fonts
 **Animations** | GSAP 3.15 · Framer Motion 13 · Lenis (smooth scroll)
 **Data Visualization** | D3.js 7 · Recharts 3 · TopoJSON
 **Icons** | Lucide React
@@ -88,10 +90,11 @@ kohli-analytics/
 │   ├── calibrate-clutch-index.mjs      # Bounded tanh calibration engine
 │   ├── verify-derived-data.mjs         # Atomic write & integrity gate
 │   ├── validate-data.mjs              # Cross-sum arithmetic validation
-│   ├── test-analytics.mjs              # Unit & regression tests
+│   ├── test-analytics.mjs              # 158 unit & regression tests
 │   ├── test-data-integration.mjs      # 31 independent oracle tests
+│   ├── test-comparison-snapshots.mjs  # 21 comparison record provenance tests
 │   ├── test-dashboard.mjs             # Dashboard route & filter tests
-│   ├── test-cricket-quiz.mjs          # Quiz lifecycle tests
+│   ├── test-cricket-quiz.mjs          # Daily & practice quiz lifecycle tests
 │   ├── test-discovery.mjs             # Discovery lab tests
 │   └── dashboard/                      # Browser verification harnesses
 │
@@ -119,7 +122,7 @@ kohli-analytics/
 │
 ├── public/
 │   ├── assets/                         # Static assets (topology, etc.)
-│   └── fonts/                          # Self-hosted Barlow Condensed
+│   └── fonts/                          # Self-hosted DM Sans & Manrope
 │
 ├── vite.config.ts                      # Vite + local fixture proxy
 ├── tsconfig.json                       # Project references root
@@ -142,7 +145,7 @@ Cron (08:30 IST & 20:30 IST)
     ├── Ingest & normalize match data
     ├── Derive analytics artifacts
     ├── Verify mathematical invariants
-    ├── Run full test suite (45 + 31 tests)
+    ├── Run full test suite (79 experience + 31 oracle tests)
     ├── Build production bundle
     ├── Auto-commit verified data
     └── Push to main → Vercel auto-deploys
@@ -218,7 +221,7 @@ Format | Matches | Innings | Runs | Average | Centuries | Strike Rate
 ```bash
 # Clone the repository
 git clone https://github.com/rakeshkumar0804/kohli-analytics.git
-cd kohli-analytics
+cd virat-kohli-analytics
 
 # Install dependencies
 npm ci
@@ -245,11 +248,11 @@ npm run dev
 ## 🧪 Testing
 
 ```bash
-# 45 focused dashboard, story, quiz, discovery & fixture tests
-node --test scripts/test-dashboard.mjs scripts/test-dashboard-archive.mjs \
-  scripts/test-dashboard-story.mjs scripts/test-innings-comparison.mjs \
-  scripts/test-discovery.mjs scripts/test-fixture-retry.mjs \
-  scripts/test-cricket-quiz.mjs
+# 79 focused dashboard, story, quiz, discovery, comparison & fixture tests
+npm run test:experience
+
+# 158 unit & mathematical regression tests across 12 suites
+npm test
 
 # 31 independent data integration & oracle tests
 npm run test:data-integration

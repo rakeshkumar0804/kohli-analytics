@@ -37,8 +37,6 @@ export interface LegendFullProfile {
   country: string;
   color: string;
   flag: string;
-  innings: Record<CricketFormat, number>;
-  lastUpdated: string;
   formats: Record<CricketFormat, LegendFormatProfile>;
 }
 
@@ -93,8 +91,6 @@ export const ALL_RADAR_PLAYERS_FORMATTED: LegendFullProfile[] = [
     country: 'India',
     color: '#FFD700',
     flag: '🇮🇳',
-    innings: { ODI: 302, TEST: 210, T20I: 117 },
-    lastUpdated: 'Oct 2026',
     formats: {
       ODI: buildFormatProfile('ODI', {
         battingAvg: 59.14,
@@ -129,8 +125,6 @@ export const ALL_RADAR_PLAYERS_FORMATTED: LegendFullProfile[] = [
     country: 'India',
     color: '#E8153A',
     flag: '🇮🇳',
-    innings: { ODI: 452, TEST: 329, T20I: 1 },
-    lastUpdated: 'Career complete',
     formats: {
       ODI: buildFormatProfile('ODI', {
         battingAvg: 44.83,
@@ -165,8 +159,6 @@ export const ALL_RADAR_PLAYERS_FORMATTED: LegendFullProfile[] = [
     country: 'Australia',
     color: '#F5B800',
     flag: '🇦🇺',
-    innings: { ODI: 131, TEST: 202, T20I: 13 },
-    lastUpdated: 'Oct 2026',
     formats: {
       ODI: buildFormatProfile('ODI', {
         battingAvg: 43.34,
@@ -201,8 +193,6 @@ export const ALL_RADAR_PLAYERS_FORMATTED: LegendFullProfile[] = [
     country: 'England',
     color: '#3B82F6',
     flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-    innings: { ODI: 157, TEST: 305, T20I: 38 },
-    lastUpdated: 'Oct 2026',
     formats: {
       ODI: buildFormatProfile('ODI', {
         battingAvg: 49.72,
@@ -237,8 +227,6 @@ export const ALL_RADAR_PLAYERS_FORMATTED: LegendFullProfile[] = [
     country: 'New Zealand',
     color: '#22C55E',
     flag: '🇳🇿',
-    innings: { ODI: 166, TEST: 182, T20I: 75 },
-    lastUpdated: 'Oct 2026',
     formats: {
       ODI: buildFormatProfile('ODI', {
         battingAvg: 47.48,
@@ -273,8 +261,6 @@ export const ALL_RADAR_PLAYERS_FORMATTED: LegendFullProfile[] = [
     country: 'India',
     color: '#0284C7',
     flag: '🇮🇳',
-    innings: { ODI: 263, TEST: 112, T20I: 159 },
-    lastUpdated: 'Oct 2026',
     formats: {
       ODI: buildFormatProfile('ODI', {
         battingAvg: 49.12,
@@ -309,8 +295,6 @@ export const ALL_RADAR_PLAYERS_FORMATTED: LegendFullProfile[] = [
     country: 'Australia',
     color: '#EAB308',
     flag: '🇦🇺',
-    innings: { ODI: 365, TEST: 287, T20I: 2 },
-    lastUpdated: 'Career complete',
     formats: {
       ODI: buildFormatProfile('ODI', {
         battingAvg: 42.03,

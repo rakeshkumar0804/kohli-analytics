@@ -19,7 +19,8 @@
     "data:verify": "node scripts/verify-derived-data.mjs",
     "data:refresh": "node scripts/download-cricsheet.mjs && node scripts/ingest-cricsheet.mjs && node scripts/derive-kohli-analytics.mjs && node scripts/verify-derived-data.mjs",
     "clutch:calibrate": "node scripts/calibrate-clutch-index.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:experience": "node --test --experimental-test-isolation=none scripts/test-dashboard.mjs scripts/test-dashboard-story.mjs scripts/test-dashboard-archive.mjs scripts/test-discovery.mjs scripts/test-innings-comparison.mjs scripts/test-cricket-quiz.mjs scripts/test-data-integration.mjs scripts/test-comparison-snapshots.mjs scripts/test-fixture-retry.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

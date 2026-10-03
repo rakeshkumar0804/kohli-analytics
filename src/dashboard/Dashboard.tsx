@@ -38,6 +38,7 @@ import {
   opponentData,
   allFormatCareerStats,
 } from "../data/kohliData";
+import comparisonSnapshots from "./comparisonSnapshots.json";
 import { ALL_RADAR_PLAYERS_FORMATTED } from "../data/legendsComparisonData";
 import { DEFINING_INNINGS_DATA } from "../data/definingInningsData";
 import {
@@ -737,7 +738,7 @@ function Compare({
     view.metric === "strikeRate" || view.metric === "centuries"
       ? view.metric
       : "battingAvg";
-  const key = format === "Test" ? "TEST" : format;
+
   const labels = {
     battingAvg: "Batting average",
     strikeRate: "Strike rate",
@@ -747,14 +748,9 @@ function Compare({
     selected.includes(p.id),
   ).map((p) => ({
     ...p,
-    stats:
-      p.id === "kohli"
-        ? {
-            battingAvg: statsByFormat[format].average,
-            strikeRate: statsByFormat[format].strikeRate,
-            centuries: statsByFormat[format].centuries,
-          }
-        : p.formats[key].raw,
+    stats: comparisonSnapshots[p.id as keyof typeof comparisonSnapshots].formats[format],
+    source: comparisonSnapshots[p.id as keyof typeof comparisonSnapshots].source,
+    checkedAt: comparisonSnapshots[p.id as keyof typeof comparisonSnapshots].checkedAt,
   }));
   const max = Math.max(1, ...players.map((p) => p.stats[metric]));
   return (
@@ -803,9 +799,7 @@ function Compare({
         <div>
           <strong>Reference snapshots, not a live leaderboard</strong>
           <p>
-            Peer records come from the existing comparison dataset and may have
-            different cutoffs. Undefined chase-success and consistency scores
-            are excluded.
+            Records checked against Cricbuzz on 2 October 2026. Last-match dates and innings are shown for each player. Eras, roles and sample sizes still differ. These comparison snapshots can be newer than the overview totals and delivery archive.
           </p>
         </div>
       </div>
@@ -906,6 +900,8 @@ function Compare({
               </tr>
             </thead>
             <tbody>
+              <tr><td>Batting innings</td>{players.map(p => <td key={p.id}>{p.stats.innings}</td>)}</tr>
+              <tr><td>Runs</td>{players.map(p => <td key={p.id}>{p.stats.runs.toLocaleString("en-IN")}</td>)}</tr>
               {(Object.keys(labels) as (keyof typeof labels)[]).map((m) => (
                 <tr key={m}>
                   <td>{labels[m]}</td>

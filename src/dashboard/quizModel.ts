@@ -6,6 +6,7 @@ export type Round = {
   answers: Record<string, number>;
   index: number;
   done: boolean;
+  daily?: string;
 };
 function shuffled<T>(a: T[], random = Math.random) {
   const b = [...a];
@@ -15,14 +16,18 @@ function shuffled<T>(a: T[], random = Math.random) {
   }
   return b;
 }
-export function newRound(count: number, random = Math.random): Round {
-  const n = [12, 24, 40].includes(count) ? count : 12;
+export function newRound(
+  count: number,
+  random = Math.random,
+  seen: string[] = [],
+): Round {
+  const n = [8, 12, 24, 40].includes(count) ? count : 12;
   const categories = [...new Set(bank.map((q) => q.category))];
   const buckets = categories.map((c) =>
     shuffled(
       bank.filter((q) => q.category === c),
       random,
-    ),
+    ).sort((a, b) => Number(seen.includes(b.id)) - Number(seen.includes(a.id))),
   );
   const ordered: typeof bank = [];
   while (buckets.some((b) => b.length))
@@ -72,7 +77,7 @@ export function parseRound(raw: string | null): Round | null {
     if (
       !r ||
       !Array.isArray(r.deck) ||
-      ![12, 24, 40].includes(r.deck.length) ||
+      ![8, 12, 24, 40].includes(r.deck.length) ||
       !Number.isInteger(r.index) ||
       r.index < 0 ||
       r.index >= r.deck.length ||
@@ -80,6 +85,13 @@ export function parseRound(raw: string | null): Round | null {
       !r.answers ||
       typeof r.answers !== "object" ||
       Array.isArray(r.answers)
+    )
+      return null;
+    if (
+      r.daily !== undefined &&
+      (typeof r.daily !== "string" ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(r.daily) ||
+        r.deck.length !== 8)
     )
       return null;
     if (
@@ -112,5 +124,37 @@ export function parseRound(raw: string | null): Round | null {
     return r;
   } catch {
     return null;
+  }
+}
+
+// A UTC date and a versioned seed give everyone the same daily deck and options.
+export function dailyRound(day: string): Round {
+  let seed = 2166136261;
+  for (const ch of `daily-v1-${day}`)
+    seed = Math.imul(seed ^ ch.charCodeAt(0), 16777619);
+  const random = () => {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  return { ...newRound(8, random), daily: day };
+}
+export function parseSeen(raw: string | null): string[] {
+  try {
+    const value: unknown = JSON.parse(raw || "[]");
+    return Array.isArray(value)
+      ? [
+          ...new Set(
+            value.filter(
+              (id): id is string =>
+                typeof id === "string" && bank.some((q) => q.id === id),
+            ),
+          ),
+        ]
+      : [];
+  } catch {
+    return [];
   }
 }

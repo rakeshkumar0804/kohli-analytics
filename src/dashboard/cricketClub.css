@@ -788,3 +788,229 @@
     transition: none;
   }
 }
+/* Revision 7: readable context, compact repeat visits and deliberate chart legends. */
+.panel-footnote,
+.section-copy,
+.club-intro p,
+.world-stage p,
+.club-conversations p,
+.gauntlet-start p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #b9c5d5;
+}
+.scatter-marker {
+  fill: #101722 !important;
+  font-size: 11px !important;
+  font-weight: 800;
+}
+.scatter-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 12px 0;
+}
+.scatter-legend > div {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 4px;
+  font-size: 14px;
+}
+.scatter-legend small {
+  grid-column: 2;
+  color: #b9c5d5;
+  font-size: 12px;
+}
+.comparison-provenance {
+  margin: 20px 0;
+  padding: 22px;
+  background: #17212a;
+  border: 1px solid #35444e;
+  border-radius: 12px;
+}
+.comparison-provenance h3 {
+  margin: 0;
+  font-size: 18px;
+}
+.comparison-provenance p {
+  font-size: 14px;
+  color: #b9c5d5;
+}
+.comparison-provenance > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+}
+.comparison-provenance article {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.comparison-provenance article strong {
+  font-size: 15px;
+}
+.comparison-provenance a {
+  color: #ebcc8d;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.club-fastlane {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 22px;
+  border: 1px solid #4f526b;
+  background: linear-gradient(110deg, #262439, #172831);
+  border-radius: 12px;
+}
+.club-fastlane strong {
+  display: block;
+  font-size: 18px;
+  margin-top: 8px;
+}
+.club-fastlane a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+.club-intro.returning {
+  padding: 20px 0;
+}
+.club-intro.returning > svg,
+.club-intro.returning > .eyebrow {
+  display: none;
+}
+.club-intro.returning h2 {
+  font-size: 32px;
+  margin: 12px 0;
+}
+.club-intro.returning h2 br {
+  display: none;
+}
+.chapter-score {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 30px;
+  background: #141b27;
+  border-block: 1px solid #464454;
+}
+.chapter-score strong {
+  display: block;
+  font: 600 30px var(--sport-font);
+  margin-top: 8px;
+}
+.chapter-score span,
+.chapter-moments article > span {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: #c2b2e6;
+}
+.chapter-score p {
+  max-width: 300px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #e3d5fa;
+}
+.chapter-moments {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  padding: 28px 30px;
+}
+.chapter-moments h4 {
+  font: 600 26px var(--sport-font);
+  margin: 12px 0;
+}
+.chapter-moments p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #c0c9d8;
+}
+.chapter-source {
+  padding: 0 30px 20px;
+  font-size: 12px;
+  color: #b9c5d5;
+}
+.chapter-source a {
+  color: #d5bdf4;
+  text-decoration: underline;
+}
+.daily-challenge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px;
+  background: linear-gradient(110deg, #243333, #222b3c);
+  border: 1px solid #52655b;
+  border-radius: 10px;
+  margin: 22px 0;
+}
+.daily-challenge h3 {
+  margin: 10px 0;
+}
+.daily-challenge p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #c2cfda;
+}
+.daily-challenge button {
+  flex-shrink: 0;
+}
+.quiz-discovery-progress {
+  font-size: 14px;
+  color: #c2cfda;
+}
+.quiz-in-progress .gauntlet-banner {
+  padding: 20px 28px;
+}
+.quiz-in-progress .gauntlet-banner h2 {
+  font-size: 30px;
+  margin: 10px 0;
+}
+.quiz-in-progress .gauntlet-banner h2 br {
+  display: none;
+}
+.quiz-in-progress .gauntlet-banner p,
+.quiz-in-progress .gauntlet-seal {
+  display: none;
+}
+@media (max-width: 700px) {
+  .club-fastlane,
+  .daily-challenge,
+  .chapter-score {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .chapter-moments {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 22px;
+  }
+  .chapter-score {
+    padding: 22px;
+  }
+  .club-fastlane a {
+    justify-content: center;
+    white-space: normal;
+  }
+  .scatter-legend {
+    grid-template-columns: 1fr;
+  }
+  .comparison-provenance > div {
+    grid-template-columns: 1fr;
+  }
+  .daily-challenge {
+    padding: 18px;
+  }
+  .club-intro h2 {
+    font-size: 42px;
+  }
+}
+
+.quiz-in-progress .gauntlet-banner h2 em { margin-left: .2em; }

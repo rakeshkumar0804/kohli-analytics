@@ -47,7 +47,7 @@ export function ExploreEntrances({
           <small>BEYOND ONE PLAYER</small>
           <strong>Enter the Cricket Club</strong>
           <p>
-            World Cup stories · flexible player comparisons · the 40-question
+            World Cup stories · flexible player comparisons · the 64-question
             expert gauntlet
           </p>
         </span>

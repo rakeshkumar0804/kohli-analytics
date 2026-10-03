@@ -1,6 +1,36 @@
-# Kohli Analytics — revision 6
+# Kohli Analytics — revision 7 (local review)
 
-Local working copy based on `a9651a81419b750e598f160403f5d25c3d72d406`. No commits, pushes, pull requests or deployments.
+Revision 7 is uncommitted and has not been pushed or deployed.
+
+## Review locally
+
+Extract `Kohli-Analytics-v7.zip`, open `kohli-analytics`, run `npm ci`, then `npm run dev`. Keep your existing server-side `.env.local`; it is excluded from the ZIP. Node 22.12+ or 24 is required.
+
+## Revision 7 changes
+
+- 64 sourced questions; 12/24/40-question practice rounds prioritise unseen questions within each discipline.
+- Daily Eight: deterministic UTC-day questions and shuffled options, two questions per discipline, resume and completed-result review. A perfect 8/8 unlocks the digital trophy. Device storage is optional: the current session remains playable when storage is blocked.
+- First-screen quiz shortcut, compact returning-player introduction and compact active quiz header.
+- Four World Cup chapters now include score summaries and three turning points each, with ICC references.
+- Seven players across three formats use explicitly dated comparison snapshots, innings counts and direct source links. Numbered markers and a separate legend replace overlapping names; focused axes include a visible scale explanation and zero-axis toggle.
+- Larger, brighter supporting text and locally hosted, licensed DM Sans/Manrope fonts.
+
+## Data scope
+
+Comparison records were checked on 2 October 2026. Last match denotes the source’s match start date, not an automated refresh timestamp. Comparison snapshots, overview totals and ball-by-ball archive coverage have distinct cutoffs; the interface explains this. This release does not claim live career statistics or a complete historical delivery archive. Fixture-provider behavior is unchanged, and browser tests use an unavailable-provider fixture.
+
+## Verification
+
+Production build and lint pass. Focused/model and integration verification: 79 tests pass, including reconciliation of all 21 comparison records. 137 browser checks pass: 90 dashboard, 26 quiz/comparison and 21 daily/source/story checks. See `docs/V7_VERIFICATION.md`. Run `npm run test:experience` to repeat the model/integration checks. No claim of an exhaustive accessibility, performance or independent cricket-data audit is made.
+
+Review: Cricket Club → daily challenge → answer → reload → resume. Finish to inspect the answer review and winner reward. Try each World Cup year. In Player comparison, select four players, inspect source details and switch chart axes. Review at desktop, 390px and 320px widths.
+
+---
+
+## Historical revision 6 notes
+
+
+Local working copy based on `a9651a81419b750e598f160403f5d25c3d72d406`. Release authorized by the owner on 2 October 2026. The checks below were performed locally before release.
 
 ## Run locally
 

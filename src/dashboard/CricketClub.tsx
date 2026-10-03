@@ -1,27 +1,102 @@
 import { useState } from "react";
 import { ArrowRight, ArrowUpRight, Globe2 } from "lucide-react";
 import CricketQuiz from "./CricketQuiz";
+import { parseRound, quizKey } from "./quizModel";
 import type { Page, ViewState } from "./model";
+const chapterStories: [string, string, string, [string, string][]][] = [
+  [
+    "India 183",
+    "West Indies 140",
+    "India won by 43 runs",
+    [
+      [
+        "The platform",
+        "Srikkanth’s 38 was India’s highest score. A modest total left the bowlers little room for error.",
+      ],
+      [
+        "The opening",
+        "Sandhu bowled Greenidge for one. Richards then threatened to take the game away.",
+      ],
+      [
+        "The turn",
+        "Kapil’s running catch off Madan Lal removed Richards. Amarnath helped finish the defence.",
+      ],
+    ],
+  ],
+  [
+    "Australia 241/7",
+    "Sri Lanka 245/3",
+    "Sri Lanka won by seven wickets",
+    [
+      [
+        "A strong start",
+        "Australia reached 137/1 before de Silva helped change the innings with the wickets of Taylor and Ponting.",
+      ],
+      [
+        "Two disciplines",
+        "De Silva took 3/42, then returned to make an unbeaten 107 in the chase.",
+      ],
+      [
+        "A new champion",
+        "Sri Lanka completed the chase in 46.2 overs. The final rewarded both recovery and control.",
+      ],
+    ],
+  ],
+  [
+    "Australia 213",
+    "South Africa 213",
+    "Match tied · Australia advanced on Super Six position",
+    [
+      [
+        "The resistance",
+        "Bevan made 65 and Steve Waugh 56. Pollock and Donald shared nine Australian wickets.",
+      ],
+      [
+        "The equation",
+        "South Africa needed nine from the last over. Klusener’s first two boundaries brought the scores level.",
+      ],
+      [
+        "The consequence",
+        "Donald’s run-out left the scores tied. Australia progressed under the tournament’s tie-break rule, not a Super Over.",
+      ],
+    ],
+  ],
+  [
+    "South Africa 281/5",
+    "Target 298 in 43 overs",
+    "New Zealand reached its first men’s World Cup final",
+    [
+      [
+        "Rain changes the chase",
+        "South Africa finished on 281/5 in 43 overs. The adjusted target was 298, not 282.",
+      ],
+      [
+        "The launch",
+        "McCullum’s 59 from 26 balls gave New Zealand a rapid start to a demanding chase.",
+      ],
+      [
+        "The finish",
+        "Elliott hit Steyn for six with one ball remaining. The winning shot settled a rain-adjusted thriller.",
+      ],
+    ],
+  ],
+];
 const chapters = [
   {
     year: "1983",
     title: "The outsiders who changed the game.",
     team: "INDIA",
     detail:
-      "India 183 all out. West Indies 140 all out. Nobody gave Kapil's Devils a chance, but Mohinder Amarnath's 3/12 and a stunning Kapil Dev catch of Viv Richards at 57 turned the final on its head. Roger Binny finished the tournament with 18 wickets — the quiet architect of the upset.",
-    scorecard: "IND 183 · WI 140 · India won by 43 runs",
-    turningPoint: "Kapil Dev's catch to dismiss Viv Richards at 57",
+      "A title built on more than one hero. Revisit the bowling, the support acts and the moments behind the famous trophy lift.",
     source:
-      "https://www.icc-cricket.com/tournaments/cricketworldcup/news/on-this-day-india-win-the-1983-world-cup",
+      "https://www.icc-cricket.com/news/1983-crickets-greatest-underdog-story-scripted-by-kapils-devils",
   },
   {
     year: "1996",
     title: "A new way to win.",
     team: "SRI LANKA",
     detail:
-      "Aravinda de Silva took 3/42 with the ball and then scored an unbeaten 107 in the final — the most complete World Cup final performance ever. Sri Lanka chased down Australia's 241 with 22 balls to spare. Sanath Jayasuriya's explosive 82-ball 44 in the powerplay overs had already redefined how ODIs could begin.",
-    scorecard: "AUS 241/7 · SL 245/3 · Sri Lanka won by 7 wickets",
-    turningPoint: "de Silva's all-round mastery: 3/42 and 107*",
+      "An all-round final from Aravinda de Silva. A tournament that ended with Sri Lanka holding the World Cup.",
     source:
       "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-1996-overview",
   },
@@ -30,9 +105,7 @@ const chapters = [
     title: "One run. A thousand what-ifs.",
     team: "AUSTRALIA / SOUTH AFRICA",
     detail:
-      "Australia 213. South Africa 213. The scores were level, but Allan Donald was run out attempting the winning run — the most dramatic single delivery in World Cup history. Damien Fleming bowled the last over, Lance Klusener smashed two fours, then confusion between the wickets ended South Africa's dream.",
-    scorecard: "AUS 213 · SA 213 · Match tied · AUS advanced",
-    turningPoint: "Donald's run-out off the last ball with scores tied",
+      "A tied semi-final, a frantic run-out, and a place in the final decided by the Super Six table.",
     source:
       "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-1999-overview",
   },
@@ -41,9 +114,7 @@ const chapters = [
     title: "The finish before the final.",
     team: "NEW ZEALAND",
     detail:
-      "Dale Steyn ran in to bowl the penultimate ball of the semi-final. Grant Elliott launched it over long-on for six. New Zealand 300/7. South Africa's World Cup heartbreak continued. Elliott's unbeaten 84 from 73 balls rescued NZ from 149/4 and completed the greatest semi-final chase ever seen.",
-    scorecard: "SA 281/5 · NZ 299/6 · New Zealand won by 4 wickets",
-    turningPoint: "Elliott's penultimate-ball six off Steyn",
+      "Grant Elliott. Dale Steyn. A penultimate-ball six that took New Zealand into its first men’s World Cup final.",
     source:
       "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-2015-overview",
   },
@@ -55,9 +126,41 @@ export default function CricketClub({
 }) {
   const [index, setIndex] = useState(0);
   const c = chapters[index];
+  const [returning] = useState(() => {
+    try {
+      return parseRound(localStorage.getItem(quizKey));
+    } catch {
+      return null;
+    }
+  });
+  const story = chapterStories[index];
   return (
     <div className="cricket-club">
-      <section className="club-intro">
+      <div className="club-fastlane">
+        <div>
+          <span className="eyebrow">YOUR NEXT INNINGS</span>
+          <strong>
+            {returning
+              ? "Pick up where you left off."
+              : "Eight questions. A fresh challenge every day."}
+          </strong>
+        </div>
+        <a
+          className="primary"
+          href="#cricket-gauntlet"
+          onClick={(e) => {
+            e.preventDefault();
+            document
+              .getElementById("cricket-gauntlet")
+              ?.scrollIntoView({ behavior: "auto" });
+            document.getElementById("cricket-gauntlet")?.focus();
+          }}
+        >
+          {returning?.done ? "View your result" : returning ? "Continue quiz" : "Play the daily eight"}
+          <ArrowRight size={17} />
+        </a>
+      </div>
+      <section className={`club-intro ${returning ? "returning" : ""}`}>
         <Globe2 size={26} />
         <span className="eyebrow">
           THE WHOLE GAME / A PLACE FOR CRICKET PEOPLE
@@ -85,17 +188,7 @@ export default function CricketClub({
           <div>
             <span className="eyebrow">{c.team} / WORLD CUP MEMORY</span>
             <h3>{c.title}</h3>
-            {c.scorecard && (
-              <p style={{ fontFamily: 'var(--sport-font)', fontSize: '14px', color: '#e2bd7c', margin: '12px 0 8px', letterSpacing: '0.5px' }}>
-                📊 {c.scorecard}
-              </p>
-            )}
             <p>{c.detail}</p>
-            {c.turningPoint && (
-              <p style={{ fontSize: '12px', color: '#8dc6b5', marginTop: '10px', fontStyle: 'italic' }}>
-                ⚡ Turning point: {c.turningPoint}
-              </p>
-            )}
             <a href={c.source} target="_blank" rel="noreferrer">
               Read the ICC retrospective
               <ArrowUpRight size={15} />
@@ -103,6 +196,29 @@ export default function CricketClub({
           </div>
           <strong aria-hidden="true">{c.year.slice(2)}</strong>
         </div>
+        <div className="chapter-score">
+          <div>
+            <span>IN THE SCOREBOOK</span>
+            <strong>{story[0]}</strong>
+            <strong>{story[1]}</strong>
+          </div>
+          <p>{story[2]}</p>
+        </div>
+        <div className="chapter-moments">
+          {story[3].map(([title, body], i) => (
+            <article key={title}>
+              <span>0{i + 1} / TURNING POINT</span>
+              <h4>{title}</h4>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+        <p className="chapter-source">
+          Match summary and editorial turning points ·{" "}
+          <a href={c.source} target="_blank" rel="noreferrer">
+            ICC historical source ↗
+          </a>
+        </p>
       </section>
       <div className="club-conversations">
         <button

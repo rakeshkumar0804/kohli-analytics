@@ -598,5 +598,365 @@
     "explanation": "200 runs from 150 balls gives 133.33, not an unweighted mean of 200 and 100.",
     "source": "#/sources",
     "sourceLabel": "Worked scoring example · hypothetical"
+  },
+  {
+    "id": "q41",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Punjab Kings on 2024-05-09, which bowler did Kohli face for 11 balls and score 18 runs against?",
+    "options": [
+      "V Kaverappa",
+      "Arshdeep Singh",
+      "LS Livingstone",
+      "SM Curran"
+    ],
+    "answer": 0,
+    "explanation": "The archived matchup records 18 runs from 11 balls against V Kaverappa.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1426296 · delivered archive"
+  },
+  {
+    "id": "q42",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Gujarat Titans on 2024-04-28, how many of his runs came from fours and sixes combined?",
+    "options": [
+      "42",
+      "48",
+      "38",
+      "52"
+    ],
+    "answer": 0,
+    "explanation": "6 fours × 4 + 3 sixes × 6 = 42 boundary runs.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1426283 · delivered archive"
+  },
+  {
+    "id": "q43",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Rajasthan Royals on 2024-04-06, which bowler delivered the most balls to Kohli?",
+    "options": [
+      "Avesh Khan",
+      "N Burger",
+      "R Ashwin",
+      "YS Chahal"
+    ],
+    "answer": 0,
+    "explanation": "The archived matchup records 39 runs from 17 balls against Avesh Khan.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1422137 · delivered archive"
+  },
+  {
+    "id": "q44",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Kolkata Knight Riders on 2024-03-29, how many of his runs came from fours and sixes combined?",
+    "options": [
+      "40",
+      "46",
+      "36",
+      "50"
+    ],
+    "answer": 0,
+    "explanation": "4 fours × 4 + 4 sixes × 6 = 40 boundary runs.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1422128 · delivered archive"
+  },
+  {
+    "id": "q45",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Punjab Kings on 2024-03-25, which bowler did Kohli face for 11 balls and score 18 runs against?",
+    "options": [
+      "SM Curran",
+      "HV Patel",
+      "Harpreet Brar",
+      "K Rabada"
+    ],
+    "answer": 0,
+    "explanation": "The archived matchup records 18 runs from 11 balls against SM Curran.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1422124 · delivered archive"
+  },
+  {
+    "id": "q46",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Gujarat Titans on 2023-05-21, how many of his runs came from fours and sixes combined?",
+    "options": [
+      "58",
+      "64",
+      "54",
+      "68"
+    ],
+    "answer": 0,
+    "explanation": "13 fours × 4 + 1 sixes × 6 = 58 boundary runs.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1359544 · delivered archive"
+  },
+  {
+    "id": "q47",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Sunrisers Hyderabad on 2023-05-18, which bowler delivered the most balls to Kohli?",
+    "options": [
+      "B Kumar",
+      "Mayank Dagar",
+      "Abhishek Sharma",
+      "T Natarajan"
+    ],
+    "answer": 0,
+    "explanation": "The archived matchup records 34 runs from 19 balls against B Kumar.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1359539 · delivered archive"
+  },
+  {
+    "id": "q48",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Mumbai Indians on 2023-04-02, how many of his runs came from fours and sixes combined?",
+    "options": [
+      "54",
+      "60",
+      "50",
+      "64"
+    ],
+    "answer": 0,
+    "explanation": "6 fours × 4 + 5 sixes × 6 = 54 boundary runs.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1359479 · delivered archive"
+  },
+  {
+    "id": "q49",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Gujarat Titans on 2022-05-19, which bowler delivered the most balls to Kohli?",
+    "options": [
+      "R Sai Kishore",
+      "Rashid Khan",
+      "Yash Dayal",
+      "HH Pandya"
+    ],
+    "answer": 0,
+    "explanation": "The archived matchup records 8 runs from 14 balls against R Sai Kishore.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1304113 · delivered archive"
+  },
+  {
+    "id": "q50",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Rajasthan Royals on 2021-04-22, how many of his runs came from fours and sixes combined?",
+    "options": [
+      "42",
+      "48",
+      "38",
+      "52"
+    ],
+    "answer": 0,
+    "explanation": "6 fours × 4 + 3 sixes × 6 = 42 boundary runs.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1254073 · delivered archive"
+  },
+  {
+    "id": "q51",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Chennai Super Kings on 2020-10-10, which bowler did Kohli face for 11 balls and score 25 runs against?",
+    "options": [
+      "SN Thakur",
+      "DJ Bravo",
+      "SM Curran",
+      "KV Sharma"
+    ],
+    "answer": 0,
+    "explanation": "The archived matchup records 25 runs from 11 balls against SN Thakur.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1216525 · delivered archive"
+  },
+  {
+    "id": "q52",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Rajasthan Royals on 2020-10-03, how many of his runs came from fours and sixes combined?",
+    "options": [
+      "40",
+      "46",
+      "36",
+      "50"
+    ],
+    "answer": 0,
+    "explanation": "7 fours × 4 + 2 sixes × 6 = 40 boundary runs.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1216514 · delivered archive"
+  },
+  {
+    "id": "q53",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Kolkata Knight Riders on 2019-04-19, which bowler did Kohli face for 13 balls and score 24 runs against?",
+    "options": [
+      "HF Gurney",
+      "SP Narine",
+      "M Prasidh Krishna",
+      "AD Russell"
+    ],
+    "answer": 0,
+    "explanation": "The archived matchup records 24 runs from 13 balls against HF Gurney.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1178410 · delivered archive"
+  },
+  {
+    "id": "q54",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Kolkata Knight Riders on 2019-04-05, how many of his runs came from fours and sixes combined?",
+    "options": [
+      "48",
+      "54",
+      "44",
+      "58"
+    ],
+    "answer": 0,
+    "explanation": "9 fours × 4 + 2 sixes × 6 = 48 boundary runs.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1175372 · delivered archive"
+  },
+  {
+    "id": "q55",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Delhi Daredevils on 2018-05-12, which bowler delivered the most balls to Kohli?",
+    "options": [
+      "CJ Dala",
+      "S Lamichhane",
+      "HV Patel",
+      "TA Boult"
+    ],
+    "answer": 0,
+    "explanation": "The archived matchup records 24 runs from 11 balls against CJ Dala.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1136605 · delivered archive"
+  },
+  {
+    "id": "q56",
+    "category": "Deep archive",
+    "prompt": "In the covered IPL innings against Mumbai Indians on 2018-04-17, how many of his runs came from fours and sixes combined?",
+    "options": [
+      "52",
+      "58",
+      "48",
+      "62"
+    ],
+    "answer": 0,
+    "explanation": "7 fours × 4 + 4 sixes × 6 = 52 boundary runs.",
+    "source": "https://cricsheet.org/downloads/",
+    "sourceLabel": "Cricsheet IPL · match 1136574 · delivered archive"
+  },
+  {
+    "id": "q57",
+    "category": "World cricket",
+    "prompt": "Which country made its men’s World Cup debut in 2015?",
+    "options": [
+      "Afghanistan",
+      "Ireland",
+      "Bangladesh",
+      "Kenya"
+    ],
+    "answer": 0,
+    "explanation": "Afghanistan qualified for the tournament for the first time.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-2015-overview",
+    "sourceLabel": "ICC 2015 tournament overview"
+  },
+  {
+    "id": "q58",
+    "category": "World cricket",
+    "prompt": "What was New Zealand’s adjusted target in the rain-affected 2015 semi-final?",
+    "options": [
+      "298 in 43 overs",
+      "282 in 43 overs",
+      "299 in 50 overs",
+      "281 in 43 overs"
+    ],
+    "answer": 0,
+    "explanation": "South Africa made 281/5; the adjusted target was 298 in 43 overs.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-2015-overview",
+    "sourceLabel": "ICC 2015 tournament overview"
+  },
+  {
+    "id": "q59",
+    "category": "World cricket",
+    "prompt": "Who partnered Steve Smith in a 182-run second-wicket stand in the 2015 semi-final against India?",
+    "options": [
+      "Aaron Finch",
+      "David Warner",
+      "Michael Clarke",
+      "Shane Watson"
+    ],
+    "answer": 0,
+    "explanation": "Finch and Smith built the second-wicket partnership.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-2015-overview",
+    "sourceLabel": "ICC 2015 tournament overview"
+  },
+  {
+    "id": "q60",
+    "category": "World cricket",
+    "prompt": "Which two bowlers shared the top wicket tally at the 2015 men’s World Cup?",
+    "options": [
+      "Mitchell Starc and Trent Boult",
+      "Tim Southee and Mitchell Starc",
+      "Trent Boult and Morne Morkel",
+      "Mitchell Johnson and Tim Southee"
+    ],
+    "answer": 0,
+    "explanation": "Starc and Boult each finished with 22 wickets.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/mens-cricket-world-cup-2015-overview",
+    "sourceLabel": "ICC 2015 tournament overview"
+  },
+  {
+    "id": "q61",
+    "category": "World cricket",
+    "prompt": "Who took five wickets in Australia’s innings in the 1999 World Cup semi-final?",
+    "options": [
+      "Shaun Pollock",
+      "Allan Donald",
+      "Lance Klusener",
+      "Jacques Kallis"
+    ],
+    "answer": 0,
+    "explanation": "Pollock returned 5/36; Donald took four wickets.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/beyond-birmingham-the-greatest-matches-in-world-cup-history",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q62",
+    "category": "World cricket",
+    "prompt": "Who top-scored for Australia in the tied 1999 World Cup semi-final?",
+    "options": [
+      "Michael Bevan",
+      "Steve Waugh",
+      "Ricky Ponting",
+      "Adam Gilchrist"
+    ],
+    "answer": 0,
+    "explanation": "Bevan made 65; Steve Waugh made 56.",
+    "source": "https://www.icc-cricket.com/tournaments/cricketworldcup/news/beyond-birmingham-the-greatest-matches-in-world-cup-history",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q63",
+    "category": "World cricket",
+    "prompt": "Which three Australian batters were dismissed by Aravinda de Silva in the 1996 World Cup final?",
+    "options": [
+      "Mark Taylor, Ricky Ponting and Ian Healy",
+      "Mark Taylor, Steve Waugh and Michael Bevan",
+      "Mark Waugh, Ricky Ponting and Ian Healy",
+      "Stuart Law, Michael Bevan and Shane Warne"
+    ],
+    "answer": 0,
+    "explanation": "Taylor, Ponting and Healy were de Silva’s three wickets.",
+    "source": "https://www.icc-cricket.com/news/aravinda-de-silva-sri-lanka-all-rounder-that-starred-on-the-biggest-stage",
+    "sourceLabel": "ICC historical archive"
+  },
+  {
+    "id": "q64",
+    "category": "World cricket",
+    "prompt": "Who made 47 not out alongside de Silva in the winning stand of the 1996 World Cup final?",
+    "options": [
+      "Arjuna Ranatunga",
+      "Asanka Gurusinha",
+      "Roshan Mahanama",
+      "Hashan Tillakaratne"
+    ],
+    "answer": 0,
+    "explanation": "Ranatunga finished unbeaten on 47 as Sri Lanka reached 245/3.",
+    "source": "https://www.icc-cricket.com/news/six-months-to-cwc-2011-final",
+    "sourceLabel": "ICC historical archive"
   }
 ]

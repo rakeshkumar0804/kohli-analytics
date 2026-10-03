@@ -10,6 +10,8 @@ import {
   BookOpen,
 } from "lucide-react";
 import {
+  dailyRound,
+  parseSeen,
   answerRound,
   isWinner,
   newRound,
@@ -55,7 +57,9 @@ function Winner({
       ref={modal}
       className="winner-arena"
       aria-labelledby="winner-title"
-      onClose={(event) => { if (!event.currentTarget.open) close(); }}
+      onClose={(event) => {
+        if (!event.currentTarget.open) close();
+      }}
     >
       <button
         className="winner-close icon-button"
@@ -121,17 +125,38 @@ export default function CricketQuiz() {
       return null;
     }
   });
+  const [seen, setSeen] = useState<string[]>(() => {
+    try {
+      return parseSeen(localStorage.getItem("cricket-seen-v1"));
+    } catch {
+      return [];
+    }
+  });
+  const [today, setToday] = useState(() =>
+    new Date().toISOString().slice(0, 10),
+  );
+  useEffect(() => {
+    const tick = setInterval(
+      () => setToday(new Date().toISOString().slice(0, 10)),
+      30000,
+    );
+    return () => clearInterval(tick);
+  }, []);
+  const [dailySave, setDailySave] = useState<Round | null>(() => {
+    try {
+      return parseRound(localStorage.getItem("cricket-daily-v1"));
+    } catch {
+      return null;
+    }
+  });
+  function startDaily() {
+    const day = new Date().toISOString().slice(0, 10);
+    setToday(day);
+    setRound(dailySave?.daily === day ? dailySave : dailyRound(day));
+  }
   const [size, setSize] = useState(12);
   const [celebrate, setCelebrate] = useState(false);
   const [storage, setStorage] = useState(true);
-  const [seenCount, setSeenCount] = useState(() => {
-    try {
-      const raw = localStorage.getItem("cricket-gauntlet-seen");
-      return raw ? (JSON.parse(raw) as string[]).length : 0;
-    } catch {
-      return 0;
-    }
-  });
   const [best, setBest] = useState(() => {
     try {
       return Number(localStorage.getItem("cricket-gauntlet-best")) || 0;
@@ -141,9 +166,23 @@ export default function CricketQuiz() {
   });
   const questionRef = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
+    if (round?.daily) setDailySave(round);
+    if (round) setSeen(previous => [...new Set([...previous, ...Object.keys(round.answers)])]);
     try {
-      if (round) localStorage.setItem(quizKey, JSON.stringify(round));
-      else localStorage.removeItem(quizKey);
+      if (round) {
+        localStorage.setItem(quizKey, JSON.stringify(round));
+        if (round.daily) {
+          localStorage.setItem("cricket-daily-v1", JSON.stringify(round));
+        }
+        const ids = [
+          ...new Set([
+            ...parseSeen(localStorage.getItem("cricket-seen-v1")),
+            ...Object.keys(round.answers),
+          ]),
+        ];
+        localStorage.setItem("cricket-seen-v1", JSON.stringify(ids));
+        setSeen(ids);
+      } else localStorage.removeItem(quizKey);
     } catch {
       setStorage(false);
     }
@@ -160,19 +199,6 @@ export default function CricketQuiz() {
       }
     }
   }, [round, best]);
-  // Track unique seen questions across all rounds
-  useEffect(() => {
-    if (!round?.done) return;
-    try {
-      const raw = localStorage.getItem("cricket-gauntlet-seen");
-      const seen = new Set<string>(raw ? JSON.parse(raw) : []);
-      round.deck.forEach((d) => seen.add(d.id));
-      localStorage.setItem("cricket-gauntlet-seen", JSON.stringify([...seen]));
-      setSeenCount(seen.size);
-    } catch {
-      /* storage unavailable */
-    }
-  }, [round]);
   const current = round?.deck[round.index];
   const q = questions.find((q) => q.id === current?.id);
   const chosen = q && round ? round.answers[q.id] : undefined;
@@ -187,13 +213,15 @@ export default function CricketQuiz() {
   }
   return (
     <section
-      className="cricket-quiz story-quiz"
+      id="cricket-gauntlet"
+      tabIndex={-1}
+      className={`cricket-quiz story-quiz ${round ? "quiz-in-progress" : ""}`}
       aria-label="The Cricket Gauntlet"
     >
       <div className="gauntlet-banner">
         <div>
           <span className="eyebrow">
-            BEYOND THE HIGHLIGHT REEL / 40 QUESTIONS
+            BEYOND THE HIGHLIGHT REEL / {questions.length} QUESTIONS
           </span>
           <h2>
             The Cricket
@@ -204,16 +232,6 @@ export default function CricketQuiz() {
             History. Laws. The overlooked details.
             <br />A challenge for people who stay after the highlights.
           </p>
-          {round && !round.done && (
-            <button
-              className="primary"
-              style={{ marginTop: '14px' }}
-              onClick={() => questionRef.current?.focus()}
-            >
-              Continue quiz — Q{round.index + 1}/{round.deck.length}
-              <ArrowRight size={16} />
-            </button>
-          )}
         </div>
         <div className="gauntlet-seal">
           <Trophy size={28} />
@@ -237,7 +255,29 @@ export default function CricketQuiz() {
               Win a surprise digital reward
             </span>
           </div>
-          <h3>Choose your test.</h3>
+          <div className="daily-challenge">
+            <div>
+              <span className="eyebrow">THE DAILY EIGHT · {today} UTC</span>
+              <h3>A level playing field.</h3>
+              <p>
+                Same eight questions for everyone today. Two from each
+                discipline. Resets at midnight UTC.
+              </p>
+            </div>
+            <button className="primary" onClick={startDaily}>
+              {dailySave?.daily === today
+                ? dailySave.done
+                  ? "Review today’s result"
+                  : "Resume daily challenge"
+                : "Play daily challenge"}
+              <ArrowRight size={17} />
+            </button>
+          </div>
+          <p className="quiz-discovery-progress">
+            {seen.length} / {questions.length} questions explored · Practice
+            prioritises questions you haven’t answered.
+          </p>
+          <h3>Or build a practice round.</h3>
           <div className="quiz-modes">
             {[
               [12, "Expert sprint"],
@@ -259,7 +299,7 @@ export default function CricketQuiz() {
           <div className="gauntlet-start">
             <button
               className="primary"
-              onClick={() => setRound(newRound(size))}
+              onClick={() => setRound(newRound(size, Math.random, seen))}
             >
               Enter the gauntlet
               <ArrowRight size={17} />
@@ -268,9 +308,8 @@ export default function CricketQuiz() {
               Win with {Math.ceil(size * 0.9)}/{size}. No timer. Every answer
               has an explanation.
               <br />
-              {best > 0 ? `Your best on this device: ${best}%. ` : ""}
-              {seenCount > 0 ? `${seenCount}/40 questions seen. ` : ""}
-              Progress stays on this device.
+              {best > 0 ? `Your best on this device: ${best}%. ` : ""}Progress
+              stays on this device.
             </p>
           </div>
         </div>
@@ -278,7 +317,11 @@ export default function CricketQuiz() {
         <div className="gauntlet-result">
           <div className="result-heading">
             <div>
-              <span className="eyebrow">INNINGS COMPLETE</span>
+              <span className="eyebrow">
+                {round.daily
+                  ? `DAILY EIGHT · ${round.daily} UTC`
+                  : "INNINGS COMPLETE"}
+              </span>
               <h3 ref={questionRef} tabIndex={-1}>
                 {isWinner(round)
                   ? "You earned your place."
@@ -365,6 +408,11 @@ export default function CricketQuiz() {
         </div>
       ) : q && current ? (
         <div className="gauntlet-play">
+          {round.daily && (
+            <p className="daily-round-label">
+              Daily eight · {round.daily} UTC · 8/8 unlocks the reward
+            </p>
+          )}
           <div className="quiz-progress-label">
             <span>
               Question {round.index + 1} of {total}

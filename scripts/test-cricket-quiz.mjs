@@ -1,6 +1,8 @@
 import { it } from "node:test";
 import assert from "node:assert/strict";
 import {
+  dailyRound,
+  parseSeen,
   questions,
   newRound,
   answerRound,
@@ -10,9 +12,9 @@ import {
   isWinner,
 } from "../src/dashboard/quizModel.ts";
 import { readView, viewHash } from "../src/dashboard/model.ts";
-it("40 unique sourced questions cover four disciplines with four distinct answers", () => {
-  assert.equal(questions.length, 40);
-  assert.equal(new Set(questions.map((q) => q.id)).size, 40);
+it("64 unique sourced questions cover four disciplines with four distinct answers", () => {
+  assert.equal(questions.length, 64);
+  assert.equal(new Set(questions.map((q) => q.id)).size, 64);
   assert.equal(new Set(questions.map((q) => q.category)).size, 4);
   for (const q of questions) {
     assert.equal(new Set(q.options).size, 4);
@@ -91,4 +93,32 @@ it("comparison focus survives sharing and does not require Kohli", () => {
   assert.equal(v.focusA, "root");
   assert.equal(v.focusB, "williamson");
   assert.equal(readView("#/club").page, "club");
+});
+
+it("daily decks are date deterministic, balanced, and resume with their identity", () => {
+  const a = dailyRound("2026-10-02"),
+    b = dailyRound("2026-10-02"),
+    c = dailyRound("2026-10-03");
+  assert.deepEqual(a, b);
+  assert.notDeepEqual(a.deck, c.deck);
+  assert.equal(a.deck.length, 8);
+  for (const category of new Set(questions.map((q) => q.category)))
+    assert.equal(
+      a.deck.filter(
+        (d) => questions.find((q) => q.id === d.id).category === category,
+      ).length,
+      2,
+    );
+  assert.deepEqual(parseRound(JSON.stringify(a)), a);
+  assert.equal(parseRound(JSON.stringify({ ...a, daily: "bad" })), null);
+});
+it("practice prioritises unseen questions within each discipline", () => {
+  const first = newRound(12);
+  const ids = first.deck.map((d) => d.id);
+  const next = newRound(12, Math.random, ids);
+  assert.ok(next.deck.every((d) => !ids.includes(d.id)));
+  assert.deepEqual(parseSeen(JSON.stringify([ids[0], ids[0], "unknown", 7])), [
+    ids[0],
+  ]);
+  assert.deepEqual(parseSeen("broken"), []);
 });
