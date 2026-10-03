@@ -230,14 +230,14 @@
         "lastMatch": "2025-01-03"
       },
       "ODI": {
-        "innings": 304,
-        "runs": 15109,
-        "balls": 16010,
+        "innings": 303,
+        "runs": 15080,
+        "balls": 15991,
         "notOuts": 48,
-        "battingAvg": 59.02,
-        "strikeRate": 94.38,
+        "battingAvg": 59.14,
+        "strikeRate": 94.3,
         "centuries": 55,
-        "lastMatch": "2026-09-30"
+        "lastMatch": "2026-09-27"
       },
       "T20I": {
         "innings": 117,

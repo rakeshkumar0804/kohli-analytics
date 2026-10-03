@@ -32,3 +32,4 @@ data/normalized/*
 *.zip
 *.tmp
 *.tmp.*
+preview/

@@ -935,10 +935,16 @@ function InningsDetail({
   toggleSave: () => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const triggerRef = useRef<HTMLElement | null>(
+    typeof document !== "undefined" ? (document.activeElement as HTMLElement | null) : null
+  );
   useEffect(() => {
     const d = dialog.current;
     d?.showModal();
-    return () => d?.close();
+    return () => {
+      d?.close();
+      triggerRef.current?.focus();
+    };
   }, []);
   return (
     <dialog
@@ -1526,7 +1532,7 @@ export default function Dashboard() {
             <div>
               Virat Kohli<small>India · Right-hand bat</small>
             </div>
-            <span className="india-mark" aria-label="India" />
+            <span className="india-mark" role="img" aria-label="India" />
           </div>
         </div>
       </aside>
@@ -1553,6 +1559,7 @@ export default function Dashboard() {
           <div className="topbar-actions">
             <button
               className="quick-search"
+              aria-label="Find an innings"
               onClick={() => navigate("innings")}
             >
               <Search size={16} />

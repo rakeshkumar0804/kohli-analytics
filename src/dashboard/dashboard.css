@@ -907,6 +907,14 @@ select {
 .fixture > .text-button {
   margin-left: auto;
 }
+.loading {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a0aaba;
+  font-size: 14px;
+}
 .app-footer {
   display: flex;
   align-items: center;
@@ -1099,8 +1107,9 @@ td.strong {
   min-width: 0;
 }
 .rank {
-  font-size: 10px;
-  color: #717b8b;
+  font-size: 13px;
+  color: #a8b8cc;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 .opponent-label {
@@ -1369,16 +1378,18 @@ details p {
 }
 .heat-corner,
 .heat-heading {
-  font-size: 10px;
-  color: #acb3bf;
+  font-size: 13px;
+  color: #cbd5e1;
   text-align: center;
   padding: 0 0 13px;
+  font-weight: 600;
 }
 .heat-heading small {
   display: block;
-  font-size: 10px;
-  color: #757f8f;
+  font-size: 12px;
+  color: #a8b8cc;
   margin-top: 5px;
+  font-weight: 400;
 }
 .heat-corner {
   text-align: left;
@@ -1415,13 +1426,16 @@ details p {
 }
 .heat-cell strong {
   font:
-    600 20px "Manrope",
+    700 20px "Manrope",
     sans-serif;
-  color: #f0d6cb;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 .heat-cell small {
-  font-size: 10px;
-  color: #bb9d95;
+  font-size: 12px;
+  color: #f5ece8;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 .heat-cell.thin {
   background: repeating-linear-gradient(
@@ -2153,10 +2167,14 @@ details p {
   }
   .sidebar-scrim {
     position: fixed;
-    inset: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 255px;
     background: #05070bbc;
     z-index: 39;
     border: 0;
+    cursor: pointer;
   }
   .main-shell {
     margin-left: 0;

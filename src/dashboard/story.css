@@ -541,8 +541,12 @@ body {
   position: absolute;
   right: 12px;
   top: 14px;
-  font-size: 9px;
-  color: #737078;
+  font-size: 11px;
+  color: #aeb8c8;
+  font-weight: 600;
+}
+.era-selector button.active > span {
+  color: #ebd19b;
 }
 .era-selector strong {
   font-family: var(--sport-font);
@@ -700,8 +704,8 @@ body {
   gap: 16px;
 }
 .chapter-next > span {
-  font-size: 11px;
-  color: #a09c9c;
+  font-size: 13px;
+  color: #cbd5e1;
 }
 .chapter-next strong {
   display: block;
@@ -1189,8 +1193,8 @@ body {
 }
 .story-timeline summary > span {
   margin-left: auto;
-  color: #8c94a2;
-  font-size: 10px;
+  color: #cbd5e1;
+  font-size: 12px;
 }
 .story-timeline > div {
   padding: 15px 25px;

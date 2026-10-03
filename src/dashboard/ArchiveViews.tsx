@@ -26,6 +26,7 @@ import {
   number,
   displayDate,
   statsByFormat,
+  formatArchiveCutoffs,
   type Page,
   type ViewState,
 } from "./model";
@@ -126,6 +127,9 @@ export function ArchiveDetail({
   toggleSave?: () => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const triggerRef = useRef<HTMLElement | null>(
+    typeof document !== "undefined" ? (document.activeElement as HTMLElement | null) : null
+  );
   const [detail, setDetail] = useState<{
     progress: {
       over: number;
@@ -149,7 +153,10 @@ export function ArchiveDetail({
   useEffect(() => {
     const d = dialog.current;
     d?.showModal();
-    return () => d?.close();
+    return () => {
+      d?.close();
+      triggerRef.current?.focus();
+    };
   }, []);
   useEffect(() => {
     let active = true;
@@ -271,7 +278,12 @@ export function ArchiveDetail({
           </p>
           <details>
             <summary>Over-by-over values</summary>
-            <div className="table-scroll detail-over-table">
+            <div
+              className="table-scroll detail-over-table"
+              tabIndex={0}
+              role="region"
+              aria-label="Over by over details table"
+            >
               <table>
                 <thead>
                   <tr>
@@ -298,7 +310,12 @@ export function ArchiveDetail({
           </details>
         </>
       ) : (
-        <div className="table-scroll">
+        <div
+          className="table-scroll"
+          tabIndex={0}
+          role="region"
+          aria-label="Bowlers faced table"
+        >
           <table>
             <thead>
               <tr>
@@ -799,7 +816,7 @@ export function ArchiveLibrary({
                 {rows.length
                   ? `${page * 15 + 1}–${Math.min(rows.length, page * 15 + 15)} of ${rows.length} innings`
                   : "0 innings"}{" "}
-                · Archive through 19 Jul 2026
+                · {formatArchiveCutoffs[view.format] || "Archive through 19 Jul 2026"}
               </span>
               <div>
                 <button
@@ -1425,7 +1442,12 @@ export function BowlerLab({ format }: { format: "ODI" | "Test" | "T20I" }) {
           <option value="outs">Most dismissals</option>
         </select>
       </div>
-      <div className="table-scroll">
+      <div
+        className="table-scroll"
+        tabIndex={0}
+        role="region"
+        aria-label="Bowler matchups table"
+      >
         <table>
           <thead>
             <tr>

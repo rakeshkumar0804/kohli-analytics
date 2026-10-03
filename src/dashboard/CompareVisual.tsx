@@ -274,7 +274,13 @@ export function CompareVisual({
           )}
           <p className="panel-footnote">
             Differences use stored records. Players may have different career
-            cutoffs and very different sample sizes.
+            cutoffs and sample sizes.
+            {focus && peer && (
+              <>
+                {" "}
+                {focus.shortName}: {focus.stats.innings} inn. (last match: {focus.stats.lastMatch}) · {peer.shortName}: {peer.stats.innings} inn. (last match: {peer.stats.lastMatch}) · Checked: {focus.checkedAt}
+              </>
+            )}
           </p>
         </Panel>
       </div>

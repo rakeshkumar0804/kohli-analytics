@@ -54,7 +54,7 @@ main {
   font-size: 30px;
 }
 .stat-label {
-  font-size: 11px;
+  font-size: 13px;
 }
 .sidebar {
   background: #12171e;
@@ -65,12 +65,14 @@ main {
 }
 .notice p {
   max-width: 900px;
+  font-size: 14px;
+  line-height: 1.6;
 }
 .quiet-scope,
 .panel-footnote {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.65;
-  color: #9ba6b7;
+  color: #a2afc0;
 }
 .quiet-scope {
   margin: 14px 0 20px;
@@ -82,7 +84,7 @@ main {
   background: transparent;
   border: 0;
   color: #e89b89;
-  font-size: 11px;
+  font-size: 13px;
   padding: 4px 0;
 }
 .player-command {
@@ -222,13 +224,13 @@ main {
   color: #efa18a;
 }
 .recent-form small {
-  font-size: 9px;
-  color: #93a1b3;
+  font-size: 11px;
+  color: #9eb0c6;
 }
 .archive-table table {
   min-width: 650px;
   width: 100%;
-  font-size: 11px;
+  font-size: 13px;
 }
 .recent-panel .archive-table table {
   min-width: 480px;
@@ -237,18 +239,18 @@ main {
   padding: 11px 8px;
 }
 .archive-table th {
-  font-size: 9px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.6px;
   padding: 10px 8px;
 }
 .archive-table td:first-child {
   white-space: nowrap;
-  font-size: 10px;
+  font-size: 12px;
 }
 .format-inline {
   display: block;
-  font-size: 9px;
+  font-size: 11px;
   margin-top: 5px;
 }
 .row-match {
@@ -260,15 +262,15 @@ main {
   padding: 0;
   color: #e2e8f0;
   text-align: left;
-  font-size: 11px;
+  font-size: 13px;
 }
 .row-match > span:last-child {
   min-width: 0;
 }
 .row-match small {
   display: block;
-  font-size: 9px;
-  color: #92a0b2;
+  font-size: 12px;
+  color: #a0b2c8;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -310,8 +312,8 @@ main {
   white-space: nowrap;
 }
 .score-button small {
-  font-size: 10px;
-  color: #95a1b2;
+  font-size: 12px;
+  color: #a5b4c6;
   margin-left: 4px;
   font-weight: 400;
 }
@@ -325,9 +327,9 @@ main {
   display: inline-block;
   padding: 4px 7px;
   border-radius: 4px;
-  color: #b5bfcc;
+  color: #cbd5e1;
   background: #2b303a;
-  font-size: 9px;
+  font-size: 11px;
   text-transform: capitalize;
   white-space: nowrap;
 }
@@ -991,7 +993,7 @@ main {
   overflow: auto;
 }
 .detail-story {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.8;
   color: #bdc7d5;
   margin: 15px 0;

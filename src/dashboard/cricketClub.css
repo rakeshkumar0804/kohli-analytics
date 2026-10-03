@@ -256,16 +256,19 @@
   font: 600 40px var(--sport-font);
 }
 .quiz-modes span {
-  font-size: 13px;
+  font-size: 14px;
 }
 .quiz-modes small {
-  font-size: 9px;
-  color: #8795aa;
+  font-size: 12px;
+  color: #a6b5c9;
 }
 .quiz-modes button.active {
   background: #352c25;
   border-color: #c8a96c;
-  color: #e8c784;
+  color: #f1dfba;
+}
+.quiz-modes button.active small {
+  color: #edd5a8;
 }
 .gauntlet-start {
   display: flex;

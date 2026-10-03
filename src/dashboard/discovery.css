@@ -103,19 +103,22 @@
   border-radius: 7px;
   color: #b5becd;
   padding: 11px 14px;
-  font-size: 11px;
+  font-size: 14px;
   display: flex;
   align-items: center;
   gap: 12px;
 }
 .lens-list button span {
-  font-size: 10px;
-  color: #8493a7;
+  font-size: 12px;
+  color: #a4b3c7;
 }
 .lens-list button.active {
   background: #203a37;
   color: #c3e9da;
   border-color: #5a9383;
+}
+.lens-list button.active span {
+  color: #a7dfcc;
 }
 .lab-active {
   display: flex;
@@ -590,15 +593,16 @@
   color: var(--score);
 }
 .season-matches > button > span {
-  font-size: 8px;
-  color: #7d8a9d;
+  font-size: 11px;
+  color: #a6b5c9;
+  font-weight: 600;
 }
 .season-matches strong {
   font: 600 30px var(--sport-font);
 }
 .season-matches small {
-  font-size: 9px;
-  color: #9ba9bb;
+  font-size: 11px;
+  color: #c0cedf;
 }
 .season-matches i {
   width: 4px;

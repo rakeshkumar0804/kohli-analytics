@@ -42,6 +42,9 @@ function Winner({
   close: () => void;
 }) {
   const modal = useRef<HTMLDialogElement>(null);
+  const triggerRef = useRef<HTMLElement | null>(
+    typeof document !== "undefined" ? (document.activeElement as HTMLElement | null) : null
+  );
   const [particles, setParticles] = useState(true);
   useEffect(() => {
     const d = modal.current;
@@ -50,6 +53,7 @@ function Winner({
     return () => {
       clearTimeout(t);
       d?.close();
+      triggerRef.current?.focus();
     };
   }, []);
   return (
@@ -454,7 +458,7 @@ export default function CricketQuiz() {
             ))}
           </div>
           {chosen !== undefined && (
-            <div className="gauntlet-feedback" role="status">
+            <div className="gauntlet-feedback" role="status" aria-live="polite">
               <strong>
                 {chosen === q.answer
                   ? "That’s the detail."
