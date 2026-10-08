@@ -19,16 +19,16 @@ const INDEPENDENT_CAREER_BENCHMARKS = {
     lastMatch: '2025-01-03',
   },
   odi: {
-    runs: 15080,
-    innings: 303,
+    runs: 15109,
+    innings: 305,
     notOuts: 48,
-    dismissals: 255,
-    ballsFaced: 15991,
-    expectedAvg: 59.14, // 15080 / 255 = 59.13725... -> 59.14
-    expectedSR: 94.30,  // (15080 / 15991) * 100 = 94.3030... -> 94.30
+    dismissals: 257,
+    ballsFaced: 16011,
+    expectedAvg: 58.79, // 15109 / 257 = 58.78988... -> 58.79
+    expectedSR: 94.37,  // (15109 / 16011) * 100 = 94.366... -> 94.37
     centuries: 55,
     fifties: 79,
-    lastMatch: '2026-09-27',
+    lastMatch: '2026-10-03',
   },
   t20i: {
     runs: 4188,
@@ -141,47 +141,47 @@ it('verifies cross-format international sum invariants', () => {
     INDEPENDENT_CAREER_BENCHMARKS.test.runs +
     INDEPENDENT_CAREER_BENCHMARKS.odi.runs +
     INDEPENDENT_CAREER_BENCHMARKS.t20i.runs;
-  assert.equal(seniorRuns, 28498, 'Senior international career runs invariant');
-  assert.equal(careerStats.overall.runs, 28498, 'careerStats.overall runs invariant');
+  assert.equal(seniorRuns, 28527, 'Senior international career runs invariant');
+  assert.equal(careerStats.overall.runs, 28527, 'careerStats.overall runs invariant');
 
   const seniorInnings =
     INDEPENDENT_CAREER_BENCHMARKS.test.innings +
     INDEPENDENT_CAREER_BENCHMARKS.odi.innings +
     INDEPENDENT_CAREER_BENCHMARKS.t20i.innings;
-  assert.equal(seniorInnings, 630, 'Senior international career innings invariant');
-  assert.equal(careerStats.overall.innings, 630, 'careerStats.overall innings invariant');
+  assert.equal(seniorInnings, 632, 'Senior international career innings invariant');
+  assert.equal(careerStats.overall.innings, 632, 'careerStats.overall innings invariant');
 
   const seniorDismissals =
     INDEPENDENT_CAREER_BENCHMARKS.test.dismissals +
     INDEPENDENT_CAREER_BENCHMARKS.odi.dismissals +
     INDEPENDENT_CAREER_BENCHMARKS.t20i.dismissals;
-  assert.equal(seniorDismissals, 538, 'Senior international career dismissals invariant');
-  assert.equal(careerStats.overall.dismissals, 538, 'careerStats.overall dismissals invariant');
+  assert.equal(seniorDismissals, 540, 'Senior international career dismissals invariant');
+  assert.equal(careerStats.overall.dismissals, 540, 'careerStats.overall dismissals invariant');
 
   const seniorBalls =
     INDEPENDENT_CAREER_BENCHMARKS.test.ballsFaced +
     INDEPENDENT_CAREER_BENCHMARKS.odi.ballsFaced +
     INDEPENDENT_CAREER_BENCHMARKS.t20i.ballsFaced;
-  assert.equal(seniorBalls, 35655, 'Senior international career balls faced invariant');
-  assert.equal(careerStats.overall.ballsFaced, 35655, 'careerStats.overall ballsFaced invariant');
+  assert.equal(seniorBalls, 35675, 'Senior international career balls faced invariant');
+  assert.equal(careerStats.overall.ballsFaced, 35675, 'careerStats.overall ballsFaced invariant');
 
   const seniorAvg = Math.round((seniorRuns / seniorDismissals) * 100) / 100;
-  assert.equal(seniorAvg, 52.97, 'Senior international career average invariant');
-  assert.equal(careerStats.overall.average, 52.97, 'careerStats.overall average invariant');
+  assert.equal(seniorAvg, 52.83, 'Senior international career average invariant');
+  assert.equal(careerStats.overall.average, 52.83, 'careerStats.overall average invariant');
 
   const seniorSR = Math.round((seniorRuns / seniorBalls) * 10000) / 100;
-  assert.equal(seniorSR, 79.93, 'Senior international career strike rate invariant');
-  assert.equal(careerStats.overall.strikeRate, 79.93, 'careerStats.overall strikeRate invariant');
+  assert.equal(seniorSR, 79.96, 'Senior international career strike rate invariant');
+  assert.equal(careerStats.overall.strikeRate, 79.96, 'careerStats.overall strikeRate invariant');
 });
 
 it('audits delivery archive coverage against complete career records', () => {
   const cov = artifact.coverage.formats;
 
-  // ODI: 300 archived delivery innings out of 303 career batting innings
-  assert.equal(cov.ODI.referenceInnings, 303, 'ODI career reference innings');
-  assert.equal(cov.ODI.archiveInnings, 300, 'ODI archived delivery innings');
-  assert.equal(cov.ODI.missingInnings, 3, 'ODI missing innings cataloged');
-  assert.equal(cov.ODI.inningsCoveragePercent, 99.01, 'ODI archive coverage percent');
+  // ODI: 303 archived delivery innings out of 305 career batting innings
+  assert.equal(cov.ODI.referenceInnings, 305, 'ODI career reference innings');
+  assert.equal(cov.ODI.archiveInnings, 303, 'ODI archived delivery innings');
+  assert.equal(cov.ODI.missingInnings, 2, 'ODI missing innings cataloged');
+  assert.equal(cov.ODI.inningsCoveragePercent, 99.34, 'ODI archive coverage percent');
 
   // T20I: 112 archived delivery innings out of 117 career batting innings (NOT 100% complete)
   assert.equal(cov.T20I.referenceInnings, 117, 'T20I career reference innings');

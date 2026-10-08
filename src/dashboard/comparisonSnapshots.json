@@ -217,7 +217,7 @@
   },
   "kohli": {
     "source": "https://www.cricbuzz.com/profiles/1413/virat-kohli",
-    "checkedAt": "2026-10-02",
+    "checkedAt": "2026-10-08",
     "formats": {
       "Test": {
         "innings": 210,
@@ -230,14 +230,14 @@
         "lastMatch": "2025-01-03"
       },
       "ODI": {
-        "innings": 303,
-        "runs": 15080,
-        "balls": 15991,
+        "innings": 305,
+        "runs": 15109,
+        "balls": 16011,
         "notOuts": 48,
-        "battingAvg": 59.14,
-        "strikeRate": 94.3,
+        "battingAvg": 58.79,
+        "strikeRate": 94.37,
         "centuries": 55,
-        "lastMatch": "2026-09-27"
+        "lastMatch": "2026-10-03"
       },
       "T20I": {
         "innings": 117,

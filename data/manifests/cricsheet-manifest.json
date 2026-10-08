@@ -7,7 +7,7 @@
   "licenseUrl": "https://cricsheet.org/license/",
   "schemaVersion": "1.1.0",
   "pipelineVersion": "3.0.0",
-  "generatedAt": "2026-10-07T09:45:47.867Z",
+  "generatedAt": "2026-10-08T06:37:06.045Z",
   "player": {
     "canonicalName": "Virat Kohli",
     "cricsheetPersonId": "ba607b88",
@@ -24,18 +24,18 @@
       "format": "ODI",
       "filename": "odis_male_json.zip",
       "url": "https://cricsheet.org/downloads/odis_male_json.zip",
-      "sha256": "b6a1d6b683f19110ada34191183db55c03e09acb386d0f4b9bf0be2fb75bbac0",
-      "bytes": 17456180,
-      "downloadedAt": "2026-10-07T09:45:45.819Z",
+      "sha256": "22ced737912a09ebf9c26cab356c6c2489254639214ac95b0ee4b5a9ae705fd6",
+      "bytes": 17552105,
+      "downloadedAt": "2026-10-08T06:37:05.985Z",
       "status": "verified"
     },
     {
       "format": "T20I",
       "filename": "t20s_male_json.zip",
       "url": "https://cricsheet.org/downloads/t20s_male_json.zip",
-      "sha256": "e098ad15622ac9e31da60e5e2ecd793c3d33352eb25b2a286b3cf08ffe98fa9e",
-      "bytes": 14214702,
-      "downloadedAt": "2026-10-07T09:45:47.867Z",
+      "sha256": "e11435926b53f5a4c7ee914cf32acf3b089cab5e55a12c8b3a6dc463933645e4",
+      "bytes": 14351068,
+      "downloadedAt": "2026-10-08T06:37:06.043Z",
       "status": "verified"
     }
   ],
@@ -47,30 +47,31 @@
       "1.3.0"
     ],
     "corpusDistribution": {
-      "1.2.0": 6134
+      "1.2.0": 6132,
+      "1.3.0": 49
     }
   },
-  "matchFilesDiscovered": 6134,
-  "matchesParticipated": 429,
-  "inningsBatted": 412,
+  "matchFilesDiscovered": 6181,
+  "matchesParticipated": 432,
+  "inningsBatted": 415,
   "dnbAppearances": 17,
-  "matchFilesAccepted": 429,
+  "matchFilesAccepted": 432,
   "matchFilesRejected": 0,
   "rejectionReasons": {},
   "identityResolutionStats": {
-    "registryIdMatches": 429,
+    "registryIdMatches": 432,
     "aliasFallbackMatches": 0,
     "normalizedNameMatches": 0,
     "unresolvedCount": 0
   },
   "coverageStart": "2008-08-18",
-  "coverageEnd": "2026-07-19",
+  "coverageEnd": "2026-10-03",
   "formatCounts": {
-    "ODI": 311,
+    "ODI": 314,
     "T20I": 118
   },
   "stageCounts": {
-    "bilateral": 305,
+    "bilateral": 308,
     "final": 14,
     "group": 97,
     "quarter-final": 1,
@@ -78,5 +79,5 @@
     "super-8": 1
   },
   "qualityTrusted": true,
-  "ingestedAt": "2026-10-07T09:45:52.410Z"
+  "ingestedAt": "2026-10-08T06:37:25.781Z"
 }

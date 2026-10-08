@@ -31,7 +31,7 @@ Most cricket dashboards display static career tables copied from statistics port
 - **🏏 Cricket Club & Daily Eight** — A shared deterministic UTC-day challenge with two questions per discipline, resume support, completed-result review, and a winner’s digital trophy for a perfect 8/8. Unseen-first practice rounds across 64 sourced questions.
 - **🆚 Dated Comparison Snapshots** — Seven players across Test, ODI, and T20I with explicitly dated match cutoffs, innings counts, and direct source links. Numbered markers and a separate legend prevent name overlap; switch between focused and zero-based axes.
 - **🏆 Enriched World Cup Chapters** — 1983, 1996, 1999, and 2015 chapters with match scorecards, three pivotal turning points per chapter, and ICC retrospective references.
-- **📊 687 Innings Archive** — 300 ODI + 112 T20I + 275 IPL batting innings with searchable scorecards, bowler matchups, bookmarks, and CSV exports.
+- **📊 690 Innings Archive** — 303 ODI + 112 T20I + 275 IPL batting innings with searchable scorecards, bowler matchups, bookmarks, and CSV exports.
 - **🔴 The RCB Chapter** — 19 IPL seasons with scoring phases, opposition breakdown, and downloadable season cards.
 - **🔬 Discovery Lab** — Innings mosaic, scoring patterns, winning chases, centuries, and personal collection.
 - **📖 The Kohli Story** — 5 career eras with checkpoint replays, innings comparison, captaincy analysis, and rivalry deep-dives.
@@ -194,15 +194,15 @@ The UI distinguishes between `available`, `confirmed-empty`, `missing-credential
 Format | Matches | Innings | Runs | Average | Centuries | Strike Rate
 :---:|:---:|:---:|:---:|:---:|:---:|:---:
 **Test** | 123 | 210 | 9,230 | 46.85 | 30 | —
-**ODI** | 314 | 302 | 14,941 | 58.59 | 54 | 93.34
+**ODI** | 317 | 305 | 15,109 | 58.79 | 55 | 94.37
 **T20I** | 125 | 117 | 4,188 | 48.70 | 1 | 137.04
-**IPL** | 283 | 274 | 9,336 | 40.42 | 9 | 132.37
+**IPL** | 283 | 275 | 9,336 | 40.42 | 9 | 134.80
 
 > Sources: [ESPNcricinfo Statsguru](https://stats.espncricinfo.com/ci/engine/player/253802.html) · [Cricbuzz](https://www.cricbuzz.com/profiles/1413/virat-kohli) · [Cricsheet](https://cricsheet.org/)
 
 ### Innings Archive
 
-- **687 covered batting innings** — 300 ODI + 112 T20I + 275 IPL
+- **690 covered batting innings** — 303 ODI + 112 T20I + 275 IPL
 - International totals exclude IPL unless explicitly selected
 - Test delivery data is not included
 - Coverage and source fingerprints are explained in the app

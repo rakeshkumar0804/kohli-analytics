@@ -34,8 +34,8 @@ describe("Reconciled innings exploration", () => {
       );
     });
   it("has unique matches and a consistent final progression point for every innings", () => {
-    assert.equal(inningsIndex.length, 687);
-    assert.equal(new Set(inningsIndex.map((i) => i.id)).size, 687);
+    assert.equal(inningsIndex.length, 690);
+    assert.equal(new Set(inningsIndex.map((i) => i.id)).size, 690);
     for (const row of detail.innings) {
       const final = row.progress.at(-1);
       assert.equal(final.runs, row.runs, row.id);

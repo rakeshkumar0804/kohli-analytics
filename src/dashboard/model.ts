@@ -30,15 +30,15 @@ export const archive = artifact;
 export const formatLabel = (format: FormatScope) =>
   format === "ALL" ? "All international" : format;
 export const formatCutoffs: Record<FormatScope, string> = {
-  ALL: "Senior career totals (ODI: 27 Sep 2026 · Test: 3 Jan 2025 · T20I: 29 Jun 2024) · excludes IPL",
-  ODI: "Career totals through 27 Sep 2026 (303 inngs) · Archive: 300 inngs through 19 Jul 2026 (99.0% coverage)",
+  ALL: "Senior career totals (ODI: 3 Oct 2026 · Test: 3 Jan 2025 · T20I: 29 Jun 2024) · excludes IPL",
+  ODI: "Career totals through 3 Oct 2026 (305 inngs) · Archive: 303 inngs through 3 Oct 2026 (99.3% coverage)",
   Test: "Career totals through 3 Jan 2025 (210 inngs) · Delivery archive not included",
   T20I: "Career totals through 29 Jun 2024 (117 inngs) · Archive: 112 inngs through 29 Jun 2024 (95.7% coverage)",
   IPL: "19 seasons (2008–2026) · Stored archive: 275 inngs through 31 May 2026",
 };
 export const formatArchiveCutoffs: Record<FormatScope, string> = {
-  ALL: "Archive: 300 ODI + 112 T20I + 275 IPL innings",
-  ODI: "Archive: 300 of 303 career innings (through 19 Jul 2026)",
+  ALL: "Archive: 303 ODI + 112 T20I + 275 IPL innings",
+  ODI: "Archive: 303 of 305 career innings (through 3 Oct 2026)",
   Test: "Delivery archive not included",
   T20I: "Archive: 112 of 117 career innings (through 29 Jun 2024)",
   IPL: "Archive: 275 innings (through 31 May 2026)",

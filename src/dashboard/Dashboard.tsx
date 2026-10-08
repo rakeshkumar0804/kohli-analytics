@@ -129,7 +129,7 @@ const titles: Record<Page, [string, string]> = {
   ],
   innings: [
     "Every innings has a story.",
-    "687 covered batting innings. Twelve defining performances.",
+    "690 covered batting innings. Twelve defining performances.",
   ],
   sources: [
     "Know what the numbers mean.",
@@ -1637,7 +1637,7 @@ export default function Dashboard() {
                 <span className="filter-note">
                   <ListFilter size={14} />
                   {view.page === "innings"
-                    ? "687 archive innings · 12 defining moments"
+                    ? "690 archive innings · 12 defining moments"
                     : view.page === "pressure"
                       ? "Situational archive"
                       : view.page === "compare"

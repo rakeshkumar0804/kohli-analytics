@@ -77,7 +77,7 @@ npm run build
 
 Imported **275 IPL batting innings across 282 covered appearances and 19 seasons (2008–2026)** from a checksum-recorded Cricsheet JSON source. The archive totals reconcile to the stored IPL batting record: **9,336 runs, 6,926 balls, 231 dismissals, 844 fours, 316 sixes, nine centuries and 68 fifties**. The stored career match count is 283; the covered appearance count is 282. These are explicitly different scopes.
 
-IPL now opens the batting archive by default, with search, filters, pagination, CSV, bookmarks, scorecard progression and bowler matchups. It also works in the career explorer and innings comparison. IPL scorecards and checkpoints correctly label RCB rather than India. The combined library has **687 batting innings**; international totals and exploration still exclude IPL unless the user selects it.
+IPL now opens the batting archive by default, with search, filters, pagination, CSV, bookmarks, scorecard progression and bowler matchups. It also works in the career explorer and innings comparison. IPL scorecards and checkpoints correctly label RCB rather than India. The combined library has **690 batting innings**; international totals and exploration still exclude IPL unless the user selects it.
 
 ### Two new destinations
 

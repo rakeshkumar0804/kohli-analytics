@@ -816,7 +816,7 @@ export function ArchiveLibrary({
                 {rows.length
                   ? `${page * 15 + 1}–${Math.min(rows.length, page * 15 + 15)} of ${rows.length} innings`
                   : "0 innings"}{" "}
-                · {formatArchiveCutoffs[view.format] || "Archive through 19 Jul 2026"}
+                · {formatArchiveCutoffs[view.format] || "Archive through 3 Oct 2026"}
               </span>
               <div>
                 <button
@@ -842,7 +842,7 @@ export function ArchiveLibrary({
             </div>
           </Panel>
           <p className="quiet-scope">
-            The archive covers 300 ODI, 112 T20I and 275 IPL batting innings.
+            The archive covers 303 ODI, 112 T20I and 275 IPL batting innings.
             DNB appearances and super overs are excluded. Test highlights are
             available under Defining innings.
           </p>

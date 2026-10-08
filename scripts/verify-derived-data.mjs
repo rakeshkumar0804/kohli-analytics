@@ -144,10 +144,10 @@ async function main() {
     if (!artifact.coverage) {
       errors.push('Artifact missing coverage metadata');
     } else {
-      if (artifact.coverage.referenceMatches !== 440 || artifact.coverage.archiveMatches !== 429 || artifact.coverage.missingMatches !== 11) {
+      if (artifact.coverage.referenceMatches !== 442 || artifact.coverage.archiveMatches !== 432 || artifact.coverage.missingMatches !== 10) {
         errors.push(`Artifact match coverage counts mismatch: ref=${artifact.coverage.referenceMatches}, arch=${artifact.coverage.archiveMatches}, missing=${artifact.coverage.missingMatches}`);
       }
-      if (artifact.coverage.referenceBattingInnings !== 420 || artifact.coverage.archiveBattingInnings !== 412 || artifact.coverage.missingBattingInnings !== 8) {
+      if (artifact.coverage.referenceBattingInnings !== 422 || artifact.coverage.archiveBattingInnings !== 415 || artifact.coverage.missingBattingInnings !== 7) {
         errors.push(`Artifact innings coverage counts mismatch: ref=${artifact.coverage.referenceBattingInnings}, arch=${artifact.coverage.archiveBattingInnings}, missing=${artifact.coverage.missingBattingInnings}`);
       }
       if (!artifact.coverage.formats?.ODI || !artifact.coverage.formats?.T20I) {
@@ -162,14 +162,14 @@ async function main() {
       const odiPop = artifact.analyticalPopulations.ODI;
       const t20Pop = artifact.analyticalPopulations.T20I;
 
-      if (odiPop.battingChasePopulation.count !== 165 || t20Pop.battingChasePopulation.count !== 47) {
-        errors.push(`Batting chase population counts mismatch: ODI=${odiPop.battingChasePopulation.count} (expected 165), T20I=${t20Pop.battingChasePopulation.count} (expected 47)`);
+      if (odiPop.battingChasePopulation.count !== 167 || t20Pop.battingChasePopulation.count !== 47) {
+        errors.push(`Batting chase population counts mismatch: ODI=${odiPop.battingChasePopulation.count} (expected 167), T20I=${t20Pop.battingChasePopulation.count} (expected 47)`);
       }
-      if (odiPop.completedOutcomeChasePopulation.count !== 165 || t20Pop.completedOutcomeChasePopulation.count !== 47) {
-        errors.push(`Completed outcome chase population counts mismatch: ODI=${odiPop.completedOutcomeChasePopulation.count} (expected 165), T20I=${t20Pop.completedOutcomeChasePopulation.count} (expected 47)`);
+      if (odiPop.completedOutcomeChasePopulation.count !== 167 || t20Pop.completedOutcomeChasePopulation.count !== 47) {
+        errors.push(`Completed outcome chase population counts mismatch: ODI=${odiPop.completedOutcomeChasePopulation.count} (expected 167), T20I=${t20Pop.completedOutcomeChasePopulation.count} (expected 47)`);
       }
-      if (odiPop.pressurePopulation.count !== 165 || t20Pop.pressurePopulation.count !== 47) {
-        errors.push(`Pressure population innings count mismatch: ODI=${odiPop.pressurePopulation.count} (expected 165), T20I=${t20Pop.pressurePopulation.count} (expected 47)`);
+      if (odiPop.pressurePopulation.count !== 167 || t20Pop.pressurePopulation.count !== 47) {
+        errors.push(`Pressure population innings count mismatch: ODI=${odiPop.pressurePopulation.count} (expected 167), T20I=${t20Pop.pressurePopulation.count} (expected 47)`);
       }
 
       // Check delivery bridge invariants

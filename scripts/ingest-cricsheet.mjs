@@ -142,6 +142,7 @@ async function main() {
                   didBat = true;
                   inningsNumber = innIdx;
                   const isNonBoundary = Boolean(del.runs?.non_boundary || del.non_boundary);
+                  runs += (del.runs?.batter || 0);
                   if (del.runs?.batter === 4 && !isNonBoundary) fours += 1;
                   if (del.runs?.batter === 6 && !isNonBoundary) sixes += 1;
                   if (!del.extras?.wides) ballsFaced += 1;

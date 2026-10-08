@@ -1029,11 +1029,11 @@ describe('6. Phase 1 Data Invariants Regression Suite', () => {
     assert.strictEqual(careerStats.test.average, 46.85);
 
     // ODI
-    assert.strictEqual(careerStats.odi.matches, 315);
-    assert.strictEqual(careerStats.odi.innings, 303);
-    assert.strictEqual(careerStats.odi.runs, 15080);
+    assert.strictEqual(careerStats.odi.matches, 317);
+    assert.strictEqual(careerStats.odi.innings, 305);
+    assert.strictEqual(careerStats.odi.runs, 15109);
     assert.strictEqual(careerStats.odi.notOuts, 48);
-    assert.strictEqual(careerStats.odi.average, 59.14);
+    assert.strictEqual(careerStats.odi.average, 58.79);
 
     // T20I
     assert.strictEqual(careerStats.t20i.matches, 125);
@@ -1050,20 +1050,20 @@ describe('6. Phase 1 Data Invariants Regression Suite', () => {
     assert.strictEqual(careerStats.ipl.average, 40.42);
 
     // COMBINED INTERNATIONAL (TEST + ODI + T20I ONLY)
-    assert.strictEqual(careerStats.overall.matches, 563);
-    assert.strictEqual(careerStats.overall.innings, 630);
-    assert.strictEqual(careerStats.overall.runs, 28498);
+    assert.strictEqual(careerStats.overall.matches, 565);
+    assert.strictEqual(careerStats.overall.innings, 632);
+    assert.strictEqual(careerStats.overall.runs, 28527);
     assert.strictEqual(careerStats.overall.notOuts, 92);
-    assert.strictEqual(careerStats.overall.average, 52.97);
+    assert.strictEqual(careerStats.overall.average, 52.83);
     assert.strictEqual(careerStats.overall.centuries, 86);
     assert.strictEqual(careerStats.overall.fifties, 148);
 
     // EXACT MATHEMATICAL DIVISION CHECKS
     assert.strictEqual(Number((9230 / (210 - 13)).toFixed(2)), 46.85);
-    assert.strictEqual(Number((15080 / (303 - 48)).toFixed(2)), 59.14);
+    assert.strictEqual(Number((15109 / (305 - 48)).toFixed(2)), 58.79);
     assert.strictEqual(Number((4188 / (117 - 31)).toFixed(2)), 48.70);
     assert.strictEqual(Number((9336 / (275 - 44)).toFixed(2)), 40.42);
-    assert.strictEqual(Number((28498 / (630 - 92)).toFixed(2)), 52.97);
+    assert.strictEqual(Number((28527 / (632 - 92)).toFixed(2)), 52.83);
 
     // 9 SENIOR OPPONENTS
     assert.strictEqual(opponentData.length, 9);
@@ -1514,19 +1514,19 @@ describe('7. Cricsheet Source Adapter & Ingestion Pipeline Suite', () => {
     assert.ok(vm.completedOutcomeSummary !== null);
     assert.ok(vm.pressureEligibleSummary !== null);
 
-    assert.strictEqual(vm.battingChaseSummary.inningsCount, 165);
-    assert.strictEqual(vm.completedOutcomeSummary.completedInnings, 165);
-    assert.strictEqual(vm.completedOutcomeSummary.wins, 104);
-    assert.strictEqual(vm.completedOutcomeSummary.winRate, 63.0);
+    assert.strictEqual(vm.battingChaseSummary.inningsCount, 167);
+    assert.strictEqual(vm.completedOutcomeSummary.completedInnings, 167);
+    assert.strictEqual(vm.completedOutcomeSummary.wins, 106);
+    assert.strictEqual(vm.completedOutcomeSummary.winRate, 63.5);
   });
 
   it('7.24 Completed outcome invariant: wins + losses + ties strictly equals completed chase innings count', () => {
-    // ODI: 104 wins + 58 losses + 3 ties = 165 completed innings
-    assert.strictEqual(104 + 58 + 3, 165);
+    // ODI: 106 wins + 58 losses + 3 ties = 167 completed innings
+    assert.strictEqual(106 + 58 + 3, 167);
     // T20I: 38 wins + 9 losses + 0 ties = 47 completed innings
     assert.strictEqual(38 + 9 + 0, 47);
-    // Overall: 142 wins + 67 losses + 3 ties = 212 completed innings
-    assert.strictEqual(142 + 67 + 3, 212);
+    // Overall: 144 wins + 67 losses + 3 ties = 214 completed innings
+    assert.strictEqual(144 + 67 + 3, 214);
   });
 
   it('7.25 Delivery classification rules: Non-striker run-out does not increment balls faced by striker', () => {
@@ -2337,10 +2337,10 @@ describe('10. API Architecture & Reliability Suite', () => {
 
   it('10.6 getVerifiedCareerStats returns Phase 1 locked career totals as declared single source of truth', () => {
     const stats = getVerifiedCareerStats();
-    assert.strictEqual(stats.runs, 28498);
-    assert.strictEqual(stats.matches, 563);
+    assert.strictEqual(stats.runs, 28527);
+    assert.strictEqual(stats.matches, 565);
     assert.strictEqual(stats.centuries, 86);
-    assert.strictEqual(stats.average, 59.14);
+    assert.strictEqual(stats.average, 58.79);
     assert.strictEqual(stats.highScore, 183);
   });
 
@@ -2724,14 +2724,14 @@ describe('12. Pressure Performance Dashboard & Situational Splits Suite', () => 
     assert.ok(chase);
     assert.strictEqual(chase.title, 'Chasing Innings');
     assert.ok(chase.scopeDescription.includes('regardless of final match outcome'));
-    assert.strictEqual(chase.innings, 165);
-    assert.strictEqual(chase.balls, 8984);
-    assert.strictEqual(chase.runs, 8444);
-    assert.strictEqual(chase.dismissals, 130);
-    assert.strictEqual(chase.notOuts, 35);
-    assert.strictEqual(chase.battingAvg, 64.95);
-    assert.strictEqual(chase.strikeRate, 93.99);
-    assert.strictEqual(chase.elevationDisplay, '+26.3%');
+    assert.strictEqual(chase.innings, 167);
+    assert.strictEqual(chase.balls, 9091);
+    assert.strictEqual(chase.runs, 8612);
+    assert.strictEqual(chase.dismissals, 131);
+    assert.strictEqual(chase.notOuts, 36);
+    assert.strictEqual(chase.battingAvg, 65.74);
+    assert.strictEqual(chase.strikeRate, 94.73);
+    assert.strictEqual(chase.elevationDisplay, '+28.9%');
     assert.strictEqual(chase.sampleStatus, 'usable-sample');
 
     // Card 2: High-RRR Situations
@@ -2744,7 +2744,7 @@ describe('12. Pressure Performance Dashboard & Situational Splits Suite', () => 
     assert.strictEqual(highRrr.notOuts, 8);
     assert.strictEqual(highRrr.battingAvg, 52.75);
     assert.strictEqual(highRrr.strikeRate, 124.85);
-    assert.strictEqual(highRrr.elevationDisplay, '-9.6%');
+    assert.strictEqual(highRrr.elevationDisplay, '-9.9%');
     assert.strictEqual(highRrr.sampleStatus, 'usable-sample');
 
     // Card 3: Tournament Knockouts
@@ -2757,7 +2757,7 @@ describe('12. Pressure Performance Dashboard & Situational Splits Suite', () => 
     assert.strictEqual(ko.notOuts, 3);
     assert.strictEqual(ko.battingAvg, 38.53);
     assert.strictEqual(ko.strikeRate, 87.05);
-    assert.strictEqual(ko.elevationDisplay, '-34.0%');
+    assert.strictEqual(ko.elevationDisplay, '-34.2%');
     assert.strictEqual(ko.sampleStatus, 'usable-sample');
 
     // Card 4: Tournament Finals
@@ -2770,7 +2770,7 @@ describe('12. Pressure Performance Dashboard & Situational Splits Suite', () => 
     assert.strictEqual(finals.notOuts, 1);
     assert.strictEqual(finals.battingAvg, 23.22);
     assert.strictEqual(finals.strikeRate, 79.47);
-    assert.strictEqual(finals.elevationDisplay, '-60.2%');
+    assert.strictEqual(finals.elevationDisplay, '-60.3%');
   });
 
   it('12.3 T20I situational splits exact verified figures and elevations match derived artifact', () => {
@@ -2889,14 +2889,14 @@ describe('12. Pressure Performance Dashboard & Situational Splits Suite', () => 
     const odiVm = getClutchViewModel('ODI');
     const t20Vm = getClutchViewModel('T20I');
 
-    // ODI Cards: baseline is 58.34 (Covered Archive) or 51.41 (Covered 1st Inn)
+    // ODI Cards: baseline is 58.54 (Covered Archive) or 51.00 (Covered 1st Inn)
     const odiChase = odiVm.pressurePerformance.cards.find((c) => c.id === 'completedChaseDominance');
     const odiHighRrr = odiVm.pressurePerformance.cards.find((c) => c.id === 'highRrrElevation');
-    assert.strictEqual(odiChase.baselineAvg, 51.41);
+    assert.strictEqual(odiChase.baselineAvg, 51);
     assert.strictEqual(odiChase.baselineScopeLabel, 'Covered-archive 1st-innings batting average');
     assert.ok(odiChase.baselineAvgDisplay.includes('Covered 1st Inn'));
 
-    assert.strictEqual(odiHighRrr.baselineAvg, 58.34);
+    assert.strictEqual(odiHighRrr.baselineAvg, 58.54);
     assert.strictEqual(odiHighRrr.baselineScopeLabel, 'Covered-archive batting average');
     assert.ok(odiHighRrr.baselineAvgDisplay.includes('Covered Archive'));
 
@@ -2911,8 +2911,8 @@ describe('12. Pressure Performance Dashboard & Situational Splits Suite', () => 
     assert.strictEqual(t20HighRrr.baselineScopeLabel, 'Covered-archive batting average');
     assert.ok(t20HighRrr.baselineAvgDisplay.includes('Covered Archive'));
 
-    // Full-career totals remain strictly unmutated (59.14 ODI, 48.70 T20I, 46.85 Test)
-    assert.strictEqual(careerStats.odi.average, 59.14);
+    // Full-career totals remain strictly unmutated (58.79 ODI, 48.70 T20I, 46.85 Test)
+    assert.strictEqual(careerStats.odi.average, 58.79);
     assert.strictEqual(careerStats.t20i.average, 48.70);
     assert.strictEqual(careerStats.test.average, 46.85);
   });
@@ -3108,13 +3108,13 @@ describe('13. Factual Regressions & Scorecard Precision Suite', () => {
     assert.strictEqual(peakEra.testAvg, computedAvg);
   });
 
-  it('13.4 Quiz Question 4 reflects verified covered-archive successful ODI chase average (88.29)', () => {
+  it('13.4 Quiz Question 4 reflects verified covered-archive successful ODI chase average (89.41)', () => {
     const derivedArtifactPath = path.join(ROOT_DIR, 'src', 'data', 'derived', 'kohliAnalyticsArtifact.json');
     if (fs.existsSync(derivedArtifactPath)) {
       const artifact = JSON.parse(fs.readFileSync(derivedArtifactPath, 'utf8'));
-      assert.strictEqual(artifact.chaseMetrics.ODI.successfulChaseAverage, 88.29);
-      assert.strictEqual(artifact.chaseMetrics.ODI.successfulInningsCount, 104);
-      assert.strictEqual(artifact.chaseMetrics.ODI.inningsCount, 165);
+      assert.strictEqual(artifact.chaseMetrics.ODI.successfulChaseAverage, 89.41);
+      assert.strictEqual(artifact.chaseMetrics.ODI.successfulInningsCount, 106);
+      assert.strictEqual(artifact.chaseMetrics.ODI.inningsCount, 167);
     }
   });
 

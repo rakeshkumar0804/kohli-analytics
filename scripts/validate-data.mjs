@@ -114,17 +114,17 @@ assert(careerStats.test.sixes === 30, `Test sixes expected 30, got ${careerStats
 assert(careerStats.test.catches === 121, `Test catches expected 121, got ${careerStats.test.catches}`);
 assert(careerStats.test.ballsFaced === 16608, `Test ballsFaced expected 16608, got ${careerStats.test.ballsFaced}`);
 // ODI
-assert(careerStats.odi.matches === 315, `ODI matches expected 315, got ${careerStats.odi.matches}`);
-assert(careerStats.odi.innings === 303, `ODI innings expected 303, got ${careerStats.odi.innings}`);
+assert(careerStats.odi.matches === 317, `ODI matches expected 317, got ${careerStats.odi.matches}`);
+assert(careerStats.odi.innings === 305, `ODI innings expected 305, got ${careerStats.odi.innings}`);
 assert(careerStats.odi.notOuts === 48, `ODI notOuts expected 48, got ${careerStats.odi.notOuts}`);
-assert(careerStats.odi.runs === 15080, `ODI runs expected 15080, got ${careerStats.odi.runs}`);
+assert(careerStats.odi.runs === 15109, `ODI runs expected 15109, got ${careerStats.odi.runs}`);
 assert(careerStats.odi.centuries === 55, `ODI centuries expected 55, got ${careerStats.odi.centuries}`);
 assert(careerStats.odi.fifties === 79, `ODI fifties expected 79, got ${careerStats.odi.fifties}`);
-assert(careerStats.odi.ducks === 18, `ODI ducks expected 18, got ${careerStats.odi.ducks}`);
-assert(careerStats.odi.fours === 1399, `ODI fours expected 1399, got ${careerStats.odi.fours}`);
-assert(careerStats.odi.sixes === 180, `ODI sixes expected 180, got ${careerStats.odi.sixes}`);
+assert(careerStats.odi.ducks === 19, `ODI ducks expected 19, got ${careerStats.odi.ducks}`);
+assert(careerStats.odi.fours === 1402, `ODI fours expected 1402, got ${careerStats.odi.fours}`);
+assert(careerStats.odi.sixes === 181, `ODI sixes expected 181, got ${careerStats.odi.sixes}`);
 assert(careerStats.odi.catches === 169, `ODI catches expected 169, got ${careerStats.odi.catches}`);
-assert(careerStats.odi.ballsFaced === 15991, `ODI ballsFaced expected 15991, got ${careerStats.odi.ballsFaced}`);
+assert(careerStats.odi.ballsFaced === 16011, `ODI ballsFaced expected 16011, got ${careerStats.odi.ballsFaced}`);
 // T20I
 assert(careerStats.t20i.matches === 125, `T20I matches expected 125, got ${careerStats.t20i.matches}`);
 assert(careerStats.t20i.innings === 117, `T20I innings expected 117, got ${careerStats.t20i.innings}`);
@@ -155,18 +155,18 @@ const combinedSixes = careerStats.test.sixes + careerStats.odi.sixes + careerSta
 const combinedCatches = careerStats.test.catches + careerStats.odi.catches + careerStats.t20i.catches;
 
 // Assert component sums match expected combined totals
-assert(combinedMatches === 563, `Combined matches: 123+315+125 expected 563, got ${combinedMatches}`);
-assert(combinedInnings === 630, `Combined innings: 210+303+117 expected 630, got ${combinedInnings}`);
+assert(combinedMatches === 565, `Combined matches: 123+317+125 expected 565, got ${combinedMatches}`);
+assert(combinedInnings === 632, `Combined innings: 210+305+117 expected 632, got ${combinedInnings}`);
 assert(combinedNotOuts === 92, `Combined notOuts: 13+48+31 expected 92, got ${combinedNotOuts}`);
-assert(combinedDismissals === 538, `Combined dismissals: 630-92 expected 538, got ${combinedDismissals}`);
-assert(combinedRuns === 28498, `Combined runs: 9230+15080+4188 expected 28498, got ${combinedRuns}`);
-assert(combinedAvg === 52.97, `Combined average: 28498/538 expected 52.97, got ${combinedAvg}`);
-assert(combinedBallsFaced === 35655, `Combined ballsFaced: 16608+15991+3056 expected 35655, got ${combinedBallsFaced}`);
+assert(combinedDismissals === 540, `Combined dismissals: 632-92 expected 540, got ${combinedDismissals}`);
+assert(combinedRuns === 28527, `Combined runs: 9230+15109+4188 expected 28527, got ${combinedRuns}`);
+assert(combinedAvg === 52.83, `Combined average: 28527/540 expected 52.83, got ${combinedAvg}`);
+assert(combinedBallsFaced === 35675, `Combined ballsFaced: 16608+16011+3056 expected 35675, got ${combinedBallsFaced}`);
 assert(combinedCenturies === 86, `Combined centuries: 30+55+1 expected 86, got ${combinedCenturies}`);
 assert(combinedFifties === 148, `Combined fifties: 31+79+38 expected 148, got ${combinedFifties}`);
-assert(combinedDucks === 40, `Combined ducks: 15+18+7 expected 40, got ${combinedDucks}`);
-assert(combinedFours === 2795, `Combined fours: 1027+1399+369 expected 2795, got ${combinedFours}`);
-assert(combinedSixes === 334, `Combined sixes: 30+180+124 expected 334, got ${combinedSixes}`);
+assert(combinedDucks === 41, `Combined ducks: 15+19+7 expected 41, got ${combinedDucks}`);
+assert(combinedFours === 2798, `Combined fours: 1027+1402+369 expected 2798, got ${combinedFours}`);
+assert(combinedSixes === 335, `Combined sixes: 30+181+124 expected 335, got ${combinedSixes}`);
 assert(combinedCatches === 344, `Combined catches: 121+169+54 expected 344, got ${combinedCatches}`);
 
 // Assert careerStats.overall matches component sums exactly
@@ -276,10 +276,10 @@ assert(heroStatsByFormat.T20I[2].value === careerStats.t20i.average, `Hero T20I 
 // 8. Explicit Format Division Sanity Tests
 console.log('--- Checking Explicit Format Division Equations ---');
 assert((9230 / (210 - 13)).toFixed(2) === '46.85', `Test avg division mismatch: expected 46.85, got ${(9230 / (210 - 13)).toFixed(2)}`);
-assert((15080 / (303 - 48)).toFixed(2) === '59.14', `ODI avg division mismatch: expected 59.14, got ${(15080 / (303 - 48)).toFixed(2)}`);
+assert((15109 / (305 - 48)).toFixed(2) === '58.79', `ODI avg division mismatch: expected 58.79, got ${(15109 / (305 - 48)).toFixed(2)}`);
 assert((4188 / (117 - 31)).toFixed(2) === '48.70', `T20I avg division mismatch: expected 48.70, got ${(4188 / (117 - 31)).toFixed(2)}`);
 assert((9336 / (275 - 44)).toFixed(2) === '40.42', `IPL avg division mismatch: expected 40.42, got ${(9336 / (275 - 44)).toFixed(2)}`);
-assert((28498 / (630 - 92)).toFixed(2) === '52.97', `Combined International avg division mismatch: expected 52.97, got ${(28498 / (630 - 92)).toFixed(2)}`);
+assert((28527 / (632 - 92)).toFixed(2) === '52.83', `Combined International avg division mismatch: expected 52.83, got ${(28527 / (632 - 92)).toFixed(2)}`);
 
 // 9. Clutch Index Status Test
 console.log('--- Checking Clutch Index Calculation Status ---');

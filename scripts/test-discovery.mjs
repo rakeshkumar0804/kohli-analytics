@@ -27,8 +27,8 @@ it("2016 reconciles to 973 runs and four centuries, seven fifties", () => {
   assert.equal(s.fifties, 7);
 });
 it("IPL is excluded from international defaults and included only in explicit scopes", () => {
-  assert.equal(selectArchive({ format: "ALL" }).length, 412);
-  assert.equal(selectArchive({ format: "ALL", includeIPL: true }).length, 687);
+  assert.equal(selectArchive({ format: "ALL" }).length, 415);
+  assert.equal(selectArchive({ format: "ALL", includeIPL: true }).length, 690);
   assert.equal(selectArchive({ format: "IPL" }).length, 275);
 });
 it("all IPL progress, bowler and phase totals independently reconcile to the innings", () => {
@@ -55,7 +55,7 @@ it("all IPL progress, bowler and phase totals independently reconcile to the inn
 it("IPL provenance is explicit and chronology is stable", () => {
   assert.match(iplArchive.metadata.sourceHash, /^[a-f0-9]{64}$/);
   assert.equal(iplArchive.metadata.coverageEnd, "2026-05-31");
-  assert.equal(new Set(inningsIndex.map((r) => r.id)).size, 687);
+  assert.equal(new Set(inningsIndex.map((r) => r.id)).size, 690);
 });
 it("discovery lenses apply their stated conditions", () => {
   for (const r of applyLens(inningsIndex, "gems"))

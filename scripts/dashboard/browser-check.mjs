@@ -191,7 +191,7 @@ try {
   );
   await page.getByRole("button", { name: "Reset archive filters" }).click();
   check(
-    (await page.locator(".archive-summary").innerText()).startsWith("687"),
+    (await page.locator(".archive-summary").innerText()).startsWith("690"),
     "reset restores covered archive",
   );
   await page.getByRole("button", { name: "Test", exact: true }).click();

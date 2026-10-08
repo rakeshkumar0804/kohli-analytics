@@ -2,7 +2,7 @@
   "specVersion": "1.0.0-model-spec",
   "status": "calibration-blocked",
   "publicationAllowed": false,
-  "generatedAt": "2026-10-03T06:49:03.293Z",
+  "generatedAt": "2026-10-08T06:38:01.364Z",
   "modelType": "self-relative-descriptive-pressure-elevation",
   "mathematicalFramework": {
     "normalization": "tanh-bounded-ratio (50 + 50 * tanh((split - base) / base))",

@@ -38,7 +38,7 @@ for fmt,path in zip(['ODI','T20I'],sys.argv[1:]):
 for fmt in ['ODI','T20I']:
  rr=[r for r in rows if r['format']==fmt];actual={'inningsBatted':len(rr),'runs':sum(r['runs'] for r in rr),'ballsFaced':sum(r['balls'] for r in rr),'dismissals':sum(not r['notOut'] for r in rr),'fours':sum(r['fours'] for r in rr),'sixes':sum(r['sixes'] for r in rr)}
  expected={k:artifact['formats'][fmt][k] for k in actual};print(fmt,actual);assert actual==expected,(actual,expected)
-assert len(rows)==412
+assert len(rows)==415
 out={'source':'Cricsheet','archiveEnd':artifact['coverage']['coverageEnd'],'sourceHashes':{s['format']:s['sha256'] for s in artifact['provenance']['sourceArchives']},'innings':sorted(rows,key=lambda r:r['date'],reverse=True)}
 for fmt in ['ODI','T20I']:
  (root/f'src/dashboard/innings{fmt}.json').write_text(json.dumps({'innings':[r for r in out['innings'] if r['format']==fmt]},separators=(',',':')))

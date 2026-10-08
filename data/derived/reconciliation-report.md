@@ -2,7 +2,7 @@
 
 - **Report Version**: `4.0.0`
 - **Dataset ID**: `cricsheet-male-limited-overs`
-- **Generated At**: `2026-10-07T09:45:53.000Z`
+- **Generated At**: `2026-10-08T06:37:27.727Z`
 - **Player**: Virat Kohli (Cricsheet: `ba607b88`, ESPNcricinfo: `253802`)
 - **Trust Status**: `CAREER AGGREGATES VERIFIED; DELIVERY COVERAGE PARTIAL`
 
@@ -19,9 +19,9 @@
 
 ## Explicit Coverage Summary
 
-- **Overall Matches**: 429 of 440 reference matches (97.5% coverage, 11 unavailable matches)
-- **Overall Batting Innings**: 412 of 420 reference innings (98.1% coverage, 8 unavailable batting innings)
-- **ODI Coverage**: 311 of 315 matches (98.73%), 300 of 303 innings (99.01%)
+- **Overall Matches**: 432 of 442 reference matches (97.74% coverage, 10 unavailable matches)
+- **Overall Batting Innings**: 415 of 422 reference innings (98.34% coverage, 7 unavailable batting innings)
+- **ODI Coverage**: 314 of 317 matches (99.05%), 303 of 305 innings (99.34%)
 - **T20I Coverage**: 118 of 125 matches (94.4%), 112 of 117 innings (95.73%)
 
 ---
@@ -32,23 +32,22 @@
 
 | Metric | Canonical Reference (Target) | Ingested Archive | Unavailable Matches | Verified Corrections | Reconciled Sum | Equation Balance | Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **matches** | 315 | 311 | 4 | 0 | 315 | `311 + 4 + 0 = 315` | resolved-reconciled |
-| **innings** | 303 | 300 | 3 | 0 | 303 | `300 + 3 + 0 = 303` | resolved-reconciled |
-| **runs** | 15080 | 14819 | 261 | 0 | 15080 | `14819 + 261 + 0 = 15080` | resolved-reconciled |
-| **ballsFaced** | 15991 | 15784 | 207 | 0 | 15991 | `15784 + 207 + 0 = 15991` | resolved-reconciled |
-| **centuries** | 55 | 54 | 1 | 0 | 55 | `54 + 1 + 0 = 55` | resolved-reconciled |
+| **matches** | 317 | 314 | 3 | 0 | 317 | `314 + 3 + 0 = 317` | resolved-reconciled |
+| **innings** | 305 | 303 | 2 | 0 | 305 | `303 + 2 + 0 = 305` | resolved-reconciled |
+| **runs** | 15109 | 14987 | 122 | 0 | 15109 | `14987 + 122 + 0 = 15109` | resolved-reconciled |
+| **ballsFaced** | 16011 | 15892 | 119 | 0 | 16011 | `15892 + 119 + 0 = 16011` | resolved-reconciled |
+| **centuries** | 55 | 55 | 0 | 0 | 55 | `55 + 0 + 0 = 55` | resolved-reconciled |
 | **fifties** | 79 | 77 | 2 | 0 | 79 | `77 + 2 + 0 = 79` | resolved-reconciled |
-| **ducks** | 18 | 18 | 0 | 0 | 18 | `18 + 0 + 0 = 18` | resolved-reconciled |
-| **fours** | 1399 | 1378 | 21 | 0 | 1399 | `1378 + 21 + 0 = 1399` | resolved-reconciled |
-| **sixes** | 180 | 171 | 9 | 0 | 180 | `171 + 9 + 0 = 180` | resolved-reconciled |
-| **notOuts** | 48 | 46 | 2 | 0 | 48 | `46 + 2 + 0 = 48` | resolved-reconciled |
-| **dismissals** | 255 | 254 | 1 | 0 | 255 | `254 + 1 + 0 = 255` | resolved-reconciled |
+| **ducks** | 19 | 19 | 0 | 0 | 19 | `19 + 0 + 0 = 19` | resolved-reconciled |
+| **fours** | 1402 | 1391 | 11 | 0 | 1402 | `1391 + 11 + 0 = 1402` | resolved-reconciled |
+| **sixes** | 181 | 181 | 0 | 0 | 181 | `181 + 0 + 0 = 181` | resolved-reconciled |
+| **notOuts** | 48 | 47 | 1 | 0 | 48 | `47 + 1 + 0 = 48` | resolved-reconciled |
+| **dismissals** | 257 | 256 | 1 | 0 | 257 | `256 + 1 + 0 = 257` | resolved-reconciled |
 
 ### Missing Reference Matches for ODI
 
 | Match ID | Date | Opponent | Event | Appearance | Batted/DNB | R (B) | 4s | 6s | 50/100 | Dismissal | Reason |
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- | :--- |
-| [151532](https://www.cricbuzz.com/live-cricket-scorecard/151532/ind-vs-wi-1st-odi-west-indies-tour-of-india-2026) | 2026-09-27 | West Indies | West Indies tour of India 2026 (1st ODI) | Yes | Batted | 139 (88) | 10 | 9 | 100 | not out (139* milestone 55th ODI hundred) | Recent fixture concluded 2026-09-27; pending next periodic Cricsheet archive refresh. |
 | [1144510](https://www.espncricinfo.com/series/icc-cricket-world-cup-2019-1144415/afghanistan-vs-india-28th-match-1144510/full-scorecard) | 2019-06-22 | Afghanistan | ICC Cricket World Cup 2019 (28th Match) | Yes | Batted | 67 (63) | 5 | 0 | 50 | c Rahmat Shah b Mohammad Nabi | Excluded from odis_male_json.zip due to Cricsheet archive partitioning of Afghanistan ODI matches |
 | [1384390](https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1384392/india-vs-afghanistan-9th-match-1384390/full-scorecard) | 2023-10-11 | Afghanistan | ICC Cricket World Cup 2023/24 (9th Match) | Yes | Batted | 55 (56) | 6 | 0 | 50 | not out | Excluded from odis_male_json.zip due to Cricsheet archive partitioning of Afghanistan ODI matches |
 | [710305](https://www.espncricinfo.com/series/asia-cup-2013-14-656463/afghanistan-vs-india-9th-match-710305/full-scorecard) | 2014-03-05 | Afghanistan | Asia Cup 2013/14 (9th Match) | Yes | DNB | DNB | 0 | 0 | - | Did Not Bat (India 160/2 in 32.2 ov) | Excluded from odis_male_json.zip due to Cricsheet archive partitioning of Afghanistan ODI matches |
@@ -62,10 +61,10 @@
 | [564784](https://www.espncricinfo.com/series/india-tour-of-sri-lanka-2012-564778/sri-lanka-vs-india-4th-odi-564784/full-scorecard) | 2012-07-31 | Sri Lanka | sixes | `18.2 (Over 18 Ball 2)` | 6 | All-run/overthrows 6 (non_boundary: true in Cricsheet schema). Excluded from boundary sixes per official ICC/Statsguru scoring rules. | [Scorecard](https://www.espncricinfo.com/series/india-tour-of-sri-lanka-2012-564778/sri-lanka-vs-india-4th-odi-564784/full-scorecard) |
 
 **Dismissal Invariant Verification for ODI**:
-- Ingested Archive: $\text{innings} (300) - \text{notOuts} (46) = 254 \equiv \text{dismissals} (254)$
-- Unavailable Matches: $\text{innings} (3) - \text{notOuts} (2) = 1 \equiv \text{dismissals} (1)$
-- Reconstructed Career: $\text{innings} (303) - \text{notOuts} (48) = 255 \equiv \text{dismissals} (255)$
-- Canonical Reference: $\text{innings} (303) - \text{notOuts} (48) = 255 \equiv \text{dismissals} (255)$
+- Ingested Archive: $\text{innings} (303) - \text{notOuts} (47) = 256 \equiv \text{dismissals} (256)$
+- Unavailable Matches: $\text{innings} (2) - \text{notOuts} (1) = 1 \equiv \text{dismissals} (1)$
+- Reconstructed Career: $\text{innings} (305) - \text{notOuts} (48) = 257 \equiv \text{dismissals} (257)$
+- Canonical Reference: $\text{innings} (305) - \text{notOuts} (48) = 257 \equiv \text{dismissals} (257)$
 
 ## T20I Format Reconciliation Ledger
 
@@ -110,14 +109,14 @@
 
 | Population | Description | Innings | Official Balls | Legal Deliveries | Runs | Dismissals | Batting Avg | Batting SR |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Population A (Batting Chases)** | All innings Kohli batted in chases | 165 | 8984 | 8966 | 8444 | 130 | 64.95 | 93.99 |
-| **Population B (Completed Outcomes)** | Completed match outcomes (W/L/T) | 165 | — | — | — | — | — | 63.03% win rate (104W / 165 matches) |
-| **Population C (Pressure Deliveries)** | Valid finite target, balls remaining > 0 | 165 | 8982 | 8964 | 8442 | 130 | 64.94 | 93.99 |
+| **Population A (Batting Chases)** | All innings Kohli batted in chases | 167 | 9091 | 9073 | 8612 | 131 | 65.74 | 94.73 |
+| **Population B (Completed Outcomes)** | Completed match outcomes (W/L/T) | 167 | — | — | — | — | — | 63.47% win rate (106W / 167 matches) |
+| **Population C (Pressure Deliveries)** | Valid finite target, balls remaining > 0 | 167 | 9089 | 9071 | 8610 | 131 | 65.73 | 94.73 |
 
 **Delivery Count Bridges for ODI**:
-1. $\text{rawStrikerDeliveries} (9165) - \text{wides} (181) = \mathbf{8984\text{ official balls faced}}$
-2. $\text{officialBallsFaced} (8984) - \text{noBalls} (18) - \text{invalidContext} (2) = \mathbf{8964\text{ pressure legal deliveries}}$
-3. $\text{pressureDeliveries} (9163) = \mathbf{8964\text{ legal}} + \mathbf{18\text{ no-balls}} + \mathbf{181\text{ wides}}$
+1. $\text{rawStrikerDeliveries} (9275) - \text{wides} (184) = \mathbf{9091\text{ official balls faced}}$
+2. $\text{officialBallsFaced} (9091) - \text{noBalls} (18) - \text{invalidContext} (2) = \mathbf{9071\text{ pressure legal deliveries}}$
+3. $\text{pressureDeliveries} (9273) = \mathbf{9071\text{ legal}} + \mathbf{18\text{ no-balls}} + \mathbf{184\text{ wides}}$
 
 ### T20I Analytical Populations
 
@@ -144,7 +143,7 @@
 
 | Format | Wins | Losses | Ties | No-Results | Abandoned | Total Batting Chases | Population Hash (SHA-256) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **ODI** | 104 | 58 | 3 | 0 | 0 | **165** | `e4f66410cdb63a3d...` |
+| **ODI** | 106 | 58 | 3 | 0 | 0 | **167** | `e1592bf33a63dbb3...` |
 | **T20I** | 38 | 9 | 0 | 0 | 0 | **47** | `b4a0c772c576e77f...` |
 
 ## Production Pressure Maps (15-Cell Complete Tables)
@@ -154,10 +153,10 @@
 | Phase (UI Label) | RRR Band | Official Balls Faced | Team Legal Deliveries | Runs | Dismissals | Batting Avg | Batting SR | Scoring Rate (Legal) | Dot % | Bnd % | 4s | 6s | Sample Band | Trust Level |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Powerplay (Overs 1–10)** | `below-6` | 1230 | 1226 | 844 | 19 | 44.42 | 68.62 | 68.84 | 67.64% | 57.35% | 115 | 4 | `strong` | High |
-| **Middle (Overs 11–40)** | `below-6` | 4049 | 4036 | 3779 | 51 | 74.10 | 93.33 | 93.63 | 44.13% | 42.76% | 347 | 38 | `strong` | High |
-| **Death (Overs 41–50)** | `below-6` | 190 | 190 | 264 | 11 | 24.00 | 138.95 | 138.95 | 36.32% | 62.12% | 26 | 10 | `strong` | High |
+| **Middle (Overs 11–40)** | `below-6` | 4144 | 4131 | 3922 | 52 | 75.42 | 94.64 | 94.94 | 43.80% | 43.55% | 358 | 46 | `strong` | High |
+| **Death (Overs 41–50)** | `below-6` | 197 | 197 | 287 | 11 | 26.09 | 145.69 | 145.69 | 35.03% | 64.11% | 28 | 12 | `strong` | High |
 | **Powerplay (Overs 1–10)** | `6-to-8` | 526 | 526 | 441 | 6 | 73.50 | 83.84 | 83.84 | 62.74% | 62.59% | 63 | 4 | `strong` | High |
-| **Middle (Overs 11–40)** | `6-to-8` | 2191 | 2190 | 2097 | 24 | 87.38 | 95.71 | 95.75 | 39.34% | 38.72% | 179 | 16 | `strong` | High |
+| **Middle (Overs 11–40)** | `6-to-8` | 2196 | 2195 | 2099 | 24 | 87.46 | 95.58 | 95.63 | 39.39% | 38.69% | 179 | 16 | `strong` | High |
 | **Death (Overs 41–50)** | `6-to-8` | 120 | 120 | 173 | 3 | 57.67 | 144.17 | 144.17 | 22.50% | 49.71% | 20 | 1 | `strong` | High |
 | **Powerplay (Overs 1–10)** | `8-to-10` | 21 | 21 | 28 | 1 | 28.00 | 133.33 | 133.33 | 57.14% | 78.57% | 4 | 1 | `limited` | High |
 | **Middle (Overs 11–40)** | `8-to-10` | 436 | 436 | 497 | 7 | 71.00 | 113.99 | 113.99 | 36.47% | 48.29% | 45 | 10 | `strong` | High |
@@ -168,7 +167,7 @@
 | **Powerplay (Overs 1–10)** | `above-12` | 0 | 0 | 0 | 0 | — | — | — | — | — | 0 | 0 | `insufficient` | High |
 | **Middle (Overs 11–40)** | `above-12` | 28 | 28 | 41 | 0 | — | 146.43 | 146.43 | 28.57% | 58.54% | 3 | 2 | `limited` | High |
 | **Death (Overs 41–50)** | `above-12` | 13 | 13 | 27 | 1 | 27.00 | 207.69 | 207.69 | 23.08% | 66.67% | 0 | 3 | `limited` | High |
-| **TOTAL (Sum 15 Cells)** | — | **8982** | **8964** | **8442** | **130** | **64.94** | **93.99** | **94.18** | — | — | **827** | **96** | `strong` | High |
+| **TOTAL (Sum 15 Cells)** | — | **9089** | **9071** | **8610** | **131** | **65.73** | **94.73** | **94.92** | — | — | **840** | **106** | `strong` | High |
 
 ### T20I 15-Cell Production Pressure Table
 
@@ -208,9 +207,9 @@
 
 ## Categorized Match Accounting
 
-- **Present & Included**: 429 matches
+- **Present & Included**: 432 matches
 - **Present but DNB**: 17 matches
-- **Unavailable in Cricsheet**: 12 matches (ODI: 4, T20I: 8)
+- **Unavailable in Cricsheet**: 11 matches (ODI: 3, T20I: 8)
 - **Abandoned / No-Result Matches**: 8 matches
 - **Duplicates Detected**: 0
 - **Unresolved Discrepancies**: 0
