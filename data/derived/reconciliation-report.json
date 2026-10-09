@@ -1,7 +1,7 @@
 {
   "reportVersion": "4.0.0",
   "datasetId": "cricsheet-male-limited-overs",
-  "generatedAt": "2026-10-08T20:29:34.515Z",
+  "generatedAt": "2026-10-09T10:00:16.319Z",
   "sourceArchiveHashes": [
     {
       "format": "ODI",
@@ -9,7 +9,7 @@
       "url": "https://cricsheet.org/downloads/odis_male_json.zip",
       "sha256": "22ced737912a09ebf9c26cab356c6c2489254639214ac95b0ee4b5a9ae705fd6",
       "bytes": 17552105,
-      "downloadedAt": "2026-10-08T20:29:21.887Z",
+      "downloadedAt": "2026-10-09T10:00:07.584Z",
       "status": "verified"
     },
     {
@@ -18,7 +18,7 @@
       "url": "https://cricsheet.org/downloads/t20s_male_json.zip",
       "sha256": "e11435926b53f5a4c7ee914cf32acf3b089cab5e55a12c8b3a6dc463933645e4",
       "bytes": 14351068,
-      "downloadedAt": "2026-10-08T20:29:25.558Z",
+      "downloadedAt": "2026-10-09T10:00:10.395Z",
       "status": "verified"
     }
   ],
@@ -5240,7 +5240,7 @@
   ],
   "trustDecision": {
     "isTrusted": true,
-    "decisionTimestamp": "2026-10-08T20:29:34.515Z",
+    "decisionTimestamp": "2026-10-09T10:00:16.319Z",
     "justification": "Every included delivery is deterministically parsed; all aggregate discrepancies are explained at match level; zero unexplained match IDs remain; zero anonymous balancing constants; all 10 independent scorecard checks passed; archive hashes match manifest; repeated ingestion produces identical artifact hashes."
   }
 }
