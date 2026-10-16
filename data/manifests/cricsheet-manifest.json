@@ -7,7 +7,7 @@
   "licenseUrl": "https://cricsheet.org/license/",
   "schemaVersion": "1.1.0",
   "pipelineVersion": "3.0.0",
-  "generatedAt": "2026-10-15T18:52:18.425Z",
+  "generatedAt": "2026-10-16T07:52:59.005Z",
   "player": {
     "canonicalName": "Virat Kohli",
     "cricsheetPersonId": "ba607b88",
@@ -26,7 +26,7 @@
       "url": "https://cricsheet.org/downloads/odis_male_json.zip",
       "sha256": "9f5f5a5d9994673a90aa222267ef7656b3e94d8c8c85a0d3426e824cb99302ba",
       "bytes": 17601394,
-      "downloadedAt": "2026-10-15T18:52:16.431Z",
+      "downloadedAt": "2026-10-16T07:52:55.982Z",
       "status": "verified"
     },
     {
@@ -35,7 +35,7 @@
       "url": "https://cricsheet.org/downloads/t20s_male_json.zip",
       "sha256": "95305bc2dae8dcce7b8da7755f3992521874b14598ea5828129f37834e8b860a",
       "bytes": 14479929,
-      "downloadedAt": "2026-10-15T18:52:18.425Z",
+      "downloadedAt": "2026-10-16T07:52:59.005Z",
       "status": "verified"
     }
   ],
@@ -79,5 +79,5 @@
     "super-8": 1
   },
   "qualityTrusted": true,
-  "ingestedAt": "2026-10-15T18:52:26.222Z"
+  "ingestedAt": "2026-10-16T07:53:06.787Z"
 }
