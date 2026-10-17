@@ -227,7 +227,10 @@ export class FixturesService {
         /\b(women|u19|under-19|u-19|lions)\b/i.test(matchName) ||
         (series ? /\b(women|u19|under-19|u-19|lions)\b/i.test(series) : false);
 
-      const isT20OrTest = /\b(t20|twenty20|test)\b/i.test(matchName);
+      // Avoid T20/T20I or Test matches even if series matchType field is generalized or provider has mislabeled matchType
+      const isT20OrTest =
+        /\b(t-?20i?s?|twenty20|test)\b/i.test(matchName) ||
+        /\b(t-?20i?s?|twenty20|test)\b/i.test(matchType);
       const isODI =
         (matchType === 'ODI' || matchType.includes('ODI') || /\bodi\b|\bone[\s-]day\b/i.test(matchName)) &&
         !isExcludedContext &&

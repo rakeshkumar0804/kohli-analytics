@@ -2287,6 +2287,13 @@ describe('10. API Architecture & Reliability Suite', () => {
           venue: 'Adelaide Oval',
         },
         {
+          id: 'mock-t20i-mislabeled',
+          name: 'India vs West Indies, 5th T20I, West Indies tour of India, 2026',
+          matchType: 'ODI', // Mislabeled as ODI by provider, but title indicates T20I
+          dateTimeGMT: '2026-08-10T13:30:00.000Z',
+          venue: 'M.Chinnaswamy Stadium, Bengaluru',
+        },
+        {
           id: 'mock-other',
           name: 'England vs South Africa 1st ODI',
           matchType: 'ODI',
