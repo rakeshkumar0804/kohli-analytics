@@ -1,7 +1,7 @@
 {
   "artifactVersion": "4.0.0",
   "pipelineVersion": "4.0.0",
-  "generatedAt": "2026-10-26T08:29:56.523Z",
+  "generatedAt": "2026-10-26T20:17:45.394Z",
   "trust": {
     "careerAggregates": {
       "status": "verified",
@@ -31,7 +31,7 @@
         "url": "https://cricsheet.org/downloads/odis_male_json.zip",
         "sha256": "8518aa42ff388c3f6fca06661bba839e8756680c3a35adbfa851f45364675224",
         "bytes": 17683020,
-        "downloadedAt": "2026-10-26T08:29:45.649Z",
+        "downloadedAt": "2026-10-26T20:17:34.317Z",
         "status": "verified"
       },
       {
@@ -40,7 +40,7 @@
         "url": "https://cricsheet.org/downloads/t20s_male_json.zip",
         "sha256": "691f1f42b86c93fbdbc53936ed69479f9306bf39c4c56b4c0729360051075c6d",
         "bytes": 14551021,
-        "downloadedAt": "2026-10-26T08:29:47.484Z",
+        "downloadedAt": "2026-10-26T20:17:36.544Z",
         "status": "verified"
       }
     ],
