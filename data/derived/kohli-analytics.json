@@ -1,7 +1,7 @@
 {
   "artifactVersion": "4.0.0",
   "pipelineVersion": "4.0.0",
-  "generatedAt": "2026-11-03T10:26:37.045Z",
+  "generatedAt": "2026-11-04T13:20:23.149Z",
   "trust": {
     "careerAggregates": {
       "status": "verified",
@@ -29,18 +29,18 @@
         "format": "ODI",
         "filename": "odis_male_json.zip",
         "url": "https://cricsheet.org/downloads/odis_male_json.zip",
-        "sha256": "8518aa42ff388c3f6fca06661bba839e8756680c3a35adbfa851f45364675224",
-        "bytes": 17683020,
-        "downloadedAt": "2026-11-03T10:26:29.235Z",
+        "sha256": "b3e3c7ce548214f44f30e4d656aa3f82e88664829d1157a4779563856737eeaa",
+        "bytes": 17804425,
+        "downloadedAt": "2026-11-04T13:19:53.618Z",
         "status": "verified"
       },
       {
         "format": "T20I",
         "filename": "t20s_male_json.zip",
         "url": "https://cricsheet.org/downloads/t20s_male_json.zip",
-        "sha256": "691f1f42b86c93fbdbc53936ed69479f9306bf39c4c56b4c0729360051075c6d",
-        "bytes": 14551021,
-        "downloadedAt": "2026-11-03T10:26:30.876Z",
+        "sha256": "102586ea122793aafc645e05d6a598b9fff0746935e39b77f2d6f153bc385086",
+        "bytes": 14638615,
+        "downloadedAt": "2026-11-04T13:20:00.274Z",
         "status": "verified"
       }
     ],
@@ -2281,8 +2281,7 @@
     "sourcePageUrl": "https://cricsheet.org/downloads/",
     "schemaVersion": "1.2.0",
     "schemaVersionsDiscovered": {
-      "1.2.0": 6132,
-      "1.3.0": 121
+      "1.3.0": 6266
     }
   },
   "player": {

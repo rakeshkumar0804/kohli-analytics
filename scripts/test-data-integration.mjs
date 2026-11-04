@@ -29,7 +29,7 @@ test('Data Integration & Independent Oracle Suite', async (t) => {
 
   const artifact = JSON.parse(fs.readFileSync(DERIVED_ARTIFACT_PATH, 'utf8'));
 
-  await t.test('Integration 1: Manifest, Checksums, and Schema Version 1.2.0 Audit', () => {
+  await t.test('Integration 1: Manifest, Checksums, and Supported Schema Version Audit', () => {
     assert.ok(fs.existsSync(MANIFEST_PATH), 'Manifest file must exist');
     const manifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'));
     assert.equal(manifest.datasetId, 'cricsheet-male-limited-overs');
@@ -40,7 +40,13 @@ test('Data Integration & Independent Oracle Suite', async (t) => {
       assert.ok(arch.sha256 && arch.sha256.length === 64, `Archive ${arch.filename} must have valid SHA-256`);
       assert.ok(arch.bytes > 0, `Archive ${arch.filename} size must be positive`);
     }
-    assert.ok(manifest.schemaAudit.corpusDistribution['1.2.0'] > 0, 'Must record Schema 1.2.0 files');
+    const dist = manifest.schemaAudit.corpusDistribution;
+    const supportedVersions = manifest.schemaAudit.supportedVersions || ['1.0.0', '1.1.0', '1.2.0', '1.3.0'];
+    const totalFiles = Object.entries(dist).reduce((sum, [ver, count]) => {
+      assert.ok(supportedVersions.includes(ver), `Schema version ${ver} must be in supportedVersions`);
+      return sum + count;
+    }, 0);
+    assert.ok(totalFiles > 0, 'Must record files across supported schema versions');
   });
 
   await t.test('Integration 2: Player identity resolved via Cricsheet ID ba607b88 with distinct ESPN ID 253802', () => {
