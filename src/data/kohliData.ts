@@ -111,12 +111,12 @@ export const legendsData: LegendStats[] = [
     name: 'Virat Kohli',
     shortName: 'Kohli',
     country: 'India',
-    odiAvg: 58.79,
+    odiAvg: 58.85,
     testAvg: 46.85,
     t20Avg: 48.70,
     odiCenturies: 55,
     testCenturies: 30,
-    odiRuns: 15109,
+    odiRuns: 15183,
     testRuns: 9230,
     chaseAvg: 65.0,
     knockoutAvg: 68.4,
@@ -219,14 +219,14 @@ export const legendsData: LegendStats[] = [
 // ============================================================
 export const heroStatsByFormat = {
   ALL: [
-    { value: 28527, label: 'International Runs', subtext: 'Test + ODI + T20I combined', decimals: 0 },
+    { value: 28601, label: 'International Runs', subtext: 'Test + ODI + T20I combined', decimals: 0 },
     { value: 86,    label: 'International Centuries', subtext: '55 ODI, 30 Test, 1 T20I', decimals: 0 },
-    { value: 52.83, label: 'Combined Average', subtext: '565 Matches (Test + ODI + T20I)', decimals: 2 },
+    { value: 52.87, label: 'Combined Average', subtext: '566 Matches (Test + ODI + T20I)', decimals: 2 },
   ],
   ODI: [
-    { value: 15109, label: 'ODI Career Runs', subtext: '317 ODIs (305 Innings, 94.37 SR)', decimals: 0 },
+    { value: 15183, label: 'ODI Career Runs', subtext: '318 ODIs (306 Innings, 94.53 SR)', decimals: 0 },
     { value: 55,    label: 'ODI Centuries', subtext: 'Most ODI 100s in history', decimals: 0 },
-    { value: 58.79, label: 'ODI Batting Average', subtext: 'Most ODI Centuries in History', decimals: 2 },
+    { value: 58.85, label: 'ODI Batting Average', subtext: 'Most ODI Centuries in History', decimals: 2 },
   ],
   Test: [
     { value: 9230,  label: 'Test Career Runs', subtext: '123 Tests (210 Innings, 55.58 SR)', decimals: 0 },
@@ -244,8 +244,8 @@ export const heroStatsByFormat = {
 // CAREER STATS — All formats (Verified Official Table)
 // ============================================================
 export const careerStats = {
-  overall: { matches: 565, innings: 632, notOuts: 92, dismissals: 540, runs: 28527, centuries: 86, fifties: 148, average: 52.83, strikeRate: 79.96, ballsFaced: 35675, ducks: 41, fours: 2798, sixes: 335, catches: 344, highScore: 254 },
-  odi: { matches: 317, innings: 305, notOuts: 48, dismissals: 257, runs: 15109, average: 58.79, strikeRate: 94.37, centuries: 55, fifties: 79, highScore: 183, ballsFaced: 16011, fours: 1402, sixes: 181, ducks: 19, catches: 169 },
+  overall: { matches: 566, innings: 633, notOuts: 92, dismissals: 541, runs: 28601, centuries: 86, fifties: 149, average: 52.87, strikeRate: 80.06, ballsFaced: 35726, ducks: 41, fours: 2811, sixes: 336, catches: 344, highScore: 254 },
+  odi: { matches: 318, innings: 306, notOuts: 48, dismissals: 258, runs: 15183, average: 58.85, strikeRate: 94.53, centuries: 55, fifties: 80, highScore: 183, ballsFaced: 16062, fours: 1415, sixes: 182, ducks: 19, catches: 169 },
   test: { matches: 123, innings: 210, notOuts: 13, dismissals: 197, runs: 9230, average: 46.85, strikeRate: 55.58, centuries: 30, fifties: 31, highScore: 254, ballsFaced: 16608, fours: 1027, sixes: 30, ducks: 15, catches: 121 },
   t20i: { matches: 125, innings: 117, notOuts: 31, dismissals: 86, runs: 4188, average: 48.70, strikeRate: 137.04, centuries: 1, fifties: 38, highScore: 122, ballsFaced: 3056, fours: 369, sixes: 124, ducks: 7, catches: 54 },
   ipl: { matches: 283, innings: 275, notOuts: 44, dismissals: 231, runs: 9336, average: 40.42, strikeRate: 134.8, centuries: 9, fifties: 68, highScore: 113, ballsFaced: 6926, fours: 844, sixes: 316 },

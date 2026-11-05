@@ -194,7 +194,7 @@ The UI distinguishes between `available`, `confirmed-empty`, `missing-credential
 Format | Matches | Innings | Runs | Average | Centuries | Strike Rate
 :---:|:---:|:---:|:---:|:---:|:---:|:---:
 **Test** | 123 | 210 | 9,230 | 46.85 | 30 | —
-**ODI** | 317 | 305 | 15,109 | 58.79 | 55 | 94.37
+**ODI** | 318 | 306 | 15,183 | 58.85 | 55 | 94.53
 **T20I** | 125 | 117 | 4,188 | 48.70 | 1 | 137.04
 **IPL** | 283 | 275 | 9,336 | 40.42 | 9 | 134.80
 

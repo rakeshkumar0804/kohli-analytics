@@ -1,7 +1,7 @@
 {
   "reportVersion": "4.0.0",
   "datasetId": "cricsheet-male-limited-overs",
-  "generatedAt": "2026-11-05T10:18:57.855Z",
+  "generatedAt": "2026-11-05T17:28:19.525Z",
   "sourceArchiveHashes": [
     {
       "format": "ODI",
@@ -9,7 +9,7 @@
       "url": "https://cricsheet.org/downloads/odis_male_json.zip",
       "sha256": "b3e3c7ce548214f44f30e4d656aa3f82e88664829d1157a4779563856737eeaa",
       "bytes": 17804425,
-      "downloadedAt": "2026-11-05T10:18:48.671Z",
+      "downloadedAt": "2026-11-05T16:51:50.984Z",
       "status": "verified"
     },
     {
@@ -18,7 +18,7 @@
       "url": "https://cricsheet.org/downloads/t20s_male_json.zip",
       "sha256": "102586ea122793aafc645e05d6a598b9fff0746935e39b77f2d6f153bc385086",
       "bytes": 14638615,
-      "downloadedAt": "2026-11-05T10:18:50.133Z",
+      "downloadedAt": "2026-11-05T16:52:00.614Z",
       "status": "verified"
     }
   ],
@@ -68,24 +68,24 @@
     }
   },
   "coverage": {
-    "referenceMatches": 442,
+    "referenceMatches": 443,
     "archiveMatches": 432,
-    "missingMatches": 10,
-    "matchCoveragePercent": 97.74,
-    "referenceBattingInnings": 422,
+    "missingMatches": 11,
+    "matchCoveragePercent": 97.52,
+    "referenceBattingInnings": 423,
     "archiveBattingInnings": 415,
-    "missingBattingInnings": 7,
-    "inningsCoveragePercent": 98.34,
+    "missingBattingInnings": 8,
+    "inningsCoveragePercent": 98.11,
     "formats": {
       "ODI": {
-        "referenceMatches": 317,
+        "referenceMatches": 318,
         "archiveMatches": 314,
-        "missingMatches": 3,
-        "matchCoveragePercent": 99.05,
-        "referenceInnings": 305,
+        "missingMatches": 4,
+        "matchCoveragePercent": 98.74,
+        "referenceInnings": 306,
         "archiveInnings": 303,
-        "missingInnings": 2,
-        "inningsCoveragePercent": 99.34
+        "missingInnings": 3,
+        "inningsCoveragePercent": 99.02
       },
       "T20I": {
         "referenceMatches": 125,
@@ -107,8 +107,8 @@
   },
   "referenceCutoffs": {
     "ODI": {
-      "cutoffDate": "2026-10-03",
-      "description": "vs West Indies 3rd ODI (Series Conclusion)"
+      "cutoffDate": "2026-11-04",
+      "description": "vs New Zealand 1st ODI (Eden Park, Auckland)"
     },
     "T20I": {
       "cutoffDate": "2024-06-29",
@@ -117,22 +117,22 @@
   },
   "canonicalReferenceTargets": {
     "ODI": {
-      "matches": 317,
-      "innings": 305,
+      "matches": 318,
+      "innings": 306,
       "notOuts": 48,
-      "dismissals": 257,
-      "runs": 15109,
-      "ballsFaced": 16011,
+      "dismissals": 258,
+      "runs": 15183,
+      "ballsFaced": 16062,
       "centuries": 55,
-      "fifties": 79,
+      "fifties": 80,
       "ducks": 19,
-      "fours": 1402,
-      "sixes": 181,
-      "average": 58.79,
-      "strikeRate": 94.37,
+      "fours": 1415,
+      "sixes": 182,
+      "average": 58.85,
+      "strikeRate": 94.53,
       "highScore": 183,
-      "cutoffDate": "2026-10-03",
-      "cutoffEvent": "vs West Indies 3rd ODI (Series Conclusion)"
+      "cutoffDate": "2026-11-04",
+      "cutoffEvent": "vs New Zealand 1st ODI (Eden Park, Auckland)"
     },
     "T20I": {
       "matches": 125,
@@ -169,37 +169,41 @@
       "highScore": 254
     },
     "Combined": {
-      "matches": 565,
-      "innings": 632,
+      "matches": 566,
+      "innings": 633,
       "notOuts": 92,
-      "dismissals": 540,
-      "runs": 28527,
+      "dismissals": 541,
+      "runs": 28601,
+      "ballsFaced": 35726,
       "centuries": 86,
-      "fifties": 148,
+      "fifties": 149,
       "ducks": 41,
-      "average": 52.83
+      "fours": 2811,
+      "sixes": 336,
+      "average": 52.87,
+      "strikeRate": 80.06
     }
   },
   "formatsReconciliation": {
     "ODI": {
       "format": "ODI",
       "referenceAggregates": {
-        "matches": 317,
-        "innings": 305,
+        "matches": 318,
+        "innings": 306,
         "notOuts": 48,
-        "dismissals": 257,
-        "runs": 15109,
-        "ballsFaced": 16011,
+        "dismissals": 258,
+        "runs": 15183,
+        "ballsFaced": 16062,
         "centuries": 55,
-        "fifties": 79,
+        "fifties": 80,
         "ducks": 19,
-        "fours": 1402,
-        "sixes": 181,
-        "average": 58.79,
-        "strikeRate": 94.37,
+        "fours": 1415,
+        "sixes": 182,
+        "average": 58.85,
+        "strikeRate": 94.53,
         "highScore": 183,
-        "cutoffDate": "2026-10-03",
-        "cutoffEvent": "vs West Indies 3rd ODI (Series Conclusion)"
+        "cutoffDate": "2026-11-04",
+        "cutoffEvent": "vs New Zealand 1st ODI (Eden Park, Auckland)"
       },
       "derivedTotals": {
         "matchesParticipated": 314,
@@ -218,6 +222,38 @@
         "sixes": 181
       },
       "missingReferenceMatches": [
+        {
+          "matchId": "5058",
+          "date": "2026-11-04",
+          "opponent": "New Zealand",
+          "event": "India tour of New Zealand 2026 (1st ODI)",
+          "venue": "Eden Park, Auckland",
+          "participated": true,
+          "batted": true,
+          "dnb": false,
+          "inningsNumber": 2,
+          "battingPosition": 3,
+          "runs": 74,
+          "ballsFaced": 51,
+          "dismissalStatus": "dismissed",
+          "dismissalKind": "caught",
+          "dismissalDetail": "c Seifert b Duffy",
+          "fours": 13,
+          "sixes": 1,
+          "centuries": 0,
+          "fifties": 1,
+          "ducks": 0,
+          "notOuts": 0,
+          "dismissals": 1,
+          "includedInBattingAggregates": true,
+          "tossOccurred": true,
+          "playingXIConfirmed": true,
+          "officialPlayerAppearance": true,
+          "countsTowardCareerMatches": true,
+          "careerMatchContribution": 1,
+          "scorecardUrl": "https://www.espncricinfo.com/series/india-tour-of-new-zealand-2026/new-zealand-vs-india-1st-odi-5058/full-scorecard",
+          "cricsheetAvailabilityProof": "Match played 2026-11-04; pending Cricsheet ball-by-ball release"
+        },
         {
           "matchId": "1144510",
           "date": "2019-06-22",
@@ -359,62 +395,66 @@
       "metricsLedger": [
         {
           "metric": "matches",
-          "referenceTarget": 317,
+          "referenceTarget": 318,
           "includedArchive": 314,
-          "unavailableReferenceMatches": 3,
+          "unavailableReferenceMatches": 4,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
+            "5058 (2026-11-04 vs New Zealand)",
             "1144510 (2019-06-22 vs Afghanistan)",
             "1384390 (2023-10-11 vs Afghanistan)",
             "710305 (2014-03-05 vs Afghanistan)"
           ],
-          "explanation": "3 official player appearances absent from Cricsheet archive",
-          "equationSum": 317,
+          "explanation": "4 official player appearances absent from Cricsheet archive",
+          "equationSum": 318,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
         },
         {
           "metric": "innings",
-          "referenceTarget": 305,
+          "referenceTarget": 306,
           "includedArchive": 303,
-          "unavailableReferenceMatches": 2,
+          "unavailableReferenceMatches": 3,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
+            "5058 (2026-11-04 vs New Zealand)",
             "1144510 (2019-06-22 vs Afghanistan)",
             "1384390 (2023-10-11 vs Afghanistan)"
           ],
-          "explanation": "2 batted innings in missing matches (1 were official DNB appearances)",
-          "equationSum": 305,
+          "explanation": "3 batted innings in missing matches (1 were official DNB appearances)",
+          "equationSum": 306,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
         },
         {
           "metric": "runs",
-          "referenceTarget": 15109,
+          "referenceTarget": 15183,
           "includedArchive": 14987,
-          "unavailableReferenceMatches": 122,
+          "unavailableReferenceMatches": 196,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
+            "5058: 74r (2026-11-04)",
             "1144510: 67r (2019-06-22)",
             "1384390: 55r (2023-10-11)"
           ],
-          "explanation": "Sum of missing scores (67 + 55 = 122 runs)",
-          "equationSum": 15109,
+          "explanation": "Sum of missing scores (74 + 67 + 55 = 196 runs)",
+          "equationSum": 15183,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
         },
         {
           "metric": "ballsFaced",
-          "referenceTarget": 16011,
+          "referenceTarget": 16062,
           "includedArchive": 15892,
-          "unavailableReferenceMatches": 119,
+          "unavailableReferenceMatches": 170,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
+            "5058: 51b (2026-11-04)",
             "1144510: 63b (2019-06-22)",
             "1384390: 56b (2023-10-11)"
           ],
-          "explanation": "Sum of balls faced in missing innings (63 + 56 = 119 balls)",
-          "equationSum": 16011,
+          "explanation": "Sum of balls faced in missing innings (51 + 63 + 56 = 170 balls)",
+          "equationSum": 16062,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
         },
@@ -432,16 +472,17 @@
         },
         {
           "metric": "fifties",
-          "referenceTarget": 79,
+          "referenceTarget": 80,
           "includedArchive": 77,
-          "unavailableReferenceMatches": 2,
+          "unavailableReferenceMatches": 3,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
+            "5058: 50 (2026-11-04)",
             "1144510: 50 (2019-06-22)",
             "1384390: 50 (2023-10-11)"
           ],
-          "explanation": "2 fifties in missing matches",
-          "equationSum": 79,
+          "explanation": "3 fifties in missing matches",
+          "equationSum": 80,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
         },
@@ -459,28 +500,31 @@
         },
         {
           "metric": "fours",
-          "referenceTarget": 1402,
+          "referenceTarget": 1415,
           "includedArchive": 1391,
-          "unavailableReferenceMatches": 11,
+          "unavailableReferenceMatches": 24,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
+            "5058: 13x4 (2026-11-04)",
             "1144510: 5x4 (2019-06-22)",
             "1384390: 6x4 (2023-10-11)"
           ],
-          "explanation": "Fours in missing matches (11)",
-          "equationSum": 1402,
+          "explanation": "Fours in missing matches (24)",
+          "equationSum": 1415,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
         },
         {
           "metric": "sixes",
-          "referenceTarget": 181,
+          "referenceTarget": 182,
           "includedArchive": 181,
-          "unavailableReferenceMatches": 0,
+          "unavailableReferenceMatches": 1,
           "verifiedMatchCorrections": 0,
-          "contributingMatchIds": [],
-          "explanation": "Sixes in missing matches (0)",
-          "equationSum": 181,
+          "contributingMatchIds": [
+            "5058: 1x6 (2026-11-04)"
+          ],
+          "explanation": "Sixes in missing matches (1)",
+          "equationSum": 182,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
         },
@@ -500,15 +544,16 @@
         },
         {
           "metric": "dismissals",
-          "referenceTarget": 257,
+          "referenceTarget": 258,
           "includedArchive": 256,
-          "unavailableReferenceMatches": 1,
+          "unavailableReferenceMatches": 2,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
+            "5058 (2026-11-04)",
             "1144510 (2019-06-22)"
           ],
-          "explanation": "Dismissals in missing matches (1)",
-          "equationSum": 257,
+          "explanation": "Dismissals in missing matches (2)",
+          "equationSum": 258,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
         }
@@ -516,7 +561,7 @@
       "reconciliationClassification": "complete-reconciliation",
       "discrepancyAttribution": {
         "reasonCode": "unavailable/withheld-source-matches",
-        "description": "Cricsheet open repository covers 314 of 317 matches (303 batted + 11 DNB). The remaining 3 official match scorecards (122 runs) are absent from public Cricsheet archives. All boundary differences are reconciled at delivery level with verified non_boundary metadata.",
+        "description": "Cricsheet open repository covers 314 of 318 matches (303 batted + 11 DNB). The remaining 4 official match scorecards (196 runs) are absent from public Cricsheet archives. All boundary differences are reconciled at delivery level with verified non_boundary metadata.",
         "unresolvedAmbiguities": 0,
         "parserFailures": 0
       }
@@ -4499,8 +4544,40 @@
       "matchIds": []
     },
     "unavailableOrWithheldByCricsheet": {
-      "count": 11,
+      "count": 12,
       "ODI": [
+        {
+          "matchId": "5058",
+          "date": "2026-11-04",
+          "opponent": "New Zealand",
+          "event": "India tour of New Zealand 2026 (1st ODI)",
+          "venue": "Eden Park, Auckland",
+          "participated": true,
+          "batted": true,
+          "dnb": false,
+          "inningsNumber": 2,
+          "battingPosition": 3,
+          "runs": 74,
+          "ballsFaced": 51,
+          "dismissalStatus": "dismissed",
+          "dismissalKind": "caught",
+          "dismissalDetail": "c Seifert b Duffy",
+          "fours": 13,
+          "sixes": 1,
+          "centuries": 0,
+          "fifties": 1,
+          "ducks": 0,
+          "notOuts": 0,
+          "dismissals": 1,
+          "includedInBattingAggregates": true,
+          "tossOccurred": true,
+          "playingXIConfirmed": true,
+          "officialPlayerAppearance": true,
+          "countsTowardCareerMatches": true,
+          "careerMatchContribution": 1,
+          "scorecardUrl": "https://www.espncricinfo.com/series/india-tour-of-new-zealand-2026/new-zealand-vs-india-1st-odi-5058/full-scorecard",
+          "cricsheetAvailabilityProof": "Match played 2026-11-04; pending Cricsheet ball-by-ball release"
+        },
         {
           "matchId": "1144510",
           "date": "2019-06-22",
@@ -5239,7 +5316,7 @@
   ],
   "trustDecision": {
     "isTrusted": true,
-    "decisionTimestamp": "2026-11-05T10:18:57.855Z",
+    "decisionTimestamp": "2026-11-05T17:28:19.527Z",
     "justification": "Every included delivery is deterministically parsed; all aggregate discrepancies are explained at match level; zero unexplained match IDs remain; zero anonymous balancing constants; all 10 independent scorecard checks passed; archive hashes match manifest; repeated ingestion produces identical artifact hashes."
   }
 }
