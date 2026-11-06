@@ -18,6 +18,7 @@ import {
   bowlerMatchups,
   groupArchive,
   inningsIndex,
+  latestVerifiedInnings,
   selectArchive,
   summarize,
   type ArchiveInnings,
@@ -530,11 +531,29 @@ export function ArchiveLibrary({
   const [advanced, setAdvanced] = useState(
     Boolean(view.opponent || view.venue || view.situation || view.minRuns),
   );
-  const rows = selectArchive({
-    ...view,
-    includeIPL: true,
-    minRuns: view.minRuns ? Number(view.minRuns) : undefined,
-  })
+  const verifiedRows = latestVerifiedInnings.filter(
+    (i) =>
+      (!view.format || view.format === "ALL" || i.format === view.format) &&
+      (!view.query ||
+        `${i.opponent} ${i.venue} ${i.event} ${i.date}`
+          .toLowerCase()
+          .includes(view.query.trim().toLowerCase())) &&
+      (!view.year || i.date.startsWith(view.year)) &&
+      (!view.result || i.result === view.result) &&
+      (!view.opponent || i.opponent === view.opponent) &&
+      (!view.venue || i.venue === view.venue) &&
+      (!view.situation ||
+        (view.situation === "chase" ? i.innings === 2 : i.innings === 1)) &&
+      (!view.minRuns || i.runs >= Number(view.minRuns)),
+  );
+  const rows = [
+    ...verifiedRows,
+    ...selectArchive({
+      ...view,
+      includeIPL: true,
+      minRuns: view.minRuns ? Number(view.minRuns) : undefined,
+    }),
+  ]
     .filter((i) => !view.saved || saved.includes("archive-" + i.id))
     .sort((a, b) =>
       sort === "runs"
@@ -874,7 +893,10 @@ export function OverviewContent({
   const format = view.format;
   const rows = selectArchive({ format });
   const s = statsByFormat[format];
-  const recent = rows.slice(0, 5);
+  const verifiedRecent = latestVerifiedInnings.filter(
+    (i) => format === "ALL" || i.format === format,
+  );
+  const recent = [...verifiedRecent, ...rows].slice(0, 5);
   const chase = rows.filter((i) => i.innings === 2);
   const cs = summarize(chase);
   const featured =

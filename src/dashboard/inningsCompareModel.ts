@@ -1,4 +1,8 @@
-import { inningsIndex, type ArchiveInnings } from "./insights.ts";
+import {
+  inningsIndex,
+  latestVerifiedInnings,
+  type ArchiveInnings,
+} from "./insights.ts";
 export type Checkpoint = {
   over: number;
   runs: number;
@@ -22,12 +26,13 @@ export function resolvePair(
   left?: string,
   right?: string,
 ): [ArchiveInnings, ArchiveInnings] {
+  const pool = [...latestVerifiedInnings, ...inningsIndex];
   const a =
-    inningsIndex.find((i) => i.id === left) ||
-    inningsIndex.find((i) => i.id === "1298150")!;
+    pool.find((i) => i.id === left) ||
+    pool.find((i) => i.id === "1298150")!;
   const b =
-    inningsIndex.find((i) => i.id === right && i.id !== a.id) ||
-    inningsIndex.find(
+    pool.find((i) => i.id === right && i.id !== a.id) ||
+    pool.find(
       (i) => i.id === (a.id === "951363" ? "1298150" : "951363"),
     )!;
   return [a, b];

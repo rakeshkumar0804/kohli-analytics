@@ -6,6 +6,29 @@ export const inningsIndex: ArchiveInnings[] = [
   ...index.innings,
   ...ipl.innings,
 ].sort((a, b) => b.date.localeCompare(a.date));
+
+export const latestVerifiedInnings: ArchiveInnings[] = [
+  {
+    id: "5058",
+    date: "2026-11-04",
+    format: "ODI",
+    opponent: "New Zealand",
+    venue: "Eden Park, Auckland",
+    event: "India tour of New Zealand",
+    stage: "bilateral",
+    innings: 2,
+    runs: 74,
+    balls: 51,
+    notOut: false,
+    fours: 13,
+    sixes: 1,
+    dots: 21,
+    dismissal: "caught",
+    result: "won",
+    target: 143,
+    playerOfMatch: true,
+  },
+];
 export const iplArchive = ipl;
 export const bowlerMatchups = { ...index.matchups, IPL: ipl.matchups };
 export interface ArchiveFilters {
