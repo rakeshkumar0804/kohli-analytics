@@ -27,6 +27,14 @@ const ARCHIVES = [
   },
 ];
 
+const MAX_RETRIES = 3;
+const BASE_RETRY_DELAY_MS = 3000;
+const DOWNLOAD_TIMEOUT_MS = 90000;
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function computeSha256(filePath) {
   const fileBuffer = fs.readFileSync(filePath);
   const hashSum = crypto.createHash('sha256');
@@ -34,20 +42,45 @@ function computeSha256(filePath) {
   return hashSum.digest('hex');
 }
 
-async function downloadFile(url, destPath) {
-  console.log(`Downloading ${url} ...`);
-  const response = await fetch(url, {
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 kohli-analytics-bot',
-      'Accept': '*/*',
-    },
-  });
-  if (!response.ok) {
-    throw new Error(`Failed to download ${url}: HTTP ${response.status} ${response.statusText}`);
+async function downloadFile(url, destPath, maxRetries = MAX_RETRIES) {
+  let lastError;
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), DOWNLOAD_TIMEOUT_MS);
+    try {
+      console.log(`Downloading ${url} (attempt ${attempt}/${maxRetries}) ...`);
+      const response = await fetch(url, {
+        signal: controller.signal,
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 kohli-analytics-bot',
+          'Accept': '*/*',
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status} ${response.statusText}`);
+      }
+      const arrayBuffer = await response.arrayBuffer();
+      if (!arrayBuffer || arrayBuffer.byteLength < 1000) {
+        throw new Error(`Incomplete download: received only ${arrayBuffer ? arrayBuffer.byteLength : 0} bytes`);
+      }
+      fs.writeFileSync(destPath, Buffer.from(arrayBuffer));
+      console.log(`Saved to ${destPath} (${(arrayBuffer.byteLength / 1024 / 1024).toFixed(2)} MB)`);
+      return;
+    } catch (err) {
+      lastError = err;
+      const isAbort = err.name === 'AbortError';
+      const errMsg = isAbort ? `Request timed out after ${DOWNLOAD_TIMEOUT_MS / 1000}s` : err.message;
+      console.warn(`Attempt ${attempt}/${maxRetries} failed: ${errMsg}`);
+      if (attempt < maxRetries) {
+        const delay = BASE_RETRY_DELAY_MS * Math.pow(2, attempt - 1);
+        console.log(`Retrying in ${delay / 1000}s...`);
+        await sleep(delay);
+      }
+    } finally {
+      clearTimeout(timeoutId);
+    }
   }
-  const arrayBuffer = await response.arrayBuffer();
-  fs.writeFileSync(destPath, Buffer.from(arrayBuffer));
-  console.log(`Saved to ${destPath} (${(arrayBuffer.byteLength / 1024 / 1024).toFixed(2)} MB)`);
+  throw new Error(`Failed to download ${url} after ${maxRetries} attempts: ${lastError?.message}`);
 }
 
 async function main() {
@@ -70,8 +103,12 @@ async function main() {
       try {
         await downloadFile(item.url, destPath);
       } catch (err) {
-        console.error(`Error downloading ${item.filename}:`, err.message);
-        throw err;
+        if (fs.existsSync(destPath) && fs.statSync(destPath).size > 1000) {
+          console.warn(`[FALLBACK] Download failed for ${item.filename}, but existing cached archive is available (${(fs.statSync(destPath).size / 1024 / 1024).toFixed(2)} MB). Continuing with cached data.`);
+        } else {
+          console.error(`Error downloading ${item.filename}:`, err.message);
+          throw err;
+        }
       }
     }
 
