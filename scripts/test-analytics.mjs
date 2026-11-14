@@ -1029,11 +1029,11 @@ describe('6. Phase 1 Data Invariants Regression Suite', () => {
     assert.strictEqual(careerStats.test.average, 46.85);
 
     // ODI
-    assert.strictEqual(careerStats.odi.matches, 318);
-    assert.strictEqual(careerStats.odi.innings, 306);
-    assert.strictEqual(careerStats.odi.runs, 15183);
+    assert.strictEqual(careerStats.odi.matches, 321);
+    assert.strictEqual(careerStats.odi.innings, 308);
+    assert.strictEqual(careerStats.odi.runs, 15190);
     assert.strictEqual(careerStats.odi.notOuts, 48);
-    assert.strictEqual(careerStats.odi.average, 58.85);
+    assert.strictEqual(careerStats.odi.average, 58.42);
 
     // T20I
     assert.strictEqual(careerStats.t20i.matches, 125);
@@ -1050,20 +1050,20 @@ describe('6. Phase 1 Data Invariants Regression Suite', () => {
     assert.strictEqual(careerStats.ipl.average, 40.42);
 
     // COMBINED INTERNATIONAL (TEST + ODI + T20I ONLY)
-    assert.strictEqual(careerStats.overall.matches, 566);
-    assert.strictEqual(careerStats.overall.innings, 633);
-    assert.strictEqual(careerStats.overall.runs, 28601);
+    assert.strictEqual(careerStats.overall.matches, 569);
+    assert.strictEqual(careerStats.overall.innings, 635);
+    assert.strictEqual(careerStats.overall.runs, 28608);
     assert.strictEqual(careerStats.overall.notOuts, 92);
-    assert.strictEqual(careerStats.overall.average, 52.87);
+    assert.strictEqual(careerStats.overall.average, 52.69);
     assert.strictEqual(careerStats.overall.centuries, 86);
     assert.strictEqual(careerStats.overall.fifties, 149);
 
     // EXACT MATHEMATICAL DIVISION CHECKS
     assert.strictEqual(Number((9230 / (210 - 13)).toFixed(2)), 46.85);
-    assert.strictEqual(Number((15183 / (306 - 48)).toFixed(2)), 58.85);
+    assert.strictEqual(Number((15190 / (308 - 48)).toFixed(2)), 58.42);
     assert.strictEqual(Number((4188 / (117 - 31)).toFixed(2)), 48.70);
     assert.strictEqual(Number((9336 / (275 - 44)).toFixed(2)), 40.42);
-    assert.strictEqual(Number((28601 / (633 - 92)).toFixed(2)), 52.87);
+    assert.strictEqual(Number((28608 / (635 - 92)).toFixed(2)), 52.69);
 
     // 9 SENIOR OPPONENTS
     assert.strictEqual(opponentData.length, 9);
@@ -2344,10 +2344,10 @@ describe('10. API Architecture & Reliability Suite', () => {
 
   it('10.6 getVerifiedCareerStats returns Phase 1 locked career totals as declared single source of truth', () => {
     const stats = getVerifiedCareerStats();
-    assert.strictEqual(stats.runs, 28601);
-    assert.strictEqual(stats.matches, 566);
+    assert.strictEqual(stats.runs, 28608);
+    assert.strictEqual(stats.matches, 569);
     assert.strictEqual(stats.centuries, 86);
-    assert.strictEqual(stats.average, 58.85);
+    assert.strictEqual(stats.average, 58.42);
     assert.strictEqual(stats.highScore, 183);
   });
 
@@ -2918,8 +2918,8 @@ describe('12. Pressure Performance Dashboard & Situational Splits Suite', () => 
     assert.strictEqual(t20HighRrr.baselineScopeLabel, 'Covered-archive batting average');
     assert.ok(t20HighRrr.baselineAvgDisplay.includes('Covered Archive'));
 
-    // Full-career totals remain strictly unmutated (58.85 ODI, 48.70 T20I, 46.85 Test)
-    assert.strictEqual(careerStats.odi.average, 58.85);
+    // Full-career totals remain strictly unmutated (58.42 ODI, 48.70 T20I, 46.85 Test)
+    assert.strictEqual(careerStats.odi.average, 58.42);
     assert.strictEqual(careerStats.t20i.average, 48.70);
     assert.strictEqual(careerStats.test.average, 46.85);
   });

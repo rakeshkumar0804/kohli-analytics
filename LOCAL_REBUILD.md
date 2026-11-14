@@ -17,7 +17,7 @@ Extract `Kohli-Analytics-v7.zip`, open `kohli-analytics`, run `npm ci`, then `np
 
 ## Data scope
 
-Comparison records were checked on 10 November 2026. Last match denotes the source’s match start date, not an automated refresh timestamp. Comparison snapshots, overview totals and ball-by-ball archive coverage have distinct cutoffs; the interface explains this. This release does not claim live career statistics or a complete historical delivery archive. Fixture-provider behavior is unchanged, and browser tests use an unavailable-provider fixture.
+Comparison records were checked on 14 November 2026. Last match denotes the source’s match start date, not an automated refresh timestamp. Comparison snapshots, overview totals and ball-by-ball archive coverage have distinct cutoffs; the interface explains this. This release does not claim live career statistics or a complete historical delivery archive. Fixture-provider behavior is unchanged, and browser tests use an unavailable-provider fixture.
 
 ## Verification
 

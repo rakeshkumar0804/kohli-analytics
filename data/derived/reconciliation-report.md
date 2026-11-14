@@ -2,7 +2,7 @@
 
 - **Report Version**: `4.0.0`
 - **Dataset ID**: `cricsheet-male-limited-overs`
-- **Generated At**: `2026-11-14T09:47:44.122Z`
+- **Generated At**: `2026-11-14T13:45:20.566Z`
 - **Player**: Virat Kohli (Cricsheet: `ba607b88`, ESPNcricinfo: `253802`)
 - **Trust Status**: `CAREER AGGREGATES VERIFIED; DELIVERY COVERAGE PARTIAL`
 
@@ -19,9 +19,9 @@
 
 ## Explicit Coverage Summary
 
-- **Overall Matches**: 432 of 443 reference matches (97.52% coverage, 11 unavailable matches)
-- **Overall Batting Innings**: 415 of 423 reference innings (98.11% coverage, 8 unavailable batting innings)
-- **ODI Coverage**: 314 of 318 matches (98.74%), 303 of 306 innings (99.02%)
+- **Overall Matches**: 432 of 446 reference matches (96.86% coverage, 14 unavailable matches)
+- **Overall Batting Innings**: 415 of 425 reference innings (97.65% coverage, 10 unavailable batting innings)
+- **ODI Coverage**: 314 of 321 matches (97.82%), 303 of 308 innings (98.38%)
 - **T20I Coverage**: 118 of 125 matches (94.4%), 112 of 117 innings (95.73%)
 
 ---
@@ -32,22 +32,25 @@
 
 | Metric | Canonical Reference (Target) | Ingested Archive | Unavailable Matches | Verified Corrections | Reconciled Sum | Equation Balance | Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **matches** | 318 | 314 | 4 | 0 | 318 | `314 + 4 + 0 = 318` | resolved-reconciled |
-| **innings** | 306 | 303 | 3 | 0 | 306 | `303 + 3 + 0 = 306` | resolved-reconciled |
-| **runs** | 15183 | 14987 | 196 | 0 | 15183 | `14987 + 196 + 0 = 15183` | resolved-reconciled |
-| **ballsFaced** | 16062 | 15892 | 170 | 0 | 16062 | `15892 + 170 + 0 = 16062` | resolved-reconciled |
+| **matches** | 321 | 314 | 7 | 0 | 321 | `314 + 7 + 0 = 321` | resolved-reconciled |
+| **innings** | 308 | 303 | 5 | 0 | 308 | `303 + 5 + 0 = 308` | resolved-reconciled |
+| **runs** | 15190 | 14987 | 203 | 0 | 15190 | `14987 + 203 + 0 = 15190` | resolved-reconciled |
+| **ballsFaced** | 16073 | 15892 | 181 | 0 | 16073 | `15892 + 181 + 0 = 16073` | resolved-reconciled |
 | **centuries** | 55 | 55 | 0 | 0 | 55 | `55 + 0 + 0 = 55` | resolved-reconciled |
 | **fifties** | 80 | 77 | 3 | 0 | 80 | `77 + 3 + 0 = 80` | resolved-reconciled |
-| **ducks** | 19 | 19 | 0 | 0 | 19 | `19 + 0 + 0 = 19` | resolved-reconciled |
-| **fours** | 1415 | 1391 | 24 | 0 | 1415 | `1391 + 24 + 0 = 1415` | resolved-reconciled |
+| **ducks** | 20 | 19 | 1 | 0 | 20 | `19 + 1 + 0 = 20` | resolved-reconciled |
+| **fours** | 1416 | 1391 | 25 | 0 | 1416 | `1391 + 25 + 0 = 1416` | resolved-reconciled |
 | **sixes** | 182 | 181 | 1 | 0 | 182 | `181 + 1 + 0 = 182` | resolved-reconciled |
 | **notOuts** | 48 | 47 | 1 | 0 | 48 | `47 + 1 + 0 = 48` | resolved-reconciled |
-| **dismissals** | 258 | 256 | 2 | 0 | 258 | `256 + 2 + 0 = 258` | resolved-reconciled |
+| **dismissals** | 260 | 256 | 4 | 0 | 260 | `256 + 4 + 0 = 260` | resolved-reconciled |
 
 ### Missing Reference Matches for ODI
 
 | Match ID | Date | Opponent | Event | Appearance | Batted/DNB | R (B) | 4s | 6s | 50/100 | Dismissal | Reason |
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- | :--- |
+| [5061](https://www.espncricinfo.com/series/india-tour-of-new-zealand-2026/new-zealand-vs-india-4th-odi-5061/full-scorecard) | 2026-11-13 | New Zealand | India tour of New Zealand 2026 (4th ODI) | Yes | Batted | 0 (4) | 0 | 0 | Duck | b Henry | Match played 2026-11-13; pending Cricsheet ball-by-ball release |
+| [5060](https://www.espncricinfo.com/series/india-tour-of-new-zealand-2026/new-zealand-vs-india-3rd-odi-5060/full-scorecard) | 2026-11-10 | New Zealand | India tour of New Zealand 2026 (3rd ODI) | Yes | DNB | DNB | 0 | 0 | - | Match abandoned without a ball bowled (Rain) | Match scheduled 2026-11-10; abandoned due to persistent rain; included in official match count |
+| [5059](https://www.espncricinfo.com/series/india-tour-of-new-zealand-2026/new-zealand-vs-india-2nd-odi-5059/full-scorecard) | 2026-11-07 | New Zealand | India tour of New Zealand 2026 (2nd ODI) | Yes | Batted | 7 (7) | 1 | 0 | - | c Young b Duffy | Match played 2026-11-07; pending Cricsheet ball-by-ball release |
 | [5058](https://www.espncricinfo.com/series/india-tour-of-new-zealand-2026/new-zealand-vs-india-1st-odi-5058/full-scorecard) | 2026-11-04 | New Zealand | India tour of New Zealand 2026 (1st ODI) | Yes | Batted | 74 (51) | 13 | 1 | 50 | c Seifert b Duffy | Match played 2026-11-04; pending Cricsheet ball-by-ball release |
 | [1144510](https://www.espncricinfo.com/series/icc-cricket-world-cup-2019-1144415/afghanistan-vs-india-28th-match-1144510/full-scorecard) | 2019-06-22 | Afghanistan | ICC Cricket World Cup 2019 (28th Match) | Yes | Batted | 67 (63) | 5 | 0 | 50 | c Rahmat Shah b Mohammad Nabi | Excluded from odis_male_json.zip due to Cricsheet archive partitioning of Afghanistan ODI matches |
 | [1384390](https://www.espncricinfo.com/series/icc-cricket-world-cup-2023-24-1384392/india-vs-afghanistan-9th-match-1384390/full-scorecard) | 2023-10-11 | Afghanistan | ICC Cricket World Cup 2023/24 (9th Match) | Yes | Batted | 55 (56) | 6 | 0 | 50 | not out | Excluded from odis_male_json.zip due to Cricsheet archive partitioning of Afghanistan ODI matches |
@@ -63,9 +66,9 @@
 
 **Dismissal Invariant Verification for ODI**:
 - Ingested Archive: $\text{innings} (303) - \text{notOuts} (47) = 256 \equiv \text{dismissals} (256)$
-- Unavailable Matches: $\text{innings} (3) - \text{notOuts} (1) = 2 \equiv \text{dismissals} (2)$
-- Reconstructed Career: $\text{innings} (306) - \text{notOuts} (48) = 258 \equiv \text{dismissals} (258)$
-- Canonical Reference: $\text{innings} (306) - \text{notOuts} (48) = 258 \equiv \text{dismissals} (258)$
+- Unavailable Matches: $\text{innings} (5) - \text{notOuts} (1) = 4 \equiv \text{dismissals} (4)$
+- Reconstructed Career: $\text{innings} (308) - \text{notOuts} (48) = 260 \equiv \text{dismissals} (260)$
+- Canonical Reference: $\text{innings} (308) - \text{notOuts} (48) = 260 \equiv \text{dismissals} (260)$
 
 ## T20I Format Reconciliation Ledger
 
@@ -210,7 +213,7 @@
 
 - **Present & Included**: 432 matches
 - **Present but DNB**: 17 matches
-- **Unavailable in Cricsheet**: 12 matches (ODI: 4, T20I: 8)
+- **Unavailable in Cricsheet**: 15 matches (ODI: 7, T20I: 8)
 - **Abandoned / No-Result Matches**: 8 matches
 - **Duplicates Detected**: 0
 - **Unresolved Discrepancies**: 0
