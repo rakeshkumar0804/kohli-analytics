@@ -9,6 +9,26 @@ export const inningsIndex: ArchiveInnings[] = [
 
 export const latestVerifiedInnings: ArchiveInnings[] = [
   {
+    id: "5062",
+    date: "2026-11-15",
+    format: "ODI",
+    opponent: "New Zealand",
+    venue: "Bay Oval, Mount Maunganui",
+    event: "India tour of New Zealand",
+    stage: "bilateral",
+    innings: 1,
+    runs: 5,
+    balls: 7,
+    notOut: false,
+    fours: 0,
+    sixes: 0,
+    dots: 2,
+    dismissal: "caught",
+    result: "won",
+    target: null,
+    playerOfMatch: false,
+  },
+  {
     id: "5061",
     date: "2026-11-13",
     format: "ODI",

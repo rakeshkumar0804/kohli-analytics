@@ -1,7 +1,7 @@
 {
   "reportVersion": "4.0.0",
   "datasetId": "cricsheet-male-limited-overs",
-  "generatedAt": "2026-11-15T17:49:12.167Z",
+  "generatedAt": "2026-11-15T18:25:37.757Z",
   "sourceArchiveHashes": [
     {
       "format": "ODI",
@@ -68,24 +68,24 @@
     }
   },
   "coverage": {
-    "referenceMatches": 446,
+    "referenceMatches": 447,
     "archiveMatches": 432,
-    "missingMatches": 14,
-    "matchCoveragePercent": 96.86,
-    "referenceBattingInnings": 425,
+    "missingMatches": 15,
+    "matchCoveragePercent": 96.64,
+    "referenceBattingInnings": 426,
     "archiveBattingInnings": 415,
-    "missingBattingInnings": 10,
-    "inningsCoveragePercent": 97.65,
+    "missingBattingInnings": 11,
+    "inningsCoveragePercent": 97.42,
     "formats": {
       "ODI": {
-        "referenceMatches": 321,
+        "referenceMatches": 322,
         "archiveMatches": 314,
-        "missingMatches": 7,
-        "matchCoveragePercent": 97.82,
-        "referenceInnings": 308,
+        "missingMatches": 8,
+        "matchCoveragePercent": 97.52,
+        "referenceInnings": 309,
         "archiveInnings": 303,
-        "missingInnings": 5,
-        "inningsCoveragePercent": 98.38
+        "missingInnings": 6,
+        "inningsCoveragePercent": 98.06
       },
       "T20I": {
         "referenceMatches": 125,
@@ -107,8 +107,8 @@
   },
   "referenceCutoffs": {
     "ODI": {
-      "cutoffDate": "2026-11-13",
-      "description": "vs New Zealand 4th ODI (Bay Oval, Mount Maunganui)"
+      "cutoffDate": "2026-11-15",
+      "description": "vs New Zealand 5th ODI (Bay Oval, Mount Maunganui)"
     },
     "T20I": {
       "cutoffDate": "2024-06-29",
@@ -117,22 +117,22 @@
   },
   "canonicalReferenceTargets": {
     "ODI": {
-      "matches": 321,
-      "innings": 308,
+      "matches": 322,
+      "innings": 309,
       "notOuts": 48,
-      "dismissals": 260,
-      "runs": 15190,
-      "ballsFaced": 16073,
+      "dismissals": 261,
+      "runs": 15195,
+      "ballsFaced": 16080,
       "centuries": 55,
       "fifties": 80,
       "ducks": 20,
       "fours": 1416,
       "sixes": 182,
-      "average": 58.42,
-      "strikeRate": 94.51,
+      "average": 58.22,
+      "strikeRate": 94.5,
       "highScore": 183,
-      "cutoffDate": "2026-11-13",
-      "cutoffEvent": "vs New Zealand 4th ODI (Bay Oval, Mount Maunganui)"
+      "cutoffDate": "2026-11-15",
+      "cutoffEvent": "vs New Zealand 5th ODI (Bay Oval, Mount Maunganui)"
     },
     "T20I": {
       "matches": 125,
@@ -188,22 +188,22 @@
     "ODI": {
       "format": "ODI",
       "referenceAggregates": {
-        "matches": 321,
-        "innings": 308,
+        "matches": 322,
+        "innings": 309,
         "notOuts": 48,
-        "dismissals": 260,
-        "runs": 15190,
-        "ballsFaced": 16073,
+        "dismissals": 261,
+        "runs": 15195,
+        "ballsFaced": 16080,
         "centuries": 55,
         "fifties": 80,
         "ducks": 20,
         "fours": 1416,
         "sixes": 182,
-        "average": 58.42,
-        "strikeRate": 94.51,
+        "average": 58.22,
+        "strikeRate": 94.5,
         "highScore": 183,
-        "cutoffDate": "2026-11-13",
-        "cutoffEvent": "vs New Zealand 4th ODI (Bay Oval, Mount Maunganui)"
+        "cutoffDate": "2026-11-15",
+        "cutoffEvent": "vs New Zealand 5th ODI (Bay Oval, Mount Maunganui)"
       },
       "derivedTotals": {
         "matchesParticipated": 314,
@@ -222,6 +222,38 @@
         "sixes": 181
       },
       "missingReferenceMatches": [
+        {
+          "matchId": "5062",
+          "date": "2026-11-15",
+          "opponent": "New Zealand",
+          "event": "India tour of New Zealand 2026 (5th ODI)",
+          "venue": "Bay Oval, Mount Maunganui",
+          "participated": true,
+          "batted": true,
+          "dnb": false,
+          "inningsNumber": 1,
+          "battingPosition": 3,
+          "runs": 5,
+          "ballsFaced": 7,
+          "dismissalStatus": "dismissed",
+          "dismissalKind": "caught",
+          "dismissalDetail": "c Seifert b Fisher",
+          "fours": 0,
+          "sixes": 0,
+          "centuries": 0,
+          "fifties": 0,
+          "ducks": 0,
+          "notOuts": 0,
+          "dismissals": 1,
+          "includedInBattingAggregates": true,
+          "tossOccurred": true,
+          "playingXIConfirmed": true,
+          "officialPlayerAppearance": true,
+          "countsTowardCareerMatches": true,
+          "careerMatchContribution": 1,
+          "scorecardUrl": "https://www.espncricinfo.com/series/india-tour-of-new-zealand-2026/new-zealand-vs-india-5th-odi-5062/full-scorecard",
+          "cricsheetAvailabilityProof": "Match played 2026-11-15; pending Cricsheet ball-by-ball release"
+        },
         {
           "matchId": "5061",
           "date": "2026-11-13",
@@ -491,11 +523,12 @@
       "metricsLedger": [
         {
           "metric": "matches",
-          "referenceTarget": 321,
+          "referenceTarget": 322,
           "includedArchive": 314,
-          "unavailableReferenceMatches": 7,
+          "unavailableReferenceMatches": 8,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
+            "5062 (2026-11-15 vs New Zealand)",
             "5061 (2026-11-13 vs New Zealand)",
             "5060 (2026-11-10 vs New Zealand)",
             "5059 (2026-11-07 vs New Zealand)",
@@ -504,61 +537,64 @@
             "1384390 (2023-10-11 vs Afghanistan)",
             "710305 (2014-03-05 vs Afghanistan)"
           ],
-          "explanation": "7 official player appearances absent from Cricsheet archive",
-          "equationSum": 321,
+          "explanation": "8 official player appearances absent from Cricsheet archive",
+          "equationSum": 322,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
         },
         {
           "metric": "innings",
-          "referenceTarget": 308,
+          "referenceTarget": 309,
           "includedArchive": 303,
-          "unavailableReferenceMatches": 5,
+          "unavailableReferenceMatches": 6,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
+            "5062 (2026-11-15 vs New Zealand)",
             "5061 (2026-11-13 vs New Zealand)",
             "5059 (2026-11-07 vs New Zealand)",
             "5058 (2026-11-04 vs New Zealand)",
             "1144510 (2019-06-22 vs Afghanistan)",
             "1384390 (2023-10-11 vs Afghanistan)"
           ],
-          "explanation": "5 batted innings in missing matches (2 were official DNB appearances)",
-          "equationSum": 308,
+          "explanation": "6 batted innings in missing matches (2 were official DNB appearances)",
+          "equationSum": 309,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
         },
         {
           "metric": "runs",
-          "referenceTarget": 15190,
+          "referenceTarget": 15195,
           "includedArchive": 14987,
-          "unavailableReferenceMatches": 203,
+          "unavailableReferenceMatches": 208,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
+            "5062: 5r (2026-11-15)",
             "5059: 7r (2026-11-07)",
             "5058: 74r (2026-11-04)",
             "1144510: 67r (2019-06-22)",
             "1384390: 55r (2023-10-11)"
           ],
-          "explanation": "Sum of missing scores (7 + 74 + 67 + 55 = 203 runs)",
-          "equationSum": 15190,
+          "explanation": "Sum of missing scores (5 + 7 + 74 + 67 + 55 = 208 runs)",
+          "equationSum": 15195,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
         },
         {
           "metric": "ballsFaced",
-          "referenceTarget": 16073,
+          "referenceTarget": 16080,
           "includedArchive": 15892,
-          "unavailableReferenceMatches": 181,
+          "unavailableReferenceMatches": 188,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
+            "5062: 7b (2026-11-15)",
             "5061: 4b (2026-11-13)",
             "5059: 7b (2026-11-07)",
             "5058: 51b (2026-11-04)",
             "1144510: 63b (2019-06-22)",
             "1384390: 56b (2023-10-11)"
           ],
-          "explanation": "Sum of balls faced in missing innings (4 + 7 + 51 + 63 + 56 = 181 balls)",
-          "equationSum": 16073,
+          "explanation": "Sum of balls faced in missing innings (7 + 4 + 7 + 51 + 63 + 56 = 188 balls)",
+          "equationSum": 16080,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
         },
@@ -651,18 +687,19 @@
         },
         {
           "metric": "dismissals",
-          "referenceTarget": 260,
+          "referenceTarget": 261,
           "includedArchive": 256,
-          "unavailableReferenceMatches": 4,
+          "unavailableReferenceMatches": 5,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
+            "5062 (2026-11-15)",
             "5061 (2026-11-13)",
             "5059 (2026-11-07)",
             "5058 (2026-11-04)",
             "1144510 (2019-06-22)"
           ],
-          "explanation": "Dismissals in missing matches (4)",
-          "equationSum": 260,
+          "explanation": "Dismissals in missing matches (5)",
+          "equationSum": 261,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
         }
@@ -670,7 +707,7 @@
       "reconciliationClassification": "complete-reconciliation",
       "discrepancyAttribution": {
         "reasonCode": "unavailable/withheld-source-matches",
-        "description": "Cricsheet open repository covers 314 of 321 matches (303 batted + 11 DNB). The remaining 7 official match scorecards (203 runs) are absent from public Cricsheet archives. All boundary differences are reconciled at delivery level with verified non_boundary metadata.",
+        "description": "Cricsheet open repository covers 314 of 322 matches (303 batted + 11 DNB). The remaining 8 official match scorecards (208 runs) are absent from public Cricsheet archives. All boundary differences are reconciled at delivery level with verified non_boundary metadata.",
         "unresolvedAmbiguities": 0,
         "parserFailures": 0
       }
@@ -4653,8 +4690,40 @@
       "matchIds": []
     },
     "unavailableOrWithheldByCricsheet": {
-      "count": 15,
+      "count": 16,
       "ODI": [
+        {
+          "matchId": "5062",
+          "date": "2026-11-15",
+          "opponent": "New Zealand",
+          "event": "India tour of New Zealand 2026 (5th ODI)",
+          "venue": "Bay Oval, Mount Maunganui",
+          "participated": true,
+          "batted": true,
+          "dnb": false,
+          "inningsNumber": 1,
+          "battingPosition": 3,
+          "runs": 5,
+          "ballsFaced": 7,
+          "dismissalStatus": "dismissed",
+          "dismissalKind": "caught",
+          "dismissalDetail": "c Seifert b Fisher",
+          "fours": 0,
+          "sixes": 0,
+          "centuries": 0,
+          "fifties": 0,
+          "ducks": 0,
+          "notOuts": 0,
+          "dismissals": 1,
+          "includedInBattingAggregates": true,
+          "tossOccurred": true,
+          "playingXIConfirmed": true,
+          "officialPlayerAppearance": true,
+          "countsTowardCareerMatches": true,
+          "careerMatchContribution": 1,
+          "scorecardUrl": "https://www.espncricinfo.com/series/india-tour-of-new-zealand-2026/new-zealand-vs-india-5th-odi-5062/full-scorecard",
+          "cricsheetAvailabilityProof": "Match played 2026-11-15; pending Cricsheet ball-by-ball release"
+        },
         {
           "matchId": "5061",
           "date": "2026-11-13",
@@ -5521,7 +5590,7 @@
   ],
   "trustDecision": {
     "isTrusted": true,
-    "decisionTimestamp": "2026-11-15T17:49:12.168Z",
+    "decisionTimestamp": "2026-11-15T18:25:37.770Z",
     "justification": "Every included delivery is deterministically parsed; all aggregate discrepancies are explained at match level; zero unexplained match IDs remain; zero anonymous balancing constants; all 10 independent scorecard checks passed; archive hashes match manifest; repeated ingestion produces identical artifact hashes."
   }
 }
