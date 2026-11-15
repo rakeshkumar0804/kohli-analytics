@@ -2,7 +2,7 @@
 
 - **Report Version**: `4.0.0`
 - **Dataset ID**: `cricsheet-male-limited-overs`
-- **Generated At**: `2026-11-14T19:41:16.774Z`
+- **Generated At**: `2026-11-15T17:49:12.167Z`
 - **Player**: Virat Kohli (Cricsheet: `ba607b88`, ESPNcricinfo: `253802`)
 - **Trust Status**: `CAREER AGGREGATES VERIFIED; DELIVERY COVERAGE PARTIAL`
 

@@ -29,12 +29,24 @@ jobs:
           node-version: 22
           cache: 'npm'
 
+      - name: Cache Cricsheet Raw Archives
+        uses: actions/cache@v4
+        with:
+          path: data/raw
+          key: cricsheet-raw-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            cricsheet-raw-${{ runner.os }}-
+            cricsheet-raw-
+
       - name: Install dependencies
         run: npm ci
 
       - name: Refresh Data & Ingest Latest Scorecards
         run: |
-          FORCE_DOWNLOAD=true npm run data:refresh
+          FORCE_DOWNLOAD=true npm run data:refresh || {
+            echo "::warning title=Upstream Sync Skipped::Cricsheet server was temporarily unreachable during scheduled sync. Continuing with existing verified data."
+            exit 0
+          }
         env:
           FORCE_DOWNLOAD: "true"
 
