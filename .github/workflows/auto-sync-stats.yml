@@ -33,10 +33,10 @@ jobs:
         uses: actions/cache@v4
         with:
           path: data/raw
-          key: cricsheet-raw-${{ runner.os }}-${{ github.run_id }}
+          key: cricsheet-raw-v2-${{ runner.os }}-${{ github.run_id }}
           restore-keys: |
-            cricsheet-raw-${{ runner.os }}-
-            cricsheet-raw-
+            cricsheet-raw-v2-${{ runner.os }}-
+            cricsheet-raw-v2-
 
       - name: Install dependencies
         run: npm ci
@@ -44,7 +44,29 @@ jobs:
       - name: Refresh Data & Ingest Latest Scorecards
         run: |
           FORCE_DOWNLOAD=true npm run data:refresh || {
-            echo "::warning title=Upstream Sync Skipped::Cricsheet server was temporarily unreachable during scheduled sync. Continuing with existing verified data."
+            echo "::warning title=Upstream Sync Skipped::Cricsheet server was temporarily unreachable or returned an invalid/unreconciled archive during scheduled sync. Rolling back partial state and continuing with existing verified data."
+            git checkout -- data/ src/data/ || true
+            rm -rf data/raw/.extracted_temp data/raw/*.tmp
+            node -e "
+              import('node:fs').then((fs) => {
+                for (const f of ['data/raw/odis_male_json.zip', 'data/raw/t20s_male_json.zip']) {
+                  if (!fs.existsSync(f)) continue;
+                  const stat = fs.statSync(f);
+                  let valid = stat.size >= 102400;
+                  if (valid) {
+                    const fd = fs.openSync(f, 'r');
+                    const buf = Buffer.alloc(4);
+                    fs.readSync(fd, buf, 0, 4, 0);
+                    fs.closeSync(fd);
+                    valid = buf[0] === 0x50 && buf[1] === 0x4b && buf[2] === 0x03 && buf[3] === 0x04;
+                  }
+                  if (!valid) {
+                    console.log('Removing corrupted cached archive:', f);
+                    fs.unlinkSync(f);
+                  }
+                }
+              });
+            "
             exit 0
           }
         env:

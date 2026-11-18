@@ -30,9 +30,53 @@ const ARCHIVES = [
 const MAX_RETRIES = 3;
 const BASE_RETRY_DELAY_MS = 3000;
 const DOWNLOAD_TIMEOUT_MS = 90000;
+const MIN_ARCHIVE_BYTES = 100 * 1024; // 100 KB sanity floor (real Cricsheet archives are 10-20 MB)
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isValidZipBuffer(buf) {
+  if (!buf || buf.length < MIN_ARCHIVE_BYTES) {
+    return { valid: false, reason: `size too small (${buf ? buf.length : 0} bytes)` };
+  }
+  // Check local file header signature: PK\x03\x04
+  if (buf[0] !== 0x50 || buf[1] !== 0x4b || buf[2] !== 0x03 || buf[3] !== 0x04) {
+    const preview = buf.subarray(0, 64).toString('utf8').replace(/\s+/g, ' ').trim();
+    return { valid: false, reason: `missing ZIP magic bytes (starts with: "${preview.slice(0, 48)}")` };
+  }
+  // Check End of Central Directory (EOCD) signature PK\x05\x06 in the last 65KB
+  const searchStart = Math.max(0, buf.length - 65557);
+  const eocdSig = Buffer.from([0x50, 0x4b, 0x05, 0x06]);
+  if (buf.indexOf(eocdSig, searchStart) === -1) {
+    return { valid: false, reason: 'missing ZIP end-of-central-directory signature (truncated download)' };
+  }
+  return { valid: true };
+}
+
+function isValidZipFile(filePath) {
+  if (!fs.existsSync(filePath)) return false;
+  try {
+    const stat = fs.statSync(filePath);
+    if (stat.size < MIN_ARCHIVE_BYTES) return false;
+    const fd = fs.openSync(filePath, 'r');
+    try {
+      const header = Buffer.alloc(4);
+      fs.readSync(fd, header, 0, 4, 0);
+      if (header[0] !== 0x50 || header[1] !== 0x4b || header[2] !== 0x03 || header[3] !== 0x04) {
+        return false;
+      }
+      const tailLen = Math.min(stat.size, 65557);
+      const tail = Buffer.alloc(tailLen);
+      fs.readSync(fd, tail, 0, tailLen, stat.size - tailLen);
+      const eocdSig = Buffer.from([0x50, 0x4b, 0x05, 0x06]);
+      return tail.indexOf(eocdSig) !== -1;
+    } finally {
+      fs.closeSync(fd);
+    }
+  } catch {
+    return false;
+  }
 }
 
 function computeSha256(filePath) {
@@ -53,18 +97,28 @@ async function downloadFile(url, destPath, maxRetries = MAX_RETRIES) {
         signal: controller.signal,
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-          'Accept': '*/*',
+          'Accept': 'application/zip, application/octet-stream, */*;q=0.8',
+          'Accept-Language': 'en-US,en;q=0.9',
+          'Referer': 'https://cricsheet.org/downloads/',
         },
       });
       if (!response.ok) {
         throw new Error(`HTTP ${response.status} ${response.statusText}`);
       }
-      const arrayBuffer = await response.arrayBuffer();
-      if (!arrayBuffer || arrayBuffer.byteLength < 1000) {
-        throw new Error(`Incomplete download: received only ${arrayBuffer ? arrayBuffer.byteLength : 0} bytes`);
+      const contentType = (response.headers.get('content-type') || '').toLowerCase();
+      if (contentType.includes('text/html') || contentType.includes('text/plain')) {
+        throw new Error(`Unexpected Content-Type "${contentType}" (likely upstream challenge/error page)`);
       }
-      fs.writeFileSync(destPath, Buffer.from(arrayBuffer));
-      console.log(`Saved to ${destPath} (${(arrayBuffer.byteLength / 1024 / 1024).toFixed(2)} MB)`);
+      const arrayBuffer = await response.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const zipCheck = isValidZipBuffer(buffer);
+      if (!zipCheck.valid) {
+        throw new Error(`Invalid ZIP archive received: ${zipCheck.reason}`);
+      }
+      const tempPath = `${destPath}.tmp`;
+      fs.writeFileSync(tempPath, buffer);
+      fs.renameSync(tempPath, destPath);
+      console.log(`Saved to ${destPath} (${(buffer.byteLength / 1024 / 1024).toFixed(2)} MB)`);
       return;
     } catch (err) {
       lastError = err;
@@ -97,15 +151,23 @@ async function main() {
     const destPath = path.join(RAW_DIR, item.filename);
 
     // Check if already present and valid (unless force is requested)
-    if (!forceDownload && fs.existsSync(destPath) && fs.statSync(destPath).size > 1000) {
-      console.log(`Archive ${item.filename} already exists locally. Verifying...`);
+    if (!forceDownload && isValidZipFile(destPath)) {
+      console.log(`Archive ${item.filename} already exists locally and passed ZIP integrity check.`);
     } else {
       try {
         await downloadFile(item.url, destPath);
       } catch (err) {
-        if (fs.existsSync(destPath) && fs.statSync(destPath).size > 1000) {
-          console.warn(`[FALLBACK] Download failed for ${item.filename}, but existing cached archive is available (${(fs.statSync(destPath).size / 1024 / 1024).toFixed(2)} MB). Continuing with cached data.`);
+        const tempPath = `${destPath}.tmp`;
+        if (fs.existsSync(tempPath)) {
+          try { fs.unlinkSync(tempPath); } catch { /* ignore */ }
+        }
+        if (isValidZipFile(destPath)) {
+          console.warn(`[FALLBACK] Download failed for ${item.filename} (${err.message}), but existing cached archive passed ZIP integrity check (${(fs.statSync(destPath).size / 1024 / 1024).toFixed(2)} MB). Continuing with cached data.`);
         } else {
+          if (fs.existsSync(destPath)) {
+            console.warn(`Removing corrupted local archive ${destPath}`);
+            try { fs.unlinkSync(destPath); } catch { /* ignore */ }
+          }
           console.error(`Error downloading ${item.filename}:`, err.message);
           throw err;
         }
