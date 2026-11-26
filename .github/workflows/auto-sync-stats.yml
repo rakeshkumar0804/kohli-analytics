@@ -46,7 +46,8 @@ jobs:
           FORCE_DOWNLOAD=true npm run data:refresh || {
             echo "::warning title=Upstream Sync Skipped::Cricsheet server was temporarily unreachable or returned an invalid/unreconciled archive during scheduled sync. Rolling back partial state and continuing with existing verified data."
             git checkout -- data/ src/data/ || true
-            rm -rf data/raw/.extracted_temp data/raw/*.tmp
+            git clean -fd data/ src/data/ || true
+            rm -rf data/raw/.extracted_temp data/raw/*.tmp data/normalized/*
             node -e "
               import('node:fs').then((fs) => {
                 for (const f of ['data/raw/odis_male_json.zip', 'data/raw/t20s_male_json.zip']) {

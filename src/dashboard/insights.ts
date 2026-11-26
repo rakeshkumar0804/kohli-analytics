@@ -9,7 +9,7 @@ export const inningsIndex: ArchiveInnings[] = [
 
 export const latestVerifiedInnings: ArchiveInnings[] = [
   {
-    id: "5062",
+    id: "1539441",
     date: "2026-11-15",
     format: "ODI",
     opponent: "New Zealand",
@@ -29,7 +29,7 @@ export const latestVerifiedInnings: ArchiveInnings[] = [
     playerOfMatch: false,
   },
   {
-    id: "5061",
+    id: "1539440",
     date: "2026-11-13",
     format: "ODI",
     opponent: "New Zealand",
@@ -49,7 +49,7 @@ export const latestVerifiedInnings: ArchiveInnings[] = [
     playerOfMatch: false,
   },
   {
-    id: "5059",
+    id: "1539438",
     date: "2026-11-07",
     format: "ODI",
     opponent: "New Zealand",
@@ -69,7 +69,7 @@ export const latestVerifiedInnings: ArchiveInnings[] = [
     playerOfMatch: false,
   },
   {
-    id: "5058",
+    id: "1539437",
     date: "2026-11-04",
     format: "ODI",
     opponent: "New Zealand",

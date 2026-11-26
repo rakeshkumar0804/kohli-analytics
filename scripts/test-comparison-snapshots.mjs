@@ -177,11 +177,11 @@ it('verifies cross-format international sum invariants', () => {
 it('audits delivery archive coverage against complete career records', () => {
   const cov = artifact.coverage.formats;
 
-  // ODI: 303 archived delivery innings out of 309 career batting innings
+  // ODI: 307 archived delivery innings out of 309 career batting innings
   assert.equal(cov.ODI.referenceInnings, 309, 'ODI career reference innings');
-  assert.equal(cov.ODI.archiveInnings, 303, 'ODI archived delivery innings');
-  assert.equal(cov.ODI.missingInnings, 6, 'ODI missing innings cataloged');
-  assert.equal(cov.ODI.inningsCoveragePercent, 98.06, 'ODI archive coverage percent');
+  assert.equal(cov.ODI.archiveInnings, 307, 'ODI archived delivery innings');
+  assert.equal(cov.ODI.missingInnings, 2, 'ODI missing innings cataloged');
+  assert.equal(cov.ODI.inningsCoveragePercent, 99.35, 'ODI archive coverage percent');
 
   // T20I: 112 archived delivery innings out of 117 career batting innings (NOT 100% complete)
   assert.equal(cov.T20I.referenceInnings, 117, 'T20I career reference innings');

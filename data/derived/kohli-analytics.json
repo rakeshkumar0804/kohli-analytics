@@ -1,7 +1,7 @@
 {
   "artifactVersion": "4.0.0",
   "pipelineVersion": "4.0.0",
-  "generatedAt": "2026-11-25T12:04:39.320Z",
+  "generatedAt": "2026-11-26T12:10:30.738Z",
   "trust": {
     "careerAggregates": {
       "status": "verified",
@@ -29,18 +29,18 @@
         "format": "ODI",
         "filename": "odis_male_json.zip",
         "url": "https://cricsheet.org/downloads/odis_male_json.zip",
-        "sha256": "b3e3c7ce548214f44f30e4d656aa3f82e88664829d1157a4779563856737eeaa",
-        "bytes": 17804425,
-        "downloadedAt": "2026-11-25T12:04:29.731Z",
+        "sha256": "8f1be5ad77bc65d791e48a079595bc081f9e1a7ed29e2184ff3cb28b3d7bcb62",
+        "bytes": 17862745,
+        "downloadedAt": "2026-11-26T12:03:55.798Z",
         "status": "verified"
       },
       {
         "format": "T20I",
         "filename": "t20s_male_json.zip",
         "url": "https://cricsheet.org/downloads/t20s_male_json.zip",
-        "sha256": "102586ea122793aafc645e05d6a598b9fff0746935e39b77f2d6f153bc385086",
-        "bytes": 14638615,
-        "downloadedAt": "2026-11-25T12:04:31.733Z",
+        "sha256": "3f6bdcf0d1d5d98c483c4ded0775962ee7bbb768374a25ee8ddbf79efc03a39c",
+        "bytes": 14670691,
+        "downloadedAt": "2026-11-26T12:04:01.952Z",
         "status": "verified"
       }
     ],
@@ -54,52 +54,52 @@
       "strong": "≥ 60 balls"
     },
     "matchCounts": {
-      "totalArchiveMatches": 432,
+      "totalArchiveMatches": 436,
       "referenceMatches": 447,
-      "unavailableMatches": 15,
-      "matchCoveragePercent": 96.64
+      "unavailableMatches": 11,
+      "matchCoveragePercent": 97.54
     },
     "inningsCounts": {
-      "totalArchiveInnings": 415,
+      "totalArchiveInnings": 419,
       "referenceInnings": 426,
-      "unavailableInnings": 11,
-      "inningsCoveragePercent": 97.42
+      "unavailableInnings": 7,
+      "inningsCoveragePercent": 98.36
     },
     "pressureInclusionAccounting": {
       "ODI": {
         "format": "ODI",
-        "archiveMatchesInspected": 314,
-        "battingInningsInspected": 303,
-        "chaseInningsFound": 167,
-        "eligibleChaseInningsIncluded": 167,
-        "successfulChasesIncluded": 106,
-        "unsuccessfulChasesIncluded": 61,
-        "totalDeliveriesInspected": 171654,
-        "rawStrikerDeliveries": 9275,
-        "wideDeliveries": 184,
+        "archiveMatchesInspected": 318,
+        "battingInningsInspected": 307,
+        "chaseInningsFound": 170,
+        "eligibleChaseInningsIncluded": 170,
+        "successfulChasesIncluded": 108,
+        "unsuccessfulChasesIncluded": 62,
+        "totalDeliveriesInspected": 173487,
+        "rawStrikerDeliveries": 9338,
+        "wideDeliveries": 185,
         "noBallDeliveries": 18,
         "noBallsDot": 9,
         "noBallsRuns": 9,
         "noBallsByes": 0,
         "noBallsLegByes": 0,
         "legalByes": 11,
-        "legalLegByes": 43,
-        "legalTeamDeliveries": 9073,
-        "officialBatterBallsFaced": 9091,
-        "pressureEligibleDeliveries": 9071,
+        "legalLegByes": 44,
+        "legalTeamDeliveries": 9135,
+        "officialBatterBallsFaced": 9153,
+        "pressureEligibleDeliveries": 9133,
         "invalidContextDeliveries": 2,
-        "firstInningsDeliveriesExcluded": 92043,
-        "nonKohliStrikerDeliveriesExcluded": 70336,
+        "firstInningsDeliveriesExcluded": 93109,
+        "nonKohliStrikerDeliveriesExcluded": 71040,
         "scorecardOnlyFixturesExcluded": 3,
         "unknownTargetRecordsExcluded": 0,
         "abandonedOrNoResultChasesExcluded": 0,
         "invalidBallsRemainingRecordsExcluded": 2,
         "malformedRrrRecordsExcluded": 0,
-        "dlsRevisedTargetRecordsIncluded": 296,
+        "dlsRevisedTargetRecordsIncluded": 355,
         "dlsRevisedTargetRecordsExcluded": 0,
-        "deliveryEquation": "171654 inspected = 9275 striker + 162379 non-striker/first-innings",
-        "strikerToOfficialBridge": "9275 raw striker deliveries - 184 wides = 9091 official balls faced",
-        "officialToPressureBridge": "9091 official balls faced - 18 no-balls - 2 invalid-context deliveries = 9071 pressure legal deliveries",
+        "deliveryEquation": "173487 inspected = 9338 striker + 164149 non-striker/first-innings",
+        "strikerToOfficialBridge": "9338 raw striker deliveries - 185 wides = 9153 official balls faced",
+        "officialToPressureBridge": "9153 official balls faced - 18 no-balls - 2 invalid-context deliveries = 9133 pressure legal deliveries",
         "isEquationBalanced": true
       },
       "T20I": {
@@ -141,7 +141,7 @@
     },
     "dlsAudit": {
       "ODI": {
-        "includedRevisedTargetChases": 296,
+        "includedRevisedTargetChases": 355,
         "excluded": 0
       },
       "T20I": {
@@ -160,38 +160,38 @@
   "pressureAccounting": {
     "ODI": {
       "format": "ODI",
-      "archiveMatchesInspected": 314,
-      "battingInningsInspected": 303,
-      "chaseInningsFound": 167,
-      "eligibleChaseInningsIncluded": 167,
-      "successfulChasesIncluded": 106,
-      "unsuccessfulChasesIncluded": 61,
-      "totalDeliveriesInspected": 171654,
-      "rawStrikerDeliveries": 9275,
-      "wideDeliveries": 184,
+      "archiveMatchesInspected": 318,
+      "battingInningsInspected": 307,
+      "chaseInningsFound": 170,
+      "eligibleChaseInningsIncluded": 170,
+      "successfulChasesIncluded": 108,
+      "unsuccessfulChasesIncluded": 62,
+      "totalDeliveriesInspected": 173487,
+      "rawStrikerDeliveries": 9338,
+      "wideDeliveries": 185,
       "noBallDeliveries": 18,
       "noBallsDot": 9,
       "noBallsRuns": 9,
       "noBallsByes": 0,
       "noBallsLegByes": 0,
       "legalByes": 11,
-      "legalLegByes": 43,
-      "legalTeamDeliveries": 9073,
-      "officialBatterBallsFaced": 9091,
-      "pressureEligibleDeliveries": 9071,
+      "legalLegByes": 44,
+      "legalTeamDeliveries": 9135,
+      "officialBatterBallsFaced": 9153,
+      "pressureEligibleDeliveries": 9133,
       "invalidContextDeliveries": 2,
-      "firstInningsDeliveriesExcluded": 92043,
-      "nonKohliStrikerDeliveriesExcluded": 70336,
+      "firstInningsDeliveriesExcluded": 93109,
+      "nonKohliStrikerDeliveriesExcluded": 71040,
       "scorecardOnlyFixturesExcluded": 3,
       "unknownTargetRecordsExcluded": 0,
       "abandonedOrNoResultChasesExcluded": 0,
       "invalidBallsRemainingRecordsExcluded": 2,
       "malformedRrrRecordsExcluded": 0,
-      "dlsRevisedTargetRecordsIncluded": 296,
+      "dlsRevisedTargetRecordsIncluded": 355,
       "dlsRevisedTargetRecordsExcluded": 0,
-      "deliveryEquation": "171654 inspected = 9275 striker + 162379 non-striker/first-innings",
-      "strikerToOfficialBridge": "9275 raw striker deliveries - 184 wides = 9091 official balls faced",
-      "officialToPressureBridge": "9091 official balls faced - 18 no-balls - 2 invalid-context deliveries = 9071 pressure legal deliveries",
+      "deliveryEquation": "173487 inspected = 9338 striker + 164149 non-striker/first-innings",
+      "strikerToOfficialBridge": "9338 raw striker deliveries - 185 wides = 9153 official balls faced",
+      "officialToPressureBridge": "9153 official balls faced - 18 no-balls - 2 invalid-context deliveries = 9133 pressure legal deliveries",
       "isEquationBalanced": true
     },
     "T20I": {
@@ -237,7 +237,7 @@
       "battingChasePopulation": {
         "name": "Population A (Batting Chase Population)",
         "description": "All innings in which Kohli batted (faced balls or was at the crease) while India chased",
-        "count": 167,
+        "count": 170,
         "matchIds": [
           "1022367",
           "1022373",
@@ -315,6 +315,9 @@
           "1496581",
           "1529227",
           "1529228",
+          "1539437",
+          "1539438",
+          "1539440",
           "343733",
           "343736",
           "415278",
@@ -407,22 +410,22 @@
           "903597",
           "903601"
         ],
-        "sha256": "e1592bf33a63dbb3193273e2ee008ce1e57034da8188db02cd1e230ac06df482",
-        "runs": 8612,
-        "dismissals": 131,
+        "sha256": "dcbc218d5f02f2f2968bed9cbef7521a46790bcb95f7f210cdae2917aed739fb",
+        "runs": 8693,
+        "dismissals": 134,
         "notOuts": 36,
-        "fours": 840,
-        "sixes": 106,
-        "rawStrikerDeliveries": 9275,
-        "wideDeliveries": 184,
+        "fours": 854,
+        "sixes": 107,
+        "rawStrikerDeliveries": 9338,
+        "wideDeliveries": 185,
         "noBallDeliveries": 18,
-        "legalTeamDeliveries": 9073,
-        "officialBatterBallsFaced": 9091
+        "legalTeamDeliveries": 9135,
+        "officialBatterBallsFaced": 9153
       },
       "completedOutcomeChasePopulation": {
         "name": "Population B (Completed Outcome Chase Population)",
         "description": "Chase innings reaching a completed match result (won, lost, or tied)",
-        "count": 167,
+        "count": 170,
         "matchIds": [
           "1022367",
           "1022373",
@@ -500,6 +503,9 @@
           "1496581",
           "1529227",
           "1529228",
+          "1539437",
+          "1539438",
+          "1539440",
           "343733",
           "343736",
           "415278",
@@ -592,9 +598,9 @@
           "903597",
           "903601"
         ],
-        "sha256": "e1592bf33a63dbb3193273e2ee008ce1e57034da8188db02cd1e230ac06df482",
+        "sha256": "dcbc218d5f02f2f2968bed9cbef7521a46790bcb95f7f210cdae2917aed739fb",
         "wins": {
-          "count": 106,
+          "count": 108,
           "matchIds": [
             "1022367",
             "1022373",
@@ -645,6 +651,8 @@
             "1496579",
             "1529227",
             "1529228",
+            "1539437",
+            "1539438",
             "343733",
             "415284",
             "430889",
@@ -703,10 +711,10 @@
             "792297",
             "895815"
           ],
-          "sha256": "d628d8c1075ea402c758750928d0dc409f623c5e023e8d231e0677240f9d65b4"
+          "sha256": "b0300ab59b941dd9de83e169c74b0bb1b0ebb470fb8ffe3b588c3e095e433119"
         },
         "losses": {
-          "count": 58,
+          "count": 59,
           "matchIds": [
             "1022375",
             "1030221",
@@ -734,6 +742,7 @@
             "1442992",
             "1490233",
             "1496581",
+            "1539440",
             "343736",
             "415278",
             "416236",
@@ -767,7 +776,7 @@
             "903597",
             "903601"
           ],
-          "sha256": "632b2bf6b4d39db70fcb9f9944f10c118cdd3b490e3204a6f0613050816a5ffa"
+          "sha256": "4b204e42e4aca6a912ba759e52aa946acd5f9b490162ec996634a9193633c027"
         },
         "ties": {
           "count": 3,
@@ -788,14 +797,14 @@
           "matchIds": [],
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
         },
-        "winRateAllInnings": 63.47,
-        "winRateDecisive": 64.63,
-        "winRateFormula": "106 wins / 167 completed chases = 63.47%"
+        "winRateAllInnings": 63.53,
+        "winRateDecisive": 64.67,
+        "winRateFormula": "108 wins / 170 completed chases = 63.53%"
       },
       "pressurePopulation": {
         "name": "Population C (Pressure Delivery Population)",
         "description": "Deliveries with finite target, scheduled overs limit, and legal balls remaining",
-        "count": 167,
+        "count": 170,
         "matchIds": [
           "1022367",
           "1022373",
@@ -873,6 +882,9 @@
           "1496581",
           "1529227",
           "1529228",
+          "1539437",
+          "1539438",
+          "1539440",
           "343733",
           "343736",
           "415278",
@@ -965,27 +977,27 @@
           "903597",
           "903601"
         ],
-        "sha256": "e1592bf33a63dbb3193273e2ee008ce1e57034da8188db02cd1e230ac06df482",
+        "sha256": "dcbc218d5f02f2f2968bed9cbef7521a46790bcb95f7f210cdae2917aed739fb",
         "pressureExcludedMatchIds": [],
         "pressureExcludedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "rawStrikerDeliveries": 9273,
-        "wideDeliveries": 184,
+        "rawStrikerDeliveries": 9336,
+        "wideDeliveries": 185,
         "noBallDeliveries": 18,
-        "teamLegalDeliveries": 9071,
-        "officialBatterBallsFaced": 9089,
-        "pressureEligibleDeliveries": 9071,
+        "teamLegalDeliveries": 9133,
+        "officialBatterBallsFaced": 9151,
+        "pressureEligibleDeliveries": 9133,
         "invalidContextDeliveries": 2,
-        "runs": 8610,
-        "dismissals": 131,
-        "fours": 840,
-        "sixes": 106,
-        "battingStrikeRate": 94.73,
-        "scoringRatePer100LegalDeliveries": 94.92
+        "runs": 8691,
+        "dismissals": 134,
+        "fours": 854,
+        "sixes": 107,
+        "battingStrikeRate": 94.97,
+        "scoringRatePer100LegalDeliveries": 95.16
       },
       "bridges": {
-        "strikerToOfficial": "9275 raw striker deliveries - 184 wides = 9091 official balls faced",
-        "officialToPressure": "9091 official balls faced - 18 no-balls - 2 invalid-context deliveries = 9071 pressure legal deliveries",
-        "pressureDeliveryBreakdown": "9273 pressure striker deliveries = 9071 legal deliveries + 18 no-balls + 184 wides"
+        "strikerToOfficial": "9338 raw striker deliveries - 185 wides = 9153 official balls faced",
+        "officialToPressure": "9153 official balls faced - 18 no-balls - 2 invalid-context deliveries = 9133 pressure legal deliveries",
+        "pressureDeliveryBreakdown": "9336 pressure striker deliveries = 9133 legal deliveries + 18 no-balls + 185 wides"
       },
       "invariants": {
         "strikerToOfficialBalanced": true,
@@ -1280,7 +1292,7 @@
       "battingChasePopulation": {
         "name": "Population A (Batting Chase Population)",
         "description": "All innings in which Kohli batted (faced balls or was at the crease) while India chased",
-        "count": 214,
+        "count": 217,
         "matchIds": [
           "1022367",
           "1022373",
@@ -1386,6 +1398,9 @@
           "1496581",
           "1529227",
           "1529228",
+          "1539437",
+          "1539438",
+          "1539440",
           "343733",
           "343736",
           "415278",
@@ -1497,22 +1512,22 @@
           "966757",
           "966765"
         ],
-        "sha256": "d06970144b9fa0950ac59c85b7c7775555deabcf017a0f66cdab701003e2db38",
-        "runs": 10596,
-        "dismissals": 160,
+        "sha256": "4c88686efebf049a565191f9aa2d8af47ac09484b87653bbb233e51eea9d0c18",
+        "runs": 10677,
+        "dismissals": 163,
         "notOuts": 54,
-        "fours": 1009,
-        "sixes": 159,
-        "rawStrikerDeliveries": 10777,
-        "wideDeliveries": 227,
+        "fours": 1023,
+        "sixes": 160,
+        "rawStrikerDeliveries": 10840,
+        "wideDeliveries": 228,
         "noBallDeliveries": 29,
-        "legalTeamDeliveries": 10521,
-        "officialBatterBallsFaced": 10550
+        "legalTeamDeliveries": 10583,
+        "officialBatterBallsFaced": 10612
       },
       "completedOutcomeChasePopulation": {
         "name": "Population B (Completed Outcome Chase Population)",
         "description": "Chase innings reaching a completed match result (won, lost, or tied)",
-        "count": 214,
+        "count": 217,
         "matchIds": [
           "1022367",
           "1022373",
@@ -1618,6 +1633,9 @@
           "1496581",
           "1529227",
           "1529228",
+          "1539437",
+          "1539438",
+          "1539440",
           "343733",
           "343736",
           "415278",
@@ -1729,9 +1747,9 @@
           "966757",
           "966765"
         ],
-        "sha256": "d06970144b9fa0950ac59c85b7c7775555deabcf017a0f66cdab701003e2db38",
+        "sha256": "4c88686efebf049a565191f9aa2d8af47ac09484b87653bbb233e51eea9d0c18",
         "wins": {
-          "count": 144,
+          "count": 146,
           "matchIds": [
             "1022367",
             "1022373",
@@ -1805,6 +1823,8 @@
             "1496579",
             "1529227",
             "1529228",
+            "1539437",
+            "1539438",
             "343733",
             "415284",
             "430889",
@@ -1878,10 +1898,10 @@
             "966757",
             "966765"
           ],
-          "sha256": "b9570d2d874fef322daed13f466e1b4dba4571bc9a3ae15145f9b3b30d381b36"
+          "sha256": "c7dd09ecf394b08b5aed4b936a958539b2013953a037db1de09c1818b94032eb"
         },
         "losses": {
-          "count": 67,
+          "count": 68,
           "matchIds": [
             "1022375",
             "1030221",
@@ -1914,6 +1934,7 @@
             "1442992",
             "1490233",
             "1496581",
+            "1539440",
             "343736",
             "415278",
             "416236",
@@ -1951,7 +1972,7 @@
             "903601",
             "951329"
           ],
-          "sha256": "965df0cb3f61c7280a1dd5aa4dd6ca4b5c490fdf48ac6fb99b3a5d0ddf4bd39b"
+          "sha256": "0248bc2c3cfd97bbee6e245e5b483eff38722e793198891ca51ee5abd29e06d7"
         },
         "ties": {
           "count": 3,
@@ -1972,14 +1993,14 @@
           "matchIds": [],
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
         },
-        "winRateAllInnings": 67.29,
-        "winRateDecisive": 68.25,
-        "winRateFormula": "144 wins / 214 completed chases = 67.29%"
+        "winRateAllInnings": 67.28,
+        "winRateDecisive": 68.22,
+        "winRateFormula": "146 wins / 217 completed chases = 67.28%"
       },
       "pressurePopulation": {
         "name": "Population C (Pressure Delivery Population)",
         "description": "Deliveries with finite target, scheduled overs limit, and legal balls remaining",
-        "count": 214,
+        "count": 217,
         "matchIds": [
           "1022367",
           "1022373",
@@ -2085,6 +2106,9 @@
           "1496581",
           "1529227",
           "1529228",
+          "1539437",
+          "1539438",
+          "1539440",
           "343733",
           "343736",
           "415278",
@@ -2196,27 +2220,27 @@
           "966757",
           "966765"
         ],
-        "sha256": "d06970144b9fa0950ac59c85b7c7775555deabcf017a0f66cdab701003e2db38",
+        "sha256": "4c88686efebf049a565191f9aa2d8af47ac09484b87653bbb233e51eea9d0c18",
         "pressureExcludedMatchIds": [],
         "pressureExcludedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "rawStrikerDeliveries": 10775,
-        "wideDeliveries": 227,
+        "rawStrikerDeliveries": 10838,
+        "wideDeliveries": 228,
         "noBallDeliveries": 29,
-        "teamLegalDeliveries": 10519,
-        "officialBatterBallsFaced": 10548,
-        "pressureEligibleDeliveries": 10519,
+        "teamLegalDeliveries": 10581,
+        "officialBatterBallsFaced": 10610,
+        "pressureEligibleDeliveries": 10581,
         "invalidContextDeliveries": 2,
-        "runs": 10594,
-        "dismissals": 160,
-        "fours": 1009,
-        "sixes": 159,
-        "battingStrikeRate": 100.44,
-        "scoringRatePer100LegalDeliveries": 100.71
+        "runs": 10675,
+        "dismissals": 163,
+        "fours": 1023,
+        "sixes": 160,
+        "battingStrikeRate": 100.61,
+        "scoringRatePer100LegalDeliveries": 100.89
       },
       "bridges": {
-        "strikerToOfficial": "10777 raw striker deliveries - 227 wides = 10550 official balls faced",
-        "officialToPressure": "10550 official balls faced - 29 no-balls - 2 invalid-context deliveries = 10519 pressure legal deliveries",
-        "pressureDeliveryBreakdown": "10775 pressure striker deliveries = 10519 legal deliveries + 29 no-balls + 227 wides"
+        "strikerToOfficial": "10840 raw striker deliveries - 228 wides = 10612 official balls faced",
+        "officialToPressure": "10612 official balls faced - 29 no-balls - 2 invalid-context deliveries = 10581 pressure legal deliveries",
+        "pressureDeliveryBreakdown": "10838 pressure striker deliveries = 10581 legal deliveries + 29 no-balls + 228 wides"
       },
       "invariants": {
         "strikerToOfficialBalanced": true,
@@ -2281,7 +2305,7 @@
     "sourcePageUrl": "https://cricsheet.org/downloads/",
     "schemaVersion": "1.2.0",
     "schemaVersionsDiscovered": {
-      "1.3.0": 6266
+      "1.3.0": 6283
     }
   },
   "player": {
@@ -2293,23 +2317,23 @@
   },
   "coverage": {
     "referenceMatches": 447,
-    "archiveMatches": 432,
-    "missingMatches": 15,
-    "matchCoveragePercent": 96.64,
+    "archiveMatches": 436,
+    "missingMatches": 11,
+    "matchCoveragePercent": 97.54,
     "referenceBattingInnings": 426,
-    "archiveBattingInnings": 415,
-    "missingBattingInnings": 11,
-    "inningsCoveragePercent": 97.42,
+    "archiveBattingInnings": 419,
+    "missingBattingInnings": 7,
+    "inningsCoveragePercent": 98.36,
     "formats": {
       "ODI": {
         "referenceMatches": 322,
-        "archiveMatches": 314,
-        "missingMatches": 8,
-        "matchCoveragePercent": 97.52,
+        "archiveMatches": 318,
+        "missingMatches": 4,
+        "matchCoveragePercent": 98.76,
         "referenceInnings": 309,
-        "archiveInnings": 303,
-        "missingInnings": 6,
-        "inningsCoveragePercent": 98.06
+        "archiveInnings": 307,
+        "missingInnings": 2,
+        "inningsCoveragePercent": 99.35
       },
       "T20I": {
         "referenceMatches": 125,
@@ -2322,27 +2346,27 @@
         "inningsCoveragePercent": 95.73
       }
     },
-    "totalMatches": 432,
-    "matchesParticipated": 432,
-    "inningsBatted": 415,
+    "totalMatches": 436,
+    "matchesParticipated": 436,
+    "inningsBatted": 419,
     "dnbAppearances": 17,
     "coverageStart": "2008-08-18",
-    "coverageEnd": "2026-10-03"
+    "coverageEnd": "2026-11-15"
   },
   "formats": {
     "ODI": {
-      "matchesParticipated": 314,
-      "inningsBatted": 303,
+      "matchesParticipated": 318,
+      "inningsBatted": 307,
       "dnbAppearances": 11,
-      "runs": 14987,
-      "ballsFaced": 15892,
-      "dismissals": 256,
-      "average": 58.54,
-      "strikeRate": 94.31,
+      "runs": 15073,
+      "ballsFaced": 15961,
+      "dismissals": 260,
+      "average": 57.97,
+      "strikeRate": 94.44,
       "centuries": 55,
-      "fifties": 77,
-      "fours": 1391,
-      "sixes": 181
+      "fifties": 78,
+      "fours": 1405,
+      "sixes": 182
     },
     "T20I": {
       "matchesParticipated": 118,
@@ -2363,20 +2387,20 @@
     "ODI": {
       "status": "computed",
       "scope": "All Run Chases (2nd / 4th Innings)",
-      "inningsCount": 167,
-      "successfulInningsCount": 106,
+      "inningsCount": 170,
+      "successfulInningsCount": 108,
       "notOuts": 36,
-      "runs": 8612,
-      "dismissals": 131,
-      "average": 65.74,
-      "strikeRate": 94.73,
-      "successfulChaseAverage": 89.41,
+      "runs": 8693,
+      "dismissals": 134,
+      "average": 64.87,
+      "strikeRate": 94.97,
+      "successfulChaseAverage": 88.07,
       "targetBands": [
         {
           "band": "< 200",
-          "innings": 24,
-          "runs": 927,
-          "average": 71.31
+          "innings": 26,
+          "runs": 1008,
+          "average": 67.2
         },
         {
           "band": "200–249",
@@ -2392,15 +2416,15 @@
         },
         {
           "band": "300+",
-          "innings": 39,
+          "innings": 40,
           "runs": 2234,
-          "average": 62.06
+          "average": 60.38
         }
       ],
       "sampleSize": {
-        "matches": 167,
-        "innings": 167,
-        "balls": 9091
+        "matches": 170,
+        "innings": 170,
+        "balls": 9153
       },
       "warnings": []
     },
@@ -2451,20 +2475,20 @@
     "overall": {
       "status": "computed",
       "scope": "All Run Chases (2nd / 4th Innings)",
-      "inningsCount": 214,
-      "successfulInningsCount": 144,
+      "inningsCount": 217,
+      "successfulInningsCount": 146,
       "notOuts": 54,
-      "runs": 10596,
-      "dismissals": 160,
-      "average": 66.22,
-      "strikeRate": 100.44,
-      "successfulChaseAverage": 87.58,
+      "runs": 10677,
+      "dismissals": 163,
+      "average": 65.5,
+      "strikeRate": 100.61,
+      "successfulChaseAverage": 86.57,
       "targetBands": [
         {
           "band": "< 200",
-          "innings": 66,
-          "runs": 2716,
-          "average": 71.47
+          "innings": 68,
+          "runs": 2797,
+          "average": 69.92
         },
         {
           "band": "200–249",
@@ -2480,15 +2504,15 @@
         },
         {
           "band": "300+",
-          "innings": 39,
+          "innings": 40,
           "runs": 2234,
-          "average": 62.06
+          "average": 60.38
         }
       ],
       "sampleSize": {
-        "matches": 214,
-        "innings": 214,
-        "balls": 10550
+        "matches": 217,
+        "innings": 217,
+        "balls": 10612
       },
       "warnings": []
     }
@@ -2506,30 +2530,30 @@
           "rrrRange": "<6 rpo",
           "status": "computed",
           "sampleSize": {
-            "inningsCount": 89,
-            "ballsFaced": 1230,
-            "teamLegalDeliveries": 1226,
-            "strikerDeliveries": 1271,
-            "wideDeliveries": 41,
+            "inningsCount": 91,
+            "ballsFaced": 1261,
+            "teamLegalDeliveries": 1257,
+            "strikerDeliveries": 1303,
+            "wideDeliveries": 42,
             "noBallDeliveries": 4,
-            "officialBatterBallsFaced": 1230
+            "officialBatterBallsFaced": 1261
           },
           "sampleSizeBand": "strong",
-          "strikerDeliveries": 1271,
-          "wideDeliveries": 41,
+          "strikerDeliveries": 1303,
+          "wideDeliveries": 42,
           "noBallDeliveries": 4,
-          "teamLegalDeliveries": 1226,
-          "officialBatterBallsFaced": 1230,
-          "runs": 844,
-          "dismissals": 19,
-          "fours": 115,
+          "teamLegalDeliveries": 1257,
+          "officialBatterBallsFaced": 1261,
+          "runs": 875,
+          "dismissals": 20,
+          "fours": 120,
           "sixes": 4,
-          "average": 44.42,
-          "strikeRate": 68.62,
-          "battingStrikeRate": 68.62,
-          "scoringRatePer100LegalDeliveries": 68.84,
-          "dotBallPercentage": 67.64,
-          "boundaryPercentage": 57.35
+          "average": 43.75,
+          "strikeRate": 69.39,
+          "battingStrikeRate": 69.39,
+          "scoringRatePer100LegalDeliveries": 69.61,
+          "dotBallPercentage": 67.33,
+          "boundaryPercentage": 57.6
         },
         {
           "phase": "middle",
@@ -2538,30 +2562,30 @@
           "rrrRange": "<6 rpo",
           "status": "computed",
           "sampleSize": {
-            "inningsCount": 101,
-            "ballsFaced": 4144,
-            "teamLegalDeliveries": 4131,
-            "strikerDeliveries": 4202,
+            "inningsCount": 102,
+            "ballsFaced": 4171,
+            "teamLegalDeliveries": 4158,
+            "strikerDeliveries": 4229,
             "wideDeliveries": 58,
             "noBallDeliveries": 13,
-            "officialBatterBallsFaced": 4144
+            "officialBatterBallsFaced": 4171
           },
           "sampleSizeBand": "strong",
-          "strikerDeliveries": 4202,
+          "strikerDeliveries": 4229,
           "wideDeliveries": 58,
           "noBallDeliveries": 13,
-          "teamLegalDeliveries": 4131,
-          "officialBatterBallsFaced": 4144,
-          "runs": 3922,
-          "dismissals": 52,
-          "fours": 358,
-          "sixes": 46,
-          "average": 75.42,
-          "strikeRate": 94.64,
-          "battingStrikeRate": 94.64,
-          "scoringRatePer100LegalDeliveries": 94.94,
-          "dotBallPercentage": 43.8,
-          "boundaryPercentage": 43.55
+          "teamLegalDeliveries": 4158,
+          "officialBatterBallsFaced": 4171,
+          "runs": 3972,
+          "dismissals": 53,
+          "fours": 367,
+          "sixes": 47,
+          "average": 74.94,
+          "strikeRate": 95.23,
+          "battingStrikeRate": 95.23,
+          "scoringRatePer100LegalDeliveries": 95.53,
+          "dotBallPercentage": 43.78,
+          "boundaryPercentage": 44.06
         },
         {
           "phase": "death",
@@ -2602,29 +2626,29 @@
           "rrrRange": "6–8 rpo",
           "status": "computed",
           "sampleSize": {
-            "inningsCount": 39,
-            "ballsFaced": 526,
-            "teamLegalDeliveries": 526,
-            "strikerDeliveries": 539,
+            "inningsCount": 40,
+            "ballsFaced": 530,
+            "teamLegalDeliveries": 530,
+            "strikerDeliveries": 543,
             "wideDeliveries": 13,
             "noBallDeliveries": 0,
-            "officialBatterBallsFaced": 526
+            "officialBatterBallsFaced": 530
           },
           "sampleSizeBand": "strong",
-          "strikerDeliveries": 539,
+          "strikerDeliveries": 543,
           "wideDeliveries": 13,
           "noBallDeliveries": 0,
-          "teamLegalDeliveries": 526,
-          "officialBatterBallsFaced": 526,
+          "teamLegalDeliveries": 530,
+          "officialBatterBallsFaced": 530,
           "runs": 441,
-          "dismissals": 6,
+          "dismissals": 7,
           "fours": 63,
           "sixes": 4,
-          "average": 73.5,
-          "strikeRate": 83.84,
-          "battingStrikeRate": 83.84,
-          "scoringRatePer100LegalDeliveries": 83.84,
-          "dotBallPercentage": 62.74,
+          "average": 63,
+          "strikeRate": 83.21,
+          "battingStrikeRate": 83.21,
+          "scoringRatePer100LegalDeliveries": 83.21,
+          "dotBallPercentage": 63.02,
           "boundaryPercentage": 62.59
         },
         {
@@ -3530,27 +3554,27 @@
       }
     },
     "bilaterals": {
-      "matches": 296,
-      "innings": 296,
+      "matches": 300,
+      "innings": 300,
       "notOuts": 47,
-      "dismissals": 249,
-      "runs": 14020,
-      "ballsFaced": 13743,
-      "average": 56.31,
-      "strikeRate": 102.02,
+      "dismissals": 253,
+      "runs": 14106,
+      "ballsFaced": 13812,
+      "average": 55.75,
+      "strikeRate": 102.13,
       "centuries": 45,
-      "fifties": 78,
-      "ducks": 17,
-      "fours": 1302,
-      "sixes": 230,
-      "dotBalls": 5776,
-      "dotBallPercentage": 42.03,
-      "boundaryPercentage": 46.99,
+      "fifties": 79,
+      "ducks": 18,
+      "fours": 1316,
+      "sixes": 231,
+      "dotBalls": 5811,
+      "dotBallPercentage": 42.07,
+      "boundaryPercentage": 47.14,
       "status": "computed",
       "sampleSize": {
-        "matches": 296,
-        "innings": 296,
-        "balls": 13743
+        "matches": 300,
+        "innings": 300,
+        "balls": 13812
       }
     },
     "tournaments": {
@@ -3587,18 +3611,18 @@
         "name": "chaseElevation",
         "label": "Chase Dominance",
         "weight": 0.35,
-        "rawValue": 66.22,
-        "baselineValue": 56.07,
-        "score": 83,
+        "rawValue": 65.5,
+        "baselineValue": 55.66,
+        "score": 82,
         "status": "computed",
-        "explanation": "Split avg (66.2) vs Baseline (56.1) = 1.18x ratio (83/100)"
+        "explanation": "Split avg (65.5) vs Baseline (55.7) = 1.18x ratio (82/100)"
       },
       {
         "name": "highPressure",
         "label": "High-Pressure Situations",
         "weight": 0.25,
-        "rawValue": 100.44,
-        "baselineValue": 100.76,
+        "rawValue": 100.61,
+        "baselineValue": 100.85,
         "score": null,
         "status": "insufficient-data",
         "explanation": "Ball-by-ball situation model calibration pending full historical ball dataset"
@@ -3608,26 +3632,26 @@
         "label": "Knockout Elevation",
         "weight": 0.2,
         "rawValue": 52.21,
-        "baselineValue": 56.07,
-        "score": 65,
+        "baselineValue": 55.66,
+        "score": 66,
         "status": "computed",
-        "explanation": "Split avg (52.2) vs Baseline (56.1) = 0.93x ratio (65/100)"
+        "explanation": "Split avg (52.2) vs Baseline (55.7) = 0.94x ratio (66/100)"
       },
       {
         "name": "finalsContribution",
         "label": "Finals Impact",
         "weight": 0.2,
         "rawValue": 36.64,
-        "baselineValue": 56.07,
+        "baselineValue": 55.66,
         "score": 46,
         "status": "computed",
-        "explanation": "Split avg (36.6) vs Baseline (56.1) = 0.65x ratio (46/100)"
+        "explanation": "Split avg (36.6) vs Baseline (55.7) = 0.66x ratio (46/100)"
       }
     ],
     "sampleSize": {
-      "matches": 415,
-      "innings": 415,
-      "balls": 18807
+      "matches": 419,
+      "innings": 419,
+      "balls": 18876
     },
     "warnings": [
       "Production dataset not flagged as verified. Clutch Index remains in calibration-pending state."
@@ -3655,86 +3679,22 @@
         "cutoffEvent": "vs New Zealand 5th ODI (Bay Oval, Mount Maunganui)"
       },
       "derivedTotals": {
-        "matchesParticipated": 314,
-        "inningsBatted": 303,
+        "matchesParticipated": 318,
+        "inningsBatted": 307,
         "dnbAppearances": 11,
-        "runs": 14987,
-        "ballsFaced": 15892,
-        "dismissals": 256,
+        "runs": 15073,
+        "ballsFaced": 15961,
+        "dismissals": 260,
         "notOuts": 47,
-        "average": 58.54,
-        "strikeRate": 94.31,
+        "average": 57.97,
+        "strikeRate": 94.44,
         "centuries": 55,
-        "fifties": 77,
-        "ducks": 19,
-        "fours": 1391,
-        "sixes": 181
+        "fifties": 78,
+        "ducks": 20,
+        "fours": 1405,
+        "sixes": 182
       },
       "missingReferenceMatches": [
-        {
-          "matchId": "5062",
-          "date": "2026-11-15",
-          "opponent": "New Zealand",
-          "event": "India tour of New Zealand 2026 (5th ODI)",
-          "venue": "Bay Oval, Mount Maunganui",
-          "participated": true,
-          "batted": true,
-          "dnb": false,
-          "inningsNumber": 1,
-          "battingPosition": 3,
-          "runs": 5,
-          "ballsFaced": 7,
-          "dismissalStatus": "dismissed",
-          "dismissalKind": "caught",
-          "dismissalDetail": "c Seifert b Fisher",
-          "fours": 0,
-          "sixes": 0,
-          "centuries": 0,
-          "fifties": 0,
-          "ducks": 0,
-          "notOuts": 0,
-          "dismissals": 1,
-          "includedInBattingAggregates": true,
-          "tossOccurred": true,
-          "playingXIConfirmed": true,
-          "officialPlayerAppearance": true,
-          "countsTowardCareerMatches": true,
-          "careerMatchContribution": 1,
-          "scorecardUrl": "https://www.espncricinfo.com/series/india-tour-of-new-zealand-2026/new-zealand-vs-india-5th-odi-5062/full-scorecard",
-          "cricsheetAvailabilityProof": "Match played 2026-11-15; pending Cricsheet ball-by-ball release"
-        },
-        {
-          "matchId": "5061",
-          "date": "2026-11-13",
-          "opponent": "New Zealand",
-          "event": "India tour of New Zealand 2026 (4th ODI)",
-          "venue": "Bay Oval, Mount Maunganui",
-          "participated": true,
-          "batted": true,
-          "dnb": false,
-          "inningsNumber": 2,
-          "battingPosition": 3,
-          "runs": 0,
-          "ballsFaced": 4,
-          "dismissalStatus": "dismissed",
-          "dismissalKind": "bowled",
-          "dismissalDetail": "b Henry",
-          "fours": 0,
-          "sixes": 0,
-          "centuries": 0,
-          "fifties": 0,
-          "ducks": 1,
-          "notOuts": 0,
-          "dismissals": 1,
-          "includedInBattingAggregates": true,
-          "tossOccurred": true,
-          "playingXIConfirmed": true,
-          "officialPlayerAppearance": true,
-          "countsTowardCareerMatches": true,
-          "careerMatchContribution": 1,
-          "scorecardUrl": "https://www.espncricinfo.com/series/india-tour-of-new-zealand-2026/new-zealand-vs-india-4th-odi-5061/full-scorecard",
-          "cricsheetAvailabilityProof": "Match played 2026-11-13; pending Cricsheet ball-by-ball release"
-        },
         {
           "matchId": "5060",
           "date": "2026-11-10",
@@ -3766,70 +3726,6 @@
           "careerMatchContribution": 1,
           "scorecardUrl": "https://www.espncricinfo.com/series/india-tour-of-new-zealand-2026/new-zealand-vs-india-3rd-odi-5060/full-scorecard",
           "cricsheetAvailabilityProof": "Match scheduled 2026-11-10; abandoned due to persistent rain; included in official match count"
-        },
-        {
-          "matchId": "5059",
-          "date": "2026-11-07",
-          "opponent": "New Zealand",
-          "event": "India tour of New Zealand 2026 (2nd ODI)",
-          "venue": "Sky Stadium, Wellington",
-          "participated": true,
-          "batted": true,
-          "dnb": false,
-          "inningsNumber": 2,
-          "battingPosition": 3,
-          "runs": 7,
-          "ballsFaced": 7,
-          "dismissalStatus": "dismissed",
-          "dismissalKind": "caught",
-          "dismissalDetail": "c Young b Duffy",
-          "fours": 1,
-          "sixes": 0,
-          "centuries": 0,
-          "fifties": 0,
-          "ducks": 0,
-          "notOuts": 0,
-          "dismissals": 1,
-          "includedInBattingAggregates": true,
-          "tossOccurred": true,
-          "playingXIConfirmed": true,
-          "officialPlayerAppearance": true,
-          "countsTowardCareerMatches": true,
-          "careerMatchContribution": 1,
-          "scorecardUrl": "https://www.espncricinfo.com/series/india-tour-of-new-zealand-2026/new-zealand-vs-india-2nd-odi-5059/full-scorecard",
-          "cricsheetAvailabilityProof": "Match played 2026-11-07; pending Cricsheet ball-by-ball release"
-        },
-        {
-          "matchId": "5058",
-          "date": "2026-11-04",
-          "opponent": "New Zealand",
-          "event": "India tour of New Zealand 2026 (1st ODI)",
-          "venue": "Eden Park, Auckland",
-          "participated": true,
-          "batted": true,
-          "dnb": false,
-          "inningsNumber": 2,
-          "battingPosition": 3,
-          "runs": 74,
-          "ballsFaced": 51,
-          "dismissalStatus": "dismissed",
-          "dismissalKind": "caught",
-          "dismissalDetail": "c Seifert b Duffy",
-          "fours": 13,
-          "sixes": 1,
-          "centuries": 0,
-          "fifties": 1,
-          "ducks": 0,
-          "notOuts": 0,
-          "dismissals": 1,
-          "includedInBattingAggregates": true,
-          "tossOccurred": true,
-          "playingXIConfirmed": true,
-          "officialPlayerAppearance": true,
-          "countsTowardCareerMatches": true,
-          "careerMatchContribution": 1,
-          "scorecardUrl": "https://www.espncricinfo.com/series/india-tour-of-new-zealand-2026/new-zealand-vs-india-1st-odi-5058/full-scorecard",
-          "cricsheetAvailabilityProof": "Match played 2026-11-04; pending Cricsheet ball-by-ball release"
         },
         {
           "matchId": "1144510",
@@ -3973,20 +3869,16 @@
         {
           "metric": "matches",
           "referenceTarget": 322,
-          "includedArchive": 314,
-          "unavailableReferenceMatches": 8,
+          "includedArchive": 318,
+          "unavailableReferenceMatches": 4,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
-            "5062 (2026-11-15 vs New Zealand)",
-            "5061 (2026-11-13 vs New Zealand)",
             "5060 (2026-11-10 vs New Zealand)",
-            "5059 (2026-11-07 vs New Zealand)",
-            "5058 (2026-11-04 vs New Zealand)",
             "1144510 (2019-06-22 vs Afghanistan)",
             "1384390 (2023-10-11 vs Afghanistan)",
             "710305 (2014-03-05 vs Afghanistan)"
           ],
-          "explanation": "8 official player appearances absent from Cricsheet archive",
+          "explanation": "4 official player appearances absent from Cricsheet archive",
           "equationSum": 322,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
@@ -3994,18 +3886,14 @@
         {
           "metric": "innings",
           "referenceTarget": 309,
-          "includedArchive": 303,
-          "unavailableReferenceMatches": 6,
+          "includedArchive": 307,
+          "unavailableReferenceMatches": 2,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
-            "5062 (2026-11-15 vs New Zealand)",
-            "5061 (2026-11-13 vs New Zealand)",
-            "5059 (2026-11-07 vs New Zealand)",
-            "5058 (2026-11-04 vs New Zealand)",
             "1144510 (2019-06-22 vs Afghanistan)",
             "1384390 (2023-10-11 vs Afghanistan)"
           ],
-          "explanation": "6 batted innings in missing matches (2 were official DNB appearances)",
+          "explanation": "2 batted innings in missing matches (2 were official DNB appearances)",
           "equationSum": 309,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
@@ -4013,17 +3901,14 @@
         {
           "metric": "runs",
           "referenceTarget": 15195,
-          "includedArchive": 14987,
-          "unavailableReferenceMatches": 208,
+          "includedArchive": 15073,
+          "unavailableReferenceMatches": 122,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
-            "5062: 5r (2026-11-15)",
-            "5059: 7r (2026-11-07)",
-            "5058: 74r (2026-11-04)",
             "1144510: 67r (2019-06-22)",
             "1384390: 55r (2023-10-11)"
           ],
-          "explanation": "Sum of missing scores (5 + 7 + 74 + 67 + 55 = 208 runs)",
+          "explanation": "Sum of missing scores (67 + 55 = 122 runs)",
           "equationSum": 15195,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
@@ -4031,18 +3916,14 @@
         {
           "metric": "ballsFaced",
           "referenceTarget": 16080,
-          "includedArchive": 15892,
-          "unavailableReferenceMatches": 188,
+          "includedArchive": 15961,
+          "unavailableReferenceMatches": 119,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
-            "5062: 7b (2026-11-15)",
-            "5061: 4b (2026-11-13)",
-            "5059: 7b (2026-11-07)",
-            "5058: 51b (2026-11-04)",
             "1144510: 63b (2019-06-22)",
             "1384390: 56b (2023-10-11)"
           ],
-          "explanation": "Sum of balls faced in missing innings (7 + 4 + 7 + 51 + 63 + 56 = 188 balls)",
+          "explanation": "Sum of balls faced in missing innings (63 + 56 = 119 balls)",
           "equationSum": 16080,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
@@ -4062,15 +3943,14 @@
         {
           "metric": "fifties",
           "referenceTarget": 80,
-          "includedArchive": 77,
-          "unavailableReferenceMatches": 3,
+          "includedArchive": 78,
+          "unavailableReferenceMatches": 2,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
-            "5058: 50 (2026-11-04)",
             "1144510: 50 (2019-06-22)",
             "1384390: 50 (2023-10-11)"
           ],
-          "explanation": "3 fifties in missing matches",
+          "explanation": "2 fifties in missing matches",
           "equationSum": 80,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
@@ -4078,13 +3958,11 @@
         {
           "metric": "ducks",
           "referenceTarget": 20,
-          "includedArchive": 19,
-          "unavailableReferenceMatches": 1,
+          "includedArchive": 20,
+          "unavailableReferenceMatches": 0,
           "verifiedMatchCorrections": 0,
-          "contributingMatchIds": [
-            "5061: 0 (2026-11-13)"
-          ],
-          "explanation": "1 ducks in missing matches",
+          "contributingMatchIds": [],
+          "explanation": "0 ducks in missing matches",
           "equationSum": 20,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
@@ -4092,16 +3970,14 @@
         {
           "metric": "fours",
           "referenceTarget": 1416,
-          "includedArchive": 1391,
-          "unavailableReferenceMatches": 25,
+          "includedArchive": 1405,
+          "unavailableReferenceMatches": 11,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
-            "5059: 1x4 (2026-11-07)",
-            "5058: 13x4 (2026-11-04)",
             "1144510: 5x4 (2019-06-22)",
             "1384390: 6x4 (2023-10-11)"
           ],
-          "explanation": "Fours in missing matches (25)",
+          "explanation": "Fours in missing matches (11)",
           "equationSum": 1416,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
@@ -4109,13 +3985,11 @@
         {
           "metric": "sixes",
           "referenceTarget": 182,
-          "includedArchive": 181,
-          "unavailableReferenceMatches": 1,
+          "includedArchive": 182,
+          "unavailableReferenceMatches": 0,
           "verifiedMatchCorrections": 0,
-          "contributingMatchIds": [
-            "5058: 1x6 (2026-11-04)"
-          ],
-          "explanation": "Sixes in missing matches (1)",
+          "contributingMatchIds": [],
+          "explanation": "Sixes in missing matches (0)",
           "equationSum": 182,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
@@ -4137,17 +4011,13 @@
         {
           "metric": "dismissals",
           "referenceTarget": 261,
-          "includedArchive": 256,
-          "unavailableReferenceMatches": 5,
+          "includedArchive": 260,
+          "unavailableReferenceMatches": 1,
           "verifiedMatchCorrections": 0,
           "contributingMatchIds": [
-            "5062 (2026-11-15)",
-            "5061 (2026-11-13)",
-            "5059 (2026-11-07)",
-            "5058 (2026-11-04)",
             "1144510 (2019-06-22)"
           ],
-          "explanation": "Dismissals in missing matches (5)",
+          "explanation": "Dismissals in missing matches (1)",
           "equationSum": 261,
           "isEquationBalanced": true,
           "status": "resolved-reconciled"
@@ -4156,7 +4026,7 @@
       "reconciliationClassification": "complete-reconciliation",
       "discrepancyAttribution": {
         "reasonCode": "unavailable/withheld-source-matches",
-        "description": "Cricsheet open repository covers 314 of 322 matches (303 batted + 11 DNB). The remaining 8 official match scorecards (208 runs) are absent from public Cricsheet archives. All boundary differences are reconciled at delivery level with verified non_boundary metadata.",
+        "description": "Cricsheet open repository covers 318 of 322 matches (307 batted + 11 DNB). The remaining 4 official match scorecards (122 runs) are absent from public Cricsheet archives. All boundary differences are reconciled at delivery level with verified non_boundary metadata.",
         "unresolvedAmbiguities": 0,
         "parserFailures": 0
       }
@@ -4649,11 +4519,11 @@
     "isTrusted": true,
     "duplicateMatchIds": [],
     "formatCounts": {
-      "ODI": 314,
+      "ODI": 318,
       "T20I": 118
     },
     "stageCounts": {
-      "bilateral": 308,
+      "bilateral": 312,
       "final": 14,
       "group": 97,
       "quarter-final": 1,

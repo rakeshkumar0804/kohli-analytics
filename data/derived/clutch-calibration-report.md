@@ -2,7 +2,7 @@
 
 - **Model Version**: `1.0.0-model-spec`
 - **Status**: `calibration-blocked`
-- **Generated At**: `2026-11-15T18:25:39.708Z`
+- **Generated At**: `2026-11-26T12:11:06.948Z`
 - **Player**: Virat Kohli
 - **Baseline Definition**: `Self-relative descriptive model against archive-covered format baseline averages (ODI: 58.34 across 311 archive matches; T20I: 48.33 across 118 matches). Cross-player calibration blocked due to single-player scope.`
 - **Publication Allowed**: `false`
@@ -47,16 +47,16 @@ $$\text{score} = 50 + 50 \times \tanh\left(\frac{\text{splitAvg} - \text{baseAvg
 
 ### ODI Format Component Accounting
 
-- **Archive-Covered Baseline Average**: **58.54** (14987 runs / 256 dismissals across 314 matches, 303 batted innings)
+- **Archive-Covered Baseline Average**: **57.97** (15073 runs / 260 dismissals across 318 matches, 307 batted innings)
 - **Phase 1 Full-Career Verified Average**: **58.22** (15195 runs / 261 dismissals across 322 matches, 309 batted innings)
 - *Scope Rationale*: Situational splits within the delivery dataset are evaluated against the archive-covered baseline average to prevent delivery-subset mismatch.
 
 | Component | Innings | Balls | Runs | Dismissals | Split Avg | Baseline Avg | Ratio | Tanh Score (0-100) | Min Req | Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **Chasing Innings Dominance** | 167 | 9091 | 8612 | 131 | 65.74 | 51.00 | 1.29x | 64.06 | N>=15 | `usable-sample` |
-| **High-Pressure Situations (RRR >= 8.0)** | 24 | 676 | 844 | 16 | 52.75 | 58.54 | 0.90x | 45.07 | N>=10 | `usable-sample` |
-| **Tournament Knockout Elevation** | 18 | 664 | 578 | 15 | 38.53 | 58.54 | 0.66x | 33.55 | N>=10 | `usable-sample` |
-| **Tournament Finals Impact** | 10 | 263 | 209 | 9 | 23.22 | 58.54 | 0.40x | 23.03 | N>=10 | `usable-sample` |
+| **Chasing Innings Dominance** | 170 | 9153 | 8693 | 134 | 64.87 | 50.63 | 1.28x | 63.70 | N>=15 | `usable-sample` |
+| **High-Pressure Situations (RRR >= 8.0)** | 24 | 676 | 844 | 16 | 52.75 | 57.97 | 0.91x | 45.51 | N>=10 | `usable-sample` |
+| **Tournament Knockout Elevation** | 18 | 664 | 578 | 15 | 38.53 | 57.97 | 0.66x | 33.83 | N>=10 | `usable-sample` |
+| **Tournament Finals Impact** | 10 | 263 | 209 | 9 | 23.22 | 57.97 | 0.40x | 23.17 | N>=10 | `usable-sample` |
 
 ### T20I Format Component Accounting
 
@@ -79,26 +79,26 @@ $$\text{score} = 50 + 50 \times \tanh\left(\frac{\text{splitAvg} - \text{baseAvg
 
 | Set A | Set B | Unit | Innings Overlap | Containment (A in B) | Containment (B in A) | Jaccard Index | Directional Formula |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
-| `chase` | `knockout` | innings | 10 | **6%** | **55.6%** | 0.0571 | `count(innings in chase also in knockout) / count(innings in chase) = 10/167 (6%)` |
-| `chase` | `final` | innings | 5 | **3%** | **50%** | 0.0291 | `count(innings in chase also in final) / count(innings in chase) = 5/167 (3%)` |
-| `chase` | `successfulChase` | innings | 106 | **63.5%** | **100%** | 0.6347 | `count(innings in chase also in successfulChase) / count(innings in chase) = 106/167 (63.5%)` |
-| `chase` | `highPressure` | innings | 24 | **14.4%** | **100%** | 0.1437 | `count(innings in chase also in highPressure) / count(innings in chase) = 24/167 (14.4%)` |
-| `knockout` | `chase` | innings | 10 | **55.6%** | **6%** | 0.0571 | `count(innings in knockout also in chase) / count(innings in knockout) = 10/18 (55.6%)` |
+| `chase` | `knockout` | innings | 10 | **5.9%** | **55.6%** | 0.0562 | `count(innings in chase also in knockout) / count(innings in chase) = 10/170 (5.9%)` |
+| `chase` | `final` | innings | 5 | **2.9%** | **50%** | 0.0286 | `count(innings in chase also in final) / count(innings in chase) = 5/170 (2.9%)` |
+| `chase` | `successfulChase` | innings | 108 | **63.5%** | **100%** | 0.6353 | `count(innings in chase also in successfulChase) / count(innings in chase) = 108/170 (63.5%)` |
+| `chase` | `highPressure` | innings | 24 | **14.1%** | **100%** | 0.1412 | `count(innings in chase also in highPressure) / count(innings in chase) = 24/170 (14.1%)` |
+| `knockout` | `chase` | innings | 10 | **55.6%** | **5.9%** | 0.0562 | `count(innings in knockout also in chase) / count(innings in knockout) = 10/18 (55.6%)` |
 | `knockout` | `final` | innings | 10 | **55.6%** | **100%** | 0.5556 | `count(innings in knockout also in final) / count(innings in knockout) = 10/18 (55.6%)` |
-| `knockout` | `successfulChase` | innings | 6 | **33.3%** | **5.7%** | 0.0508 | `count(innings in knockout also in successfulChase) / count(innings in knockout) = 6/18 (33.3%)` |
+| `knockout` | `successfulChase` | innings | 6 | **33.3%** | **5.6%** | 0.05 | `count(innings in knockout also in successfulChase) / count(innings in knockout) = 6/18 (33.3%)` |
 | `knockout` | `highPressure` | innings | 0 | **0%** | **0%** | 0 | `count(innings in knockout also in highPressure) / count(innings in knockout) = 0/18 (0%)` |
-| `final` | `chase` | innings | 5 | **50%** | **3%** | 0.0291 | `count(innings in final also in chase) / count(innings in final) = 5/10 (50%)` |
+| `final` | `chase` | innings | 5 | **50%** | **2.9%** | 0.0286 | `count(innings in final also in chase) / count(innings in final) = 5/10 (50%)` |
 | `final` | `knockout` | innings | 10 | **100%** | **55.6%** | 0.5556 | `count(innings in final also in knockout) / count(innings in final) = 10/10 (100%)` |
-| `final` | `successfulChase` | innings | 3 | **30%** | **2.8%** | 0.0265 | `count(innings in final also in successfulChase) / count(innings in final) = 3/10 (30%)` |
+| `final` | `successfulChase` | innings | 3 | **30%** | **2.8%** | 0.0261 | `count(innings in final also in successfulChase) / count(innings in final) = 3/10 (30%)` |
 | `final` | `highPressure` | innings | 0 | **0%** | **0%** | 0 | `count(innings in final also in highPressure) / count(innings in final) = 0/10 (0%)` |
-| `successfulChase` | `chase` | innings | 106 | **100%** | **63.5%** | 0.6347 | `count(innings in successfulChase also in chase) / count(innings in successfulChase) = 106/106 (100%)` |
-| `successfulChase` | `knockout` | innings | 6 | **5.7%** | **33.3%** | 0.0508 | `count(innings in successfulChase also in knockout) / count(innings in successfulChase) = 6/106 (5.7%)` |
-| `successfulChase` | `final` | innings | 3 | **2.8%** | **30%** | 0.0265 | `count(innings in successfulChase also in final) / count(innings in successfulChase) = 3/106 (2.8%)` |
-| `successfulChase` | `highPressure` | innings | 7 | **6.6%** | **29.2%** | 0.0569 | `count(innings in successfulChase also in highPressure) / count(innings in successfulChase) = 7/106 (6.6%)` |
-| `highPressure` | `chase` | innings | 24 | **100%** | **14.4%** | 0.1437 | `count(innings in highPressure also in chase) / count(innings in highPressure) = 24/24 (100%)` |
+| `successfulChase` | `chase` | innings | 108 | **100%** | **63.5%** | 0.6353 | `count(innings in successfulChase also in chase) / count(innings in successfulChase) = 108/108 (100%)` |
+| `successfulChase` | `knockout` | innings | 6 | **5.6%** | **33.3%** | 0.05 | `count(innings in successfulChase also in knockout) / count(innings in successfulChase) = 6/108 (5.6%)` |
+| `successfulChase` | `final` | innings | 3 | **2.8%** | **30%** | 0.0261 | `count(innings in successfulChase also in final) / count(innings in successfulChase) = 3/108 (2.8%)` |
+| `successfulChase` | `highPressure` | innings | 7 | **6.5%** | **29.2%** | 0.056 | `count(innings in successfulChase also in highPressure) / count(innings in successfulChase) = 7/108 (6.5%)` |
+| `highPressure` | `chase` | innings | 24 | **100%** | **14.1%** | 0.1412 | `count(innings in highPressure also in chase) / count(innings in highPressure) = 24/24 (100%)` |
 | `highPressure` | `knockout` | innings | 0 | **0%** | **0%** | 0 | `count(innings in highPressure also in knockout) / count(innings in highPressure) = 0/24 (0%)` |
 | `highPressure` | `final` | innings | 0 | **0%** | **0%** | 0 | `count(innings in highPressure also in final) / count(innings in highPressure) = 0/24 (0%)` |
-| `highPressure` | `successfulChase` | innings | 7 | **29.2%** | **6.6%** | 0.0569 | `count(innings in highPressure also in successfulChase) / count(innings in highPressure) = 7/24 (29.2%)` |
+| `highPressure` | `successfulChase` | innings | 7 | **29.2%** | **6.5%** | 0.056 | `count(innings in highPressure also in successfulChase) / count(innings in highPressure) = 7/24 (29.2%)` |
 
 > ⚠️ **Collinearity Finding**: Directional containment analysis reveals Tournament Finals are 100.0% contained within Knockouts (10/10), and Knockouts intersect with Chases (10/18 = 55.6%). Unadjusted additive combination causes circular scoring inflation.
 
@@ -137,15 +137,15 @@ $$\text{score} = 50 + 50 \times \tanh\left(\frac{\text{splitAvg} - \text{baseAvg
 
 | Variant | Chase Wt | High RRR Wt | Knockout Wt | Finals Wt | Composite Score | Delta vs Base | Commentary |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **Editorial Hypothesis (Phase 1/2)** | 35% | 25% | 20% | 20% | **45.00** | 0.00 pts | Original editorial baseline weights. |
-| **Equal Weighting (25% each)** | 25% | 25% | 25% | 25% | **41.43** | 3.57 pts | Removes editorial chase bias. |
-| **Leave-Finals-Out (Small-sample exclusion)** | 45% | 30% | 25% | 0% | **50.74** | 5.74 pts | Eliminates unstable finals sample volatility. |
-| **Leave-Knockouts-Out** | 50% | 35% | 0% | 15% | **51.26** | 6.26 pts | Focuses purely on situational chase pressure. |
-| **Chase-Dominant (50% chase)** | 50% | 20% | 15% | 15% | **49.53** | 4.53 pts | Emphasizes large chase sample size. |
-| **High RRR Boost (+20% relative)** | 30% | 35% | 20% | 15% | **45.16** | 0.16 pts | Tests sensitivity to situational over progression. |
+| **Editorial Hypothesis (Phase 1/2)** | 35% | 25% | 20% | 20% | **45.07** | 0.00 pts | Original editorial baseline weights. |
+| **Equal Weighting (25% each)** | 25% | 25% | 25% | 25% | **41.55** | 3.52 pts | Removes editorial chase bias. |
+| **Leave-Finals-Out (Small-sample exclusion)** | 45% | 30% | 25% | 0% | **50.78** | 5.71 pts | Eliminates unstable finals sample volatility. |
+| **Leave-Knockouts-Out** | 50% | 35% | 0% | 15% | **51.25** | 6.18 pts | Focuses purely on situational chase pressure. |
+| **Chase-Dominant (50% chase)** | 50% | 20% | 15% | 15% | **49.50** | 4.43 pts | Emphasizes large chase sample size. |
+| **High RRR Boost (+20% relative)** | 30% | 35% | 20% | 15% | **45.28** | 0.21 pts | Tests sensitivity to situational over progression. |
 
-- **Max Delta**: 6.26 pts
-- **Stability Verdict**: High sensitivity detected: weight variants shift composite score by up to 6.3 pts. Unstable for production constant.
+- **Max Delta**: 6.18 pts
+- **Stability Verdict**: High sensitivity detected: weight variants shift composite score by up to 6.2 pts. Unstable for production constant.
 
 ### T20I Weight Sensitivity Variants
 
@@ -193,12 +193,12 @@ $$\text{score} = 50 + 50 \times \tanh\left(\frac{\text{splitAvg} - \text{baseAvg
 
 | Component / Slice | Sample (N) | Attempted | Valid | Invalid | Valid Rate | Mean | Median | 95% CI Lower | 95% CI Upper | CI Width | Std Error | Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **overallCareerAverage** | 303 | 1000 | 1000 | 0 | 100.0% | 58.81 | 58.74 | **51.66** | **66.04** | 14.38 | ±3.76 | `available` |
-| **completedChaseDominance** | 167 | 1000 | 1000 | 0 | 100.0% | 66.08 | 65.55 | **54.71** | **79.11** | 24.40 | ±6.23 | `available` |
+| **overallCareerAverage** | 307 | 1000 | 1000 | 0 | 100.0% | 57.75 | 57.53 | **50.70** | **65.77** | 15.07 | ±3.79 | `available` |
+| **completedChaseDominance** | 170 | 1000 | 1000 | 0 | 100.0% | 64.98 | 64.69 | **54.38** | **77.44** | 23.06 | ±5.94 | `available` |
 | **highRrrElevation** | 24 | 1000 | 1000 | 0 | 100.0% | 54.09 | 52.88 | **34.47** | **80.55** | 46.08 | ±12.56 | `available` |
 | **knockoutElevation** | 18 | 1000 | 1000 | 0 | 100.0% | 39.35 | 37.88 | **19.11** | **67.71** | 48.60 | ±12.04 | `available` |
 | **finalsContribution** | 10 | 1000 | 1000 | 0 | 100.0% | 23.22 | 23.13 | **10.63** | **36.44** | 25.81 | ±6.53 | `available` |
-| **chaseBattingAverage** | 167 | 1000 | 1000 | 0 | 100.0% | 66.08 | 65.55 | **54.71** | **79.11** | 24.40 | ±6.23 | `available` |
+| **chaseBattingAverage** | 170 | 1000 | 1000 | 0 | 100.0% | 64.98 | 64.69 | **54.38** | **77.44** | 23.06 | ±5.94 | `available` |
 | **knockoutBattingAverage** | 18 | 1000 | 1000 | 0 | 100.0% | 39.35 | 37.88 | **19.11** | **67.71** | 48.60 | ±12.04 | `available` |
 | **finalsBattingAverage** | 10 | 1000 | 1000 | 0 | 100.0% | 23.22 | 23.13 | **10.63** | **36.44** | 25.81 | ±6.53 | `available` |
 
@@ -206,14 +206,14 @@ $$\text{score} = 50 + 50 \times \tanh\left(\frac{\text{splitAvg} - \text{baseAvg
 
 | Component / Slice | Sample (N) | Attempted | Valid | Invalid | Valid Rate | Score Mean | Median | 95% CI Lower | 95% CI Upper | CI Width | Std Error | Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **overallCareerAverage** | 303 | 1000 | 1000 | 0 | 100.0% | 50.23 | 50.17 | **44.15** | **56.37** | 12.22 | ±3.20 | `available` |
-| **completedChaseDominance** | 167 | 1000 | 1000 | 0 | 100.0% | 64.17 | 63.89 | **53.63** | **75.07** | 21.44 | ±5.47 | `available` |
-| **highRrrElevation** | 24 | 1000 | 1000 | 0 | 100.0% | 46.24 | 45.18 | **30.53** | **67.96** | 37.43 | ±10.08 | `available` |
-| **knockoutElevation** | 18 | 1000 | 1000 | 0 | 100.0% | 34.68 | 33.05 | **20.63** | **57.77** | 37.14 | ±9.27 | `available` |
-| **finalsContribution** | 10 | 1000 | 1000 | 0 | 100.0% | 23.26 | 22.97 | **16.29** | **31.98** | 15.69 | ±3.98 | `available` |
-| **chaseBattingAverage** | 167 | 1000 | 1000 | 0 | 100.0% | 64.17 | 63.89 | **53.63** | **75.07** | 21.44 | ±5.47 | `available` |
-| **knockoutBattingAverage** | 18 | 1000 | 1000 | 0 | 100.0% | 34.68 | 33.05 | **20.63** | **57.77** | 37.14 | ±9.27 | `available` |
-| **finalsBattingAverage** | 10 | 1000 | 1000 | 0 | 100.0% | 23.26 | 22.97 | **16.29** | **31.98** | 15.69 | ±3.98 | `available` |
+| **overallCareerAverage** | 307 | 1000 | 1000 | 0 | 100.0% | 49.81 | 49.62 | **43.76** | **56.68** | 12.92 | ±3.25 | `available` |
+| **completedChaseDominance** | 170 | 1000 | 1000 | 0 | 100.0% | 63.62 | 63.54 | **53.70** | **74.25** | 20.55 | ±5.31 | `available` |
+| **highRrrElevation** | 24 | 1000 | 1000 | 0 | 100.0% | 46.67 | 45.62 | **30.77** | **68.54** | 37.77 | ±10.17 | `available` |
+| **knockoutElevation** | 18 | 1000 | 1000 | 0 | 100.0% | 34.98 | 33.33 | **20.74** | **58.33** | 37.59 | ±9.38 | `available` |
+| **finalsContribution** | 10 | 1000 | 1000 | 0 | 100.0% | 23.40 | 23.11 | **16.34** | **32.24** | 15.90 | ±4.03 | `available` |
+| **chaseBattingAverage** | 170 | 1000 | 1000 | 0 | 100.0% | 63.62 | 63.54 | **53.70** | **74.25** | 20.55 | ±5.31 | `available` |
+| **knockoutBattingAverage** | 18 | 1000 | 1000 | 0 | 100.0% | 34.98 | 33.33 | **20.74** | **58.33** | 37.59 | ±9.38 | `available` |
+| **finalsBattingAverage** | 10 | 1000 | 1000 | 0 | 100.0% | 23.40 | 23.11 | **16.34** | **32.24** | 15.90 | ±4.03 | `available` |
 
 ### T20I Raw Batting Average Bootstrap CI (Unit: runs/dismissal)
 
